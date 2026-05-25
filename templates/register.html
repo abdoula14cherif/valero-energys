@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Inscription — Velero Energy{% endblock %}
+{% block content %}
+<div class="tabs">
+<a href="{{ url_for('login') }}" class="tab">Connexion</a>
+<a href="{{ url_for('register') }}" class="tab active">Inscription</a>
+</div>
+<div class="form-body">
+<h1 class="form-title">Créer un compte 🚀</h1>
+<p class="form-sub">Rejoignez la plateforme Velero Energy</p>
+{% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+{% if success %}<div class="alert alert-success">{{ success }}</div>{% endif %}
+<form method="POST">
+<div class="field"><label>Nom complet</label><input type="text" name="full_name" placeholder="Jean Dupont" required/></div>
+<div class="field"><label>Email</label><input type="email" name="email" placeholder="vous@exemple.com" required/></div>
+<div class="field"><label>Mot de passe</label><input type="password" name="password" placeholder="••••••••" required/></div>
+<div class="field"><label>Confirmer</label><input type="password" name="confirm" placeholder="••••••••" required/></div>
+<div class="field">
+<label>Code de parrainage {% if ref_code %}<span class="ref-badge">✓ Détecté</span>{% endif %}</label>
+<input type="text" name="ref_code" placeholder="Optionnel" value="{{ ref_code }}"/>
+</div>
+<button type="submit" class="btn-main">Créer mon compte</button>
+</form>
+<div class="divider"><span>ou</span></div>
+<div class="social-row">
+<button class="btn-social"><span class="si">G</span> Google</button>
+<button class="btn-social"><span class="si">in</span> LinkedIn</button>
+</div>
+<p class="switch-text">Déjà un compte ? <a href="{{ url_for('login') }}" class="switch-link">Se connecter</a></p>
+</div>
+<script>
+const p=new URLSearchParams(window.location.search),r=p.get("ref");
+if(r){const i=document.querySelector('input[name="ref_code"]');if(i&&!i.value)i.value=r;}
+</script>
+{% endblock %}

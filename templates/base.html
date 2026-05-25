@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>{% block title %}Velero Energy{% endblock %}</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--teal:#00bcd4;--teal-d:#0097a7;--red:#e53935;--bg:#f0f7f9;--text:#0f2a3a;--muted:#607d8b;--border:#cfe8ed}
+body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);display:flex;flex-direction:column;align-items:center}
+.hero{width:100%;height:260px;position:relative;overflow:hidden;flex-shrink:0}
+.hero img{width:100%;height:100%;object-fit:cover;object-position:center 55%}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,50,70,.55),rgba(0,20,40,.80))}
+.hero-brand{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.logo{display:flex;align-items:center;gap:4px}
+.logo-v{font-family:'Playfair Display',serif;font-size:56px;font-weight:900;color:var(--red);text-shadow:0 2px 16px rgba(0,0,0,.45)}
+.logo-name{font-family:'Playfair Display',serif;font-size:44px;font-weight:700;color:#fff;letter-spacing:1px;text-shadow:0 2px 16px rgba(0,0,0,.45)}
+.hero-tagline{color:rgba(255,255,255,.85);font-size:13px;letter-spacing:.6px}
+.hero-wave{position:absolute;bottom:-1px;width:100%;height:70px;display:block}
+.card-wrap{width:100%;max-width:440px;padding:0 16px 40px;margin-top:-24px}
+.card{background:#fff;border-radius:22px;box-shadow:0 8px 40px rgba(0,100,130,.13);overflow:hidden}
+.tabs{display:flex;border-bottom:2px solid #e8f4f7}
+.tab{flex:1;padding:15px 0;font-size:14px;font-weight:700;background:none;border:none;cursor:pointer;color:#90a4ae;text-decoration:none;text-align:center;display:block}
+.tab.active{color:var(--teal);border-bottom:3px solid var(--teal);margin-bottom:-2px}
+.form-body{padding:28px 28px 32px}
+.form-title{font-size:22px;font-weight:700;margin-bottom:4px}
+.form-sub{font-size:13px;color:var(--muted);margin-bottom:22px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:6px}
+.field input{width:100%;padding:11px 14px;font-size:14px;font-family:inherit;border:1.5px solid var(--border);border-radius:10px;outline:none;background:#f5fafb;color:var(--text);transition:border-color .2s,box-shadow .2s}
+.field input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,188,212,.15)}
+.ref-badge{display:inline-block;background:#e0f7fa;color:var(--teal-d);font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:6px}
+.forgot{font-size:12px;color:var(--teal);text-decoration:none;font-weight:500;display:block;text-align:right;margin-bottom:18px}
+.alert{padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:16px}
+.alert-error{background:#fff5f5;border:1px solid #fed7d7;color:#c53030}
+.alert-success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d}
+.btn-main{width:100%;padding:13px;background:linear-gradient(135deg,var(--teal),var(--teal-d));color:#fff;font-size:15px;font-weight:700;border:none;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px rgba(0,188,212,.35);margin-bottom:20px;font-family:inherit;transition:opacity .2s}
+.btn-main:hover{opacity:.92}
+.divider{text-align:center;font-size:12px;color:#90a4ae;margin-bottom:14px;position:relative}
+.divider::before,.divider::after{content:'';position:absolute;top:50%;width:calc(50% - 60px);height:1px;background:#cfe8ed}
+.divider::before{left:0}.divider::after{right:0}
+.social-row{display:flex;gap:10px;margin-bottom:20px}
+.btn-social{flex:1;padding:10px 0;background:#f5fafb;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;color:#334155;display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit}
+.btn-social:hover{background:#e0f7fa}
+.si{color:var(--teal);font-weight:900}
+.switch-text{text-align:center;font-size:13px;color:var(--muted)}
+.switch-link{color:var(--teal);font-weight:700;text-decoration:none}
+footer{margin-top:20px;font-size:12px;color:#90a4ae;text-align:center}
+footer a{color:#90a4ae;text-decoration:none}
+.dash{padding:40px 28px;text-align:center}
+.dash h1{font-size:24px;margin-bottom:8px}
+.dash p{color:var(--muted);margin-bottom:24px}
+.btn-logout{padding:10px 24px;background:var(--red);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+</style>
+</head>
+<body>
+<div class="hero">
+<img src="{{ url_for('static', filename='images/station.jpg') }}" alt="Velero Energy"/>
+<div class="hero-overlay"></div>
+<div class="hero-brand">
+<div class="logo"><span class="logo-v">V</span><span class="logo-name">elero Energy</span></div>
+<p class="hero-tagline">La plateforme d'investissement énergétique</p>
+</div>
+<svg class="hero-wave" viewBox="0 0 1440 70" preserveAspectRatio="none">
+<path d="M0,35 C360,70 1080,0 1440,35 L1440,70 L0,70 Z" fill="#f0f7f9"/>
+</svg>
+</div>
+<div class="card-wrap">
+<div class="card">{% block content %}{% endblock %}</div>
+<footer>© 2025 Velero Energy · <a href="#">Confidentialité</a> · <a href="#">CGU</a></footer>
+</div>
+</body>
+</html>

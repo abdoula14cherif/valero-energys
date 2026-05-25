@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Connexion — Velero Energy{% endblock %}
+{% block content %}
+<div class="tabs">
+<a href="{{ url_for('login') }}" class="tab active">Connexion</a>
+<a href="{{ url_for('register') }}" class="tab">Inscription</a>
+</div>
+<div class="form-body">
+<h1 class="form-title">Bon retour 👋</h1>
+<p class="form-sub">Connectez-vous à votre espace investisseur</p>
+{% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+{% if success %}<div class="alert alert-success">{{ success }}</div>{% endif %}
+<form method="POST">
+<div class="field"><label>Email</label><input type="email" name="email" placeholder="vous@exemple.com" required/></div>
+<div class="field"><label>Mot de passe</label><input type="password" name="password" placeholder="••••••••" required/></div>
+<a href="#" class="forgot">Mot de passe oublié ?</a>
+<button type="submit" class="btn-main">Se connecter</button>
+</form>
+<div class="divider"><span>ou</span></div>
+<div class="social-row">
+<button class="btn-social"><span class="si">G</span> Google</button>
+<button class="btn-social"><span class="si">in</span> LinkedIn</button>
+</div>
+<p class="switch-text">Pas de compte ? <a href="{{ url_for('register') }}" class="switch-link">S'inscrire</a></p>
+</div>
+{% endblock %}
