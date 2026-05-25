@@ -1,9 +1,120 @@
 {% extends "base.html" %}
 {% block title %}Dashboard — Velero Energy{% endblock %}
+
+{% block extra_head %}
+<style>
+body{background:#0a0f1a;}
+.hero{display:none;}
+.card-wrap{max-width:480px;margin-top:0;padding:0 0 40px;}
+.card{border-radius:0;box-shadow:none;background:transparent;}
+.dash-header{background:linear-gradient(160deg,#0a1628 0%,#0d2137 60%,#001a2e 100%);padding:50px 24px 30px;text-align:center;position:relative;overflow:hidden;}
+.dash-header::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(0,188,212,.08);}
+.dash-header::after{content:'';position:absolute;bottom:-30px;left:-30px;width:130px;height:130px;border-radius:50%;background:rgba(229,57,53,.06);}
+.avatar-wrap{position:relative;display:inline-block;margin-bottom:12px;}
+.avatar{width:78px;height:78px;border-radius:50%;background:linear-gradient(135deg,#00bcd4,#0097a7);display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;color:#fff;border:3px solid rgba(0,188,212,.4);font-family:'Playfair Display',serif;margin:0 auto;}
+.level-badge{position:absolute;bottom:-4px;right:-4px;background:#e53935;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;border:2px solid #0a0f1a;}
+.user-name{font-size:18px;font-weight:700;color:#fff;margin-bottom:2px;}
+.user-phone{font-size:13px;color:rgba(255,255,255,.5);}
+.quick-actions{display:flex;justify-content:center;gap:32px;padding:20px 24px 16px;background:linear-gradient(180deg,#0d2137,#0a1628);}
+.qa-btn{display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.75);font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;transition:color .2s;}
+.qa-btn:hover{color:#00bcd4;}
+.qa-icon{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:22px;transition:transform .2s;}
+.qa-btn:hover .qa-icon{transform:translateY(-2px);}
+.qa-icon.deposit{background:rgba(0,188,212,.15);border:1.5px solid rgba(0,188,212,.3);}
+.qa-icon.withdraw{background:rgba(229,57,53,.15);border:1.5px solid rgba(229,57,53,.3);}
+.qa-icon.history{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);}
+.balance-row{display:flex;gap:12px;padding:16px 16px 8px;}
+.balance-card{flex:1;background:#111c2e;border-radius:16px;padding:16px;border:1px solid rgba(0,188,212,.15);position:relative;overflow:hidden;}
+.balance-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;}
+.balance-card.main::before{background:linear-gradient(90deg,#00bcd4,#0097a7);}
+.balance-card.earned::before{background:linear-gradient(90deg,#e53935,#c62828);}
+.bc-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
+.bc-amount{font-size:22px;font-weight:800;color:#fff;font-family:'Playfair Display',serif;}
+.bc-currency{font-size:12px;font-weight:600;color:rgba(255,255,255,.4);margin-left:3px;}
+.menu-section{padding:16px 16px 8px;}
+.menu-title{font-size:11px;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;padding:0 4px;}
+.menu-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.menu-btn{display:flex;flex-direction:column;align-items:center;gap:8px;background:#111c2e;border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:14px 6px;cursor:pointer;color:rgba(255,255,255,.7);font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;text-align:center;transition:all .2s;text-decoration:none;}
+.menu-btn:hover{background:#162540;border-color:rgba(0,188,212,.3);color:#00bcd4;transform:translateY(-2px);}
+.menu-btn .mi{font-size:20px;width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.06);}
+.menu-btn.teal .mi{background:rgba(0,188,212,.15);}
+.menu-btn.red .mi{background:rgba(229,57,53,.15);}
+.menu-btn.gold .mi{background:rgba(255,193,7,.12);}
+.menu-btn.green .mi{background:rgba(76,175,80,.12);}
+.logout-wrap{padding:16px 16px 8px;}
+.btn-logout{width:100%;padding:14px;background:rgba(229,57,53,.1);border:1.5px solid rgba(229,57,53,.3);border-radius:14px;color:#ef5350;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-logout:hover{background:rgba(229,57,53,.2);border-color:rgba(229,57,53,.5);}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#0d1a2e;border-top:1px solid rgba(255,255,255,.08);display:flex;padding:10px 0 14px;z-index:100;}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;color:rgba(255,255,255,.35);font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;transition:color .2s;}
+.nav-item.active,.nav-item:hover{color:#00bcd4;}
+.nav-item .ni{font-size:20px;}
+.dash-content{padding-bottom:80px;}
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="dash">
-<h1>Bienvenue ⚡</h1>
-<p>Connecté : <strong>{{ email }}</strong></p>
-<a href="{{ url_for('logout') }}"><button class="btn-logout">Se déconnecter</button></a>
+<div class="dash-content">
+  <div class="dash-header">
+    <div class="avatar-wrap">
+      <div class="avatar">{{ email[0].upper() }}</div>
+      <span class="level-badge">LV1</span>
+    </div>
+    <p class="user-name">{{ email.split('@')[0].title() }}</p>
+    <p class="user-phone">{{ email }}</p>
+  </div>
+
+  <div class="quick-actions">
+    <button class="qa-btn"><div class="qa-icon deposit">💳</div>Déposer</button>
+    <button class="qa-btn"><div class="qa-icon withdraw">💸</div>Retirer</button>
+    <button class="qa-btn"><div class="qa-icon history">📊</div>Historique</button>
+  </div>
+
+  <div class="balance-row">
+    <div class="balance-card main">
+      <div class="bc-label">Solde disponible</div>
+      <div class="bc-amount">0 <span class="bc-currency">CFA</span></div>
+    </div>
+    <div class="balance-card earned">
+      <div class="bc-label">Revenus cumulés</div>
+      <div class="bc-amount">0 <span class="bc-currency">CFA</span></div>
+    </div>
+  </div>
+
+  <div class="menu-section">
+    <div class="menu-title">Services</div>
+    <div class="menu-grid">
+      <a href="#" class="menu-btn teal"><div class="mi">📈</div>Investir</a>
+      <a href="#" class="menu-btn green"><div class="mi">🤝</div>Parrainage</a>
+      <a href="#" class="menu-btn gold"><div class="mi">🎁</div>Offres</a>
+      <a href="#" class="menu-btn"><div class="mi">📋</div>Contrats</a>
+    </div>
+  </div>
+
+  <div class="menu-section">
+    <div class="menu-title">Mon compte</div>
+    <div class="menu-grid">
+      <a href="#" class="menu-btn"><div class="mi">ℹ️</div>À propos</a>
+      <a href="#" class="menu-btn"><div class="mi">📜</div>Règlement</a>
+      <a href="#" class="menu-btn teal"><div class="mi">💬</div>Support</a>
+      <a href="#" class="menu-btn gold"><div class="mi">🏦</div>Banque</a>
+      <a href="#" class="menu-btn"><div class="mi">📱</div>App mobile</a>
+      <a href="#" class="menu-btn red"><div class="mi">🔑</div>Sécurité</a>
+      <a href="#" class="menu-btn green"><div class="mi">👥</div>Équipes</a>
+      <a href="#" class="menu-btn"><div class="mi">⚙️</div>Paramètres</a>
+    </div>
+  </div>
+
+  <div class="logout-wrap">
+    <a href="{{ url_for('logout') }}" style="text-decoration:none;">
+      <button class="btn-logout">🚪 Se déconnecter</button>
+    </a>
+  </div>
 </div>
+
+<nav class="bottom-nav">
+  <a href="{{ url_for('dashboard') }}" class="nav-item active"><span class="ni">🏠</span>Accueil</a>
+  <a href="#" class="nav-item"><span class="ni">⚡</span>Produits</a>
+  <a href="#" class="nav-item"><span class="ni">👥</span>Équipes</a>
+  <a href="#" class="nav-item"><span class="ni">👤</span>Mon compte</a>
+</nav>
 {% endblock %}
