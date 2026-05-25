@@ -8,50 +8,56 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--teal:#00bcd4;--teal-d:#0097a7;--red:#e53935;--bg:#f0f7f9;--text:#0f2a3a;--muted:#607d8b;--border:#cfe8ed}
-html,body{height:100%;overflow-x:hidden;}
-body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);display:flex;flex-direction:column;align-items:center;}
-.hero{width:100%;height:220px;position:relative;overflow:hidden;flex-shrink:0;}
+body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);display:flex;flex-direction:column;align-items:center;min-height:100vh;}
+.hero{width:100%;height:200px;position:relative;overflow:hidden;flex-shrink:0;}
 .hero img{width:100%;height:100%;object-fit:cover;object-position:center 55%;}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,50,70,.55),rgba(0,20,40,.80));}
-.hero-brand{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
+.hero-brand{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;}
 .logo{display:flex;align-items:center;}
-.logo-v{font-family:'Playfair Display',serif;font-size:44px;font-weight:900;color:var(--red);text-shadow:0 2px 16px rgba(0,0,0,.45);}
-.logo-name{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.45);}
+.logo-v{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:#e53935;text-shadow:0 2px 16px rgba(0,0,0,.45);}
+.logo-name{font-family:'Playfair Display',serif;font-size:34px;font-weight:700;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.45);}
 .hero-tagline{color:rgba(255,255,255,.85);font-size:12px;}
-.hero-wave{position:absolute;bottom:-1px;width:100%;height:50px;display:block;}
-.card-wrap{width:100%;max-width:440px;padding:0 14px 30px;margin-top:-20px;}
+.hero-wave{position:absolute;bottom:-1px;width:100%;height:40px;}
+.card-wrap{width:100%;max-width:430px;padding:0 12px 30px;margin-top:-16px;}
 .card{background:#fff;border-radius:20px;box-shadow:0 8px 40px rgba(0,100,130,.13);overflow:hidden;}
 .tabs{display:flex;border-bottom:2px solid #e8f4f7;}
-.tab{flex:1;padding:13px 0;font-size:14px;font-weight:700;background:none;border:none;cursor:pointer;color:#90a4ae;}
+.tab{flex:1;padding:12px 0;font-size:14px;font-weight:700;background:none;border:none;cursor:pointer;color:#90a4ae;}
 .tab.active{color:var(--teal);border-bottom:3px solid var(--teal);margin-bottom:-2px;}
-.form-body{padding:20px 20px 24px;}
-.form-title{font-size:20px;font-weight:700;margin-bottom:3px;}
-.form-sub{font-size:12px;color:var(--muted);margin-bottom:16px;}
-.field{margin-bottom:12px;}
-.field label{display:block;font-size:12px;font-weight:600;color:#334155;margin-bottom:5px;}
-.field input{width:100%;padding:10px 13px;font-size:14px;font-family:inherit;border:1.5px solid var(--border);border-radius:10px;outline:none;background:#f5fafb;color:var(--text);}
+.form-body{padding:18px 18px 20px;}
+.form-title{font-size:19px;font-weight:700;margin-bottom:2px;}
+.form-sub{font-size:12px;color:var(--muted);margin-bottom:14px;}
+.field{margin-bottom:11px;}
+.field label{display:block;font-size:12px;font-weight:600;color:#334155;margin-bottom:4px;}
+.field input{width:100%;padding:10px 12px;font-size:14px;font-family:inherit;border:1.5px solid var(--border);border-radius:10px;outline:none;background:#f5fafb;color:var(--text);}
 .field input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,188,212,.15);}
+/* Phone field */
+.phone-wrap{display:flex;gap:6px;}
+.country-select{width:130px;flex-shrink:0;padding:10px 6px;font-size:13px;font-family:inherit;border:1.5px solid var(--border);border-radius:10px;outline:none;background:#f5fafb;color:var(--text);cursor:pointer;}
+.country-select:focus{border-color:var(--teal);}
+.phone-input{flex:1;padding:10px 12px;font-size:14px;font-family:inherit;border:1.5px solid var(--border);border-radius:10px;outline:none;background:#f5fafb;color:var(--text);}
+.phone-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,188,212,.15);}
 .ref-badge{display:inline-block;background:#e0f7fa;color:var(--teal-d);font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:5px;}
-.forgot{font-size:12px;color:var(--teal);text-decoration:none;font-weight:500;display:block;text-align:right;margin-bottom:14px;}
-.alert{padding:9px 13px;border-radius:8px;font-size:12px;margin-bottom:12px;display:none;}
+.forgot{font-size:12px;color:var(--teal);text-decoration:none;font-weight:500;display:block;text-align:right;margin-bottom:12px;}
+.alert{padding:9px 12px;border-radius:8px;font-size:12px;margin-bottom:11px;display:none;}
 .alert.show{display:block;}
 .alert-error{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
 .alert-success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
-.btn-main{width:100%;padding:13px;background:linear-gradient(135deg,var(--teal),var(--teal-d));color:#fff;font-size:15px;font-weight:700;border:none;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px rgba(0,188,212,.35);margin-bottom:14px;font-family:inherit;}
-.divider{text-align:center;font-size:11px;color:#90a4ae;margin-bottom:12px;position:relative;}
+.btn-main{width:100%;padding:12px;background:linear-gradient(135deg,var(--teal),var(--teal-d));color:#fff;font-size:15px;font-weight:700;border:none;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px rgba(0,188,212,.35);margin-bottom:12px;font-family:inherit;display:block;}
+.divider{text-align:center;font-size:11px;color:#90a4ae;margin-bottom:10px;position:relative;}
 .divider::before,.divider::after{content:'';position:absolute;top:50%;width:calc(50% - 18px);height:1px;background:#cfe8ed;}
 .divider::before{left:0;}.divider::after{right:0;}
-.social-row{display:flex;gap:8px;margin-bottom:14px;}
+.social-row{display:flex;gap:8px;margin-bottom:12px;}
 .btn-social{flex:1;padding:9px 0;background:#f5fafb;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;font-size:12px;font-weight:700;color:#334155;display:flex;align-items:center;justify-content:center;gap:6px;font-family:inherit;}
 .si{color:var(--teal);font-weight:900;}
 .switch-text{text-align:center;font-size:12px;color:var(--muted);}
 .switch-link{color:var(--teal);font-weight:700;background:none;border:none;cursor:pointer;font-size:12px;font-family:inherit;}
-footer{margin-top:16px;font-size:11px;color:#90a4ae;text-align:center;}
+footer{margin-top:14px;font-size:11px;color:#90a4ae;text-align:center;}
 footer a{color:#90a4ae;text-decoration:none;}
 .hidden{display:none;}
 </style>
 </head>
 <body>
+
 <div class="hero">
   <img src="https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg" alt="Velero Energy"/>
   <div class="hero-overlay"></div>
@@ -59,25 +65,32 @@ footer a{color:#90a4ae;text-decoration:none;}
     <div class="logo"><span class="logo-v">V</span><span class="logo-name">elero Energy</span></div>
     <p class="hero-tagline">La plateforme d'investissement énergétique</p>
   </div>
-  <svg class="hero-wave" viewBox="0 0 1440 50" preserveAspectRatio="none">
-    <path d="M0,25 C360,50 1080,0 1440,25 L1440,50 L0,50 Z" fill="#f0f7f9"/>
+  <svg class="hero-wave" viewBox="0 0 1440 40" preserveAspectRatio="none">
+    <path d="M0,20 C360,40 1080,0 1440,20 L1440,40 L0,40 Z" fill="#f0f7f9"/>
   </svg>
 </div>
 
 <div class="card-wrap">
   <div class="card">
     <div class="tabs">
-      <button class="tab active" onclick="showTab('login')">Connexion</button>
-      <button class="tab" onclick="showTab('register')">Inscription</button>
+      <button class="tab active" id="tabLogin" onclick="showTab('login')">Connexion</button>
+      <button class="tab" id="tabRegister" onclick="showTab('register')">Inscription</button>
     </div>
 
+    <!-- CONNEXION -->
     <div id="loginForm" class="form-body">
       <h1 class="form-title">Bon retour 👋</h1>
       <p class="form-sub">Connectez-vous à votre espace investisseur</p>
       <div id="loginError" class="alert alert-error"></div>
       <div id="loginSuccess" class="alert alert-success"></div>
-      <div class="field"><label>Email</label><input type="email" id="loginEmail" placeholder="vous@exemple.com"/></div>
-      <div class="field"><label>Mot de passe</label><input type="password" id="loginPassword" placeholder="••••••••"/></div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="vous@exemple.com"/>
+      </div>
+      <div class="field">
+        <label>Mot de passe</label>
+        <input type="password" id="loginPassword" placeholder="••••••••"/>
+      </div>
       <a href="#" class="forgot">Mot de passe oublié ?</a>
       <button class="btn-main" onclick="login()">Se connecter</button>
       <div class="divider"><span>ou continuer avec</span></div>
@@ -88,15 +101,47 @@ footer a{color:#90a4ae;text-decoration:none;}
       <p class="switch-text">Pas de compte ? <button class="switch-link" onclick="showTab('register')">S'inscrire</button></p>
     </div>
 
+    <!-- INSCRIPTION -->
     <div id="registerForm" class="form-body hidden">
       <h1 class="form-title">Créer un compte 🚀</h1>
       <p class="form-sub">Rejoignez la plateforme Velero Energy</p>
       <div id="registerError" class="alert alert-error"></div>
       <div id="registerSuccess" class="alert alert-success"></div>
-      <div class="field"><label>Nom complet</label><input type="text" id="fullName" placeholder="Jean Dupont"/></div>
-      <div class="field"><label>Email</label><input type="email" id="regEmail" placeholder="vous@exemple.com"/></div>
-      <div class="field"><label>Mot de passe</label><input type="password" id="regPassword" placeholder="••••••••"/></div>
-      <div class="field"><label>Confirmer</label><input type="password" id="regConfirm" placeholder="••••••••"/></div>
+      <div class="field">
+        <label>Nom complet</label>
+        <input type="text" id="fullName" placeholder="Jean Dupont"/>
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="regEmail" placeholder="vous@exemple.com"/>
+      </div>
+      <div class="field">
+        <label>Numéro de téléphone</label>
+        <div class="phone-wrap">
+          <select class="country-select" id="countrySelect" onchange="updateCode()">
+            <option value="+229" data-flag="🇧🇯">🇧🇯 Bénin +229</option>
+            <option value="+226" data-flag="🇧🇫">🇧🇫 Burkina +226</option>
+            <option value="+237" data-flag="🇨🇲">🇨🇲 Cameroun +237</option>
+            <option value="+225" data-flag="🇨🇮">🇨🇮 Côte d'Ivoire +225</option>
+            <option value="+241" data-flag="🇬🇦">🇬🇦 Gabon +241</option>
+            <option value="+223" data-flag="🇲🇱">🇲🇱 Mali +223</option>
+            <option value="+227" data-flag="🇳🇪">🇳🇪 Niger +227</option>
+            <option value="+234" data-flag="🇳🇬">🇳🇬 Nigeria +234</option>
+            <option value="+243" data-flag="🇨🇩">🇨🇩 RDC +243</option>
+            <option value="+221" data-flag="🇸🇳">🇸🇳 Sénégal +221</option>
+            <option value="+228" data-flag="🇹🇬">🇹🇬 Togo +228</option>
+          </select>
+          <input class="phone-input" type="tel" id="phoneNumber" placeholder="XX XX XX XX"/>
+        </div>
+      </div>
+      <div class="field">
+        <label>Mot de passe</label>
+        <input type="password" id="regPassword" placeholder="••••••••"/>
+      </div>
+      <div class="field">
+        <label>Confirmer le mot de passe</label>
+        <input type="password" id="regConfirm" placeholder="••••••••"/>
+      </div>
       <div class="field">
         <label>Code de parrainage <span id="refBadge" class="ref-badge hidden">✓ Détecté</span></label>
         <input type="text" id="refCode" placeholder="Optionnel"/>
@@ -118,22 +163,39 @@ const SB_URL="https://seegoklunovyuieorkvy.supabase.co";
 const SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
 const H={"Content-Type":"application/json","apikey":SB_KEY};
 
-const p=new URLSearchParams(window.location.search),ref=p.get("ref");
-if(ref){document.getElementById("refCode").value=ref;document.getElementById("refBadge").classList.remove("hidden");showTab("register");}
 if(localStorage.getItem("velero_token"))window.location.href="dashboard.html";
 
+const p=new URLSearchParams(window.location.search),ref=p.get("ref");
+if(ref){
+  document.getElementById("refCode").value=ref;
+  document.getElementById("refBadge").classList.remove("hidden");
+  showTab("register");
+}
+
 function showTab(t){
-  document.querySelectorAll(".tab").forEach((el,i)=>el.classList.toggle("active",(t==="login"&&i===0)||(t==="register"&&i===1)));
+  document.getElementById("tabLogin").classList.toggle("active",t==="login");
+  document.getElementById("tabRegister").classList.toggle("active",t==="register");
   document.getElementById("loginForm").classList.toggle("hidden",t!=="login");
   document.getElementById("registerForm").classList.toggle("hidden",t!=="register");
 }
-function showAlert(id,msg,type){const el=document.getElementById(id);el.textContent=msg;el.className="alert alert-"+type+" show";}
+
+function updateCode(){
+  const sel=document.getElementById("countrySelect");
+  const code=sel.value;
+  document.getElementById("phoneNumber").placeholder=code+" XX XX XX XX";
+}
+
+function showAlert(id,msg,type){
+  const el=document.getElementById(id);
+  el.textContent=msg;
+  el.className="alert alert-"+type+" show";
+}
 
 async function login(){
   const email=document.getElementById("loginEmail").value.trim();
-  const password=document.getElementById("loginPassword").value;
-  if(!email||!password)return showAlert("loginError","Email et mot de passe requis.","error");
-  const r=await fetch(SB_URL+"/auth/v1/token?grant_type=password",{method:"POST",headers:H,body:JSON.stringify({email,password})});
+  const pass=document.getElementById("loginPassword").value;
+  if(!email||!pass)return showAlert("loginError","Email et mot de passe requis.","error");
+  const r=await fetch(SB_URL+"/auth/v1/token?grant_type=password",{method:"POST",headers:H,body:JSON.stringify({email,password:pass})});
   const d=await r.json();
   if(d.error)return showAlert("loginError",d.error_description||d.error,"error");
   localStorage.setItem("velero_token",d.access_token);
@@ -144,16 +206,30 @@ async function login(){
 async function register(){
   const full_name=document.getElementById("fullName").value.trim();
   const email=document.getElementById("regEmail").value.trim();
-  const password=document.getElementById("regPassword").value;
+  const pass=document.getElementById("regPassword").value;
   const confirm=document.getElementById("regConfirm").value;
   const ref_code=document.getElementById("refCode").value.trim();
-  if(!full_name||!email||!password)return showAlert("registerError","Tous les champs sont obligatoires.","error");
-  if(password!==confirm)return showAlert("registerError","Les mots de passe ne correspondent pas.","error");
-  if(password.length<6)return showAlert("registerError","Minimum 6 caractères.","error");
-  const r=await fetch(SB_URL+"/auth/v1/signup",{method:"POST",headers:H,body:JSON.stringify({email,password,data:{full_name,referral_code:ref_code}})});
+  const country_code=document.getElementById("countrySelect").value;
+  const phone_raw=document.getElementById("phoneNumber").value.trim();
+  const phone=country_code+phone_raw;
+
+  if(!full_name||!email||!pass||!phone_raw)
+    return showAlert("registerError","Tous les champs obligatoires sont requis.","error");
+  if(pass!==confirm)
+    return showAlert("registerError","Les mots de passe ne correspondent pas.","error");
+  if(pass.length<6)
+    return showAlert("registerError","Minimum 6 caractères.","error");
+
+  const r=await fetch(SB_URL+"/auth/v1/signup",{
+    method:"POST",headers:H,
+    body:JSON.stringify({
+      email,password:pass,
+      data:{full_name,phone,country_code,referral_code:ref_code}
+    })
+  });
   const d=await r.json();
   if(d.error)return showAlert("registerError",d.error_description||d.error,"error");
-  showAlert("registerSuccess","Compte créé ! Vérifiez votre email.","success");
+  showAlert("registerSuccess","✅ Compte créé ! Vérifiez votre email pour confirmer.","success");
 }
 </script>
 </body>
