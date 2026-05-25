@@ -10,91 +10,83 @@
 body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
 .wrap{width:100%;max-width:480px;padding-bottom:80px;}
 
-/* ── SLIDER ── */
-.slider{position:relative;width:100%;height:260px;overflow:hidden;}
+/* SLIDER */
+.slider{position:relative;width:100%;height:270px;overflow:hidden;}
 .slides{display:flex;height:100%;transition:transform .5s ease;}
 .slide{min-width:100%;height:100%;position:relative;flex-shrink:0;}
-.slide img{width:100%;height:100%;object-fit:cover;}
-.slide-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,.6) 100%);}
-.dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:10;}
-.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.45);cursor:pointer;transition:background .3s;}
-.dot.active{background:#fff;}
+.slide img{width:100%;height:100%;object-fit:cover;object-position:center;}
+.slide-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.65) 100%);}
+.dots{position:absolute;bottom:70px;right:16px;display:flex;gap:5px;z-index:10;}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:all .3s;}
+.dot.active{background:#fff;width:18px;border-radius:4px;}
 
-/* ── PROFIL SUR LE SLIDER ── */
-.profile-overlay{position:absolute;bottom:20px;left:20px;display:flex;align-items:center;gap:14px;z-index:10;}
+/* PROFIL */
+.profile-overlay{position:absolute;bottom:60px;left:16px;display:flex;align-items:center;gap:12px;z-index:10;}
 .avatar-wrap{position:relative;}
-.avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#e53935,#b71c1c);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#fff;border:3px solid rgba(255,255,255,.8);font-family:'Playfair Display',serif;}
-.edit-btn{position:absolute;bottom:0;right:0;width:22px;height:22px;background:#e53935;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;border:2px solid #fff;cursor:pointer;}
-.profile-info{}
-.user-name{font-size:20px;font-weight:700;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.5);}
-.user-phone{font-size:13px;color:rgba(255,255,255,.8);text-shadow:0 1px 4px rgba(0,0,0,.4);}
-.level-pill{display:inline-block;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.5);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;backdrop-filter:blur(4px);margin-top:4px;}
+.avatar{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#e53935,#b71c1c);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#fff;border:3px solid rgba(255,255,255,.85);font-family:'Playfair Display',serif;}
+.edit-btn{position:absolute;bottom:0;right:0;width:20px;height:20px;background:#e53935;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;border:2px solid #fff;cursor:pointer;}
+.user-name{font-size:19px;font-weight:700;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5);}
+.level-pill{display:inline-block;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.6);color:#fff;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;margin-top:4px;}
 
-/* ── ACTIONS RAPIDES ── */
-.quick-actions{display:flex;justify-content:space-around;padding:22px 20px 10px;background:#fff;border-bottom:1px solid #f0ebe8;}
-.qa-btn{display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.qa-icon{width:62px;height:62px;border-radius:18px;background:#e53935;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 16px rgba(229,57,53,.35);transition:transform .2s;}
-.qa-btn:hover .qa-icon{transform:translateY(-2px);}
-.qa-label{font-size:12px;font-weight:600;color:#333;}
+/* BOUTONS RAPIDES SUR LE SLIDER */
+.action-bar{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;display:flex;gap:10px;align-items:center;z-index:10;background:linear-gradient(0deg,rgba(0,0,0,.5),transparent);}
+.btn-recharge{background:#e53935;color:#fff;border:none;border-radius:14px;padding:10px 16px;font-size:13px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;white-space:nowrap;box-shadow:0 4px 14px rgba(229,57,53,.4);}
+.btn-commencer{flex:1;background:#fff;color:#e53935;border:none;border-radius:14px;padding:10px 0;font-size:14px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.2);}
 
-/* ── SOLDE ── */
-.balance-row{display:flex;gap:12px;padding:16px 14px 8px;}
-.balance-card{flex:1;background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.07);border-top:3px solid #e53935;position:relative;overflow:hidden;}
-.balance-card.earned{border-top-color:#e53935;}
-.bc-label{font-size:10px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+/* SOLDE */
+.balance-row{display:flex;gap:10px;padding:14px 14px 6px;}
+.balance-card{flex:1;background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.07);border-top:3px solid #e53935;}
+.bc-label{font-size:10px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
 .bc-amount{font-size:22px;font-weight:800;color:#1a1a1a;font-family:'Playfair Display',serif;}
-.bc-currency{font-size:12px;color:#999;margin-left:2px;}
 
-/* ── SECTIONS MENU ── */
-.menu-section{padding:14px 14px 6px;}
-.menu-title{font-size:11px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+/* MENU */
+.menu-section{padding:12px 14px 6px;}
+.menu-title{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;}
 .menu-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-.menu-btn{display:flex;flex-direction:column;align-items:center;gap:6px;background:#fff;border:none;border-radius:14px;padding:12px 4px;cursor:pointer;color:#444;font-size:10px;font-weight:600;text-align:center;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:all .2s;font-family:'DM Sans',sans-serif;}
-.menu-btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(229,57,53,.2);}
-.mi{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;background:#fff5f5;margin:0 auto;}
+.menu-btn{display:flex;flex-direction:column;align-items:center;gap:5px;background:#fff;border:none;border-radius:14px;padding:12px 4px;cursor:pointer;color:#444;font-size:10px;font-weight:600;text-align:center;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:all .2s;font-family:'DM Sans',sans-serif;}
+.menu-btn:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(229,57,53,.18);}
+.mi{width:34px;height:34px;border-radius:10px;background:#fff5f5;display:flex;align-items:center;justify-content:center;font-size:17px;margin:0 auto;}
 
-/* ── DÉCONNEXION ── */
-.logout-wrap{padding:14px;}
-.btn-logout{width:100%;padding:13px;background:#fff;border:1.5px solid #e53935;border-radius:14px;color:#e53935;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;}
-.btn-logout:hover{background:#fff5f5;}
+/* LOGOUT */
+.logout-wrap{padding:12px 14px;}
+.btn-logout{width:100%;padding:12px;background:#fff;border:1.5px solid #e53935;border-radius:13px;color:#e53935;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;}
 
-/* ── NAV BAS ── */
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 14px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#bbb;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
+/* NAV */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
 .nav-item.active{color:#e53935;}
-.nav-item .ni{font-size:22px;}
-.nav-dot{width:5px;height:5px;border-radius:50%;background:#e53935;margin:0 auto;margin-top:1px;}
+.nav-item .ni{font-size:21px;}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:#e53935;margin:1px auto 0;}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <!-- SLIDER 3 PHOTOS -->
+  <!-- SLIDER -->
   <div class="slider">
     <div class="slides" id="slides">
       <div class="slide">
-        <img src="https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg" alt="Velero Station 1"/>
+        <img src="https://images.unsplash.com/photo-1545459720-aac8509eb61d?w=800&q=80" alt="Station 1" onerror="this.src='https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg'"/>
         <div class="slide-overlay"></div>
       </div>
       <div class="slide">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Valero_Gas_Station.jpg/1280px-Valero_Gas_Station.jpg" alt="Velero Station 2"/>
+        <img src="https://images.unsplash.com/photo-1611538400436-84a7095b0d97?w=800&q=80" alt="Station 2" onerror="this.src='https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg'"/>
         <div class="slide-overlay"></div>
       </div>
       <div class="slide">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Valero_-_geograph.org.uk_-_1008587.jpg/1280px-Valero_-_geograph.org.uk_-_1008587.jpg" alt="Velero Station 3"/>
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80" alt="Station 3" onerror="this.src='https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg'"/>
         <div class="slide-overlay"></div>
       </div>
     </div>
 
-    <!-- Profil sur le slider -->
+    <!-- Profil -->
     <div class="profile-overlay">
       <div class="avatar-wrap">
         <div class="avatar" id="av">A</div>
         <div class="edit-btn">✏️</div>
       </div>
-      <div class="profile-info">
+      <div>
         <div class="user-name" id="uname">Mon compte</div>
-        <div class="user-phone" id="uphone">—</div>
         <div class="level-pill">LV1</div>
       </div>
     </div>
@@ -105,22 +97,12 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
       <div class="dot" onclick="goTo(1)"></div>
       <div class="dot" onclick="goTo(2)"></div>
     </div>
-  </div>
 
-  <!-- ACTIONS RAPIDES -->
-  <div class="quick-actions">
-    <button class="qa-btn">
-      <div class="qa-icon">➕</div>
-      <span class="qa-label">Recharger</span>
-    </button>
-    <button class="qa-btn">
-      <div class="qa-icon">➖</div>
-      <span class="qa-label">Retirer</span>
-    </button>
-    <button class="qa-btn">
-      <div class="qa-icon">📄</div>
-      <span class="qa-label">Historique</span>
-    </button>
+    <!-- Boutons action -->
+    <div class="action-bar">
+      <button class="btn-recharge" onclick="location.href='recharge.html'">💳 Recharger</button>
+      <button class="btn-commencer" onclick="location.href='investir.html'">🚀 Commencer à investir</button>
+    </div>
   </div>
 
   <!-- SOLDE -->
@@ -129,7 +111,7 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
       <div class="bc-label">Solde</div>
       <div class="bc-amount">$ 0.00</div>
     </div>
-    <div class="balance-card earned">
+    <div class="balance-card">
       <div class="bc-label">Revenus cumulés</div>
       <div class="bc-amount">$ 0.00</div>
     </div>
@@ -139,10 +121,10 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
   <div class="menu-section">
     <div class="menu-title">Informations</div>
     <div class="menu-grid">
-      <a href="#" class="menu-btn"><div class="mi">ℹ️</div>À propos</a>
-      <a href="#" class="menu-btn"><div class="mi">📜</div>Règlement</a>
-      <a href="#" class="menu-btn"><div class="mi">🕐</div>Historique</a>
-      <a href="#" class="menu-btn"><div class="mi">💬</div>Support</a>
+      <a href="about.html" class="menu-btn"><div class="mi">ℹ️</div>À propos</a>
+      <a href="reglement.html" class="menu-btn"><div class="mi">📜</div>Règlement</a>
+      <a href="historique.html" class="menu-btn"><div class="mi">🕐</div>Historique</a>
+      <a href="support.html" class="menu-btn"><div class="mi">💬</div>Support</a>
     </div>
   </div>
 
@@ -150,10 +132,14 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
   <div class="menu-section">
     <div class="menu-title">Services</div>
     <div class="menu-grid">
-      <a href="#" class="menu-btn"><div class="mi">📱</div>App mobile</a>
-      <a href="#" class="menu-btn"><div class="mi">🏦</div>Banque</a>
-      <a href="#" class="menu-btn"><div class="mi">🔑</div>Sécurité</a>
-      <a href="#" class="menu-btn"><div class="mi">🎁</div>Offres</a>
+      <a href="retrait.html" class="menu-btn"><div class="mi">💸</div>Retrait</a>
+      <a href="banque.html" class="menu-btn"><div class="mi">🏦</div>Banque</a>
+      <a href="securite.html" class="menu-btn"><div class="mi">🔑</div>Sécurité</a>
+      <a href="offres.html" class="menu-btn"><div class="mi">🎁</div>Offres</a>
+      <a href="parrainage.html" class="menu-btn"><div class="mi">🤝</div>Parrainage</a>
+      <a href="contrats.html" class="menu-btn"><div class="mi">📋</div>Contrats</a>
+      <a href="equipes.html" class="menu-btn"><div class="mi">👥</div>Équipes</a>
+      <a href="parametres.html" class="menu-btn"><div class="mi">⚙️</div>Paramètres</a>
     </div>
   </div>
 
@@ -169,13 +155,12 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
     <span class="ni">🏠</span>Accueil
     <div class="nav-dot"></div>
   </a>
-  <a href="#" class="nav-item"><span class="ni">💲</span>Produit</a>
-  <a href="#" class="nav-item"><span class="ni">👥</span>Équipes</a>
-  <a href="#" class="nav-item"><span class="ni">👤</span>Mon compte</a>
+  <a href="produits.html" class="nav-item"><span class="ni">💲</span>Produit</a>
+  <a href="equipes.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
+  <a href="compte.html" class="nav-item"><span class="ni">👤</span>Mon compte</a>
 </nav>
 
 <script>
-// Auth check
 const token=localStorage.getItem("velero_token");
 const email=localStorage.getItem("velero_email");
 if(!token){window.location.href="index.html";}
@@ -183,10 +168,8 @@ if(email){
   const n=email.split("@")[0];
   document.getElementById("uname").textContent=n.charAt(0).toUpperCase()+n.slice(1);
   document.getElementById("av").textContent=n[0].toUpperCase();
-  document.getElementById("uphone").textContent=email;
 }
 
-// Slider auto
 let cur=0;
 const slides=document.getElementById("slides");
 const dots=document.querySelectorAll(".dot");
