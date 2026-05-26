@@ -9,8 +9,6 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
 .wrap{width:100%;max-width:480px;padding-bottom:80px;}
-
-/* SLIDER */
 .slider{position:relative;width:100%;height:270px;overflow:hidden;}
 .slides{display:flex;height:100%;transition:transform .5s ease;}
 .slide{min-width:100%;height:100%;position:relative;flex-shrink:0;}
@@ -19,112 +17,104 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
 .dots{position:absolute;bottom:70px;right:16px;display:flex;gap:5px;z-index:10;}
 .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:all .3s;}
 .dot.active{background:#fff;width:18px;border-radius:4px;}
-
-/* PROFIL */
 .profile-overlay{position:absolute;bottom:60px;left:16px;display:flex;align-items:center;gap:12px;z-index:10;}
-.avatar-wrap{position:relative;}
 .avatar{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#00bcd4,#0097a7);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#fff;border:3px solid rgba(255,255,255,.85);font-family:'Playfair Display',serif;}
 .edit-btn{position:absolute;bottom:0;right:0;width:20px;height:20px;background:#00bcd4;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;border:2px solid #fff;cursor:pointer;}
+.avatar-wrap{position:relative;}
 .user-name{font-size:19px;font-weight:700;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5);}
 .level-pill{display:inline-block;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.6);color:#fff;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;margin-top:4px;}
-
-/* BOUTONS RAPIDES SUR LE SLIDER */
 .action-bar{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;display:flex;gap:10px;align-items:center;z-index:10;background:linear-gradient(0deg,rgba(0,0,0,.5),transparent);}
 .btn-recharge{background:#00bcd4;color:#fff;border:none;border-radius:14px;padding:10px 16px;font-size:13px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;white-space:nowrap;box-shadow:0 4px 14px rgba(0,188,212,.4);}
-.btn-commencer{flex:1;background:#fff;color:#00bcd4;border:none;border-radius:14px;padding:10px 0;font-size:14px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.2);}
-
-/* SOLDE */
+.btn-commencer{flex:1;background:#fff;color:#00bcd4;border:none;border-radius:14px;padding:10px 0;font-size:14px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;}
+.quick-actions{display:flex;justify-content:space-around;padding:20px 20px 10px;background:#fff;border-bottom:1px solid #f0ebe8;}
+.qa-btn{display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.qa-icon{width:58px;height:58px;border-radius:18px;background:#00bcd4;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 16px rgba(0,188,212,.35);}
+.qa-label{font-size:12px;font-weight:600;color:#333;}
 .balance-row{display:flex;gap:10px;padding:14px 14px 6px;}
-.balance-card{flex:1;background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.07);border-top:3px solid #00bcd4;}
+.balance-card{flex:1;background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.07);border-top:3px solid #00bcd4;position:relative;overflow:hidden;}
 .bc-label{font-size:10px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
-.bc-amount{font-size:22px;font-weight:800;color:#1a1a1a;font-family:'Playfair Display',serif;}
+.bc-amount{font-size:20px;font-weight:800;color:#1a1a1a;font-family:'Playfair Display',serif;}
 
-/* MENU */
-.menu-section{padding:12px 14px 6px;}
+/* Plan actif badge */
+.plan-actif-banner{margin:0 14px 6px;background:linear-gradient(135deg,#00bcd4,#0097a7);border-radius:14px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;color:#fff;display:none;}
+.pab-left{font-size:13px;font-weight:700;}
+.pab-right{font-size:11px;opacity:.85;}
+.pab-btn{background:rgba(255,255,255,.25);border:none;color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;cursor:pointer;font-family:inherit;margin-left:8px;}
+
+/* Bonus badge */
+.bonus-banner{margin:14px 14px 0;background:linear-gradient(135deg,#fff8e1,#fef3c7);border:1px solid #ffe082;border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:10px;}
+.bb-icon{font-size:24px;}
+.bb-text{font-size:13px;font-weight:700;color:#f57f17;}
+.bb-sub{font-size:11px;color:#ffa000;margin-top:1px;}
+
+.menu-section{padding:14px 14px 6px;}
 .menu-title{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;}
 .menu-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-.menu-btn{display:flex;flex-direction:column;align-items:center;gap:5px;background:#fff;border:none;border-radius:14px;padding:12px 4px;cursor:pointer;color:#444;font-size:10px;font-weight:600;text-align:center;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:all .2s;font-family:'DM Sans',sans-serif;}
-.menu-btn:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,188,212,.18);}
-.mi{width:34px;height:34px;border-radius:10px;background:#fff5f5;display:flex;align-items:center;justify-content:center;font-size:17px;margin:0 auto;}
-
-/* LOGOUT */
+.menu-btn{display:flex;flex-direction:column;align-items:center;gap:6px;background:#fff;border:none;border-radius:14px;padding:12px 4px;cursor:pointer;color:#444;font-size:10px;font-weight:600;text-align:center;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:all .2s;font-family:'DM Sans',sans-serif;}
+.menu-btn:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,188,212,.2);}
+.mi{width:34px;height:34px;border-radius:10px;background:#e0f7fa;display:flex;align-items:center;justify-content:center;font-size:17px;margin:0 auto;}
 .logout-wrap{padding:12px 14px;}
-.btn-logout{width:100%;padding:12px;background:#fff;border:1.5px solid #00bcd4;border-radius:13px;color:#00bcd4;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;}
-
-/* NAV */
+.btn-logout{width:100%;padding:13px;background:#fff;border:1.5px solid #00bcd4;border-radius:13px;color:#00bcd4;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;}
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
 .nav-item.active{color:#00bcd4;}
 .nav-item .ni{font-size:21px;}
 .nav-dot{width:5px;height:5px;border-radius:50%;background:#00bcd4;margin:1px auto 0;}
+.skeleton{background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:8px;height:20px;width:80px;display:inline-block;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 </style>
 </head>
 <body>
 <div class="wrap">
-
-  <!-- SLIDER -->
   <div class="slider">
     <div class="slides" id="slides">
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1545459720-aac8509eb61d?w=800&q=80" alt="Station 1" onerror="this.src='https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg'"/>
-        <div class="slide-overlay"></div>
-      </div>
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1611538400436-84a7095b0d97?w=800&q=80" alt="Station 2" onerror="this.src='https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg'"/>
-        <div class="slide-overlay"></div>
-      </div>
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80" alt="Station 3" onerror="this.src='https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg'"/>
-        <div class="slide-overlay"></div>
-      </div>
+      <div class="slide"><img src="https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg" onerror="this.src='https://images.unsplash.com/photo-1545459720-aac8509eb61d?w=800'" alt="Velero"/><div class="slide-overlay"></div></div>
+      <div class="slide"><img src="https://images.unsplash.com/photo-1611538400436-84a7095b0d97?w=800&q=80" alt="Station 2"/><div class="slide-overlay"></div></div>
+      <div class="slide"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80" alt="Station 3"/><div class="slide-overlay"></div></div>
     </div>
-
-    <!-- Profil -->
     <div class="profile-overlay">
       <div class="avatar-wrap">
         <div class="avatar" id="av">A</div>
         <div class="edit-btn">✏️</div>
       </div>
       <div>
-        <div class="user-name" id="uname">Mon compte</div>
-        <div class="level-pill">LV1</div>
+        <div class="user-name" id="uname"><span class="skeleton"></span></div>
+        <div class="level-pill" id="ulevel">LV1</div>
       </div>
     </div>
-
-    <!-- Dots -->
     <div class="dots">
       <div class="dot active" onclick="goTo(0)"></div>
       <div class="dot" onclick="goTo(1)"></div>
       <div class="dot" onclick="goTo(2)"></div>
     </div>
-
-    <!-- Boutons action -->
     <div class="action-bar">
       <button class="btn-recharge" onclick="location.href='recharge.html'">💳 Recharger</button>
-      <button class="btn-commencer" onclick="location.href='investir.html'">🚀 Commencer à investir</button>
+      <button class="btn-commencer" onclick="location.href='produits.html'">🚀 Commencer à investir</button>
     </div>
   </div>
 
-  <!-- SOLDE -->
+  <!-- Bonus bienvenue -->
+  <div class="bonus-banner" id="bonusBanner" style="display:none;">
+    <div class="bb-icon">🎁</div>
+    <div><div class="bb-text">Bonus de bienvenue : +500 FCFA crédités !</div><div class="bb-sub">Merci de rejoindre Velero Energy</div></div>
+  </div>
+
+  <!-- Plan actif -->
+  <div class="plan-actif-banner" id="planActifBanner">
+    <div class="pab-left">⚡ Plan actif : <span id="bannerPlanNom">—</span></div>
+    <div><span class="pab-right"><span id="bannerJours">—</span> jours restants</span>
+    <button class="pab-btn" onclick="location.href='tache.html'">Tâche du jour →</button></div>
+  </div>
+
+  <!-- Solde -->
   <div class="balance-row">
     <div class="balance-card">
-      <div class="bc-label">Solde</div>
-      <div class="bc-amount">$ 0.00</div>
+      <div class="bc-label">Solde disponible</div>
+      <div class="bc-amount" id="soldeAffiche"><span class="skeleton"></span></div>
     </div>
-    <div class="balance-card">
+    <div class="balance-card" style="border-top-color:#ffa000;">
       <div class="bc-label">Revenus cumulés</div>
-      <div class="bc-amount">$ 0.00</div>
-    </div>
-  </div>
-
-  <!-- MENU INFORMATIONS -->
-  <div class="menu-section">
-    <div class="menu-title">Informations</div>
-    <div class="menu-grid">
-      <a href="about.html" class="menu-btn"><div class="mi">ℹ️</div>À propos</a>
-      <a href="reglement.html" class="menu-btn"><div class="mi">📜</div>Règlement</a>
-      <a href="historique.html" class="menu-btn"><div class="mi">🕐</div>Historique</a>
-      <a href="support.html" class="menu-btn"><div class="mi">💬</div>Support</a>
+      <div class="bc-amount" id="revenusAffiche"><span class="skeleton"></span></div>
     </div>
   </div>
 
@@ -132,72 +122,92 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
   <div class="menu-section">
     <div class="menu-title">Services</div>
     <div class="menu-grid">
+      <a href="produits.html" class="menu-btn"><div class="mi">📈</div>Investir</a>
+      <a href="parrainage.html" class="menu-btn"><div class="mi">🤝</div>Parrainage</a>
+      <a href="offres.html" class="menu-btn"><div class="mi">🎁</div>Offres</a>
+      <a href="contrats.html" class="menu-btn"><div class="mi">📋</div>Contrats</a>
+    </div>
+  </div>
+
+  <!-- MENU COMPTE -->
+  <div class="menu-section">
+    <div class="menu-title">Mon compte</div>
+    <div class="menu-grid">
+      <a href="historique.html" class="menu-btn"><div class="mi">🕐</div>Historique</a>
       <a href="retrait.html" class="menu-btn"><div class="mi">💸</div>Retrait</a>
       <a href="banque.html" class="menu-btn"><div class="mi">🏦</div>Banque</a>
+      <a href="support.html" class="menu-btn"><div class="mi">💬</div>Support</a>
+      <a href="about.html" class="menu-btn"><div class="mi">ℹ️</div>À propos</a>
+      <a href="reglement.html" class="menu-btn"><div class="mi">📜</div>Règlement</a>
       <a href="securite.html" class="menu-btn"><div class="mi">🔑</div>Sécurité</a>
-      <a href="offres.html" class="menu-btn"><div class="mi">🎁</div>Offres</a>
-      <a href="parrainage.html" class="menu-btn"><div class="mi">🤝</div>Parrainage</a>
-      <a href="contrats.html" class="menu-btn"><div class="mi">📋</div>Contrats</a>
-      <a href="equipes.html" class="menu-btn"><div class="mi">👥</div>Équipes</a>
       <a href="parametres.html" class="menu-btn"><div class="mi">⚙️</div>Paramètres</a>
     </div>
   </div>
 
-  <!-- DÉCONNEXION -->
   <div class="logout-wrap">
     <button class="btn-logout" onclick="logout()">🚪 Déconnexion</button>
   </div>
 </div>
 
-<!-- NAV BAS -->
 <nav class="bottom-nav">
-  <a href="dashboard.html" class="nav-item active">
-    <span class="ni">🏠</span>Accueil
-    <div class="nav-dot"></div>
-  </a>
+  <a href="dashboard.html" class="nav-item active"><span class="ni">🏠</span>Accueil<div class="nav-dot"></div></a>
   <a href="produits.html" class="nav-item"><span class="ni">💲</span>Produit</a>
-  <a href="equipes.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
+  <a href="parrainage.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
   <a href="compte.html" class="nav-item"><span class="ni">👤</span>Mon compte</a>
 </nav>
 
+<script src="api.js"></script>
 <script>
-const token=localStorage.getItem("velero_token");
-const email=localStorage.getItem("velero_email");
-if(!token){window.location.href="index.html";}
-if(email){
-  const n=email.split("@")[0];
-  document.getElementById("uname").textContent=n.charAt(0).toUpperCase()+n.slice(1);
-  document.getElementById("av").textContent=n[0].toUpperCase();
+if(!VE.checkAuth())window.location.href="index.html";
+
+async function init(){
+  const prof=await VE.getProfile();
+  if(!prof)return;
+
+  // Afficher infos profil
+  const name=prof.full_name||prof.email.split("@")[0];
+  document.getElementById("uname").textContent=name.charAt(0).toUpperCase()+name.slice(1);
+  document.getElementById("av").textContent=name[0].toUpperCase();
+  document.getElementById("ulevel").textContent="LV"+prof.level;
+
+  // Solde et revenus depuis BD
+  document.getElementById("soldeAffiche").textContent=parseFloat(prof.solde).toLocaleString()+" FCFA";
+  document.getElementById("revenusAffiche").textContent=parseFloat(prof.revenus_cumules).toLocaleString()+" FCFA";
+
+  // Bonus bienvenue (première connexion)
+  if(!localStorage.getItem("bonus_shown_"+prof.id)){
+    document.getElementById("bonusBanner").style.display="flex";
+    localStorage.setItem("bonus_shown_"+prof.id,"1");
+    setTimeout(()=>document.getElementById("bonusBanner").style.display="none",5000);
+  }
+
+  // Plan actif
+  const invests=await VE.select("investissements","?user_id=eq."+prof.id+"&statut=eq.actif&order=created_at.desc&limit=1");
+  if(invests&&invests.length>0){
+    const inv=invests[0];
+    document.getElementById("planActifBanner").style.display="flex";
+    document.getElementById("bannerPlanNom").textContent=inv.plan_nom;
+    document.getElementById("bannerJours").textContent=inv.jours_restants;
+    localStorage.setItem("invest_id",inv.id);
+    localStorage.setItem("invest_produit",inv.plan_nom);
+    localStorage.setItem("invest_revenu",inv.revenu_jour);
+  }
 }
 
+// Slider
 let cur=0;
 const slides=document.getElementById("slides");
 const dots=document.querySelectorAll(".dot");
-function goTo(i){
-  cur=i;
-  slides.style.transform="translateX(-"+i*100+"%)";
-  dots.forEach((d,idx)=>d.classList.toggle("active",idx===i));
-}
+function goTo(i){cur=i;slides.style.transform="translateX(-"+i*100+"%)";dots.forEach((d,idx)=>d.classList.toggle("active",idx===i));}
 setInterval(()=>goTo((cur+1)%3),3500);
 
-function logout(){
-  localStorage.removeItem("velero_token");
-  localStorage.removeItem("velero_email");
+async function logout(){
+  await fetch(VE.SB_URL+"/auth/v1/logout",{method:"POST",headers:VE.getHeaders()});
+  localStorage.clear();
   window.location.href="index.html";
 }
+
+init();
 </script>
 </body>
 </html>
-<script>
-// Patch dashboard - bonus bienvenue 500 FCFA
-(function(){
-  if(!localStorage.getItem("velero_bonus_done")){
-    localStorage.setItem("velero_solde","500");
-    localStorage.setItem("velero_bonus_done","1");
-  }
-  const s=parseInt(localStorage.getItem("velero_solde")||"500");
-  const rev=parseInt(localStorage.getItem("velero_revenus")||"0");
-  document.querySelectorAll(".bc-amount")[0].textContent="$ "+s.toLocaleString();
-  document.querySelectorAll(".bc-amount")[1].textContent="$ "+rev.toLocaleString();
-})();
-</script>
