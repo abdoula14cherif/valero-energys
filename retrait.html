@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Retrait — Velero Energy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
+.wrap{width:100%;max-width:480px;padding-bottom:80px;}
+.topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+.back-btn{background:none;border:none;font-size:20px;cursor:pointer;color:#333;}
+.topbar-title{font-size:17px;font-weight:700;}
+
+.balance-banner{margin:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);border-radius:18px;padding:20px;color:#fff;text-align:center;}
+.bb-label{font-size:11px;font-weight:700;opacity:.8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
+.bb-amount{font-size:32px;font-weight:900;font-family:'Playfair Display',serif;}
+.bb-sub{font-size:11px;opacity:.7;margin-top:4px;}
+
+.form-card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 3px 14px rgba(0,0,0,.08);margin:0 14px 10px;}
+.form-title{font-size:15px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;}
+.field input{width:100%;padding:11px 13px;font-size:14px;font-family:inherit;border:1.5px solid #e0e0e0;border-radius:11px;outline:none;background:#fafafa;color:#1a1a1a;}
+.field input:focus{border-color:#00bcd4;box-shadow:0 0 0 3px rgba(0,188,212,.12);}
+.min-note{font-size:11px;color:#aaa;margin-top:4px;}
+
+.card-info{background:#e0f7fa;border:1px solid #b2ebf2;border-radius:12px;padding:13px 15px;display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.ci-icon{font-size:24px;}
+.ci-text{font-size:12px;font-weight:600;color:#00838f;}
+.ci-sub{font-size:11px;color:#4dd0e1;margin-top:2px;}
+.ci-change{margin-left:auto;font-size:11px;color:#00bcd4;font-weight:700;cursor:pointer;text-decoration:underline;}
+
+.no-card-warn{background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:14px 15px;display:flex;align-items:center;gap:12px;margin-bottom:14px;cursor:pointer;}
+.ncw-icon{font-size:24px;}
+.ncw-text{font-size:13px;font-weight:600;color:#f57f17;}
+.ncw-sub{font-size:11px;color:#ffa000;margin-top:2px;}
+
+.btn-retrait{width:100%;padding:13px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(0,188,212,.3);}
+
+.alert{padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:14px;display:none;}
+.alert.show{display:block;}
+.alert-error{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
+.alert-success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
+
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
+.nav-item.active{color:#00bcd4;}
+.nav-item .ni{font-size:21px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <button class="back-btn" onclick="history.back()">←</button>
+    <span class="topbar-title">💸 Retrait</span>
+  </div>
+
+  <!-- Solde -->
+  <div class="balance-banner">
+    <div class="bb-label">Solde disponible</div>
+    <div class="bb-amount">0 FCFA</div>
+    <div class="bb-sub">Minimum de retrait : 1 000 FCFA</div>
+  </div>
+
+  <div class="form-card">
+    <div class="form-title">💸 Effectuer un retrait</div>
+
+    <div id="alertBox" class="alert"></div>
+
+    <!-- Carte enregistrée ou avertissement -->
+    <div id="cardInfo" class="card-info" style="display:none;">
+      <span class="ci-icon">📱</span>
+      <div>
+        <div class="ci-text" id="cardInfoText">—</div>
+        <div class="ci-sub" id="cardInfoSub">—</div>
+      </div>
+      <span class="ci-change" onclick="location.href='banque.html'">Changer</span>
+    </div>
+
+    <div id="noCardWarn" class="no-card-warn" onclick="location.href='banque.html'">
+      <span class="ncw-icon">⚠️</span>
+      <div>
+        <div class="ncw-text">Aucun moyen de paiement</div>
+        <div class="ncw-sub">Appuyez pour ajouter un compte Mobile Money</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Montant à retirer (FCFA)</label>
+      <input type="number" id="montant" placeholder="Ex: 5000" min="1000"/>
+      <div class="min-note">⚡ Minimum : 1 000 FCFA</div>
+    </div>
+
+    <button class="btn-retrait" onclick="effectuerRetrait()">Confirmer le retrait</button>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html" class="nav-item"><span class="ni">🏠</span>Accueil</a>
+  <a href="produits.html" class="nav-item"><span class="ni">💲</span>Produit</a>
+  <a href="equipes.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
+  <a href="compte.html" class="nav-item active"><span class="ni">👤</span>Mon compte</a>
+</nav>
+
+<script>
+if(!localStorage.getItem("velero_token"))window.location.href="index.html";
+
+function loadCard(){
+  const c=localStorage.getItem("velero_card");
+  if(c){
+    const card=JSON.parse(c);
+    document.getElementById("cardInfo").style.display="flex";
+    document.getElementById("noCardWarn").style.display="none";
+    document.getElementById("cardInfoText").textContent=card.network+" — "+card.name;
+    document.getElementById("cardInfoSub").textContent=card.phone;
+  }
+}
+
+function showAlert(msg,type){
+  const el=document.getElementById("alertBox");
+  el.textContent=msg; el.className="alert alert-"+type+" show";
+}
+
+function effectuerRetrait(){
+  const card=localStorage.getItem("velero_card");
+  if(!card){
+    showAlert("⚠️ Vous devez d'abord enregistrer un moyen de paiement.","error");
+    setTimeout(()=>location.href="banque.html",2000);
+    return;
+  }
+  const montant=parseInt(document.getElementById("montant").value);
+  if(!montant||montant<1000){
+    showAlert("❌ Le montant minimum de retrait est 1 000 FCFA.","error");
+    return;
+  }
+  // Ici on connectera à Supabase plus tard
+  showAlert("✅ Demande de retrait de "+montant.toLocaleString()+" FCFA envoyée ! Traitement sous 24h.","success");
+}
+
+loadCard();
+</script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Banque — Velero Energy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
+.wrap{width:100%;max-width:480px;padding-bottom:80px;}
+.topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+.back-btn{background:none;border:none;font-size:20px;cursor:pointer;color:#333;}
+.topbar-title{font-size:17px;font-weight:700;}
+
+/* Carte enregistrée */
+.section{padding:14px 14px 6px;}
+.section-title{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.no-card{background:#fff;border-radius:16px;padding:24px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:6px;}
+.no-card-icon{font-size:40px;margin-bottom:10px;}
+.no-card p{font-size:13px;color:#aaa;}
+
+/* Formulaire */
+.form-card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 3px 14px rgba(0,0,0,.08);margin:8px 14px;}
+.form-title{font-size:16px;font-weight:700;margin-bottom:4px;}
+.form-sub{font-size:12px;color:#aaa;margin-bottom:18px;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;}
+.field input{width:100%;padding:11px 13px;font-size:14px;font-family:inherit;border:1.5px solid #e0e0e0;border-radius:11px;outline:none;background:#fafafa;color:#1a1a1a;}
+.field input:focus{border-color:#00bcd4;box-shadow:0 0 0 3px rgba(0,188,212,.12);}
+.field select{width:100%;padding:11px 13px;font-size:14px;font-family:inherit;border:1.5px solid #e0e0e0;border-radius:11px;outline:none;background:#fafafa;color:#1a1a1a;cursor:pointer;}
+.field select:focus{border-color:#00bcd4;}
+.network-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px;}
+.net-btn{padding:10px 4px;border:1.5px solid #e0e0e0;border-radius:11px;background:#fafafa;cursor:pointer;text-align:center;font-size:11px;font-weight:700;color:#555;transition:all .2s;font-family:inherit;}
+.net-btn.selected{border-color:#00bcd4;background:#e0f7fa;color:#00bcd4;}
+.net-icon{font-size:20px;display:block;margin-bottom:3px;}
+.btn-save{width:100%;padding:13px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(0,188,212,.3);margin-top:6px;}
+.alert{padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:14px;display:none;}
+.alert.show{display:block;}
+.alert-error{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
+.alert-success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
+
+/* Carte sauvegardée */
+.saved-card{background:#fff;border-radius:16px;padding:16px 18px;box-shadow:0 3px 12px rgba(0,0,0,.08);margin:0 14px 10px;border-left:4px solid #00bcd4;display:none;}
+.saved-card.show{display:flex;justify-content:space-between;align-items:center;}
+.sc-info{font-size:13px;font-weight:600;}
+.sc-sub{font-size:11px;color:#aaa;margin-top:2px;}
+.sc-del{background:none;border:none;color:#e53935;font-size:18px;cursor:pointer;}
+
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
+.nav-item.active{color:#00bcd4;}
+.nav-item .ni{font-size:21px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <button class="back-btn" onclick="history.back()">←</button>
+    <span class="topbar-title">🏦 Moyen de Paiement</span>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Compte enregistré</div>
+    <div class="saved-card" id="savedCard">
+      <div>
+        <div class="sc-info" id="savedInfo">—</div>
+        <div class="sc-sub" id="savedSub">—</div>
+      </div>
+      <button class="sc-del" onclick="deleteCard()">🗑️</button>
+    </div>
+    <div class="no-card" id="noCard">
+      <div class="no-card-icon">💳</div>
+      <p>Aucun moyen de paiement enregistré</p>
+    </div>
+  </div>
+
+  <div class="form-card">
+    <div class="form-title">Ajouter un compte Mobile Money</div>
+    <div class="form-sub">Choisissez votre pays et votre opérateur</div>
+
+    <div id="alertBox" class="alert"></div>
+
+    <div class="field">
+      <label>Pays</label>
+      <select id="pays" onchange="updateNetworks()">
+        <option value="">-- Sélectionnez votre pays --</option>
+        <option value="BJ">🇧🇯 Bénin</option>
+        <option value="BF">🇧🇫 Burkina Faso</option>
+        <option value="CM">🇨🇲 Cameroun</option>
+        <option value="CI">🇨🇮 Côte d'Ivoire</option>
+        <option value="GA">🇬🇦 Gabon</option>
+        <option value="ML">🇲🇱 Mali</option>
+        <option value="NE">🇳🇪 Niger</option>
+        <option value="NG">🇳🇬 Nigeria</option>
+        <option value="CD">🇨🇩 RDC</option>
+        <option value="SN">🇸🇳 Sénégal</option>
+        <option value="TG">🇹🇬 Togo</option>
+      </select>
+    </div>
+
+    <div class="field" id="networkField" style="display:none;">
+      <label>Opérateur Mobile Money</label>
+      <div class="network-grid" id="networkGrid"></div>
+    </div>
+
+    <div class="field" id="nameField" style="display:none;">
+      <label>Nom du titulaire</label>
+      <input type="text" id="holderName" placeholder="Nom complet"/>
+    </div>
+
+    <div class="field" id="phoneField" style="display:none;">
+      <label>Numéro Mobile Money</label>
+      <input type="tel" id="mmPhone" placeholder="Ex: 07 00 00 00 00"/>
+    </div>
+
+    <button class="btn-save" id="saveBtn" style="display:none;" onclick="saveCard()">💾 Enregistrer ce compte</button>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html" class="nav-item"><span class="ni">🏠</span>Accueil</a>
+  <a href="produits.html" class="nav-item"><span class="ni">💲</span>Produit</a>
+  <a href="equipes.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
+  <a href="compte.html" class="nav-item active"><span class="ni">👤</span>Mon compte</a>
+</nav>
+
+<script>
+if(!localStorage.getItem("velero_token"))window.location.href="index.html";
+
+const NETWORKS={
+  BJ:[{id:"mtn",icon:"🟡",name:"MTN MoMo"},{id:"moov",icon:"🔵",name:"Moov Money"}],
+  BF:[{id:"orange",icon:"🟠",name:"Orange Money"},{id:"moov",icon:"🔵",name:"Moov Money"}],
+  CM:[{id:"mtn",icon:"🟡",name:"MTN MoMo"},{id:"orange",icon:"🟠",name:"Orange Money"}],
+  CI:[{id:"orange",icon:"🟠",name:"Orange Money"},{id:"mtn",icon:"🟡",name:"MTN MoMo"},{id:"wave",icon:"🌊",name:"Wave"}],
+  GA:[{id:"airtel",icon:"🔴",name:"Airtel Money"},{id:"moov",icon:"🔵",name:"Moov Money"}],
+  ML:[{id:"orange",icon:"🟠",name:"Orange Money"},{id:"moov",icon:"🔵",name:"Moov Money"}],
+  NE:[{id:"airtel",icon:"🔴",name:"Airtel Money"},{id:"moov",icon:"🔵",name:"Moov Money"}],
+  NG:[{id:"opay",icon:"🟢",name:"OPay"},{id:"palmpay",icon:"💚",name:"PalmPay"}],
+  CD:[{id:"mpesa",icon:"🟢",name:"M-Pesa"},{id:"airtel",icon:"🔴",name:"Airtel Money"}],
+  SN:[{id:"wave",icon:"🌊",name:"Wave"},{id:"orange",icon:"🟠",name:"Orange Money"},{id:"free",icon:"🔵",name:"Free Money"}],
+  TG:[{id:"tmoney",icon:"🔴",name:"T-Money"},{id:"flooz",icon:"🟢",name:"Flooz"}]
+};
+
+let selectedNet=null;
+
+function updateNetworks(){
+  const pays=document.getElementById("pays").value;
+  if(!pays)return;
+  const nets=NETWORKS[pays]||[];
+  const grid=document.getElementById("networkGrid");
+  grid.innerHTML=nets.map(n=>`<button class="net-btn" onclick="selectNet('${n.id}','${n.name}')" id="net-${n.id}"><span class="net-icon">${n.icon}</span>${n.name}</button>`).join("");
+  document.getElementById("networkField").style.display="block";
+  document.getElementById("nameField").style.display="none";
+  document.getElementById("phoneField").style.display="none";
+  document.getElementById("saveBtn").style.display="none";
+  selectedNet=null;
+}
+
+function selectNet(id,name){
+  selectedNet=name;
+  document.querySelectorAll(".net-btn").forEach(b=>b.classList.remove("selected"));
+  document.getElementById("net-"+id).classList.add("selected");
+  document.getElementById("nameField").style.display="block";
+  document.getElementById("phoneField").style.display="block";
+  document.getElementById("saveBtn").style.display="block";
+}
+
+function showAlert(msg,type){
+  const el=document.getElementById("alertBox");
+  el.textContent=msg; el.className="alert alert-"+type+" show";
+}
+
+function saveCard(){
+  const pays=document.getElementById("pays").value;
+  const name=document.getElementById("holderName").value.trim();
+  const phone=document.getElementById("mmPhone").value.trim();
+  if(!pays||!selectedNet)return showAlert("Veuillez sélectionner un pays et un opérateur.","error");
+  if(!name)return showAlert("Veuillez entrer le nom du titulaire.","error");
+  if(!phone||phone.length<8)return showAlert("Numéro de téléphone invalide.","error");
+  const card={pays,network:selectedNet,name,phone};
+  localStorage.setItem("velero_card",JSON.stringify(card));
+  showAlert("✅ Compte enregistré avec succès !","success");
+  loadSavedCard();
+}
+
+function loadSavedCard(){
+  const c=localStorage.getItem("velero_card");
+  if(c){
+    const card=JSON.parse(c);
+    document.getElementById("savedInfo").textContent=card.network+" — "+card.name;
+    document.getElementById("savedSub").textContent=card.phone+" ("+card.pays+")";
+    document.getElementById("savedCard").classList.add("show");
+    document.getElementById("noCard").style.display="none";
+  }
+}
+
+function deleteCard(){
+  if(confirm("Supprimer ce moyen de paiement ?")){
+    localStorage.removeItem("velero_card");
+    document.getElementById("savedCard").classList.remove("show");
+    document.getElementById("noCard").style.display="block";
+  }
+}
+
+loadSavedCard();
+</script>
+</body>
+</html>
