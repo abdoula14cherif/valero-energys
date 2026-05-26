@@ -9,50 +9,64 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
 .wrap{width:100%;max-width:480px;padding-bottom:80px;}
-.topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
-.back-btn{background:none;border:none;font-size:20px;cursor:pointer;color:#333;}
-.topbar-title{font-size:17px;font-weight:700;color:#1a1a1a;}
-.page-sub{font-size:12px;color:#aaa;padding:14px 14px 6px;}
+.topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+.topbar-title{font-size:17px;font-weight:700;}
+.solde-pill{background:#e0f7fa;color:#00838f;font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;}
+
 .product-card{margin:8px 14px;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.08);position:relative;}
 .card-header{padding:16px 18px 12px;display:flex;align-items:center;justify-content:space-between;}
 .card-badge{font-size:22px;}
 .card-name{font-size:16px;font-weight:800;font-family:'Playfair Display',serif;}
-.card-tag{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px;}
-.card-body{padding:0 18px 16px;display:flex;flex-direction:column;gap:8px;}
+.card-tag{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;text-transform:uppercase;}
+.card-body{padding:0 18px 14px;display:flex;flex-direction:column;gap:7px;}
 .card-row{display:flex;justify-content:space-between;align-items:center;}
 .card-label{font-size:12px;color:#999;font-weight:600;}
-.card-value{font-size:14px;font-weight:700;color:#1a1a1a;}
-.card-value.highlight{color:#00bcd4;font-size:15px;}
-.card-divider{height:1px;background:#f5f5f5;margin:4px 0;}
-.btn-invest{width:calc(100% - 36px);margin:0 18px 16px;padding:13px;border:none;border-radius:12px;font-size:14px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;color:#fff;background:linear-gradient(135deg,#00bcd4,#0097a7);box-shadow:0 4px 14px rgba(0,188,212,.35);transition:opacity .2s;}
-.btn-invest:hover{opacity:.9;}
-.card-ribbon{position:absolute;top:14px;right:-8px;background:#00bcd4;color:#fff;font-size:9px;font-weight:700;padding:3px 14px 3px 10px;clip-path:polygon(0 0,100% 0,100% 100%,0 100%,6% 50%);}
+.card-value{font-size:14px;font-weight:700;}
+.card-value.teal{color:#00bcd4;font-size:15px;}
+.card-divider{height:1px;background:#f5f5f5;margin:3px 0;}
+.btn-invest{width:calc(100% - 36px);margin:0 18px 16px;padding:13px;border:none;border-radius:12px;font-size:14px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;color:#fff;background:linear-gradient(135deg,#00bcd4,#0097a7);box-shadow:0 4px 14px rgba(0,188,212,.3);}
+.card-ribbon{position:absolute;top:14px;right:0;background:#00bcd4;color:#fff;font-size:9px;font-weight:700;padding:3px 12px 3px 8px;border-radius:4px 0 0 4px;}
 
-/* Starter */
 .p-starter .card-header{background:linear-gradient(135deg,#e8f8f5,#d0f5ee);}
 .p-starter .card-tag{background:#e0faf4;color:#00a884;}
-/* Bronze */
 .p-bronze .card-header{background:linear-gradient(135deg,#fdf3e3,#fce8c8);}
 .p-bronze .card-tag{background:#fef0d8;color:#b8762a;}
-/* Silver */
 .p-silver .card-header{background:linear-gradient(135deg,#f0f0f5,#e2e2ee);}
 .p-silver .card-tag{background:#ebebf5;color:#6060a0;}
-/* Gold */
 .p-gold .card-header{background:linear-gradient(135deg,#fdf8e1,#faefc0);}
 .p-gold .card-tag{background:#fef8d8;color:#b89a00;}
-/* Premium */
 .p-premium .card-header{background:linear-gradient(135deg,#fdecea,#fad4d0);}
 .p-premium .card-tag{background:#fde8e6;color:#c0392b;}
-/* VIP */
 .p-vip .card-header{background:linear-gradient(135deg,#f3e5f5,#e1bee7);}
 .p-vip .card-tag{background:#f3e5f5;color:#7b1fa2;}
-/* Cold */
 .p-cold .card-header{background:linear-gradient(135deg,#e3f2fd,#bbdefb);}
 .p-cold .card-tag{background:#e1f5fe;color:#0277bd;}
 
-/* NAV */
+/* MODAL CONFIRMATION */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center;}
+.modal-bg.show{display:flex;}
+.modal{background:#fff;border-radius:24px 24px 0 0;padding:24px;width:100%;max-width:480px;}
+.modal-title{font-size:18px;font-weight:800;font-family:'Playfair Display',serif;margin-bottom:6px;}
+.modal-sub{font-size:13px;color:#888;margin-bottom:18px;}
+.modal-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f5f5f5;font-size:13px;}
+.modal-row:last-of-type{border-bottom:none;}
+.modal-label{color:#888;}
+.modal-value{font-weight:700;color:#1a1a1a;}
+.modal-value.teal{color:#00bcd4;}
+.modal-value.red{color:#e53935;}
+.modal-btns{display:flex;gap:10px;margin-top:18px;}
+.btn-cancel{flex:1;padding:13px;background:#f5f5f5;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;color:#666;}
+.btn-confirm{flex:2;padding:13px;background:linear-gradient(135deg,#00bcd4,#0097a7);border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;color:#fff;box-shadow:0 4px 14px rgba(0,188,212,.3);}
+.btn-confirm:disabled{opacity:.6;cursor:not-allowed;}
+.modal-alert{padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:12px;display:none;}
+.modal-alert.show{display:block;}
+.modal-alert.error{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
+.modal-alert.success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
+.solde-insuff{background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:12px 14px;font-size:13px;color:#f57f17;margin-bottom:12px;display:none;}
+.solde-insuff.show{display:block;}
+
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;}
 .nav-item.active{color:#00bcd4;}
 .nav-item .ni{font-size:21px;}
 .nav-dot{width:5px;height:5px;border-radius:50%;background:#00bcd4;margin:1px auto 0;}
@@ -61,127 +75,32 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
 <body>
 <div class="wrap">
   <div class="topbar">
-    <button class="back-btn" onclick="history.back()">←</button>
     <span class="topbar-title">📦 Produits d'Investissement</span>
-  </div>
-  <p class="page-sub">Choisissez un plan et commencez à générer des revenus dès aujourd'hui.</p>
-
-  <!-- STARTER -->
-  <div class="product-card p-starter">
-    <div class="card-header">
-      <div>
-        <div class="card-badge">🟢</div>
-        <div class="card-name">Starter</div>
-      </div>
-      <span class="card-tag">Débutant</span>
-    </div>
-    <div class="card-body">
-      <div class="card-row"><span class="card-label">💰 Investissement</span><span class="card-value">3 000 FCFA</span></div>
-      <div class="card-divider"></div>
-      <div class="card-row"><span class="card-label">📈 Revenus / jour</span><span class="card-value highlight">400 FCFA</span></div>
-      <div class="card-row"><span class="card-label">⏳ Durée</span><span class="card-value">100 jours</span></div>
-      <div class="card-row"><span class="card-label">💵 Total gagné</span><span class="card-value">40 000 FCFA</span></div>
-    </div>
-    <button class="btn-invest" onclick="investir('Starter',3000)">Investir maintenant</button>
+    <span class="solde-pill">Solde : <span id="soldePill">...</span> FCFA</span>
   </div>
 
-  <!-- BRONZE -->
-  <div class="product-card p-bronze">
-    <div class="card-header">
-      <div><div class="card-badge">🔵</div><div class="card-name">Bronze</div></div>
-      <span class="card-tag">Bronze</span>
-    </div>
-    <div class="card-body">
-      <div class="card-row"><span class="card-label">💰 Investissement</span><span class="card-value">6 000 FCFA</span></div>
-      <div class="card-divider"></div>
-      <div class="card-row"><span class="card-label">📈 Revenus / jour</span><span class="card-value highlight">900 FCFA</span></div>
-      <div class="card-row"><span class="card-label">⏳ Durée</span><span class="card-value">100 jours</span></div>
-      <div class="card-row"><span class="card-label">💵 Total gagné</span><span class="card-value">90 000 FCFA</span></div>
-    </div>
-    <button class="btn-invest" onclick="investir('Bronze',6000)">Investir maintenant</button>
-  </div>
+  <div id="plansList"></div>
+</div>
 
-  <!-- SILVER -->
-  <div class="product-card p-silver">
-    <div class="card-header">
-      <div><div class="card-badge">🟠</div><div class="card-name">Silver</div></div>
-      <span class="card-tag">Silver</span>
+<!-- MODAL CONFIRMATION -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <div class="modal-title" id="modalTitle">Confirmer l'achat</div>
+    <div class="modal-sub">Vérifiez les détails avant de valider</div>
+    <div class="modal-alert" id="modalAlert"></div>
+    <div class="solde-insuff" id="soldeInsuff">
+      ⚠️ Solde insuffisant ! <a href="recharge.html" style="color:#00bcd4;font-weight:700;">Recharger mon compte →</a>
     </div>
-    <div class="card-body">
-      <div class="card-row"><span class="card-label">💰 Investissement</span><span class="card-value">10 000 FCFA</span></div>
-      <div class="card-divider"></div>
-      <div class="card-row"><span class="card-label">📈 Revenus / jour</span><span class="card-value highlight">1 500 FCFA</span></div>
-      <div class="card-row"><span class="card-label">⏳ Durée</span><span class="card-value">100 jours</span></div>
-      <div class="card-row"><span class="card-label">💵 Total gagné</span><span class="card-value">150 000 FCFA</span></div>
+    <div class="modal-row"><span class="modal-label">Plan</span><span class="modal-value" id="mPlan">—</span></div>
+    <div class="modal-row"><span class="modal-label">Coût</span><span class="modal-value teal" id="mCout">—</span></div>
+    <div class="modal-row"><span class="modal-label">Votre solde actuel</span><span class="modal-value" id="mSolde">—</span></div>
+    <div class="modal-row"><span class="modal-label">Solde après achat</span><span class="modal-value" id="mApres">—</span></div>
+    <div class="modal-row"><span class="modal-label">Revenus / jour</span><span class="modal-value teal" id="mRevenu">—</span></div>
+    <div class="modal-row"><span class="modal-label">Durée</span><span class="modal-value" id="mDuree">100 jours</span></div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="fermerModal()">Annuler</button>
+      <button class="btn-confirm" id="btnConfirm" onclick="confirmerAchat()">✅ Valider et investir</button>
     </div>
-    <button class="btn-invest" onclick="investir('Silver',10000)">Investir maintenant</button>
-  </div>
-
-  <!-- GOLD -->
-  <div class="product-card p-gold">
-    <div class="card-ribbon">⭐ Populaire</div>
-    <div class="card-header">
-      <div><div class="card-badge">🟣</div><div class="card-name">Gold</div></div>
-      <span class="card-tag">Gold</span>
-    </div>
-    <div class="card-body">
-      <div class="card-row"><span class="card-label">💰 Investissement</span><span class="card-value">20 000 FCFA</span></div>
-      <div class="card-divider"></div>
-      <div class="card-row"><span class="card-label">📈 Revenus / jour</span><span class="card-value highlight">3 500 FCFA</span></div>
-      <div class="card-row"><span class="card-label">⏳ Durée</span><span class="card-value">100 jours</span></div>
-      <div class="card-row"><span class="card-label">💵 Total gagné</span><span class="card-value">350 000 FCFA</span></div>
-    </div>
-    <button class="btn-invest" onclick="investir('Gold',20000)">Investir maintenant</button>
-  </div>
-
-  <!-- PREMIUM -->
-  <div class="product-card p-premium">
-    <div class="card-header">
-      <div><div class="card-badge">🔴</div><div class="card-name">Premium</div></div>
-      <span class="card-tag">Premium</span>
-    </div>
-    <div class="card-body">
-      <div class="card-row"><span class="card-label">💰 Investissement</span><span class="card-value">50 000 FCFA</span></div>
-      <div class="card-divider"></div>
-      <div class="card-row"><span class="card-label">📈 Revenus / jour</span><span class="card-value highlight">10 000 FCFA</span></div>
-      <div class="card-row"><span class="card-label">⏳ Durée</span><span class="card-value">100 jours</span></div>
-      <div class="card-row"><span class="card-label">💵 Total gagné</span><span class="card-value">1 000 000 FCFA</span></div>
-    </div>
-    <button class="btn-invest" onclick="investir('Premium',50000)">Investir maintenant</button>
-  </div>
-
-  <!-- VIP -->
-  <div class="product-card p-vip">
-    <div class="card-ribbon">👑 VIP</div>
-    <div class="card-header">
-      <div><div class="card-badge">👑</div><div class="card-name">VIP</div></div>
-      <span class="card-tag">Exclusif</span>
-    </div>
-    <div class="card-body">
-      <div class="card-row"><span class="card-label">💰 Investissement</span><span class="card-value">100 000 FCFA</span></div>
-      <div class="card-divider"></div>
-      <div class="card-row"><span class="card-label">📈 Revenus / jour</span><span class="card-value highlight">20 000 FCFA</span></div>
-      <div class="card-row"><span class="card-label">⏳ Durée</span><span class="card-value">100 jours</span></div>
-      <div class="card-row"><span class="card-label">💵 Total gagné</span><span class="card-value">2 000 000 FCFA</span></div>
-    </div>
-    <button class="btn-invest" onclick="investir('VIP',100000)">Investir maintenant</button>
-  </div>
-
-  <!-- COLD -->
-  <div class="product-card p-cold">
-    <div class="card-ribbon">❄️ Cold</div>
-    <div class="card-header">
-      <div><div class="card-badge">❄️</div><div class="card-name">Cold</div></div>
-      <span class="card-tag">Institutionnel</span>
-    </div>
-    <div class="card-body">
-      <div class="card-row"><span class="card-label">💰 Investissement</span><span class="card-value">300 000 FCFA</span></div>
-      <div class="card-divider"></div>
-      <div class="card-row"><span class="card-label">📈 Revenus / jour</span><span class="card-value highlight">50 000 FCFA</span></div>
-      <div class="card-row"><span class="card-label">⏳ Durée</span><span class="card-value">100 jours</span></div>
-      <div class="card-row"><span class="card-label">💵 Total gagné</span><span class="card-value">5 000 000 FCFA</span></div>
-    </div>
-    <button class="btn-invest" onclick="investir('Cold',300000)">Investir maintenant</button>
   </div>
 </div>
 
@@ -193,12 +112,112 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
 </nav>
 
 <script>
-if(!localStorage.getItem("velero_token"))window.location.href="index.html";
-function investir(nom,montant){
-  localStorage.setItem("invest_produit",nom);
-  localStorage.setItem("invest_montant",montant);
-  window.location.href="recharge.html";
+const SB_URL="https://seegoklunovyuieorkvy.supabase.co";
+const SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
+const token=localStorage.getItem("velero_token");
+if(!token)window.location.href="index.html";
+
+const H={"Content-Type":"application/json","apikey":SB_KEY,"Authorization":"Bearer "+token};
+
+let soldeActuel=0, planChoisi=null, plans=[];
+
+// Charger profil + plans depuis BD
+async function init(){
+  // Profil
+  const rp=await fetch(SB_URL+"/rest/v1/profiles?select=solde,full_name&id=eq."+await getUserId(),{headers:H});
+  const prof=await rp.json();
+  if(prof[0]){
+    soldeActuel=parseFloat(prof[0].solde)||0;
+    document.getElementById("soldePill").textContent=soldeActuel.toLocaleString();
+  }
+  // Plans
+  const rpl=await fetch(SB_URL+"/rest/v1/plans?select=*&actif=eq.true&order=investissement.asc",{headers:H});
+  plans=await rpl.json();
+  renderPlans();
 }
+
+async function getUserId(){
+  const r=await fetch(SB_URL+"/auth/v1/user",{headers:H});
+  const d=await r.json();
+  return d.id;
+}
+
+const STYLES={
+  Starter:{cls:"p-starter",ribbon:null},
+  Bronze:{cls:"p-bronze",ribbon:null},
+  Silver:{cls:"p-silver",ribbon:null},
+  Gold:{cls:"p-gold",ribbon:"⭐ Populaire"},
+  Premium:{cls:"p-premium",ribbon:null},
+  VIP:{cls:"p-vip",ribbon:"👑 VIP"},
+  Cold:{cls:"p-cold",ribbon:"❄️ Institutionnel"}
+};
+
+function renderPlans(){
+  const container=document.getElementById("plansList");
+  container.innerHTML=plans.map(p=>{
+    const st=STYLES[p.nom]||{cls:"p-starter",ribbon:null};
+    return `<div class="product-card ${st.cls}">
+      ${st.ribbon?`<div class="card-ribbon">${st.ribbon}</div>`:""}
+      <div class="card-header">
+        <div><div class="card-badge">${p.badge}</div><div class="card-name">${p.nom}</div></div>
+        <span class="card-tag">${p.tag}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-row"><span class="card-label">💰 Investissement</span><span class="card-value">${parseInt(p.investissement).toLocaleString()} FCFA</span></div>
+        <div class="card-divider"></div>
+        <div class="card-row"><span class="card-label">📈 Revenus / jour</span><span class="card-value teal">${parseInt(p.revenu_jour).toLocaleString()} FCFA</span></div>
+        <div class="card-row"><span class="card-label">⏳ Durée</span><span class="card-value">${p.duree_jours} jours</span></div>
+        <div class="card-row"><span class="card-label">💵 Total gagné</span><span class="card-value">${parseInt(p.total_gain).toLocaleString()} FCFA</span></div>
+      </div>
+      <button class="btn-invest" onclick='ouvrirModal(${JSON.stringify(p)})'>Investir maintenant</button>
+    </div>`;
+  }).join("");
+}
+
+function ouvrirModal(plan){
+  planChoisi=plan;
+  const apres=soldeActuel-plan.investissement;
+  const suffisant=soldeActuel>=plan.investissement;
+  document.getElementById("modalTitle").textContent=plan.badge+" Plan "+plan.nom;
+  document.getElementById("mPlan").textContent="Plan "+plan.nom;
+  document.getElementById("mCout").textContent=parseInt(plan.investissement).toLocaleString()+" FCFA";
+  document.getElementById("mSolde").textContent=soldeActuel.toLocaleString()+" FCFA";
+  document.getElementById("mApres").textContent=(suffisant?apres.toLocaleString():"—")+" FCFA";
+  document.getElementById("mApres").className="modal-value "+(suffisant?"teal":"red");
+  document.getElementById("mRevenu").textContent=parseInt(plan.revenu_jour).toLocaleString()+" FCFA / jour";
+  document.getElementById("soldeInsuff").className="solde-insuff"+(suffisant?"":" show");
+  document.getElementById("btnConfirm").disabled=!suffisant;
+  document.getElementById("modalAlert").className="modal-alert";
+  document.getElementById("modalBg").classList.add("show");
+}
+
+function fermerModal(){document.getElementById("modalBg").classList.remove("show");}
+
+async function confirmerAchat(){
+  const btn=document.getElementById("btnConfirm");
+  btn.disabled=true; btn.textContent="⏳ Traitement...";
+  const uid=await getUserId();
+  const r=await fetch(SB_URL+"/rest/v1/rpc/acheter_plan",{
+    method:"POST",headers:H,
+    body:JSON.stringify({p_user_id:uid,p_plan_nom:planChoisi.nom})
+  });
+  const d=await r.json();
+  const al=document.getElementById("modalAlert");
+  if(d.success){
+    al.textContent="✅ Plan "+planChoisi.nom+" activé ! Redirection...";
+    al.className="modal-alert success show";
+    localStorage.setItem("invest_id",d.invest_id);
+    localStorage.setItem("invest_produit",planChoisi.nom);
+    localStorage.setItem("invest_revenu",planChoisi.revenu_jour);
+    setTimeout(()=>{fermerModal();window.location.href="tache.html";},1500);
+  }else{
+    al.textContent="❌ "+d.error;
+    al.className="modal-alert error show";
+    btn.disabled=false; btn.textContent="✅ Valider et investir";
+  }
+}
+
+init();
 </script>
 </body>
 </html>
