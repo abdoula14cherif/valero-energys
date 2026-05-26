@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Tâche du jour — Velero Energy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
+.wrap{width:100%;max-width:480px;padding-bottom:80px;}
+.topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+.back-btn{background:none;border:none;font-size:20px;cursor:pointer;}
+.topbar-title{font-size:17px;font-weight:700;}
+
+.status-bar{margin:14px;border-radius:18px;padding:18px 20px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;display:flex;justify-content:space-between;align-items:center;}
+.sb-left{}
+.sb-plan{font-size:12px;opacity:.8;margin-bottom:3px;}
+.sb-name{font-size:18px;font-weight:800;font-family:'Playfair Display',serif;}
+.sb-right{text-align:right;}
+.sb-jours-label{font-size:10px;opacity:.75;}
+.sb-jours{font-size:24px;font-weight:900;font-family:'Playfair Display',serif;}
+
+/* Tâche du jour */
+.day-card{margin:0 14px 12px;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.08);}
+.day-header{background:linear-gradient(135deg,#e0f7fa,#b2ebf2);padding:16px 18px;display:flex;justify-content:space-between;align-items:center;}
+.day-title{font-size:15px;font-weight:700;}
+.day-date{font-size:11px;color:#00838f;font-weight:600;}
+.day-body{padding:16px 18px;}
+
+.task-choice{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
+.tc-item{border:2px solid #e0e0e0;border-radius:14px;padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:14px;transition:all .2s;background:#fafafa;}
+.tc-item.selected{border-color:#00bcd4;background:#e0f7fa;}
+.tc-item:hover{border-color:#00bcd4;}
+.tc-emoji{font-size:28px;flex-shrink:0;}
+.tc-info{}
+.tc-name{font-size:14px;font-weight:700;color:#1a1a1a;}
+.tc-desc{font-size:11px;color:#aaa;margin-top:2px;}
+.tc-check{margin-left:auto;width:22px;height:22px;border-radius:50%;border:2px solid #ddd;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+.tc-item.selected .tc-check{background:#00bcd4;border-color:#00bcd4;color:#fff;}
+
+.gain-preview{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.gp-label{font-size:13px;font-weight:600;color:#555;}
+.gp-value{font-size:20px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
+
+.btn-valider{width:100%;padding:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:800;border:none;border-radius:13px;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(0,188,212,.3);}
+.btn-valider:disabled{opacity:.5;cursor:not-allowed;}
+
+/* Tâche déjà faite */
+.done-card{margin:0 14px 12px;background:#fff;border-radius:18px;padding:24px;box-shadow:0 3px 14px rgba(0,0,0,.08);text-align:center;display:none;}
+.done-icon{font-size:56px;margin-bottom:12px;}
+.done-title{font-size:20px;font-weight:800;color:#00bcd4;font-family:'Playfair Display',serif;margin-bottom:6px;}
+.done-sub{font-size:13px;color:#aaa;margin-bottom:16px;}
+.done-gain{font-size:28px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;margin-bottom:4px;}
+.done-gain-label{font-size:12px;color:#aaa;}
+.next-task{margin-top:16px;background:#f0f7f9;border-radius:12px;padding:12px;font-size:12px;color:#607d8b;}
+
+.alert{padding:10px 13px;border-radius:10px;font-size:13px;margin:0 14px 12px;display:none;}
+.alert.show{display:block;}
+.alert-error{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
+.alert-success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
+
+/* Historique tâches */
+.hist-section{margin:0 14px 12px;}
+.hist-title{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.hist-item{background:#fff;border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.hi-left{display:flex;align-items:center;gap:10px;}
+.hi-emoji{font-size:20px;}
+.hi-info{}
+.hi-date{font-size:12px;font-weight:600;color:#333;}
+.hi-type{font-size:11px;color:#aaa;margin-top:1px;}
+.hi-gain{font-size:14px;font-weight:800;color:#00bcd4;}
+
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
+.nav-item.active{color:#00bcd4;}
+.nav-item .ni{font-size:21px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <button class="back-btn" onclick="history.back()">←</button>
+    <span class="topbar-title">⛽ Tâche du Jour</span>
+  </div>
+
+  <!-- Status plan -->
+  <div class="status-bar" id="statusBar">
+    <div class="sb-left">
+      <div class="sb-plan">Plan actif</div>
+      <div class="sb-name" id="sbName">Starter</div>
+    </div>
+    <div class="sb-right">
+      <div class="sb-jours-label">Jours restants</div>
+      <div class="sb-jours" id="sbJours">100</div>
+    </div>
+  </div>
+
+  <div id="alertBox" class="alert"></div>
+
+  <!-- Tâche du jour -->
+  <div class="day-card" id="dayCard">
+    <div class="day-header">
+      <div class="day-title">⛽ Tâche du jour</div>
+      <div class="day-date" id="dayDate">—</div>
+    </div>
+    <div class="day-body">
+      <p style="font-size:13px;color:#666;margin-bottom:14px;">Choisissez le type de véhicule que vous allez ravitailler à la station <strong>Velero Energy</strong> :</p>
+
+      <div class="task-choice">
+        <div class="tc-item" onclick="selectTask(this,'🚗','Ravitailler une voiture')" id="t1">
+          <span class="tc-emoji">🚗</span>
+          <div class="tc-info">
+            <div class="tc-name">Voiture</div>
+            <div class="tc-desc">Mettre du carburant dans une voiture</div>
+          </div>
+          <div class="tc-check"></div>
+        </div>
+        <div class="tc-item" onclick="selectTask(this,'🏍️','Ravitailler une moto')" id="t2">
+          <span class="tc-emoji">🏍️</span>
+          <div class="tc-info">
+            <div class="tc-name">Moto / Tricycle</div>
+            <div class="tc-desc">Mettre du carburant dans une moto ou tricycle</div>
+          </div>
+          <div class="tc-check"></div>
+        </div>
+        <div class="tc-item" onclick="selectTask(this,'🚛','Ravitailler un camion')" id="t3">
+          <span class="tc-emoji">🚛</span>
+          <div class="tc-info">
+            <div class="tc-name">Camion / Bus</div>
+            <div class="tc-desc">Mettre du carburant dans un camion ou bus</div>
+          </div>
+          <div class="tc-check"></div>
+        </div>
+        <div class="tc-item" onclick="selectTask(this,'🛺','Ravitailler un taxi')" id="t4">
+          <span class="tc-emoji">🛺</span>
+          <div class="tc-info">
+            <div class="tc-name">Taxi / Mototaxi</div>
+            <div class="tc-desc">Mettre du carburant dans un taxi ou mototaxi</div>
+          </div>
+          <div class="tc-check"></div>
+        </div>
+      </div>
+
+      <div class="gain-preview">
+        <span class="gp-label">💰 Gain après validation</span>
+        <span class="gp-value" id="gainPreview">0 FCFA</span>
+      </div>
+
+      <button class="btn-valider" id="btnValider" onclick="validerTache()" disabled>
+        ✅ Valider ma tâche du jour
+      </button>
+    </div>
+  </div>
+
+  <!-- Tâche déjà faite -->
+  <div class="done-card" id="doneCard">
+    <div class="done-icon">🎉</div>
+    <div class="done-title">Tâche accomplie !</div>
+    <div class="done-sub">Vous avez déjà effectué votre tâche aujourd'hui. Revenez demain !</div>
+    <div class="done-gain" id="doneGain">+400 FCFA</div>
+    <div class="done-gain-label">Crédités aujourd'hui</div>
+    <div class="next-task">⏰ Prochaine tâche disponible demain à 00h00</div>
+  </div>
+
+  <!-- Historique -->
+  <div class="hist-section" id="histSection" style="display:none;">
+    <div class="hist-title">Historique des tâches</div>
+    <div id="histList"></div>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html" class="nav-item"><span class="ni">🏠</span>Accueil</a>
+  <a href="produits.html" class="nav-item active"><span class="ni">💲</span>Produit</a>
+  <a href="equipes.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
+  <a href="compte.html" class="nav-item"><span class="ni">👤</span>Mon compte</a>
+</nav>
+
+<script>
+if(!localStorage.getItem("velero_token"))window.location.href="index.html";
+
+const activePlan=JSON.parse(localStorage.getItem("velero_active_plan")||"null");
+if(!activePlan){location.href="produits.html";}
+
+const today=new Date().toDateString();
+document.getElementById("dayDate").textContent=new Date().toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});
+document.getElementById("sbName").textContent="Plan "+activePlan.nom;
+document.getElementById("sbJours").textContent=activePlan.joursRestants;
+document.getElementById("gainPreview").textContent=activePlan.revenu.toLocaleString()+" FCFA";
+
+// Tâche déjà faite aujourd'hui ?
+const lastTask=localStorage.getItem("velero_last_task");
+if(lastTask===today){
+  document.getElementById("dayCard").style.display="none";
+  document.getElementById("doneCard").style.display="block";
+  document.getElementById("doneGain").textContent="+"+activePlan.revenu.toLocaleString()+" FCFA";
+}
+
+// Historique
+const hist=JSON.parse(localStorage.getItem("velero_task_hist")||"[]");
+if(hist.length>0){
+  document.getElementById("histSection").style.display="block";
+  document.getElementById("histList").innerHTML=hist.slice().reverse().map(h=>
+    `<div class="hist-item">
+      <div class="hi-left"><span class="hi-emoji">${h.emoji}</span>
+      <div class="hi-info"><div class="hi-date">${h.date}</div><div class="hi-type">${h.type}</div></div></div>
+      <span class="hi-gain">+${h.gain.toLocaleString()} FCFA</span>
+    </div>`
+  ).join("");
+}
+
+let selectedEmoji="",selectedType="";
+function selectTask(el,emoji,type){
+  document.querySelectorAll(".tc-item").forEach(i=>{i.classList.remove("selected");i.querySelector(".tc-check").textContent="";});
+  el.classList.add("selected");
+  el.querySelector(".tc-check").textContent="✓";
+  selectedEmoji=emoji; selectedType=type;
+  document.getElementById("btnValider").disabled=false;
+}
+
+function showAlert(msg,type){
+  const el=document.getElementById("alertBox");
+  el.textContent=msg; el.className="alert alert-"+type+" show";
+}
+
+function validerTache(){
+  if(!selectedType)return;
+  const btn=document.getElementById("btnValider");
+  btn.disabled=true; btn.textContent="⏳ Validation...";
+
+  setTimeout(()=>{
+    // Enregistrer tâche du jour
+    localStorage.setItem("velero_last_task",today);
+
+    // Historique
+    const hist=JSON.parse(localStorage.getItem("velero_task_hist")||"[]");
+    hist.push({date:new Date().toLocaleDateString("fr-FR"),emoji:selectedEmoji,type:selectedType,gain:activePlan.revenu});
+    localStorage.setItem("velero_task_hist",JSON.stringify(hist));
+
+    // Décrémenter jours
+    activePlan.joursRestants=Math.max(0,activePlan.joursRestants-1);
+    activePlan.tacheAujourdhui=true;
+    localStorage.setItem("velero_active_plan",JSON.stringify(activePlan));
+
+    document.getElementById("dayCard").style.display="none";
+    document.getElementById("doneCard").style.display="block";
+    document.getElementById("doneGain").textContent="+"+activePlan.revenu.toLocaleString()+" FCFA";
+    showAlert("🎉 Tâche validée ! +"+activePlan.revenu.toLocaleString()+" FCFA crédités sur votre compte.","success");
+  },1800);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Investir — Velero Energy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
+.wrap{width:100%;max-width:480px;padding-bottom:80px;}
+.topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+.back-btn{background:none;border:none;font-size:20px;cursor:pointer;}
+.topbar-title{font-size:17px;font-weight:700;}
+
+/* Plan sélectionné */
+.plan-hero{margin:14px;border-radius:20px;padding:22px 20px;color:#fff;position:relative;overflow:hidden;}
+.plan-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.1);}
+.plan-hero::after{content:'';position:absolute;bottom:-20px;left:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.08);}
+.ph-badge{font-size:36px;margin-bottom:8px;}
+.ph-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;margin-bottom:4px;}
+.ph-tag{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;margin-bottom:16px;}
+.ph-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.ph-stat{background:rgba(255,255,255,.15);border-radius:12px;padding:12px;}
+.ph-stat-label{font-size:10px;opacity:.8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.ph-stat-value{font-size:16px;font-weight:800;font-family:'Playfair Display',serif;}
+.ph-total{margin-top:10px;background:rgba(255,255,255,.2);border-radius:12px;padding:12px;text-align:center;}
+.ph-total-label{font-size:11px;opacity:.8;margin-bottom:3px;}
+.ph-total-value{font-size:20px;font-weight:900;font-family:'Playfair Display',serif;}
+
+/* Tâche quotidienne */
+.task-card{margin:0 14px 12px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.08);}
+.task-title{font-size:15px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+.task-sub{font-size:12px;color:#aaa;margin-bottom:14px;}
+.task-list{display:flex;flex-direction:column;gap:8px;}
+.task-item{display:flex;align-items:center;gap:12px;background:#f8f9fa;border-radius:12px;padding:12px 14px;}
+.task-icon{font-size:24px;flex-shrink:0;}
+.task-info{flex:1;}
+.task-info-title{font-size:13px;font-weight:700;color:#1a1a1a;}
+.task-info-sub{font-size:11px;color:#aaa;margin-top:2px;}
+.task-gain{font-size:13px;font-weight:800;color:#00bcd4;}
+
+/* Paiement */
+.pay-card{margin:0 14px 12px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.08);}
+.pay-title{font-size:15px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.card-info{background:#e0f7fa;border:1px solid #b2ebf2;border-radius:12px;padding:13px 15px;display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.ci-icon{font-size:22px;}
+.ci-text{font-size:13px;font-weight:700;color:#00838f;}
+.ci-sub{font-size:11px;color:#4dd0e1;margin-top:1px;}
+.no-card-warn{background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:14px;display:flex;align-items:center;gap:12px;margin-bottom:14px;cursor:pointer;}
+.ncw-text{font-size:13px;font-weight:600;color:#f57f17;}
+.ncw-sub{font-size:11px;color:#ffa000;margin-top:2px;}
+.total-row{display:flex;justify-content:space-between;align-items:center;background:#f0fdf4;border-radius:12px;padding:14px 16px;margin-bottom:16px;}
+.tr-label{font-size:13px;font-weight:600;color:#555;}
+.tr-value{font-size:20px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
+.btn-pay{width:100%;padding:15px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:16px;font-weight:800;border:none;border-radius:14px;cursor:pointer;font-family:inherit;box-shadow:0 6px 20px rgba(0,188,212,.35);display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-pay:disabled{opacity:.6;cursor:not-allowed;}
+
+.alert{padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:14px;display:none;}
+.alert.show{display:block;}
+.alert-error{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
+.alert-success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
+
+/* Produit actif */
+.active-banner{margin:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);border-radius:18px;padding:22px;color:#fff;text-align:center;display:none;}
+.ab-icon{font-size:50px;margin-bottom:10px;}
+.ab-title{font-size:20px;font-weight:800;margin-bottom:6px;font-family:'Playfair Display',serif;}
+.ab-sub{font-size:13px;opacity:.85;margin-bottom:18px;}
+.ab-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
+.ab-stat{background:rgba(255,255,255,.2);border-radius:12px;padding:12px;}
+.ab-stat-label{font-size:10px;opacity:.75;margin-bottom:3px;}
+.ab-stat-value{font-size:15px;font-weight:800;}
+.btn-task{width:100%;padding:13px;background:#fff;color:#00bcd4;font-size:14px;font-weight:800;border:none;border-radius:12px;cursor:pointer;font-family:inherit;}
+
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
+.nav-item.active{color:#00bcd4;}
+.nav-item .ni{font-size:21px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <button class="back-btn" onclick="history.back()">←</button>
+    <span class="topbar-title">🚀 Commencer à Investir</span>
+  </div>
+
+  <!-- Plan hero -->
+  <div class="plan-hero" id="planHero">
+    <div class="ph-badge" id="phBadge">🟢</div>
+    <div class="ph-name" id="phName">Starter</div>
+    <div class="ph-tag" id="phTag">Débutant</div>
+    <div class="ph-stats">
+      <div class="ph-stat">
+        <div class="ph-stat-label">💰 Investissement</div>
+        <div class="ph-stat-value" id="phInvest">3 000 FCFA</div>
+      </div>
+      <div class="ph-stat">
+        <div class="ph-stat-label">📈 Revenus / jour</div>
+        <div class="ph-stat-value" id="phRevenu">400 FCFA</div>
+      </div>
+    </div>
+    <div class="ph-total">
+      <div class="ph-total-label">💵 Total sur 100 jours</div>
+      <div class="ph-total-value" id="phTotal">40 000 FCFA</div>
+    </div>
+  </div>
+
+  <!-- Tâche quotidienne -->
+  <div class="task-card">
+    <div class="task-title">⛽ Votre tâche quotidienne</div>
+    <div class="task-sub">Effectuez 1 tâche par jour pour recevoir vos gains</div>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="task-icon">🚗</div>
+        <div class="task-info">
+          <div class="task-info-title">Ravitailler une voiture</div>
+          <div class="task-info-sub">Mettre du carburant dans une voiture à la station Velero</div>
+        </div>
+        <div class="task-gain" id="tGain1">+400 FCFA</div>
+      </div>
+      <div class="task-item">
+        <div class="task-icon">🏍️</div>
+        <div class="task-info">
+          <div class="task-info-title">Ravitailler une moto</div>
+          <div class="task-info-sub">Mettre du carburant dans une moto à la station Velero</div>
+        </div>
+        <div class="task-gain" id="tGain2">+400 FCFA</div>
+      </div>
+      <div class="task-item">
+        <div class="task-icon">🚛</div>
+        <div class="task-info">
+          <div class="task-info-title">Ravitailler un camion</div>
+          <div class="task-info-sub">Mettre du carburant dans un camion/bus à la station Velero</div>
+        </div>
+        <div class="task-gain" id="tGain3">+400 FCFA</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section paiement -->
+  <div class="pay-card" id="paySection">
+    <div class="pay-title">💳 Activer ce plan</div>
+    <div id="alertBox" class="alert"></div>
+
+    <div id="cardInfo" class="card-info" style="display:none;">
+      <span class="ci-icon">📱</span>
+      <div>
+        <div class="ci-text" id="cardInfoText">—</div>
+        <div class="ci-sub" id="cardInfoSub">—</div>
+      </div>
+    </div>
+
+    <div id="noCardWarn" class="no-card-warn" onclick="location.href='banque.html'">
+      <span style="font-size:24px;">⚠️</span>
+      <div>
+        <div class="ncw-text">Aucun moyen de paiement</div>
+        <div class="ncw-sub">Appuyez pour ajouter un compte Mobile Money</div>
+      </div>
+    </div>
+
+    <div class="total-row">
+      <span class="tr-label">Montant à payer</span>
+      <span class="tr-value" id="totalPay">3 000 FCFA</span>
+    </div>
+
+    <button class="btn-pay" id="btnPay" onclick="activerPlan()">
+      ⚡ Payer et activer le plan
+    </button>
+  </div>
+
+  <!-- Produit actif (affiché après activation) -->
+  <div class="active-banner" id="activeBanner">
+    <div class="ab-icon">✅</div>
+    <div class="ab-title" id="abTitle">Plan Starter Actif !</div>
+    <div class="ab-sub">Votre plan est actif. Effectuez votre tâche quotidienne pour recevoir vos gains chaque jour.</div>
+    <div class="ab-stats">
+      <div class="ab-stat">
+        <div class="ab-stat-label">Jours restants</div>
+        <div class="ab-stat-value" id="abJours">100</div>
+      </div>
+      <div class="ab-stat">
+        <div class="ab-stat-label">Gains / jour</div>
+        <div class="ab-stat-value" id="abGain">400 FCFA</div>
+      </div>
+    </div>
+    <button class="btn-task" onclick="location.href='tache.html'">⛽ Faire ma tâche du jour</button>
+  </div>
+
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html" class="nav-item"><span class="ni">🏠</span>Accueil</a>
+  <a href="produits.html" class="nav-item active"><span class="ni">💲</span>Produit</a>
+  <a href="equipes.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
+  <a href="compte.html" class="nav-item"><span class="ni">👤</span>Mon compte</a>
+</nav>
+
+<script>
+if(!localStorage.getItem("velero_token"))window.location.href="index.html";
+
+const PLANS={
+  Starter:{badge:"🟢",tag:"Débutant",invest:3000,revenu:400,total:40000,color:"linear-gradient(135deg,#00bcd4,#0097a7)"},
+  Bronze:{badge:"🔵",tag:"Bronze",invest:6000,revenu:900,total:90000,color:"linear-gradient(135deg,#cd7f32,#a0522d)"},
+  Silver:{badge:"🟠",tag:"Silver",invest:10000,revenu:1500,total:150000,color:"linear-gradient(135deg,#78909c,#546e7a)"},
+  Gold:{badge:"🟣",tag:"Gold",invest:20000,revenu:3500,total:350000,color:"linear-gradient(135deg,#ffd700,#ffa000)"},
+  Premium:{badge:"🔴",tag:"Premium",invest:50000,revenu:10000,total:1000000,color:"linear-gradient(135deg,#e53935,#b71c1c)"},
+  VIP:{badge:"👑",tag:"Exclusif",invest:100000,revenu:20000,total:2000000,color:"linear-gradient(135deg,#9c27b0,#6a1b9a)"},
+  Cold:{badge:"❄️",tag:"Institutionnel",invest:300000,revenu:50000,total:5000000,color:"linear-gradient(135deg,#1565c0,#0d47a1)"}
+};
+
+const nom=localStorage.getItem("invest_produit")||"Starter";
+const plan=PLANS[nom]||PLANS.Starter;
+
+// Afficher le plan
+document.getElementById("planHero").style.background=plan.color;
+document.getElementById("phBadge").textContent=plan.badge;
+document.getElementById("phName").textContent="Produit "+nom;
+document.getElementById("phTag").textContent=plan.tag;
+document.getElementById("phInvest").textContent=plan.invest.toLocaleString()+" FCFA";
+document.getElementById("phRevenu").textContent=plan.revenu.toLocaleString()+" FCFA";
+document.getElementById("phTotal").textContent=plan.total.toLocaleString()+" FCFA";
+document.getElementById("totalPay").textContent=plan.invest.toLocaleString()+" FCFA";
+document.getElementById("tGain1").textContent="+"+plan.revenu.toLocaleString()+" FCFA";
+document.getElementById("tGain2").textContent="+"+plan.revenu.toLocaleString()+" FCFA";
+document.getElementById("tGain3").textContent="+"+plan.revenu.toLocaleString()+" FCFA";
+
+// Carte paiement
+const card=localStorage.getItem("velero_card");
+if(card){
+  const c=JSON.parse(card);
+  document.getElementById("cardInfo").style.display="flex";
+  document.getElementById("noCardWarn").style.display="none";
+  document.getElementById("cardInfoText").textContent=c.network+" — "+c.name;
+  document.getElementById("cardInfoSub").textContent=c.phone;
+}
+
+// Plan déjà actif ?
+const activePlan=JSON.parse(localStorage.getItem("velero_active_plan")||"null");
+if(activePlan&&activePlan.nom===nom){
+  document.getElementById("paySection").style.display="none";
+  document.getElementById("activeBanner").style.display="block";
+  document.getElementById("abTitle").textContent="Plan "+nom+" Actif ! ✅";
+  document.getElementById("abJours").textContent=activePlan.joursRestants;
+  document.getElementById("abGain").textContent=plan.revenu.toLocaleString()+" FCFA";
+}
+
+function showAlert(msg,type){
+  const el=document.getElementById("alertBox");
+  el.textContent=msg; el.className="alert alert-"+type+" show";
+}
+
+function activerPlan(){
+  if(!card){
+    showAlert("⚠️ Ajoutez un moyen de paiement d'abord.","error");
+    setTimeout(()=>location.href="banque.html",1800);
+    return;
+  }
+  const btn=document.getElementById("btnPay");
+  btn.disabled=true;
+  btn.textContent="⏳ Traitement...";
+
+  setTimeout(()=>{
+    // Enregistrer le plan actif
+    const planData={
+      nom,invest:plan.invest,revenu:plan.revenu,
+      joursRestants:100,
+      dateDebut:new Date().toISOString(),
+      tacheAujourdhui:false
+    };
+    localStorage.setItem("velero_active_plan",JSON.stringify(planData));
+    // Afficher banner actif
+    document.getElementById("paySection").style.display="none";
+    document.getElementById("activeBanner").style.display="block";
+    document.getElementById("abTitle").textContent="Plan "+nom+" Actif ! ✅";
+    document.getElementById("abJours").textContent="100";
+    document.getElementById("abGain").textContent=plan.revenu.toLocaleString()+" FCFA";
+  },2000);
+}
+</script>
+</body>
+</html>
