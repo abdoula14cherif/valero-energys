@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Parrainage — Velero Energy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
+.wrap{width:100%;max-width:480px;padding-bottom:80px;}
+.topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+.back-btn{background:none;border:none;font-size:20px;cursor:pointer;}
+.topbar-title{font-size:17px;font-weight:700;}
+
+/* Hero parrainage */
+.ref-hero{margin:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);border-radius:20px;padding:22px;color:#fff;text-align:center;}
+.rh-icon{font-size:44px;margin-bottom:8px;}
+.rh-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-bottom:4px;}
+.rh-sub{font-size:12px;opacity:.85;margin-bottom:18px;}
+.rh-code-label{font-size:11px;opacity:.75;margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px;}
+.rh-code-box{background:rgba(255,255,255,.2);border:2px dashed rgba(255,255,255,.5);border-radius:14px;padding:14px;font-size:24px;font-weight:900;letter-spacing:4px;font-family:'Playfair Display',serif;margin-bottom:14px;}
+.rh-btns{display:flex;gap:10px;}
+.btn-copy{flex:1;padding:11px;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.4);color:#fff;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn-share{flex:1;padding:11px;background:#fff;color:#00bcd4;border:none;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+
+/* Niveaux */
+.levels-card{margin:0 14px 12px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.08);}
+.lc-title{font-size:15px;font-weight:700;margin-bottom:14px;}
+.level-item{display:flex;align-items:center;gap:14px;padding:14px;border-radius:14px;margin-bottom:8px;}
+.level-item.l1{background:linear-gradient(135deg,#fff8e1,#fef3c7);}
+.level-item.l2{background:linear-gradient(135deg,#f3f4f6,#e5e7eb);}
+.level-item.l3{background:linear-gradient(135deg,#fff5f5,#fee2e2);}
+.li-medal{font-size:28px;flex-shrink:0;}
+.li-info{flex:1;}
+.li-name{font-size:14px;font-weight:700;}
+.li-desc{font-size:11px;color:#888;margin-top:2px;}
+.li-pct{font-size:22px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
+
+/* Stats équipe */
+.stats-card{margin:0 14px 12px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.08);}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.stat-box{background:#f5f0ee;border-radius:14px;padding:14px;text-align:center;}
+.stat-val{font-size:22px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
+.stat-label{font-size:10px;color:#888;font-weight:600;margin-top:3px;text-transform:uppercase;letter-spacing:.5px;}
+
+/* Lien parrainage */
+.link-card{margin:0 14px 12px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.08);}
+.link-title{font-size:14px;font-weight:700;margin-bottom:10px;}
+.link-box{display:flex;gap:8px;align-items:center;}
+.link-input{flex:1;padding:10px 12px;font-size:11px;border:1.5px solid #e0e0e0;border-radius:10px;background:#fafafa;color:#555;outline:none;font-family:'DM Sans',sans-serif;}
+.btn-link-copy{padding:10px 14px;background:#00bcd4;color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit;}
+
+/* Règles */
+.rules-card{margin:0 14px 12px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.08);}
+.rules-title{font-size:14px;font-weight:700;margin-bottom:12px;}
+.rule-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:12px;color:#555;}
+.rule-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
+.nav-item.active{color:#00bcd4;}
+.nav-item .ni{font-size:21px;}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:#00bcd4;margin:1px auto 0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <button class="back-btn" onclick="history.back()">←</button>
+    <span class="topbar-title">🤝 Programme de Parrainage</span>
+  </div>
+
+  <!-- Hero + Code -->
+  <div class="ref-hero">
+    <div class="rh-icon">🎁</div>
+    <div class="rh-title">Invitez & Gagnez</div>
+    <div class="rh-sub">Gagnez des commissions sur les investissements de vos filleuls</div>
+    <div class="rh-code-label">Votre code de parrainage</div>
+    <div class="rh-code-box" id="refCode">VELERO00</div>
+    <div class="rh-btns">
+      <button class="btn-copy" onclick="copyCode()">📋 Copier le code</button>
+      <button class="btn-share" onclick="shareLink()">🚀 Partager le lien</button>
+    </div>
+  </div>
+
+  <!-- Stats équipe -->
+  <div class="stats-card">
+    <div class="lc-title">👥 Mon équipe</div>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-val" id="statN1">0</div>
+        <div class="stat-label">Niveau 1</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val" id="statN2">0</div>
+        <div class="stat-label">Niveau 2</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val" id="statN3">0</div>
+        <div class="stat-label">Niveau 3</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Niveaux commissions -->
+  <div class="levels-card">
+    <div class="lc-title">💸 Commissions sur investissement</div>
+    <div class="level-item l1">
+      <div class="li-medal">🥇</div>
+      <div class="li-info">
+        <div class="li-name">Niveau 1 — Filleuls directs</div>
+        <div class="li-desc">Commission sur chaque investissement de vos filleuls directs</div>
+      </div>
+      <div class="li-pct">20%</div>
+    </div>
+    <div class="level-item l2">
+      <div class="li-medal">🥈</div>
+      <div class="li-info">
+        <div class="li-name">Niveau 2 — Filleuls indirects</div>
+        <div class="li-desc">Commission sur les investissements des filleuls de vos filleuls</div>
+      </div>
+      <div class="li-pct">2%</div>
+    </div>
+    <div class="level-item l3">
+      <div class="li-medal">🥉</div>
+      <div class="li-info">
+        <div class="li-name">Niveau 3 — Réseau étendu</div>
+        <div class="li-desc">Commission sur les investissements du 3ème niveau</div>
+      </div>
+      <div class="li-pct">1%</div>
+    </div>
+  </div>
+
+  <!-- Lien de parrainage -->
+  <div class="link-card">
+    <div class="link-title">🔗 Votre lien de parrainage</div>
+    <div class="link-box">
+      <input class="link-input" id="refLink" readonly/>
+      <button class="btn-link-copy" onclick="copyLink()">Copier</button>
+    </div>
+  </div>
+
+  <!-- Règles -->
+  <div class="rules-card">
+    <div class="rules-title">📋 Comment ça marche</div>
+    <div class="rule-row"><span class="rule-icon">1️⃣</span><span>Partagez votre code ou lien avec vos proches</span></div>
+    <div class="rule-row"><span class="rule-icon">2️⃣</span><span>Ils s'inscrivent avec votre code et reçoivent <strong>500 FCFA</strong> de bonus</span></div>
+    <div class="rule-row"><span class="rule-icon">3️⃣</span><span>Dès qu'ils investissent, vous recevez automatiquement votre commission</span></div>
+    <div class="rule-row"><span class="rule-icon">💰</span><span>Ex: Filleul achète plan Gold (20 000 FCFA) → vous recevez <strong>4 000 FCFA</strong> (20%)</span></div>
+    <div class="rule-row"><span class="rule-icon">🔥</span><span>Plus votre équipe grandit, plus vos revenus quotidiens augmentent !</span></div>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html" class="nav-item"><span class="ni">🏠</span>Accueil</a>
+  <a href="produits.html" class="nav-item"><span class="ni">💲</span>Produit</a>
+  <a href="equipes.html" class="nav-item active"><span class="ni">👥</span>Équipes<div class="nav-dot"></div></a>
+  <a href="compte.html" class="nav-item"><span class="ni">👤</span>Mon compte</a>
+</nav>
+
+<script>
+if(!localStorage.getItem("velero_token"))window.location.href="index.html";
+
+// Générer code unique basé sur email
+const email=localStorage.getItem("velero_email")||"";
+const code="VE"+email.substring(0,4).toUpperCase().replace(/[^A-Z0-9]/g,"X")+(Math.floor(1000+Math.random()*9000));
+const savedCode=localStorage.getItem("velero_ref_code")||code;
+localStorage.setItem("velero_ref_code",savedCode);
+
+document.getElementById("refCode").textContent=savedCode;
+const lien=window.location.origin+"/index.html?ref="+savedCode;
+document.getElementById("refLink").value=lien;
+
+// Stats (simulées pour l'instant)
+const equipe=JSON.parse(localStorage.getItem("velero_equipe")||'{"n1":0,"n2":0,"n3":0}');
+document.getElementById("statN1").textContent=equipe.n1;
+document.getElementById("statN2").textContent=equipe.n2;
+document.getElementById("statN3").textContent=equipe.n3;
+
+function copyCode(){
+  navigator.clipboard.writeText(savedCode).then(()=>alert("✅ Code copié : "+savedCode));
+}
+function copyLink(){
+  navigator.clipboard.writeText(lien).then(()=>alert("✅ Lien copié !"));
+}
+function shareLink(){
+  if(navigator.share){
+    navigator.share({title:"Velero Energy",text:"Rejoignez Velero Energy avec mon code "+savedCode+" et recevez 500 FCFA de bonus !",url:lien});
+  }else{
+    copyLink();
+  }
+}
+</script>
+</body>
+</html>

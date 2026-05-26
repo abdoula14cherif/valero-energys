@@ -188,3 +188,16 @@ function logout(){
 </script>
 </body>
 </html>
+<script>
+// Patch dashboard - bonus bienvenue 500 FCFA
+(function(){
+  if(!localStorage.getItem("velero_bonus_done")){
+    localStorage.setItem("velero_solde","500");
+    localStorage.setItem("velero_bonus_done","1");
+  }
+  const s=parseInt(localStorage.getItem("velero_solde")||"500");
+  const rev=parseInt(localStorage.getItem("velero_revenus")||"0");
+  document.querySelectorAll(".bc-amount")[0].textContent="$ "+s.toLocaleString();
+  document.querySelectorAll(".bc-amount")[1].textContent="$ "+rev.toLocaleString();
+})();
+</script>

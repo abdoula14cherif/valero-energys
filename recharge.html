@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Recharge — Velero Energy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
+.wrap{width:100%;max-width:480px;padding-bottom:80px;}
+.topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+.back-btn{background:none;border:none;font-size:20px;cursor:pointer;}
+.topbar-title{font-size:17px;font-weight:700;}
+
+.balance-banner{margin:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);border-radius:18px;padding:20px;color:#fff;text-align:center;}
+.bb-label{font-size:11px;opacity:.8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
+.bb-amount{font-size:32px;font-weight:900;font-family:'Playfair Display',serif;}
+.bb-min{font-size:11px;opacity:.7;margin-top:4px;}
+
+.info-rules{margin:0 14px 12px;background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.ir-title{font-size:13px;font-weight:700;margin-bottom:10px;color:#333;}
+.ir-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f5f5f5;font-size:12px;}
+.ir-row:last-child{border-bottom:none;}
+.ir-label{color:#888;}
+.ir-val{font-weight:700;color:#00bcd4;}
+
+.form-card{margin:0 14px 12px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.08);}
+.form-title{font-size:15px;font-weight:700;margin-bottom:14px;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;}
+.field input,.field select{width:100%;padding:11px 13px;font-size:14px;font-family:inherit;border:1.5px solid #e0e0e0;border-radius:11px;outline:none;background:#fafafa;color:#1a1a1a;}
+.field input:focus,.field select:focus{border-color:#00bcd4;box-shadow:0 0 0 3px rgba(0,188,212,.12);}
+.amounts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px;}
+.amt-btn{padding:10px;border:1.5px solid #e0e0e0;border-radius:10px;background:#fafafa;cursor:pointer;font-size:12px;font-weight:700;color:#555;text-align:center;font-family:inherit;transition:all .2s;}
+.amt-btn.selected,.amt-btn:hover{border-color:#00bcd4;background:#e0f7fa;color:#00bcd4;}
+
+.network-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px;}
+.net-btn{padding:10px 4px;border:1.5px solid #e0e0e0;border-radius:11px;background:#fafafa;cursor:pointer;text-align:center;font-size:11px;font-weight:700;color:#555;transition:all .2s;font-family:inherit;}
+.net-btn.selected{border-color:#00bcd4;background:#e0f7fa;color:#00bcd4;}
+.net-icon{font-size:20px;display:block;margin-bottom:3px;}
+
+.total-row{display:flex;justify-content:space-between;align-items:center;background:#e0f7fa;border-radius:12px;padding:14px 16px;margin-bottom:16px;}
+.tr-label{font-size:13px;font-weight:600;color:#555;}
+.tr-value{font-size:20px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
+
+.btn-pay{width:100%;padding:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:800;border:none;border-radius:13px;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(0,188,212,.3);}
+
+.alert{padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:14px;display:none;}
+.alert.show{display:block;}
+.alert-error{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
+.alert-success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
+
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
+.nav-item.active{color:#00bcd4;}
+.nav-item .ni{font-size:21px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <button class="back-btn" onclick="history.back()">←</button>
+    <span class="topbar-title">💳 Recharger mon compte</span>
+  </div>
+
+  <div class="balance-banner">
+    <div class="bb-label">Solde actuel</div>
+    <div class="bb-amount" id="soldeActuel">0 FCFA</div>
+    <div class="bb-min">Dépôt minimum : 3 000 FCFA</div>
+  </div>
+
+  <div class="info-rules">
+    <div class="ir-title">📋 Règles de dépôt</div>
+    <div class="ir-row"><span class="ir-label">Minimum</span><span class="ir-val">3 000 FCFA</span></div>
+    <div class="ir-row"><span class="ir-label">Traitement</span><span class="ir-val">⚡ Automatique</span></div>
+    <div class="ir-row"><span class="ir-label">Frais de dépôt</span><span class="ir-val">Gratuit</span></div>
+  </div>
+
+  <div class="form-card">
+    <div class="form-title">💰 Choisir le montant</div>
+    <div id="alertBox" class="alert"></div>
+
+    <div class="field">
+      <label>Montant rapide</label>
+      <div class="amounts-grid">
+        <button class="amt-btn" onclick="setAmt(3000,this)">3 000</button>
+        <button class="amt-btn" onclick="setAmt(5000,this)">5 000</button>
+        <button class="amt-btn" onclick="setAmt(10000,this)">10 000</button>
+        <button class="amt-btn" onclick="setAmt(20000,this)">20 000</button>
+        <button class="amt-btn" onclick="setAmt(50000,this)">50 000</button>
+        <button class="amt-btn" onclick="setAmt(100000,this)">100 000</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Ou saisir un montant (FCFA)</label>
+      <input type="number" id="montant" placeholder="Ex: 15000" min="3000" oninput="updateTotal()"/>
+    </div>
+
+    <div class="field">
+      <label>Pays</label>
+      <select id="pays" onchange="updateNetworks()">
+        <option value="">-- Sélectionnez votre pays --</option>
+        <option value="BJ">🇧🇯 Bénin</option>
+        <option value="BF">🇧🇫 Burkina Faso</option>
+        <option value="CM">🇨🇲 Cameroun</option>
+        <option value="CI">🇨🇮 Côte d'Ivoire</option>
+        <option value="GA">🇬🇦 Gabon</option>
+        <option value="ML">🇲🇱 Mali</option>
+        <option value="NE">🇳🇪 Niger</option>
+        <option value="NG">🇳🇬 Nigeria</option>
+        <option value="CD">🇨🇩 RDC</option>
+        <option value="SN">🇸🇳 Sénégal</option>
+        <option value="TG">🇹🇬 Togo</option>
+      </select>
+    </div>
+
+    <div class="field" id="networkField" style="display:none;">
+      <label>Opérateur Mobile Money</label>
+      <div class="network-grid" id="networkGrid"></div>
+    </div>
+
+    <div class="field" id="phoneField" style="display:none;">
+      <label>Numéro Mobile Money</label>
+      <input type="tel" id="mmPhone" placeholder="Ex: 07 00 00 00 00"/>
+    </div>
+
+    <div class="total-row">
+      <span class="tr-label">Total à payer</span>
+      <span class="tr-value" id="totalAffiche">0 FCFA</span>
+    </div>
+
+    <button class="btn-pay" onclick="effectuerDepot()">⚡ Confirmer le dépôt</button>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html" class="nav-item active"><span class="ni">🏠</span>Accueil</a>
+  <a href="produits.html" class="nav-item"><span class="ni">💲</span>Produit</a>
+  <a href="equipes.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
+  <a href="compte.html" class="nav-item"><span class="ni">👤</span>Mon compte</a>
+</nav>
+
+<script>
+if(!localStorage.getItem("velero_token"))window.location.href="index.html";
+
+const NETWORKS={
+  BJ:[{id:"mtn",icon:"🟡",name:"MTN MoMo"},{id:"moov",icon:"🔵",name:"Moov Money"}],
+  BF:[{id:"orange",icon:"🟠",name:"Orange Money"},{id:"moov",icon:"🔵",name:"Moov Money"}],
+  CM:[{id:"mtn",icon:"🟡",name:"MTN MoMo"},{id:"orange",icon:"🟠",name:"Orange Money"}],
+  CI:[{id:"orange",icon:"🟠",name:"Orange Money"},{id:"mtn",icon:"🟡",name:"MTN MoMo"},{id:"wave",icon:"🌊",name:"Wave"}],
+  GA:[{id:"airtel",icon:"🔴",name:"Airtel Money"},{id:"moov",icon:"🔵",name:"Moov Money"}],
+  ML:[{id:"orange",icon:"🟠",name:"Orange Money"},{id:"moov",icon:"🔵",name:"Moov Money"}],
+  NE:[{id:"airtel",icon:"🔴",name:"Airtel Money"},{id:"moov",icon:"🔵",name:"Moov Money"}],
+  NG:[{id:"opay",icon:"🟢",name:"OPay"},{id:"palmpay",icon:"💚",name:"PalmPay"}],
+  CD:[{id:"mpesa",icon:"🟢",name:"M-Pesa"},{id:"airtel",icon:"🔴",name:"Airtel Money"}],
+  SN:[{id:"wave",icon:"🌊",name:"Wave"},{id:"orange",icon:"🟠",name:"Orange Money"},{id:"free",icon:"🔵",name:"Free Money"}],
+  TG:[{id:"tmoney",icon:"🔴",name:"T-Money"},{id:"flooz",icon:"🟢",name:"Flooz"}]
+};
+
+let selectedNet=null,montantChoisi=0;
+const solde=parseInt(localStorage.getItem("velero_solde")||"500");
+document.getElementById("soldeActuel").textContent=solde.toLocaleString()+" FCFA";
+
+function setAmt(v,el){
+  montantChoisi=v;
+  document.getElementById("montant").value=v;
+  document.querySelectorAll(".amt-btn").forEach(b=>b.classList.remove("selected"));
+  el.classList.add("selected");
+  updateTotal();
+}
+function updateTotal(){
+  const v=parseInt(document.getElementById("montant").value)||0;
+  montantChoisi=v;
+  document.getElementById("totalAffiche").textContent=v.toLocaleString()+" FCFA";
+}
+function updateNetworks(){
+  const pays=document.getElementById("pays").value;
+  if(!pays)return;
+  const nets=NETWORKS[pays]||[];
+  const grid=document.getElementById("networkGrid");
+  grid.innerHTML=nets.map(n=>`<button class="net-btn" onclick="selectNet('${n.id}','${n.name}')" id="net-${n.id}"><span class="net-icon">${n.icon}</span>${n.name}</button>`).join("");
+  document.getElementById("networkField").style.display="block";
+  document.getElementById("phoneField").style.display="block";
+  selectedNet=null;
+}
+function selectNet(id,name){
+  selectedNet=name;
+  document.querySelectorAll(".net-btn").forEach(b=>b.classList.remove("selected"));
+  document.getElementById("net-"+id).classList.add("selected");
+}
+function showAlert(msg,type){
+  const el=document.getElementById("alertBox");
+  el.textContent=msg;el.className="alert alert-"+type+" show";
+}
+function effectuerDepot(){
+  if(montantChoisi<3000)return showAlert("❌ Minimum de dépôt : 3 000 FCFA","error");
+  if(!selectedNet)return showAlert("⚠️ Choisissez un opérateur Mobile Money","error");
+  const phone=document.getElementById("mmPhone").value.trim();
+  if(!phone||phone.length<8)return showAlert("⚠️ Entrez votre numéro Mobile Money","error");
+  showAlert("⏳ Traitement du dépôt...","success");
+  setTimeout(()=>{
+    const nouveau=solde+montantChoisi;
+    localStorage.setItem("velero_solde",nouveau);
+    // Historique
+    const hist=JSON.parse(localStorage.getItem("velero_hist")||"[]");
+    hist.push({type:"depot",montant:montantChoisi,reseau:selectedNet,date:new Date().toLocaleDateString("fr-FR"),icon:"💳"});
+    localStorage.setItem("velero_hist",JSON.stringify(hist));
+    showAlert("✅ "+montantChoisi.toLocaleString()+" FCFA crédités sur votre compte !","success");
+    document.getElementById("soldeActuel").textContent=nouveau.toLocaleString()+" FCFA";
+  },2000);
+}
+</script>
+</body>
+</html>
