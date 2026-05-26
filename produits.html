@@ -12,7 +12,7 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
 .topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
 .topbar-title{font-size:17px;font-weight:700;}
 .solde-pill{background:#e0f7fa;color:#00838f;font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;}
-
+.loading{text-align:center;padding:40px;color:#aaa;font-size:14px;}
 .product-card{margin:8px 14px;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.08);position:relative;}
 .card-header{padding:16px 18px 12px;display:flex;align-items:center;justify-content:space-between;}
 .card-badge{font-size:22px;}
@@ -23,10 +23,10 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
 .card-label{font-size:12px;color:#999;font-weight:600;}
 .card-value{font-size:14px;font-weight:700;}
 .card-value.teal{color:#00bcd4;font-size:15px;}
-.card-divider{height:1px;background:#f5f5f5;margin:3px 0;}
+.divider{height:1px;background:#f5f5f5;margin:3px 0;}
 .btn-invest{width:calc(100% - 36px);margin:0 18px 16px;padding:13px;border:none;border-radius:12px;font-size:14px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;color:#fff;background:linear-gradient(135deg,#00bcd4,#0097a7);box-shadow:0 4px 14px rgba(0,188,212,.3);}
+.btn-invest.actif{background:linear-gradient(135deg,#4caf50,#388e3c);}
 .card-ribbon{position:absolute;top:14px;right:0;background:#00bcd4;color:#fff;font-size:9px;font-weight:700;padding:3px 12px 3px 8px;border-radius:4px 0 0 4px;}
-
 .p-starter .card-header{background:linear-gradient(135deg,#e8f8f5,#d0f5ee);}
 .p-starter .card-tag{background:#e0faf4;color:#00a884;}
 .p-bronze .card-header{background:linear-gradient(135deg,#fdf3e3,#fce8c8);}
@@ -41,32 +41,32 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
 .p-vip .card-tag{background:#f3e5f5;color:#7b1fa2;}
 .p-cold .card-header{background:linear-gradient(135deg,#e3f2fd,#bbdefb);}
 .p-cold .card-tag{background:#e1f5fe;color:#0277bd;}
-
-/* MODAL CONFIRMATION */
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center;}
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;display:none;align-items:flex-end;justify-content:center;}
 .modal-bg.show{display:flex;}
-.modal{background:#fff;border-radius:24px 24px 0 0;padding:24px;width:100%;max-width:480px;}
-.modal-title{font-size:18px;font-weight:800;font-family:'Playfair Display',serif;margin-bottom:6px;}
+.modal{background:#fff;border-radius:24px 24px 0 0;padding:24px 20px;width:100%;max-width:480px;animation:slideUp .3s ease;}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-title{font-size:18px;font-weight:800;font-family:'Playfair Display',serif;margin-bottom:4px;}
 .modal-sub{font-size:13px;color:#888;margin-bottom:18px;}
-.modal-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f5f5f5;font-size:13px;}
-.modal-row:last-of-type{border-bottom:none;}
-.modal-label{color:#888;}
-.modal-value{font-weight:700;color:#1a1a1a;}
-.modal-value.teal{color:#00bcd4;}
-.modal-value.red{color:#e53935;}
+.mrow{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f5f5f5;font-size:13px;}
+.mrow:last-of-type{border-bottom:none;}
+.mlabel{color:#888;}
+.mval{font-weight:700;}
+.mval.teal{color:#00bcd4;}
+.mval.red{color:#e53935;}
+.mval.green{color:#15803d;}
 .modal-btns{display:flex;gap:10px;margin-top:18px;}
 .btn-cancel{flex:1;padding:13px;background:#f5f5f5;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;color:#666;}
-.btn-confirm{flex:2;padding:13px;background:linear-gradient(135deg,#00bcd4,#0097a7);border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;color:#fff;box-shadow:0 4px 14px rgba(0,188,212,.3);}
-.btn-confirm:disabled{opacity:.6;cursor:not-allowed;}
-.modal-alert{padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:12px;display:none;}
-.modal-alert.show{display:block;}
-.modal-alert.error{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
-.modal-alert.success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
-.solde-insuff{background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:12px 14px;font-size:13px;color:#f57f17;margin-bottom:12px;display:none;}
-.solde-insuff.show{display:block;}
-
+.btn-ok{flex:2;padding:13px;background:linear-gradient(135deg,#00bcd4,#0097a7);border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;color:#fff;}
+.btn-ok:disabled{opacity:.6;cursor:not-allowed;}
+.malert{padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:12px;display:none;}
+.malert.show{display:block;}
+.malert.err{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
+.malert.ok{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
+.insuff{background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:12px;font-size:13px;color:#f57f17;margin-bottom:12px;display:none;}
+.insuff.show{display:block;}
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
 .nav-item.active{color:#00bcd4;}
 .nav-item .ni{font-size:21px;}
 .nav-dot{width:5px;height:5px;border-radius:50%;background:#00bcd4;margin:1px auto 0;}
@@ -75,31 +75,27 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
 <body>
 <div class="wrap">
   <div class="topbar">
-    <span class="topbar-title">📦 Produits d'Investissement</span>
-    <span class="solde-pill">Solde : <span id="soldePill">...</span> FCFA</span>
+    <span class="topbar-title">📦 Produits</span>
+    <span class="solde-pill">💰 <span id="soldePill">...</span> FCFA</span>
   </div>
-
-  <div id="plansList"></div>
+  <div id="plansList"><div class="loading">⏳ Chargement des plans...</div></div>
 </div>
 
-<!-- MODAL CONFIRMATION -->
 <div class="modal-bg" id="modalBg">
   <div class="modal">
-    <div class="modal-title" id="modalTitle">Confirmer l'achat</div>
-    <div class="modal-sub">Vérifiez les détails avant de valider</div>
-    <div class="modal-alert" id="modalAlert"></div>
-    <div class="solde-insuff" id="soldeInsuff">
-      ⚠️ Solde insuffisant ! <a href="recharge.html" style="color:#00bcd4;font-weight:700;">Recharger mon compte →</a>
-    </div>
-    <div class="modal-row"><span class="modal-label">Plan</span><span class="modal-value" id="mPlan">—</span></div>
-    <div class="modal-row"><span class="modal-label">Coût</span><span class="modal-value teal" id="mCout">—</span></div>
-    <div class="modal-row"><span class="modal-label">Votre solde actuel</span><span class="modal-value" id="mSolde">—</span></div>
-    <div class="modal-row"><span class="modal-label">Solde après achat</span><span class="modal-value" id="mApres">—</span></div>
-    <div class="modal-row"><span class="modal-label">Revenus / jour</span><span class="modal-value teal" id="mRevenu">—</span></div>
-    <div class="modal-row"><span class="modal-label">Durée</span><span class="modal-value" id="mDuree">100 jours</span></div>
+    <div class="modal-title" id="mTitle">Confirmer l'investissement</div>
+    <div class="modal-sub">Vérifiez avant de valider</div>
+    <div class="malert" id="mAlert"></div>
+    <div class="insuff" id="mInsuff">⚠️ Solde insuffisant — <a href="recharge.html" style="color:#00bcd4;font-weight:700;">Recharger →</a></div>
+    <div class="mrow"><span class="mlabel">Plan</span><span class="mval" id="mPlan">—</span></div>
+    <div class="mrow"><span class="mlabel">Coût</span><span class="mval teal" id="mCout">—</span></div>
+    <div class="mrow"><span class="mlabel">Votre solde</span><span class="mval" id="mSolde">—</span></div>
+    <div class="mrow"><span class="mlabel">Solde après</span><span class="mval" id="mApres">—</span></div>
+    <div class="mrow"><span class="mlabel">Gain / jour</span><span class="mval teal" id="mGain">—</span></div>
+    <div class="mrow"><span class="mlabel">Durée</span><span class="mval">100 jours</span></div>
     <div class="modal-btns">
-      <button class="btn-cancel" onclick="fermerModal()">Annuler</button>
-      <button class="btn-confirm" id="btnConfirm" onclick="confirmerAchat()">✅ Valider et investir</button>
+      <button class="btn-cancel" onclick="closeModal()">Annuler</button>
+      <button class="btn-ok" id="btnOk" onclick="confirmer()">✅ Valider</button>
     </div>
   </div>
 </div>
@@ -107,116 +103,104 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
 <nav class="bottom-nav">
   <a href="dashboard.html" class="nav-item"><span class="ni">🏠</span>Accueil</a>
   <a href="produits.html" class="nav-item active"><span class="ni">💲</span>Produit<div class="nav-dot"></div></a>
-  <a href="equipes.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
+  <a href="parrainage.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
   <a href="compte.html" class="nav-item"><span class="ni">👤</span>Mon compte</a>
 </nav>
 
+<script src="api.js"></script>
 <script>
-const SB_URL="https://seegoklunovyuieorkvy.supabase.co";
-const SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
-const token=localStorage.getItem("velero_token");
-if(!token)window.location.href="index.html";
+VE.checkAuth();
+let solde=0,planChoisi=null,profil=null,investActif=null;
 
-const H={"Content-Type":"application/json","apikey":SB_KEY,"Authorization":"Bearer "+token};
-
-let soldeActuel=0, planChoisi=null, plans=[];
-
-// Charger profil + plans depuis BD
-async function init(){
-  // Profil
-  const rp=await fetch(SB_URL+"/rest/v1/profiles?select=solde,full_name&id=eq."+await getUserId(),{headers:H});
-  const prof=await rp.json();
-  if(prof[0]){
-    soldeActuel=parseFloat(prof[0].solde)||0;
-    document.getElementById("soldePill").textContent=soldeActuel.toLocaleString();
-  }
-  // Plans
-  const rpl=await fetch(SB_URL+"/rest/v1/plans?select=*&actif=eq.true&order=investissement.asc",{headers:H});
-  plans=await rpl.json();
-  renderPlans();
-}
-
-async function getUserId(){
-  const r=await fetch(SB_URL+"/auth/v1/user",{headers:H});
-  const d=await r.json();
-  return d.id;
-}
-
-const STYLES={
-  Starter:{cls:"p-starter",ribbon:null},
-  Bronze:{cls:"p-bronze",ribbon:null},
-  Silver:{cls:"p-silver",ribbon:null},
-  Gold:{cls:"p-gold",ribbon:"⭐ Populaire"},
-  Premium:{cls:"p-premium",ribbon:null},
-  VIP:{cls:"p-vip",ribbon:"👑 VIP"},
-  Cold:{cls:"p-cold",ribbon:"❄️ Institutionnel"}
+const STYLE={
+  Starter:{c:"p-starter",r:null},Bronze:{c:"p-bronze",r:null},
+  Silver:{c:"p-silver",r:null},Gold:{c:"p-gold",r:"⭐ Populaire"},
+  Premium:{c:"p-premium",r:null},VIP:{c:"p-vip",r:"👑 VIP"},
+  Cold:{c:"p-cold",r:"❄️ Cold"}
 };
 
-function renderPlans(){
-  const container=document.getElementById("plansList");
-  container.innerHTML=plans.map(p=>{
-    const st=STYLES[p.nom]||{cls:"p-starter",ribbon:null};
-    return `<div class="product-card ${st.cls}">
-      ${st.ribbon?`<div class="card-ribbon">${st.ribbon}</div>`:""}
+async function init(){
+  // Charger profil
+  await VE.getUser();
+  profil=await VE.getProfile();
+  if(!profil){VE.logout();return;}
+  solde=parseFloat(profil.solde)||0;
+  document.getElementById("soldePill").textContent=solde.toLocaleString();
+
+  // Investissement actif
+  const inv=await VE.select("investissements","?user_id=eq."+profil.id+"&statut=eq.actif&limit=1");
+  investActif=inv&&inv.length>0?inv[0]:null;
+
+  // Charger plans
+  const plans=await VE.select("plans","?actif=eq.true&order=investissement.asc");
+  if(!plans||!plans.length){
+    document.getElementById("plansList").innerHTML='<div class="loading">❌ Erreur de chargement</div>';
+    return;
+  }
+  render(plans);
+}
+
+function render(plans){
+  document.getElementById("plansList").innerHTML=plans.map(p=>{
+    const s=STYLE[p.nom]||{c:"p-starter",r:null};
+    const estActif=investActif&&investActif.plan_nom===p.nom;
+    return `<div class="product-card ${s.c}">
+      ${s.r?`<div class="card-ribbon">${s.r}</div>`:""}
       <div class="card-header">
         <div><div class="card-badge">${p.badge}</div><div class="card-name">${p.nom}</div></div>
         <span class="card-tag">${p.tag}</span>
       </div>
       <div class="card-body">
         <div class="card-row"><span class="card-label">💰 Investissement</span><span class="card-value">${parseInt(p.investissement).toLocaleString()} FCFA</span></div>
-        <div class="card-divider"></div>
-        <div class="card-row"><span class="card-label">📈 Revenus / jour</span><span class="card-value teal">${parseInt(p.revenu_jour).toLocaleString()} FCFA</span></div>
-        <div class="card-row"><span class="card-label">⏳ Durée</span><span class="card-value">${p.duree_jours} jours</span></div>
-        <div class="card-row"><span class="card-label">💵 Total gagné</span><span class="card-value">${parseInt(p.total_gain).toLocaleString()} FCFA</span></div>
+        <div class="divider"></div>
+        <div class="card-row"><span class="card-label">📈 Gain / jour</span><span class="card-value teal">${parseInt(p.revenu_jour).toLocaleString()} FCFA</span></div>
+        <div class="card-row"><span class="card-label">⏳ Durée</span><span class="card-value">100 jours</span></div>
+        <div class="card-row"><span class="card-label">💵 Total</span><span class="card-value">${parseInt(p.total_gain).toLocaleString()} FCFA</span></div>
       </div>
-      <button class="btn-invest" onclick='ouvrirModal(${JSON.stringify(p)})'>Investir maintenant</button>
+      <button class="btn-invest${estActif?" actif":""}" onclick='${estActif?"location.href=\"tache.html\"":"openModal("+JSON.stringify(p)+")"}'>
+        ${estActif?"⛽ Faire ma tâche du jour →":"Investir maintenant"}
+      </button>
     </div>`;
   }).join("");
 }
 
-function ouvrirModal(plan){
-  planChoisi=plan;
-  const apres=soldeActuel-plan.investissement;
-  const suffisant=soldeActuel>=plan.investissement;
-  document.getElementById("modalTitle").textContent=plan.badge+" Plan "+plan.nom;
-  document.getElementById("mPlan").textContent="Plan "+plan.nom;
-  document.getElementById("mCout").textContent=parseInt(plan.investissement).toLocaleString()+" FCFA";
-  document.getElementById("mSolde").textContent=soldeActuel.toLocaleString()+" FCFA";
-  document.getElementById("mApres").textContent=(suffisant?apres.toLocaleString():"—")+" FCFA";
-  document.getElementById("mApres").className="modal-value "+(suffisant?"teal":"red");
-  document.getElementById("mRevenu").textContent=parseInt(plan.revenu_jour).toLocaleString()+" FCFA / jour";
-  document.getElementById("soldeInsuff").className="solde-insuff"+(suffisant?"":" show");
-  document.getElementById("btnConfirm").disabled=!suffisant;
-  document.getElementById("modalAlert").className="modal-alert";
+function openModal(p){
+  planChoisi=p;
+  const apres=solde-p.investissement;
+  const ok=solde>=p.investissement;
+  document.getElementById("mTitle").textContent=p.badge+" Plan "+p.nom;
+  document.getElementById("mPlan").textContent="Plan "+p.nom;
+  document.getElementById("mCout").textContent=parseInt(p.investissement).toLocaleString()+" FCFA";
+  document.getElementById("mSolde").textContent=solde.toLocaleString()+" FCFA";
+  document.getElementById("mApres").textContent=ok?apres.toLocaleString()+" FCFA":"—";
+  document.getElementById("mApres").className="mval "+(ok?"green":"red");
+  document.getElementById("mGain").textContent=parseInt(p.revenu_jour).toLocaleString()+" FCFA / jour";
+  document.getElementById("mInsuff").className="insuff"+(ok?"":" show");
+  document.getElementById("btnOk").disabled=!ok;
+  document.getElementById("mAlert").className="malert";
   document.getElementById("modalBg").classList.add("show");
 }
 
-function fermerModal(){document.getElementById("modalBg").classList.remove("show");}
+function closeModal(){document.getElementById("modalBg").classList.remove("show");}
 
-async function confirmerAchat(){
-  const btn=document.getElementById("btnConfirm");
-  btn.disabled=true; btn.textContent="⏳ Traitement...";
-  const uid=await getUserId();
-  const r=await fetch(SB_URL+"/rest/v1/rpc/acheter_plan",{
-    method:"POST",headers:H,
-    body:JSON.stringify({p_user_id:uid,p_plan_nom:planChoisi.nom})
-  });
-  const d=await r.json();
-  const al=document.getElementById("modalAlert");
-  if(d.success){
+async function confirmer(){
+  const btn=document.getElementById("btnOk");
+  btn.disabled=true;btn.textContent="⏳...";
+  const d=await VE.rpc("acheter_plan",{p_user_id:profil.id,p_plan_nom:planChoisi.nom});
+  const al=document.getElementById("mAlert");
+  if(d&&d.success){
     al.textContent="✅ Plan "+planChoisi.nom+" activé ! Redirection...";
-    al.className="modal-alert success show";
+    al.className="malert ok show";
     localStorage.setItem("invest_id",d.invest_id);
     localStorage.setItem("invest_produit",planChoisi.nom);
     localStorage.setItem("invest_revenu",planChoisi.revenu_jour);
-    setTimeout(()=>{fermerModal();window.location.href="tache.html";},1500);
+    setTimeout(()=>{closeModal();location.href="tache.html";},1500);
   }else{
-    al.textContent="❌ "+d.error;
-    al.className="modal-alert error show";
-    btn.disabled=false; btn.textContent="✅ Valider et investir";
+    al.textContent="❌ "+(d&&d.error?d.error:"Erreur");
+    al.className="malert err show";
+    btn.disabled=false;btn.textContent="✅ Valider";
   }
 }
-
 init();
 </script>
 </body>

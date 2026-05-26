@@ -200,6 +200,7 @@ async function login(){
   if(d.error)return showAlert("loginError",d.error_description||d.error,"error");
   localStorage.setItem("velero_token",d.access_token);
   localStorage.setItem("velero_email",email);
+  if(d.user&&d.user.id)localStorage.setItem("velero_uid",d.user.id);
   window.location.href="dashboard.html";
 }
 

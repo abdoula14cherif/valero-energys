@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Paramètres — Velero Energy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
+.wrap{width:100%;max-width:480px;padding-bottom:40px;}
+.topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+.back-btn{background:none;border:none;font-size:20px;cursor:pointer;}
+.topbar-title{font-size:17px;font-weight:700;}
+.section{margin:14px 14px 0;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.07);}
+.section-title{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;padding:14px 16px 8px;}
+.setting-row{display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid #f5f5f5;cursor:pointer;transition:background .2s;}
+.setting-row:last-child{border-bottom:none;}
+.setting-row:hover{background:#f9f9f9;}
+.sr-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-right:12px;flex-shrink:0;}
+.sr-info{flex:1;}
+.sr-label{font-size:14px;font-weight:600;color:#1a1a1a;}
+.sr-sub{font-size:11px;color:#aaa;margin-top:2px;}
+.sr-arrow{color:#ccc;font-size:16px;}
+.sr-toggle{position:relative;width:44px;height:24px;flex-shrink:0;}
+.sr-toggle input{opacity:0;width:0;height:0;}
+.slider-t{position:absolute;inset:0;background:#ccc;border-radius:24px;transition:.3s;cursor:pointer;}
+.slider-t::before{content:"";position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s;}
+input:checked+.slider-t{background:#00bcd4;}
+input:checked+.slider-t::before{transform:translateX(20px);}
+.danger .sr-label{color:#e53935;}
+.sr-icon.blue{background:#e0f7fa;}
+.sr-icon.orange{background:#fff3e0;}
+.sr-icon.green{background:#f0fdf4;}
+.sr-icon.red{background:#fff5f5;}
+.sr-icon.purple{background:#f3e5f5;}
+.sr-icon.gray{background:#f5f5f5;}
+.alert{padding:10px 13px;border-radius:10px;font-size:13px;margin:14px;display:none;}
+.alert.show{display:block;}
+.alert-success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <button class="back-btn" onclick="history.back()">←</button>
+    <span class="topbar-title">⚙️ Paramètres</span>
+  </div>
+
+  <div id="alertBox" class="alert alert-success"></div>
+
+  <div class="section">
+    <div class="section-title">Compte</div>
+    <div class="setting-row" onclick="location.href='compte.html'">
+      <div class="sr-icon blue">👤</div>
+      <div class="sr-info"><div class="sr-label">Mon profil</div><div class="sr-sub">Modifier mes informations</div></div>
+      <span class="sr-arrow">›</span>
+    </div>
+    <div class="setting-row" onclick="location.href='securite.html'">
+      <div class="sr-icon orange">🔑</div>
+      <div class="sr-info"><div class="sr-label">Sécurité</div><div class="sr-sub">Mot de passe et authentification</div></div>
+      <span class="sr-arrow">›</span>
+    </div>
+    <div class="setting-row" onclick="location.href='banque.html'">
+      <div class="sr-icon green">🏦</div>
+      <div class="sr-info"><div class="sr-label">Moyens de paiement</div><div class="sr-sub">Gérer vos comptes Mobile Money</div></div>
+      <span class="sr-arrow">›</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Notifications</div>
+    <div class="setting-row">
+      <div class="sr-icon blue">🔔</div>
+      <div class="sr-info"><div class="sr-label">Notifications push</div><div class="sr-sub">Alertes transactions et gains</div></div>
+      <label class="sr-toggle"><input type="checkbox" checked onchange="saveSetting('notif_push',this.checked)"><span class="slider-t"></span></label>
+    </div>
+    <div class="setting-row">
+      <div class="sr-icon green">📧</div>
+      <div class="sr-info"><div class="sr-label">Notifications email</div><div class="sr-sub">Résumé hebdomadaire</div></div>
+      <label class="sr-toggle"><input type="checkbox" id="toggleEmail" onchange="saveSetting('notif_email',this.checked)"><span class="slider-t"></span></label>
+    </div>
+    <div class="setting-row">
+      <div class="sr-icon orange">⛽</div>
+      <div class="sr-info"><div class="sr-label">Rappel tâche quotidienne</div><div class="sr-sub">Rappel chaque matin à 9h</div></div>
+      <label class="sr-toggle"><input type="checkbox" checked id="toggleTache" onchange="saveSetting('notif_tache',this.checked)"><span class="slider-t"></span></label>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Application</div>
+    <div class="setting-row" onclick="location.href='about.html'">
+      <div class="sr-icon gray">ℹ️</div>
+      <div class="sr-info"><div class="sr-label">À propos</div><div class="sr-sub">Version 1.0.0</div></div>
+      <span class="sr-arrow">›</span>
+    </div>
+    <div class="setting-row" onclick="location.href='reglement.html'">
+      <div class="sr-icon gray">📜</div>
+      <div class="sr-info"><div class="sr-label">Règlement & CGU</div><div class="sr-sub">Conditions d'utilisation</div></div>
+      <span class="sr-arrow">›</span>
+    </div>
+    <div class="setting-row" onclick="location.href='support.html'">
+      <div class="sr-icon purple">💬</div>
+      <div class="sr-info"><div class="sr-label">Support</div><div class="sr-sub">Contacter l'assistance</div></div>
+      <span class="sr-arrow">›</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Session</div>
+    <div class="setting-row danger" onclick="VE.logout()">
+      <div class="sr-icon red">🚪</div>
+      <div class="sr-info"><div class="sr-label">Se déconnecter</div><div class="sr-sub">Fermer la session actuelle</div></div>
+      <span class="sr-arrow">›</span>
+    </div>
+  </div>
+</div>
+<script src="api.js"></script>
+<script>
+VE.checkAuth();
+function saveSetting(k,v){
+  localStorage.setItem("setting_"+k,v);
+  const al=document.getElementById("alertBox");
+  al.textContent="✅ Paramètre enregistré";
+  al.className="alert alert-success show";
+  setTimeout(()=>al.className="alert alert-success",2000);
+}
+// Charger les paramètres sauvegardés
+window.onload=()=>{
+  const em=localStorage.getItem("setting_notif_email");
+  const ta=localStorage.getItem("setting_notif_tache");
+  if(em==="false")document.getElementById("toggleEmail").checked=false;
+  if(ta==="false")document.getElementById("toggleTache").checked=false;
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>À propos — Velero Energy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
+.wrap{width:100%;max-width:480px;padding-bottom:40px;}
+.topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+.back-btn{background:none;border:none;font-size:20px;cursor:pointer;}
+.topbar-title{font-size:17px;font-weight:700;}
+.hero{background:linear-gradient(135deg,#00bcd4,#0097a7);padding:32px 24px;text-align:center;color:#fff;}
+.hero-logo{font-family:'Playfair Display',serif;font-size:38px;font-weight:900;margin-bottom:6px;}
+.hero-logo span{color:#fff3e0;}
+.hero-sub{font-size:13px;opacity:.85;margin-bottom:16px;}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);padding:6px 16px;border-radius:20px;font-size:12px;font-weight:700;}
+.section{margin:14px;background:#fff;border-radius:18px;padding:20px;box-shadow:0 3px 14px rgba(0,0,0,.07);}
+.section-title{font-size:15px;font-weight:800;color:#1a1a1a;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.section p{font-size:13px;color:#555;line-height:1.7;margin-bottom:10px;}
+.section p:last-child{margin-bottom:0;}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
+.stat-box{background:#f0f7f9;border-radius:14px;padding:14px;text-align:center;}
+.stat-val{font-size:20px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
+.stat-lbl{font-size:10px;color:#888;font-weight:600;margin-top:3px;}
+.value-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
+.vi-icon{font-size:22px;flex-shrink:0;}
+.vi-title{font-size:13px;font-weight:700;color:#1a1a1a;}
+.vi-desc{font-size:12px;color:#888;margin-top:2px;}
+.contact-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f5f5f5;}
+.contact-row:last-child{border-bottom:none;}
+.cr-icon{font-size:20px;width:36px;text-align:center;}
+.cr-label{font-size:12px;color:#888;}
+.cr-val{font-size:13px;font-weight:700;color:#1a1a1a;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <button class="back-btn" onclick="history.back()">←</button>
+    <span class="topbar-title">ℹ️ À propos</span>
+  </div>
+  <div class="hero">
+    <div class="hero-logo"><span>V</span>elero Energy</div>
+    <div class="hero-sub">La plateforme d'investissement énergétique en Afrique</div>
+    <div class="hero-badge">🌍 Afrique Francophone & Anglophone</div>
+  </div>
+  <div class="section">
+    <div class="section-title">🏢 Notre mission</div>
+    <p>Velero Energy est une plateforme d'investissement participatif dans le secteur énergétique. Nous connectons des investisseurs particuliers aux activités quotidiennes de nos stations-service partenaires.</p>
+    <p>Chaque jour, vos investissements participent au ravitaillement en carburant de véhicules dans nos stations, générant des revenus réguliers et stables pour nos membres.</p>
+    <div class="stat-grid">
+      <div class="stat-box"><div class="stat-val">11</div><div class="stat-lbl">Pays</div></div>
+      <div class="stat-box"><div class="stat-val">7</div><div class="stat-lbl">Plans</div></div>
+      <div class="stat-box"><div class="stat-val">100j</div><div class="stat-lbl">Durée max</div></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">💡 Nos valeurs</div>
+    <div class="value-item"><span class="vi-icon">🔒</span><div><div class="vi-title">Sécurité</div><div class="vi-desc">Vos fonds sont protégés et vos transactions sécurisées</div></div></div>
+    <div class="value-item"><span class="vi-icon">⚡</span><div><div class="vi-title">Rapidité</div><div class="vi-desc">Dépôts et retraits automatiques traités rapidement</div></div></div>
+    <div class="value-item"><span class="vi-icon">🤝</span><div><div class="vi-title">Transparence</div><div class="vi-desc">Historique complet et gains visibles en temps réel</div></div></div>
+    <div class="value-item"><span class="vi-icon">🌱</span><div><div class="vi-title">Croissance</div><div class="vi-desc">Programme de parrainage pour développer vos revenus</div></div></div>
+  </div>
+  <div class="section">
+    <div class="section-title">📞 Nous contacter</div>
+    <div class="contact-row"><span class="cr-icon">📧</span><div><div class="cr-label">Email</div><div class="cr-val">support@veleroenergy.com</div></div></div>
+    <div class="contact-row"><span class="cr-icon">💬</span><div><div class="cr-label">WhatsApp</div><div class="cr-val">+237 651 461 777</div></div></div>
+    <div class="contact-row"><span class="cr-icon">🌐</span><div><div class="cr-label">Site web</div><div class="cr-val">www.veleroenergy.com</div></div></div>
+    <div class="contact-row"><span class="cr-icon">📍</span><div><div class="cr-label">Siège</div><div class="cr-val">Douala, Cameroun</div></div></div>
+  </div>
+</div>
+</body>
+</html>

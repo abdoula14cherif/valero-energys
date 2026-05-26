@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Mon Compte — Velero Energy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
+.wrap{width:100%;max-width:480px;padding-bottom:80px;}
+.topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+.topbar-title{font-size:17px;font-weight:700;}
+.btn-edit-top{background:none;border:1px solid #00bcd4;color:#00bcd4;font-size:12px;font-weight:700;padding:6px 14px;border-radius:20px;cursor:pointer;font-family:inherit;}
+/* Hero profil */
+.profile-hero{background:linear-gradient(135deg,#00bcd4,#0097a7);padding:28px 20px 20px;text-align:center;color:#fff;position:relative;}
+.avatar-big{width:82px;height:82px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:#fff;border:3px solid rgba(255,255,255,.7);font-family:'Playfair Display',serif;margin:0 auto 12px;position:relative;}
+.edit-av{position:absolute;bottom:0;right:0;width:24px;height:24px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.2);}
+.ph-name{font-size:20px;font-weight:800;font-family:'Playfair Display',serif;margin-bottom:3px;}
+.ph-email{font-size:12px;opacity:.8;margin-bottom:10px;}
+.ph-badges{display:flex;justify-content:center;gap:8px;}
+.ph-badge{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;}
+/* Stats */
+.stats-row{display:flex;gap:0;background:#fff;border-bottom:1px solid #f0ebe8;}
+.stat-box{flex:1;padding:16px;text-align:center;border-right:1px solid #f0ebe8;}
+.stat-box:last-child{border-right:none;}
+.stat-val{font-size:18px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
+.stat-lbl{font-size:10px;color:#aaa;font-weight:600;margin-top:2px;text-transform:uppercase;}
+/* Infos */
+.section{margin:14px 14px 0;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.07);}
+.section-title{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;padding:14px 16px 8px;}
+.info-row{display:flex;align-items:center;padding:13px 16px;border-bottom:1px solid #f5f5f5;}
+.info-row:last-child{border-bottom:none;}
+.ir-icon{font-size:18px;width:32px;text-align:center;margin-right:12px;}
+.ir-label{font-size:11px;color:#aaa;margin-bottom:2px;}
+.ir-val{font-size:14px;font-weight:600;color:#1a1a1a;}
+/* Plan actif card */
+.plan-card{margin:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);border-radius:18px;padding:18px;color:#fff;display:none;}
+.pc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.pc-nom{font-size:18px;font-weight:800;font-family:'Playfair Display',serif;}
+.pc-statut{background:rgba(255,255,255,.25);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;}
+.pc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.pc-stat{background:rgba(255,255,255,.15);border-radius:10px;padding:10px;text-align:center;}
+.pc-stat-val{font-size:15px;font-weight:800;}
+.pc-stat-lbl{font-size:10px;opacity:.75;margin-top:2px;}
+.btn-tache{width:100%;padding:12px;background:#fff;color:#00bcd4;border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;margin-top:14px;font-family:inherit;}
+/* Edit form */
+.edit-form{margin:14px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.07);display:none;}
+.edit-title{font-size:15px;font-weight:700;margin-bottom:14px;}
+.field{margin-bottom:13px;}
+.field label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;}
+.field input{width:100%;padding:11px 13px;font-size:14px;font-family:inherit;border:1.5px solid #e0e0e0;border-radius:11px;outline:none;background:#fafafa;}
+.field input:focus{border-color:#00bcd4;box-shadow:0 0 0 3px rgba(0,188,212,.12);}
+.btn-save{width:100%;padding:13px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:14px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;}
+.alert{padding:10px 13px;border-radius:10px;font-size:13px;margin:0 14px 8px;display:none;}
+.alert.show{display:block;}
+.alert-err{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
+.alert-ok{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
+.menu-list{margin:14px 14px 0;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.07);}
+.ml-row{display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid #f5f5f5;cursor:pointer;text-decoration:none;}
+.ml-row:last-child{border-bottom:none;}
+.ml-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-right:12px;flex-shrink:0;}
+.ml-label{font-size:14px;font-weight:600;color:#1a1a1a;flex:1;}
+.ml-arrow{color:#ccc;font-size:16px;}
+.ml-icon.teal{background:#e0f7fa;}
+.ml-icon.orange{background:#fff3e0;}
+.ml-icon.red{background:#fff5f5;}
+.ml-logout{color:#e53935;}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
+.nav-item.active{color:#00bcd4;}
+.nav-item .ni{font-size:21px;}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:#00bcd4;margin:1px auto 0;}
+.skeleton{background:linear-gradient(90deg,rgba(255,255,255,.3) 25%,rgba(255,255,255,.5) 50%,rgba(255,255,255,.3) 75%);background-size:200% 100%;animation:sh 1.5s infinite;border-radius:6px;height:18px;display:inline-block;width:120px;}
+@keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <span class="topbar-title">👤 Mon Compte</span>
+    <button class="btn-edit-top" onclick="toggleEdit()">✏️ Modifier</button>
+  </div>
+
+  <!-- Hero profil -->
+  <div class="profile-hero">
+    <div class="avatar-big" id="avBig">
+      <span id="avLetter">?</span>
+      <div class="edit-av" onclick="toggleEdit()">✏️</div>
+    </div>
+    <div class="ph-name" id="phName"><span class="skeleton"></span></div>
+    <div class="ph-email" id="phEmail"></div>
+    <div class="ph-badges">
+      <span class="ph-badge" id="phLevel">LV1</span>
+      <span class="ph-badge" id="phCountry">🌍</span>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-val" id="stSolde">...</div><div class="stat-lbl">Solde FCFA</div></div>
+    <div class="stat-box"><div class="stat-val" id="stRevenus">...</div><div class="stat-lbl">Revenus</div></div>
+    <div class="stat-box"><div class="stat-val" id="stFilleuls">...</div><div class="stat-lbl">Filleuls</div></div>
+  </div>
+
+  <div id="alertBox" class="alert"></div>
+
+  <!-- Plan actif -->
+  <div class="plan-card" id="planCard">
+    <div class="pc-top">
+      <div class="pc-nom" id="pcNom">—</div>
+      <span class="pc-statut">⚡ Actif</span>
+    </div>
+    <div class="pc-stats">
+      <div class="pc-stat"><div class="pc-stat-val" id="pcGain">—</div><div class="pc-stat-lbl">Gain/jour</div></div>
+      <div class="pc-stat"><div class="pc-stat-val" id="pcJours">—</div><div class="pc-stat-lbl">Jours rest.</div></div>
+      <div class="pc-stat"><div class="pc-stat-val" id="pcDebut">—</div><div class="pc-stat-lbl">Début</div></div>
+    </div>
+    <button class="btn-tache" onclick="location.href='tache.html'">⛽ Faire ma tâche du jour →</button>
+  </div>
+
+  <!-- Formulaire édition -->
+  <div class="edit-form" id="editForm">
+    <div class="edit-title">✏️ Modifier le profil</div>
+    <div class="field"><label>Nom complet</label><input type="text" id="editName" placeholder="Votre nom"/></div>
+    <div class="field"><label>Téléphone</label><input type="tel" id="editPhone" placeholder="Ex: +237 6XX XXX XXX"/></div>
+    <button class="btn-save" onclick="sauvegarder()">💾 Enregistrer</button>
+  </div>
+
+  <!-- Infos profil -->
+  <div class="section" id="infoSection">
+    <div class="section-title">Informations personnelles</div>
+    <div class="info-row"><span class="ir-icon">👤</span><div><div class="ir-label">Nom complet</div><div class="ir-val" id="infoNom">...</div></div></div>
+    <div class="info-row"><span class="ir-icon">📧</span><div><div class="ir-label">Email</div><div class="ir-val" id="infoEmail">...</div></div></div>
+    <div class="info-row"><span class="ir-icon">📱</span><div><div class="ir-label">Téléphone</div><div class="ir-val" id="infoPhone">—</div></div></div>
+    <div class="info-row"><span class="ir-icon">🌍</span><div><div class="ir-label">Pays</div><div class="ir-val" id="infoPays">—</div></div></div>
+    <div class="info-row"><span class="ir-icon">🎁</span><div><div class="ir-label">Code parrainage</div><div class="ir-val" id="infoCode" style="color:#00bcd4;cursor:pointer;" onclick="copyCode()">...</div></div></div>
+    <div class="info-row"><span class="ir-icon">📅</span><div><div class="ir-label">Membre depuis</div><div class="ir-val" id="infoDate">—</div></div></div>
+  </div>
+
+  <!-- Menu compte -->
+  <div class="menu-list">
+    <a href="historique.html" class="ml-row"><div class="ml-icon teal">📊</div><span class="ml-label">Historique transactions</span><span class="ml-arrow">›</span></a>
+    <a href="parrainage.html" class="ml-row"><div class="ml-icon teal">🤝</div><span class="ml-label">Programme de parrainage</span><span class="ml-arrow">›</span></a>
+    <a href="banque.html" class="ml-row"><div class="ml-icon teal">🏦</div><span class="ml-label">Moyens de paiement</span><span class="ml-arrow">›</span></a>
+    <a href="securite.html" class="ml-row"><div class="ml-icon orange">🔑</div><span class="ml-label">Sécurité</span><span class="ml-arrow">›</span></a>
+    <a href="parametres.html" class="ml-row"><div class="ml-icon orange">⚙️</div><span class="ml-label">Paramètres</span><span class="ml-arrow">›</span></a>
+    <a href="support.html" class="ml-row"><div class="ml-icon teal">💬</div><span class="ml-label">Support</span><span class="ml-arrow">›</span></a>
+    <div class="ml-row ml-logout" onclick="VE.logout()"><div class="ml-icon red">🚪</div><span class="ml-label" style="color:#e53935;">Déconnexion</span><span class="ml-arrow">›</span></div>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html" class="nav-item"><span class="ni">🏠</span>Accueil</a>
+  <a href="produits.html" class="nav-item"><span class="ni">💲</span>Produit</a>
+  <a href="parrainage.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
+  <a href="compte.html" class="nav-item active"><span class="ni">👤</span>Mon compte<div class="nav-dot"></div></a>
+</nav>
+
+<script src="api.js"></script>
+<script>
+VE.checkAuth();
+let profil=null;
+
+async function init(){
+  await VE.getUser();
+  profil=await VE.getProfile();
+  if(!profil){VE.logout();return;}
+
+  const n=profil.full_name||profil.email.split("@")[0];
+  document.getElementById("avLetter").textContent=n[0].toUpperCase();
+  document.getElementById("phName").textContent=n;
+  document.getElementById("phEmail").textContent=profil.email;
+  document.getElementById("phLevel").textContent="LV"+profil.level;
+  document.getElementById("phCountry").textContent=profil.country||"🌍";
+
+  document.getElementById("stSolde").textContent=parseFloat(profil.solde).toLocaleString();
+  document.getElementById("stRevenus").textContent=parseFloat(profil.revenus_cumules).toLocaleString();
+
+  document.getElementById("infoNom").textContent=profil.full_name||"—";
+  document.getElementById("infoEmail").textContent=profil.email;
+  document.getElementById("infoPhone").textContent=profil.phone||"—";
+  document.getElementById("infoPays").textContent=profil.country||"—";
+  document.getElementById("infoCode").textContent=profil.referral_code||"—";
+  document.getElementById("infoDate").textContent=new Date(profil.created_at).toLocaleDateString("fr-FR",{day:"2-digit",month:"long",year:"numeric"});
+
+  document.getElementById("editName").value=profil.full_name||"";
+  document.getElementById("editPhone").value=profil.phone||"";
+
+  // Filleuls
+  const fils=await VE.select("parrainages","?parrain_id=eq."+profil.id+"&niveau=eq.1");
+  document.getElementById("stFilleuls").textContent=fils?fils.length:0;
+
+  // Plan actif
+  const inv=await VE.select("investissements","?user_id=eq."+profil.id+"&statut=eq.actif&limit=1");
+  if(inv&&inv.length>0){
+    const p=inv[0];
+    document.getElementById("planCard").style.display="block";
+    document.getElementById("pcNom").textContent="Plan "+p.plan_nom;
+    document.getElementById("pcGain").textContent=parseFloat(p.revenu_jour).toLocaleString()+" FCFA";
+    document.getElementById("pcJours").textContent=p.jours_restants+" j";
+    document.getElementById("pcDebut").textContent=new Date(p.date_debut).toLocaleDateString("fr-FR",{day:"2-digit",month:"short"});
+  }
+}
+
+function toggleEdit(){
+  const f=document.getElementById("editForm");
+  const i=document.getElementById("infoSection");
+  const show=f.style.display==="none"||f.style.display==="";
+  f.style.display=show?"block":"none";
+  i.style.display=show?"none":"block";
+}
+
+function showAlert(msg,type){
+  const el=document.getElementById("alertBox");
+  el.textContent=msg;
+  el.className="alert alert-"+(type==="ok"?"ok":"err")+" show";
+  setTimeout(()=>el.className="alert",3000);
+}
+
+async function sauvegarder(){
+  if(!profil)return;
+  const name=document.getElementById("editName").value.trim();
+  const phone=document.getElementById("editPhone").value.trim();
+  if(!name)return showAlert("Le nom est requis","err");
+  const r=await VE.update("profiles","?id=eq."+profil.id,{full_name:name,phone});
+  if(Array.isArray(r)&&r.length>0){
+    profil.full_name=name;profil.phone=phone;
+    document.getElementById("phName").textContent=name;
+    document.getElementById("infoNom").textContent=name;
+    document.getElementById("infoPhone").textContent=phone||"—";
+    toggleEdit();
+    showAlert("✅ Profil mis à jour !","ok");
+  }else{showAlert("❌ Erreur de mise à jour","err");}
+}
+
+function copyCode(){
+  const code=profil&&profil.referral_code;
+  if(!code)return;
+  navigator.clipboard.writeText(code).then(()=>showAlert("✅ Code copié : "+code,"ok"));
+}
+
+init();
+</script>
+</body>
+</html>
