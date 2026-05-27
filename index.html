@@ -9,7 +9,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--teal:#00bcd4;--teal-d:#0097a7;--red:#e53935;--bg:#f0f7f9;--text:#0f2a3a;--muted:#607d8b;--border:#cfe8ed}
 body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);display:flex;flex-direction:column;align-items:center;min-height:100vh;}
-.hero{width:100%;height:200px;position:relative;overflow:hidden;flex-shrink:0;}
+.hero{width:100%;height:200px;position:relative;overflow:hidden;}
 .hero img{width:100%;height:100%;object-fit:cover;object-position:center 55%;}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,50,70,.55),rgba(0,20,40,.80));}
 .hero-brand{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;}
@@ -32,16 +32,16 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);dis
 .field input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,188,212,.15);}
 .phone-wrap{display:flex;gap:6px;}
 .country-select{width:140px;flex-shrink:0;padding:10px 6px;font-size:12px;font-family:inherit;border:1.5px solid var(--border);border-radius:10px;outline:none;background:#f5fafb;}
-.country-select:focus{border-color:var(--teal);}
 .phone-input{flex:1;padding:10px 12px;font-size:14px;font-family:inherit;border:1.5px solid var(--border);border-radius:10px;outline:none;background:#f5fafb;}
-.phone-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,188,212,.15);}
+.phone-input:focus,.country-select:focus{border-color:var(--teal);}
 .ref-badge{display:inline-block;background:#e0f7fa;color:var(--teal-d);font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:5px;}
 .forgot{font-size:12px;color:var(--teal);text-decoration:none;font-weight:500;display:block;text-align:right;margin-bottom:12px;}
 .alert{padding:9px 12px;border-radius:8px;font-size:12px;margin-bottom:11px;display:none;}
 .alert.show{display:block;}
 .alert-error{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
 .alert-success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
-.btn-main{width:100%;padding:13px;background:linear-gradient(135deg,var(--teal),var(--teal-d));color:#fff;font-size:15px;font-weight:700;border:none;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px rgba(0,188,212,.35);margin-bottom:14px;font-family:inherit;display:block;}
+.btn-main{width:100%;padding:13px;background:linear-gradient(135deg,var(--teal),var(--teal-d));color:#fff;font-size:15px;font-weight:700;border:none;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px rgba(0,188,212,.35);margin-bottom:14px;font-family:inherit;}
+.btn-main:disabled{opacity:.6;cursor:not-allowed;}
 .divider{text-align:center;font-size:11px;color:#90a4ae;margin-bottom:12px;position:relative;}
 .divider::before,.divider::after{content:'';position:absolute;top:50%;width:calc(50% - 18px);height:1px;background:#cfe8ed;}
 .divider::before{left:0;}.divider::after{right:0;}
@@ -51,7 +51,6 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);dis
 .switch-text{text-align:center;font-size:12px;color:var(--muted);}
 .switch-link{color:var(--teal);font-weight:700;background:none;border:none;cursor:pointer;font-size:12px;font-family:inherit;}
 footer{margin-top:16px;font-size:11px;color:#90a4ae;text-align:center;}
-footer a{color:#90a4ae;text-decoration:none;}
 .hidden{display:none;}
 </style>
 </head>
@@ -75,25 +74,17 @@ footer a{color:#90a4ae;text-decoration:none;}
       <button class="tab" id="tabRegister" onclick="showTab('register')">Inscription</button>
     </div>
 
-    <!-- CONNEXION -->
     <div id="loginForm" class="form-body">
       <h1 class="form-title">Bon retour 👋</h1>
       <p class="form-sub">Connectez-vous à votre espace investisseur</p>
       <div id="loginError" class="alert alert-error"></div>
-      <div id="loginSuccess" class="alert alert-success"></div>
       <div class="field"><label>Email</label><input type="email" id="loginEmail" placeholder="vous@exemple.com"/></div>
-      <div class="field"><label>Mot de passe</label><input type="password" id="loginPassword" placeholder="••••••••"/></div>
+      <div class="field"><label>Mot de passe</label><input type="password" id="loginPass" placeholder="••••••••"/></div>
       <a href="#" class="forgot">Mot de passe oublié ?</a>
-      <button class="btn-main" onclick="login()">Se connecter</button>
-      <div class="divider"><span>ou continuer avec</span></div>
-      <div class="social-row">
-        <button class="btn-social"><span class="si">G</span>Google</button>
-        <button class="btn-social"><span class="si">in</span>LinkedIn</button>
-      </div>
+      <button class="btn-main" id="btnLogin" onclick="login()">Se connecter</button>
       <p class="switch-text">Pas de compte ? <button class="switch-link" onclick="showTab('register')">S'inscrire</button></p>
     </div>
 
-    <!-- INSCRIPTION -->
     <div id="registerForm" class="form-body hidden">
       <h1 class="form-title">Créer un compte 🚀</h1>
       <p class="form-sub">Rejoignez la plateforme Velero Energy</p>
@@ -117,37 +108,25 @@ footer a{color:#90a4ae;text-decoration:none;}
             <option value="+221">🇸🇳 Sénégal +221</option>
             <option value="+228">🇹🇬 Togo +228</option>
           </select>
-          <input class="phone-input" type="tel" id="phoneNumber" placeholder="6XX XXX XXX"/>
+          <input class="phone-input" type="tel" id="phoneNum" placeholder="6XX XXX XXX"/>
         </div>
       </div>
-      <div class="field"><label>Mot de passe</label><input type="password" id="regPassword" placeholder="••••••••"/></div>
+      <div class="field"><label>Mot de passe</label><input type="password" id="regPass" placeholder="••••••••"/></div>
       <div class="field"><label>Confirmer</label><input type="password" id="regConfirm" placeholder="••••••••"/></div>
       <div class="field">
         <label>Code de parrainage <span id="refBadge" class="ref-badge hidden">✓ Détecté</span></label>
         <input type="text" id="refCode" placeholder="Optionnel"/>
       </div>
-      <button class="btn-main" onclick="register()">Créer mon compte</button>
-      <div class="divider"><span>ou continuer avec</span></div>
-      <div class="social-row">
-        <button class="btn-social"><span class="si">G</span>Google</button>
-        <button class="btn-social"><span class="si">in</span>LinkedIn</button>
-      </div>
+      <button class="btn-main" id="btnRegister" onclick="register()">Créer mon compte</button>
       <p class="switch-text">Déjà un compte ? <button class="switch-link" onclick="showTab('login')">Se connecter</button></p>
     </div>
   </div>
-  <footer>© 2025 Velero Energy · <a href="#">Confidentialité</a> · <a href="#">CGU</a></footer>
+  <footer>© 2025 Velero Energy</footer>
 </div>
 
 <script>
-const SB_URL="https://seegoklunovyuieorkvy.supabase.co";
-const SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
-const H={"Content-Type":"application/json","apikey":SB_KEY};
-
-// Vérifier si déjà connecté
-const existingToken=localStorage.getItem("velero_token");
-if(existingToken&&localStorage.getItem("velero_uid")){
-  window.location.href="dashboard.html";
-}
+const SB="https://seegoklunovyuieorkvy.supabase.co";
+const KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
 
 // Ref depuis URL
 const ref=new URLSearchParams(window.location.search).get("ref");
@@ -164,75 +143,90 @@ function showTab(t){
   document.getElementById("registerForm").classList.toggle("hidden",t!=="register");
 }
 
-function showAlert(id,msg,type){
+function showErr(id,msg){
   const el=document.getElementById(id);
-  el.textContent=msg;
-  el.className="alert alert-"+type+" show";
+  el.textContent=msg;el.className="alert alert-error show";
+}
+
+function showOk(id,msg){
+  const el=document.getElementById(id);
+  el.textContent=msg;el.className="alert alert-success show";
 }
 
 async function login(){
   const email=document.getElementById("loginEmail").value.trim();
-  const pass=document.getElementById("loginPassword").value;
-  if(!email||!pass)return showAlert("loginError","Email et mot de passe requis.","error");
-
-  const btn=document.querySelector("#loginForm .btn-main");
-  btn.textContent="⏳ Connexion...";btn.disabled=true;
-
-  const r=await fetch(SB_URL+"/auth/v1/token?grant_type=password",{
-    method:"POST",headers:H,
-    body:JSON.stringify({email,password:pass})
-  });
-  const d=await r.json();
-  btn.textContent="Se connecter";btn.disabled=false;
-
-  if(d.error)return showAlert("loginError",d.error_description||d.error,"error");
-
-  // Stocker tout
-  localStorage.setItem("velero_token",d.access_token);
-  localStorage.setItem("velero_refresh",d.refresh_token||"");
-  localStorage.setItem("velero_email",email);
-  if(d.user&&d.user.id)localStorage.setItem("velero_uid",d.user.id);
-
-  window.location.href="dashboard.html";
+  const pass=document.getElementById("loginPass").value;
+  if(!email||!pass)return showErr("loginError","Email et mot de passe requis.");
+  const btn=document.getElementById("btnLogin");
+  btn.disabled=true;btn.textContent="⏳ Connexion...";
+  try{
+    const r=await fetch(SB+"/auth/v1/token?grant_type=password",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","apikey":KEY},
+      body:JSON.stringify({email,password:pass})
+    });
+    const d=await r.json();
+    if(d.error||!d.access_token){
+      showErr("loginError",d.error_description||d.error||"Erreur de connexion");
+      btn.disabled=false;btn.textContent="Se connecter";
+      return;
+    }
+    // Tout stocker
+    localStorage.clear();
+    localStorage.setItem("velero_token",d.access_token);
+    localStorage.setItem("velero_refresh",d.refresh_token);
+    localStorage.setItem("velero_email",email);
+    localStorage.setItem("velero_uid",d.user.id);
+    localStorage.setItem("velero_token_at",Date.now().toString());
+    window.location.href="dashboard.html";
+  }catch(e){
+    showErr("loginError","Erreur réseau. Vérifiez votre connexion.");
+    btn.disabled=false;btn.textContent="Se connecter";
+  }
 }
 
 async function register(){
   const full_name=document.getElementById("fullName").value.trim();
   const email=document.getElementById("regEmail").value.trim();
-  const pass=document.getElementById("regPassword").value;
+  const pass=document.getElementById("regPass").value;
   const confirm=document.getElementById("regConfirm").value;
   const ref_code=document.getElementById("refCode").value.trim();
-  const country_code=document.getElementById("countrySelect").value;
-  const phone=country_code+document.getElementById("phoneNumber").value.trim();
-
-  if(!full_name||!email||!pass)return showAlert("registerError","Tous les champs obligatoires.","error");
-  if(pass!==confirm)return showAlert("registerError","Mots de passe différents.","error");
-  if(pass.length<6)return showAlert("registerError","Minimum 6 caractères.","error");
-
-  const btn=document.querySelector("#registerForm .btn-main");
-  btn.textContent="⏳ Création...";btn.disabled=true;
-
-  const r=await fetch(SB_URL+"/auth/v1/signup",{
-    method:"POST",headers:H,
-    body:JSON.stringify({
-      email,password:pass,
-      data:{full_name,phone,country_code,referral_code:ref_code}
-    })
-  });
-  const d=await r.json();
-  btn.textContent="Créer mon compte";btn.disabled=false;
-
-  if(d.error)return showAlert("registerError",d.error_description||d.error,"error");
-
-  // Si confirmation email désactivée → connecter directement
-  if(d.access_token){
-    localStorage.setItem("velero_token",d.access_token);
-    localStorage.setItem("velero_refresh",d.refresh_token||"");
-    localStorage.setItem("velero_email",email);
-    if(d.user&&d.user.id)localStorage.setItem("velero_uid",d.user.id);
-    window.location.href="dashboard.html";
-  }else{
-    showAlert("registerSuccess","✅ Compte créé ! Vérifiez votre email pour confirmer.","success");
+  const cc=document.getElementById("countrySelect").value;
+  const phone=cc+document.getElementById("phoneNum").value.trim();
+  if(!full_name||!email||!pass)return showErr("registerError","Tous les champs sont requis.");
+  if(pass!==confirm)return showErr("registerError","Mots de passe différents.");
+  if(pass.length<6)return showErr("registerError","Minimum 6 caractères.");
+  const btn=document.getElementById("btnRegister");
+  btn.disabled=true;btn.textContent="⏳ Création...";
+  try{
+    const r=await fetch(SB+"/auth/v1/signup",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","apikey":KEY},
+      body:JSON.stringify({email,password:pass,data:{full_name,phone,country_code:cc,referral_code:ref_code}})
+    });
+    const d=await r.json();
+    if(d.error){
+      showErr("registerError",d.error_description||d.error);
+      btn.disabled=false;btn.textContent="Créer mon compte";
+      return;
+    }
+    if(d.access_token&&d.user){
+      localStorage.clear();
+      localStorage.setItem("velero_token",d.access_token);
+      localStorage.setItem("velero_refresh",d.refresh_token);
+      localStorage.setItem("velero_email",email);
+      localStorage.setItem("velero_uid",d.user.id);
+      localStorage.setItem("velero_token_at",Date.now().toString());
+      // Attendre le trigger Supabase
+      await new Promise(r=>setTimeout(r,1500));
+      window.location.href="dashboard.html";
+    }else{
+      showOk("registerSuccess","✅ Compte créé ! Vérifiez votre email puis connectez-vous.");
+      btn.disabled=false;btn.textContent="Créer mon compte";
+    }
+  }catch(e){
+    showErr("registerError","Erreur réseau.");
+    btn.disabled=false;btn.textContent="Créer mon compte";
   }
 }
 </script>

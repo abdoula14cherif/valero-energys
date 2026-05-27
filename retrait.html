@@ -102,7 +102,9 @@ async function init(){
   if(!profil)return;
   document.getElementById("soldeAffiche").textContent=parseFloat(profil.solde).toLocaleString()+" FCFA";
   // Moyen de paiement
-  const cards=await VE.select("moyens_paiement","?user_id=eq."+profil.id+"&actif=eq.true&limit=1");
+  // Fix retrait - inline
+  const cards=await (async()=>{const r=await fetch(SB+"/rest/v1/moyens_paiement?user_id=eq."+uid+"&actif=eq.true&limit=1",{headers:H()});return r.json();})();
+  // legacy: const cards_old=await VE.select("moyens_paiement","?user_id=eq."+profil.id+"&actif=eq.true&limit=1");
   if(cards&&cards.length>0){
     document.getElementById("cardInfo").style.display="flex";
     document.getElementById("noCardWarn").style.display="none";
@@ -126,7 +128,9 @@ function showAlert(msg,type){const el=document.getElementById("alertBox");el.tex
 
 async function effectuerRetrait(){
   if(!profil)return;
-  const cards=await VE.select("moyens_paiement","?user_id=eq."+profil.id+"&actif=eq.true&limit=1");
+  // Fix retrait - inline
+  const cards=await (async()=>{const r=await fetch(SB+"/rest/v1/moyens_paiement?user_id=eq."+uid+"&actif=eq.true&limit=1",{headers:H()});return r.json();})();
+  // legacy: const cards_old=await VE.select("moyens_paiement","?user_id=eq."+profil.id+"&actif=eq.true&limit=1");
   if(!cards||cards.length===0){showAlert("⚠️ Ajoutez un moyen de paiement d'abord.","error");setTimeout(()=>location.href="banque.html",1800);return;}
   const montant=parseInt(document.getElementById("montant").value);
   if(!montant||montant<1000)return showAlert("❌ Minimum de retrait : 1 000 FCFA","error");
