@@ -22,66 +22,55 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
 .user-name{font-size:18px;font-weight:700;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5);}
 .level-pill{display:inline-block;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.6);color:#fff;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;margin-top:4px;}
 .action-bar{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;display:flex;gap:10px;z-index:10;background:linear-gradient(0deg,rgba(0,0,0,.5),transparent);}
-.btn-recharge{background:#00bcd4;color:#fff;border:none;border-radius:14px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;}
-.btn-commencer{flex:1;background:#fff;color:#00bcd4;border:none;border-radius:14px;padding:10px 0;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.btn-r{background:#00bcd4;color:#fff;border:none;border-radius:14px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;}
+.btn-c{flex:1;background:#fff;color:#00bcd4;border:none;border-radius:14px;padding:10px 0;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .bonus-banner{margin:12px 14px 0;background:#fff8e1;border:1px solid #ffe082;border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;}
 .plan-banner{margin:10px 14px 0;background:linear-gradient(135deg,#00bcd4,#0097a7);border-radius:14px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;color:#fff;}
 .pb-btn{background:rgba(255,255,255,.25);border:none;color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .balance-row{display:flex;gap:10px;padding:12px 14px 6px;}
-.balance-card{flex:1;background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
-.balance-card.main{border-top:3px solid #00bcd4;}
-.balance-card.earn{border-top:3px solid #ffa000;}
-.bc-label{font-size:10px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;}
-.bc-amount{font-size:20px;font-weight:800;color:#1a1a1a;font-family:'Playfair Display',serif;}
+.bal-card{flex:1;background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+.bal-card.a{border-top:3px solid #00bcd4;}
+.bal-card.b{border-top:3px solid #ffa000;}
+.bal-label{font-size:10px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;}
+.bal-val{font-size:20px;font-weight:800;color:#1a1a1a;font-family:'Playfair Display',serif;}
 .menu-section{padding:12px 14px 6px;}
 .menu-title{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;}
 .menu-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
 .menu-btn{display:flex;flex-direction:column;align-items:center;gap:6px;background:#fff;border:none;border-radius:14px;padding:12px 4px;cursor:pointer;color:#444;font-size:10px;font-weight:600;text-align:center;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.06);font-family:'DM Sans',sans-serif;}
 .mi{width:34px;height:34px;border-radius:10px;background:#e0f7fa;display:flex;align-items:center;justify-content:center;font-size:17px;margin:0 auto;}
 .logout-wrap{padding:12px 14px;}
-.btn-logout{width:100%;padding:13px;background:#fff;border:1.5px solid #00bcd4;border-radius:13px;color:#00bcd4;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-out{width:100%;padding:13px;background:#fff;border:1.5px solid #00bcd4;border-radius:13px;color:#00bcd4;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;}
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
 .nav-item.active{color:#00bcd4;}
 .nav-item .ni{font-size:21px;}
 .nav-dot{width:5px;height:5px;border-radius:50%;background:#00bcd4;margin:1px auto 0;}
-/* Session expirée */
-.session-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;display:none;align-items:center;justify-content:center;}
-.session-modal.show{display:flex;}
-.session-box{background:#fff;border-radius:20px;padding:28px 24px;width:90%;max-width:380px;text-align:center;}
-.session-box h3{font-size:18px;font-weight:800;margin-bottom:8px;}
-.session-box p{font-size:13px;color:#666;margin-bottom:20px;}
-.session-box input{width:100%;padding:11px 13px;font-size:14px;font-family:'DM Sans',sans-serif;border:1.5px solid #e0e0e0;border-radius:10px;outline:none;margin-bottom:10px;}
-.session-box input:focus{border-color:#00bcd4;}
-.btn-reconnect{width:100%;padding:13px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:14px;font-weight:700;border:none;border-radius:11px;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.session-err{color:#c53030;font-size:12px;margin-bottom:8px;display:none;}
+.loading-overlay{position:fixed;inset:0;background:#f5f0ee;z-index:500;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;}
+.loading-logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#00bcd4;}
+.loading-spin{width:36px;height:36px;border:3px solid #e0f7fa;border-top:3px solid #00bcd4;border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 
-<!-- Modal reconnexion si session expirée -->
-<div class="session-modal" id="sessionModal">
-  <div class="session-box">
-    <h3>🔐 Session expirée</h3>
-    <p>Votre session a expiré. Entrez votre mot de passe pour continuer.</p>
-    <div id="sessionErr" class="session-err"></div>
-    <input type="email" id="sessEmail" placeholder="Email" readonly/>
-    <input type="password" id="sessPass" placeholder="Mot de passe"/>
-    <button class="btn-reconnect" onclick="reconnect()">Se reconnecter</button>
-  </div>
+<!-- Loading overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-logo">Velero Energy</div>
+  <div class="loading-spin"></div>
+  <div style="font-size:13px;color:#888;">Chargement de vos données...</div>
 </div>
 
-<div class="wrap">
+<div class="wrap" id="mainContent" style="display:none;">
   <div class="slider">
     <div class="slides" id="slides">
-      <div class="slide"><img src="https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg" alt="Velero"/><div class="slide-overlay"></div></div>
-      <div class="slide"><img src="https://images.unsplash.com/photo-1545459720-aac8509eb61d?w=800&q=80" alt="S2"/><div class="slide-overlay"></div></div>
-      <div class="slide"><img src="https://images.unsplash.com/photo-1611538400436-84a7095b0d97?w=800&q=80" alt="S3"/><div class="slide-overlay"></div></div>
+      <div class="slide"><img src="https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg" alt="V1"/><div class="slide-overlay"></div></div>
+      <div class="slide"><img src="https://images.unsplash.com/photo-1545459720-aac8509eb61d?w=800&q=80" alt="V2"/><div class="slide-overlay"></div></div>
+      <div class="slide"><img src="https://images.unsplash.com/photo-1611538400436-84a7095b0d97?w=800&q=80" alt="V3"/><div class="slide-overlay"></div></div>
     </div>
     <div class="profile-overlay">
-      <div class="avatar" id="av">?</div>
+      <div class="avatar" id="av">V</div>
       <div>
-        <div class="user-name" id="uname">Chargement...</div>
+        <div class="user-name" id="uname">Velero</div>
         <div class="level-pill" id="ulevel">LV1</div>
       </div>
     </div>
@@ -91,15 +80,15 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
       <div class="dot" onclick="goTo(2)"></div>
     </div>
     <div class="action-bar">
-      <button class="btn-recharge" onclick="location.href='recharge.html'">💳 Recharger</button>
-      <button class="btn-commencer" onclick="location.href='produits.html'">🚀 Commencer à investir</button>
+      <button class="btn-r" onclick="location.href='recharge.html'">💳 Recharger</button>
+      <button class="btn-c" onclick="location.href='produits.html'">🚀 Commencer à investir</button>
     </div>
   </div>
 
   <div id="bonusBanner" class="bonus-banner" style="display:none;">
     <span style="font-size:22px;">🎁</span>
-    <div><div style="font-size:13px;font-weight:700;color:#f57f17;">Bonus de bienvenue : +500 FCFA crédités !</div>
-    <div style="font-size:11px;color:#ffa000;">Merci de rejoindre Velero Energy 🎉</div></div>
+    <div><div style="font-size:13px;font-weight:700;color:#f57f17;">Bonus de bienvenue : +500 FCFA !</div>
+    <div style="font-size:11px;color:#ffa000;">Bienvenue sur Velero Energy 🎉</div></div>
   </div>
 
   <div id="planBanner" class="plan-banner" style="display:none;">
@@ -114,13 +103,13 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
   </div>
 
   <div class="balance-row">
-    <div class="balance-card main">
-      <div class="bc-label">Solde disponible</div>
-      <div class="bc-amount" id="solde">—</div>
+    <div class="bal-card a">
+      <div class="bal-label">Solde disponible</div>
+      <div class="bal-val" id="solde">0 FCFA</div>
     </div>
-    <div class="balance-card earn">
-      <div class="bc-label">Revenus cumulés</div>
-      <div class="bc-amount" id="revenus">—</div>
+    <div class="bal-card b">
+      <div class="bal-label">Revenus cumulés</div>
+      <div class="bal-val" id="revenus">0 FCFA</div>
     </div>
   </div>
 
@@ -147,7 +136,7 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
     </div>
   </div>
   <div class="logout-wrap">
-    <button class="btn-logout" onclick="doLogout()">🚪 Déconnexion</button>
+    <button class="btn-out" onclick="logout()">🚪 Déconnexion</button>
   </div>
 </div>
 
@@ -160,12 +149,19 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
 
 <script>
 const SB="https://seegoklunovyuieorkvy.supabase.co";
-const KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
 
-function tok(){return localStorage.getItem("velero_token")||"";}
-function uid(){return localStorage.getItem("velero_uid")||"";}
-function email(){return localStorage.getItem("velero_email")||"";}
-function H(){return{"Content-Type":"application/json","apikey":KEY,"Authorization":"Bearer "+tok()};}
+// Récupérer token depuis localStorage OU sessionStorage
+function getTok(){
+  return localStorage.getItem("velero_token")||sessionStorage.getItem("ve_tok")||"";
+}
+function getUid(){
+  return localStorage.getItem("velero_uid")||sessionStorage.getItem("ve_uid")||"";
+}
+function getEmail(){
+  return localStorage.getItem("velero_email")||sessionStorage.getItem("ve_email")||"";
+}
+function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+getTok()};}
 
 // Slider
 let cur=0;
@@ -176,104 +172,106 @@ function goTo(i){
 }
 setInterval(()=>goTo((cur+1)%3),3500);
 
-async function doGet(url){
-  try{
-    const r=await fetch(url,{headers:H()});
-    if(r.status===401||r.status===403){
-      showSessionModal();
-      return null;
-    }
-    if(!r.ok)return null;
-    return await r.json();
-  }catch(e){return null;}
+function show(){
+  document.getElementById("loadingOverlay").style.display="none";
+  document.getElementById("mainContent").style.display="block";
 }
 
-function showSessionModal(){
-  document.getElementById("sessEmail").value=email();
-  document.getElementById("sessionModal").classList.add("show");
+function logout(){
+  try{fetch(SB+"/auth/v1/logout",{method:"POST",headers:H()});}catch(e){}
+  localStorage.clear();sessionStorage.clear();
+  location.href="index.html";
 }
 
-async function reconnect(){
-  const pass=document.getElementById("sessPass").value;
-  const em=email();
-  if(!pass)return;
+async function tryRefresh(){
+  const ref=localStorage.getItem("velero_refresh")||sessionStorage.getItem("ve_ref")||"";
+  if(!ref)return false;
   try{
-    const r=await fetch(SB+"/auth/v1/token?grant_type=password",{
+    const r=await fetch(SB+"/auth/v1/token?grant_type=refresh_token",{
       method:"POST",
-      headers:{"Content-Type":"application/json","apikey":KEY},
-      body:JSON.stringify({email:em,password:pass})
+      headers:{"Content-Type":"application/json","apikey":AK},
+      body:JSON.stringify({refresh_token:ref})
     });
     const d=await r.json();
     if(d.access_token&&d.user){
       localStorage.setItem("velero_token",d.access_token);
-      localStorage.setItem("velero_refresh",d.refresh_token||"");
+      localStorage.setItem("velero_refresh",d.refresh_token||ref);
       localStorage.setItem("velero_uid",d.user.id);
-      localStorage.setItem("velero_token_at",Date.now().toString());
-      document.getElementById("sessionModal").classList.remove("show");
-      init(); // Recharger
-    }else{
-      const el=document.getElementById("sessionErr");
-      el.textContent="❌ Mot de passe incorrect";
-      el.style.display="block";
+      localStorage.setItem("velero_email",d.user.email);
+      sessionStorage.setItem("ve_tok",d.access_token);
+      sessionStorage.setItem("ve_uid",d.user.id);
+      return true;
     }
-  }catch(e){
-    document.getElementById("sessionErr").textContent="❌ Erreur réseau";
-    document.getElementById("sessionErr").style.display="block";
-  }
+  }catch(e){}
+  return false;
 }
 
-function doLogout(){
-  try{fetch(SB+"/auth/v1/logout",{method:"POST",headers:H()});}catch(e){}
-  localStorage.clear();
-  location.href="index.html";
+async function loadProfile(uid){
+  const r=await fetch(SB+"/rest/v1/profiles?id=eq."+uid+"&select=*",{headers:H()});
+  if(r.status===401||r.status===403)return null;
+  const d=await r.json();
+  return d&&d.length>0?d[0]:null;
 }
 
 async function init(){
-  const t=tok();
-  const u=uid();
-  if(!t||!u){location.href="index.html";return;}
+  const tok=getTok();
+  const uid=getUid();
 
-  // Charger profil direct avec uid stocké
-  const data=await doGet(SB+"/rest/v1/profiles?id=eq."+u+"&select=*");
-  if(!data)return; // Session expirée → modal affiché
+  if(!tok||!uid){
+    location.href="index.html";
+    return;
+  }
 
-  if(data.length===0){
-    // Trigger pas encore exécuté → attendre
-    await new Promise(r=>setTimeout(r,2000));
-    const retry=await doGet(SB+"/rest/v1/profiles?id=eq."+u+"&select=*");
-    if(!retry||retry.length===0){
-      doLogout();return;
+  // Charger profil
+  let prof=await loadProfile(uid);
+
+  // Si échec → tenter refresh
+  if(!prof){
+    const ok=await tryRefresh();
+    if(ok){
+      prof=await loadProfile(getUid());
     }
-    afficher(retry[0]);
-  }else{
-    afficher(data[0]);
+    if(!prof){
+      // Dernière chance : attendre trigger
+      await new Promise(r=>setTimeout(r,2000));
+      prof=await loadProfile(uid);
+    }
+    if(!prof){
+      logout();
+      return;
+    }
   }
 
-  // Plan actif
-  const inv=await doGet(SB+"/rest/v1/investissements?user_id=eq."+u+"&statut=eq.actif&order=created_at.desc&limit=1");
-  if(inv&&inv.length>0){
-    document.getElementById("planBanner").style.display="flex";
-    document.getElementById("planNom").textContent="Plan "+inv[0].plan_nom;
-    document.getElementById("planJours").textContent=inv[0].jours_restants+" jours restants";
-    localStorage.setItem("invest_id",inv[0].id);
-    localStorage.setItem("invest_revenu",inv[0].revenu_jour);
-  }
-}
+  // Afficher profil
+  const name=(prof.full_name||prof.email||"U").split("@")[0].trim();
+  document.getElementById("av").textContent=name[0].toUpperCase();
+  document.getElementById("uname").textContent=name.charAt(0).toUpperCase()+name.slice(1);
+  document.getElementById("ulevel").textContent="LV"+(prof.level||1);
+  document.getElementById("solde").textContent=parseFloat(prof.solde||0).toLocaleString()+" FCFA";
+  document.getElementById("revenus").textContent=parseFloat(prof.revenus_cumules||0).toLocaleString()+" FCFA";
 
-function afficher(p){
-  const n=(p.full_name||p.email.split("@")[0]||"U").trim();
-  document.getElementById("av").textContent=n[0].toUpperCase();
-  document.getElementById("uname").textContent=n.charAt(0).toUpperCase()+n.slice(1);
-  document.getElementById("ulevel").textContent="LV"+(p.level||1);
-  document.getElementById("solde").textContent=parseFloat(p.solde||0).toLocaleString()+" FCFA";
-  document.getElementById("revenus").textContent=parseFloat(p.revenus_cumules||0).toLocaleString()+" FCFA";
-
-  const bk="bonus_seen_"+p.id;
+  // Bonus bienvenue
+  const bk="bv_"+prof.id;
   if(!localStorage.getItem(bk)){
     document.getElementById("bonusBanner").style.display="flex";
     localStorage.setItem(bk,"1");
     setTimeout(()=>document.getElementById("bonusBanner").style.display="none",6000);
   }
+
+  show(); // Cacher loading, afficher contenu
+
+  // Plan actif (en parallèle)
+  try{
+    const r=await fetch(SB+"/rest/v1/investissements?user_id=eq."+prof.id+"&statut=eq.actif&order=created_at.desc&limit=1",{headers:H()});
+    const inv=await r.json();
+    if(inv&&inv.length>0){
+      document.getElementById("planBanner").style.display="flex";
+      document.getElementById("planNom").textContent="Plan "+inv[0].plan_nom;
+      document.getElementById("planJours").textContent=inv[0].jours_restants+" jours restants";
+      localStorage.setItem("invest_id",inv[0].id);
+      localStorage.setItem("invest_revenu",inv[0].revenu_jour);
+    }
+  }catch(e){}
 }
 
 init();

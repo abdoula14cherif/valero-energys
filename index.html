@@ -7,8 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--teal:#00bcd4;--teal-d:#0097a7;--red:#e53935;--bg:#f0f7f9;--text:#0f2a3a;--muted:#607d8b;--border:#cfe8ed}
-body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);display:flex;flex-direction:column;align-items:center;min-height:100vh;}
+body{background:#f0f7f9;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;}
 .hero{width:100%;height:200px;position:relative;overflow:hidden;}
 .hero img{width:100%;height:100%;object-fit:cover;object-position:center 55%;}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,50,70,.55),rgba(0,20,40,.80));}
@@ -22,41 +21,34 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);dis
 .card{background:#fff;border-radius:20px;box-shadow:0 8px 40px rgba(0,100,130,.13);overflow:hidden;}
 .tabs{display:flex;border-bottom:2px solid #e8f4f7;}
 .tab{flex:1;padding:13px 0;font-size:14px;font-weight:700;background:none;border:none;cursor:pointer;color:#90a4ae;}
-.tab.active{color:var(--teal);border-bottom:3px solid var(--teal);margin-bottom:-2px;}
-.form-body{padding:20px 20px 24px;}
+.tab.active{color:#00bcd4;border-bottom:3px solid #00bcd4;margin-bottom:-2px;}
+.form-body{padding:20px;}
 .form-title{font-size:20px;font-weight:700;margin-bottom:3px;}
-.form-sub{font-size:12px;color:var(--muted);margin-bottom:16px;}
+.form-sub{font-size:12px;color:#607d8b;margin-bottom:16px;}
 .field{margin-bottom:12px;}
 .field label{display:block;font-size:12px;font-weight:600;color:#334155;margin-bottom:4px;}
-.field input{width:100%;padding:10px 13px;font-size:14px;font-family:inherit;border:1.5px solid var(--border);border-radius:10px;outline:none;background:#f5fafb;color:var(--text);}
-.field input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,188,212,.15);}
-.phone-wrap{display:flex;gap:6px;}
-.country-select{width:140px;flex-shrink:0;padding:10px 6px;font-size:12px;font-family:inherit;border:1.5px solid var(--border);border-radius:10px;outline:none;background:#f5fafb;}
-.phone-input{flex:1;padding:10px 12px;font-size:14px;font-family:inherit;border:1.5px solid var(--border);border-radius:10px;outline:none;background:#f5fafb;}
-.phone-input:focus,.country-select:focus{border-color:var(--teal);}
-.ref-badge{display:inline-block;background:#e0f7fa;color:var(--teal-d);font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:5px;}
-.forgot{font-size:12px;color:var(--teal);text-decoration:none;font-weight:500;display:block;text-align:right;margin-bottom:12px;}
+.field input,.field select{width:100%;padding:10px 13px;font-size:14px;font-family:inherit;border:1.5px solid #cfe8ed;border-radius:10px;outline:none;background:#f5fafb;color:#0f2a3a;}
+.field input:focus{border-color:#00bcd4;box-shadow:0 0 0 3px rgba(0,188,212,.15);}
+.phone-row{display:flex;gap:6px;}
+.phone-row select{width:145px;flex-shrink:0;}
+.phone-row input{flex:1;}
+.ref-badge{display:inline-block;background:#e0f7fa;color:#0097a7;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:5px;}
+.forgot{font-size:12px;color:#00bcd4;text-decoration:none;font-weight:500;display:block;text-align:right;margin-bottom:12px;}
 .alert{padding:9px 12px;border-radius:8px;font-size:12px;margin-bottom:11px;display:none;}
 .alert.show{display:block;}
-.alert-error{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
-.alert-success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
-.btn-main{width:100%;padding:13px;background:linear-gradient(135deg,var(--teal),var(--teal-d));color:#fff;font-size:15px;font-weight:700;border:none;border-radius:11px;cursor:pointer;box-shadow:0 4px 14px rgba(0,188,212,.35);margin-bottom:14px;font-family:inherit;}
-.btn-main:disabled{opacity:.6;cursor:not-allowed;}
-.divider{text-align:center;font-size:11px;color:#90a4ae;margin-bottom:12px;position:relative;}
-.divider::before,.divider::after{content:'';position:absolute;top:50%;width:calc(50% - 18px);height:1px;background:#cfe8ed;}
-.divider::before{left:0;}.divider::after{right:0;}
-.social-row{display:flex;gap:8px;margin-bottom:12px;}
-.btn-social{flex:1;padding:9px 0;background:#f5fafb;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;font-size:12px;font-weight:700;color:#334155;display:flex;align-items:center;justify-content:center;gap:6px;font-family:inherit;}
-.si{color:var(--teal);font-weight:900;}
-.switch-text{text-align:center;font-size:12px;color:var(--muted);}
-.switch-link{color:var(--teal);font-weight:700;background:none;border:none;cursor:pointer;font-size:12px;font-family:inherit;}
+.err{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
+.ok{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
+.btn-main{width:100%;padding:13px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:11px;cursor:pointer;margin-bottom:14px;font-family:inherit;}
+.btn-main:disabled{opacity:.6;}
+.switch-text{text-align:center;font-size:12px;color:#607d8b;}
+.sw{color:#00bcd4;font-weight:700;background:none;border:none;cursor:pointer;font-size:12px;font-family:inherit;}
 footer{margin-top:16px;font-size:11px;color:#90a4ae;text-align:center;}
 .hidden{display:none;}
 </style>
 </head>
 <body>
 <div class="hero">
-  <img src="https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg" alt="Velero Energy"/>
+  <img src="https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg" alt="Velero"/>
   <div class="hero-overlay"></div>
   <div class="hero-brand">
     <div class="logo"><span class="logo-v">V</span><span class="logo-name">elero Energy</span></div>
@@ -70,55 +62,57 @@ footer{margin-top:16px;font-size:11px;color:#90a4ae;text-align:center;}
 <div class="card-wrap">
   <div class="card">
     <div class="tabs">
-      <button class="tab active" id="tabLogin" onclick="showTab('login')">Connexion</button>
-      <button class="tab" id="tabRegister" onclick="showTab('register')">Inscription</button>
+      <button class="tab active" id="t1" onclick="sw('login')">Connexion</button>
+      <button class="tab" id="t2" onclick="sw('register')">Inscription</button>
     </div>
 
+    <!-- LOGIN -->
     <div id="loginForm" class="form-body">
       <h1 class="form-title">Bon retour 👋</h1>
       <p class="form-sub">Connectez-vous à votre espace investisseur</p>
-      <div id="loginError" class="alert alert-error"></div>
-      <div class="field"><label>Email</label><input type="email" id="loginEmail" placeholder="vous@exemple.com"/></div>
-      <div class="field"><label>Mot de passe</label><input type="password" id="loginPass" placeholder="••••••••"/></div>
+      <div id="lErr" class="alert err"></div>
+      <div class="field"><label>Email</label><input type="email" id="lEmail" placeholder="vous@exemple.com" autocomplete="email"/></div>
+      <div class="field"><label>Mot de passe</label><input type="password" id="lPass" placeholder="••••••••" autocomplete="current-password"/></div>
       <a href="#" class="forgot">Mot de passe oublié ?</a>
-      <button class="btn-main" id="btnLogin" onclick="login()">Se connecter</button>
-      <p class="switch-text">Pas de compte ? <button class="switch-link" onclick="showTab('register')">S'inscrire</button></p>
+      <button class="btn-main" id="btnL" onclick="login()">Se connecter</button>
+      <p class="switch-text">Pas de compte ? <button class="sw" onclick="sw('register')">S'inscrire</button></p>
     </div>
 
+    <!-- REGISTER -->
     <div id="registerForm" class="form-body hidden">
       <h1 class="form-title">Créer un compte 🚀</h1>
       <p class="form-sub">Rejoignez la plateforme Velero Energy</p>
-      <div id="registerError" class="alert alert-error"></div>
-      <div id="registerSuccess" class="alert alert-success"></div>
-      <div class="field"><label>Nom complet</label><input type="text" id="fullName" placeholder="Jean Dupont"/></div>
-      <div class="field"><label>Email</label><input type="email" id="regEmail" placeholder="vous@exemple.com"/></div>
+      <div id="rErr" class="alert err"></div>
+      <div id="rOk" class="alert ok"></div>
+      <div class="field"><label>Nom complet</label><input type="text" id="rName" placeholder="Jean Dupont"/></div>
+      <div class="field"><label>Email</label><input type="email" id="rEmail" placeholder="vous@exemple.com" autocomplete="email"/></div>
       <div class="field">
         <label>Téléphone</label>
-        <div class="phone-wrap">
-          <select class="country-select" id="countrySelect">
-            <option value="+229">🇧🇯 Bénin +229</option>
-            <option value="+226">🇧🇫 Burkina +226</option>
-            <option value="+237" selected>🇨🇲 Cameroun +237</option>
-            <option value="+225">🇨🇮 Côte d'Ivoire +225</option>
-            <option value="+241">🇬🇦 Gabon +241</option>
-            <option value="+223">🇲🇱 Mali +223</option>
-            <option value="+227">🇳🇪 Niger +227</option>
-            <option value="+234">🇳🇬 Nigeria +234</option>
-            <option value="+243">🇨🇩 RDC +243</option>
-            <option value="+221">🇸🇳 Sénégal +221</option>
-            <option value="+228">🇹🇬 Togo +228</option>
+        <div class="phone-row">
+          <select id="rCC">
+            <option value="+229">🇧🇯 +229</option>
+            <option value="+226">🇧🇫 +226</option>
+            <option value="+237" selected>🇨🇲 +237</option>
+            <option value="+225">🇨🇮 +225</option>
+            <option value="+241">🇬🇦 +241</option>
+            <option value="+223">🇲🇱 +223</option>
+            <option value="+227">🇳🇪 +227</option>
+            <option value="+234">🇳🇬 +234</option>
+            <option value="+243">🇨🇩 +243</option>
+            <option value="+221">🇸🇳 +221</option>
+            <option value="+228">🇹🇬 +228</option>
           </select>
-          <input class="phone-input" type="tel" id="phoneNum" placeholder="6XX XXX XXX"/>
+          <input type="tel" id="rPhone" placeholder="6XX XXX XXX"/>
         </div>
       </div>
-      <div class="field"><label>Mot de passe</label><input type="password" id="regPass" placeholder="••••••••"/></div>
-      <div class="field"><label>Confirmer</label><input type="password" id="regConfirm" placeholder="••••••••"/></div>
+      <div class="field"><label>Mot de passe</label><input type="password" id="rPass" placeholder="••••••••" autocomplete="new-password"/></div>
+      <div class="field"><label>Confirmer</label><input type="password" id="rConf" placeholder="••••••••"/></div>
       <div class="field">
-        <label>Code de parrainage <span id="refBadge" class="ref-badge hidden">✓ Détecté</span></label>
-        <input type="text" id="refCode" placeholder="Optionnel"/>
+        <label>Code parrainage <span id="refBadge" class="ref-badge hidden">✓ Détecté</span></label>
+        <input type="text" id="rRef" placeholder="Optionnel"/>
       </div>
-      <button class="btn-main" id="btnRegister" onclick="register()">Créer mon compte</button>
-      <p class="switch-text">Déjà un compte ? <button class="switch-link" onclick="showTab('login')">Se connecter</button></p>
+      <button class="btn-main" id="btnR" onclick="register()">Créer mon compte</button>
+      <p class="switch-text">Déjà un compte ? <button class="sw" onclick="sw('login')">Se connecter</button></p>
     </div>
   </div>
   <footer>© 2025 Velero Energy</footer>
@@ -126,106 +120,112 @@ footer{margin-top:16px;font-size:11px;color:#90a4ae;text-align:center;}
 
 <script>
 const SB="https://seegoklunovyuieorkvy.supabase.co";
-const KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
 
 // Ref depuis URL
-const ref=new URLSearchParams(window.location.search).get("ref");
-if(ref){
-  document.getElementById("refCode").value=ref;
-  document.getElementById("refBadge").classList.remove("hidden");
-  showTab("register");
-}
+(function(){
+  const r=new URLSearchParams(location.search).get("ref");
+  if(r){document.getElementById("rRef").value=r;document.getElementById("refBadge").classList.remove("hidden");sw("register");}
+})();
 
-function showTab(t){
-  document.getElementById("tabLogin").classList.toggle("active",t==="login");
-  document.getElementById("tabRegister").classList.toggle("active",t==="register");
+function sw(t){
+  document.getElementById("t1").classList.toggle("active",t==="login");
+  document.getElementById("t2").classList.toggle("active",t==="register");
   document.getElementById("loginForm").classList.toggle("hidden",t!=="login");
   document.getElementById("registerForm").classList.toggle("hidden",t!=="register");
 }
 
-function showErr(id,msg){
-  const el=document.getElementById(id);
-  el.textContent=msg;el.className="alert alert-error show";
-}
+function err(id,msg){const e=document.getElementById(id);e.textContent=msg;e.className="alert err show";}
+function ok(id,msg){const e=document.getElementById(id);e.textContent=msg;e.className="alert ok show";}
 
-function showOk(id,msg){
-  const el=document.getElementById(id);
-  el.textContent=msg;el.className="alert alert-success show";
+// Sauvegarder la session de façon robuste
+function saveSession(d){
+  try{
+    sessionStorage.setItem("ve_tok",d.access_token);
+    sessionStorage.setItem("ve_ref",d.refresh_token||"");
+    sessionStorage.setItem("ve_uid",d.user.id);
+    sessionStorage.setItem("ve_email",d.user.email);
+    localStorage.setItem("velero_token",d.access_token);
+    localStorage.setItem("velero_refresh",d.refresh_token||"");
+    localStorage.setItem("velero_uid",d.user.id);
+    localStorage.setItem("velero_email",d.user.email);
+    document.cookie="ve_uid="+d.user.id+";path=/;max-age=86400";
+    document.cookie="ve_tok="+d.access_token.substring(0,50)+";path=/;max-age=3600";
+    return true;
+  }catch(e){return false;}
 }
 
 async function login(){
-  const email=document.getElementById("loginEmail").value.trim();
-  const pass=document.getElementById("loginPass").value;
-  if(!email||!pass)return showErr("loginError","Email et mot de passe requis.");
-  const btn=document.getElementById("btnLogin");
+  const email=document.getElementById("lEmail").value.trim();
+  const pass=document.getElementById("lPass").value;
+  if(!email||!pass)return err("lErr","Email et mot de passe requis.");
+  const btn=document.getElementById("btnL");
   btn.disabled=true;btn.textContent="⏳ Connexion...";
   try{
     const r=await fetch(SB+"/auth/v1/token?grant_type=password",{
       method:"POST",
-      headers:{"Content-Type":"application/json","apikey":KEY},
+      headers:{"Content-Type":"application/json","apikey":AK},
       body:JSON.stringify({email,password:pass})
     });
     const d=await r.json();
-    if(d.error||!d.access_token){
-      showErr("loginError",d.error_description||d.error||"Erreur de connexion");
+    if(!d.access_token){
+      err("lErr",d.error_description||d.msg||"Identifiants incorrects");
       btn.disabled=false;btn.textContent="Se connecter";
       return;
     }
-    // Tout stocker
-    localStorage.clear();
-    localStorage.setItem("velero_token",d.access_token);
-    localStorage.setItem("velero_refresh",d.refresh_token);
-    localStorage.setItem("velero_email",email);
-    localStorage.setItem("velero_uid",d.user.id);
-    localStorage.setItem("velero_token_at",Date.now().toString());
-    window.location.href="dashboard.html";
+    saveSession(d);
+    // Vérifier que c'est bien sauvegardé
+    const check=localStorage.getItem("velero_token");
+    if(!check){
+      err("lErr","Erreur de stockage. Essayez un autre navigateur.");
+      btn.disabled=false;btn.textContent="Se connecter";
+      return;
+    }
+    window.location.replace("dashboard.html");
   }catch(e){
-    showErr("loginError","Erreur réseau. Vérifiez votre connexion.");
+    err("lErr","Erreur réseau: "+e.message);
     btn.disabled=false;btn.textContent="Se connecter";
   }
 }
 
 async function register(){
-  const full_name=document.getElementById("fullName").value.trim();
-  const email=document.getElementById("regEmail").value.trim();
-  const pass=document.getElementById("regPass").value;
-  const confirm=document.getElementById("regConfirm").value;
-  const ref_code=document.getElementById("refCode").value.trim();
-  const cc=document.getElementById("countrySelect").value;
-  const phone=cc+document.getElementById("phoneNum").value.trim();
-  if(!full_name||!email||!pass)return showErr("registerError","Tous les champs sont requis.");
-  if(pass!==confirm)return showErr("registerError","Mots de passe différents.");
-  if(pass.length<6)return showErr("registerError","Minimum 6 caractères.");
-  const btn=document.getElementById("btnRegister");
+  const name=document.getElementById("rName").value.trim();
+  const email=document.getElementById("rEmail").value.trim();
+  const pass=document.getElementById("rPass").value;
+  const conf=document.getElementById("rConf").value;
+  const ref=document.getElementById("rRef").value.trim();
+  const cc=document.getElementById("rCC").value;
+  const phone=cc+document.getElementById("rPhone").value.trim();
+  if(!name||!email||!pass)return err("rErr","Tous les champs sont requis.");
+  if(pass!==conf)return err("rErr","Mots de passe différents.");
+  if(pass.length<6)return err("rErr","Minimum 6 caractères.");
+  const btn=document.getElementById("btnR");
   btn.disabled=true;btn.textContent="⏳ Création...";
   try{
     const r=await fetch(SB+"/auth/v1/signup",{
       method:"POST",
-      headers:{"Content-Type":"application/json","apikey":KEY},
-      body:JSON.stringify({email,password:pass,data:{full_name,phone,country_code:cc,referral_code:ref_code}})
+      headers:{"Content-Type":"application/json","apikey":AK},
+      body:JSON.stringify({
+        email,password:pass,
+        data:{full_name:name,phone,country_code:cc,referral_code:ref}
+      })
     });
     const d=await r.json();
     if(d.error){
-      showErr("registerError",d.error_description||d.error);
+      err("rErr",d.error_description||d.error);
       btn.disabled=false;btn.textContent="Créer mon compte";
       return;
     }
     if(d.access_token&&d.user){
-      localStorage.clear();
-      localStorage.setItem("velero_token",d.access_token);
-      localStorage.setItem("velero_refresh",d.refresh_token);
-      localStorage.setItem("velero_email",email);
-      localStorage.setItem("velero_uid",d.user.id);
-      localStorage.setItem("velero_token_at",Date.now().toString());
-      // Attendre le trigger Supabase
-      await new Promise(r=>setTimeout(r,1500));
-      window.location.href="dashboard.html";
+      saveSession(d);
+      await new Promise(r=>setTimeout(r,2000));
+      window.location.replace("dashboard.html");
     }else{
-      showOk("registerSuccess","✅ Compte créé ! Vérifiez votre email puis connectez-vous.");
+      ok("rOk","✅ Compte créé ! Vérifiez votre email puis connectez-vous.");
       btn.disabled=false;btn.textContent="Créer mon compte";
     }
   }catch(e){
-    showErr("registerError","Erreur réseau.");
+    err("rErr","Erreur réseau: "+e.message);
     btn.disabled=false;btn.textContent="Créer mon compte";
   }
 }
