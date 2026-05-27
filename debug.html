@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"/><title>Debug</title>
+<style>body{font-family:monospace;padding:20px;background:#111;color:#0f0;}
+.item{margin:8px 0;padding:8px;background:#1a1a1a;border-radius:6px;}
+.key{color:#0ff;}.val{color:#fff;word-break:break-all;}
+.btn{padding:10px 20px;background:#e53935;color:#fff;border:none;border-radius:8px;cursor:pointer;margin:4px;font-size:14px;}
+</style></head>
+<body>
+<h2 style="color:#0ff;">🔍 Debug Velero</h2>
+<div id="out"></div>
+<button class="btn" onclick="testSB()">🧪 Tester Supabase</button>
+<button class="btn" onclick="localStorage.clear();location.href='index.html'">🗑️ Clear + Login</button>
+<div id="test" style="margin-top:16px;"></div>
+<script>
+const SB="https://seegoklunovyuieorkvy.supabase.co";
+const KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
+
+const keys=["velero_token","velero_refresh","velero_uid","velero_email"];
+const out=document.getElementById("out");
+keys.forEach(k=>{
+  const v=localStorage.getItem(k);
+  out.innerHTML+=`<div class="item"><span class="key">${k}:</span><br><span class="val">${v?v.substring(0,80)+"...":"❌ MANQUANT"}</span></div>`;
+});
+
+async function testSB(){
+  const tok=localStorage.getItem("velero_token");
+  const uid=localStorage.getItem("velero_uid");
+  const d=document.getElementById("test");
+  d.innerHTML="⏳ Test en cours...";
+  
+  if(!tok){d.innerHTML='<span style="color:red">❌ Pas de token !</span>';return;}
+  
+  try{
+    // Test user
+    const r1=await fetch(SB+"/auth/v1/user",{
+      headers:{"apikey":KEY,"Authorization":"Bearer "+tok}
+    });
+    const u=await r1.json();
+    d.innerHTML=`<div class="item">Auth: ${r1.status} — ${u.id?"✅ "+u.email:"❌ "+JSON.stringify(u)}</div>`;
+    
+    if(u.id){
+      // Test profil
+      const r2=await fetch(SB+"/rest/v1/profiles?id=eq."+u.id+"&select=*",{
+        headers:{"apikey":KEY,"Authorization":"Bearer "+tok}
+      });
+      const p=await r2.json();
+      d.innerHTML+=`<div class="item">Profil: ${r2.status} — ${p.length>0?"✅ "+p[0].full_name+" | Solde: "+p[0].solde:"❌ Pas de profil - "+JSON.stringify(p)}</div>`;
+    }
+    
+    // Test refresh
+    const ref=localStorage.getItem("velero_refresh");
+    if(ref){
+      const r3=await fetch(SB+"/auth/v1/token?grant_type=refresh_token",{
+        method:"POST",
+        headers:{"Content-Type":"application/json","apikey":KEY},
+        body:JSON.stringify({refresh_token:ref})
+      });
+      const rd=await r3.json();
+      d.innerHTML+=`<div class="item">Refresh: ${r3.status} — ${rd.access_token?"✅ OK":"❌ "+JSON.stringify(rd)}</div>`;
+    }else{
+      d.innerHTML+='<div class="item" style="color:orange">⚠️ Pas de refresh token !</div>';
+    }
+  }catch(e){
+    d.innerHTML=`<div style="color:red">❌ Erreur: ${e.message}</div>`;
+  }
+}
+testSB();
+</script>
+</body>
+</html>
