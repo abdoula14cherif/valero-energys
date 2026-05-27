@@ -12,46 +12,32 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
 .slider{position:relative;width:100%;height:270px;overflow:hidden;}
 .slides{display:flex;height:100%;transition:transform .5s ease;}
 .slide{min-width:100%;height:100%;position:relative;flex-shrink:0;}
-.slide img{width:100%;height:100%;object-fit:cover;object-position:center;}
-.slide-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.65) 100%);}
+.slide img{width:100%;height:100%;object-fit:cover;}
+.slide-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(0,0,0,.1) 0%,rgba(0,0,0,.65) 100%);}
 .dots{position:absolute;bottom:70px;right:16px;display:flex;gap:5px;z-index:10;}
 .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:all .3s;}
 .dot.active{background:#fff;width:18px;border-radius:4px;}
-.profile-overlay{position:absolute;bottom:60px;left:16px;display:flex;align-items:center;gap:12px;z-index:10;}
-.avatar{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#00bcd4,#0097a7);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#fff;border:3px solid rgba(255,255,255,.85);font-family:'Playfair Display',serif;}
-.edit-btn{position:absolute;bottom:0;right:0;width:20px;height:20px;background:#00bcd4;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;border:2px solid #fff;cursor:pointer;}
+.profile-overlay{position:absolute;bottom:58px;left:16px;display:flex;align-items:center;gap:12px;z-index:10;}
 .avatar-wrap{position:relative;}
-.user-name{font-size:19px;font-weight:700;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5);}
+.avatar{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#00bcd4,#0097a7);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#fff;border:3px solid rgba(255,255,255,.85);font-family:'Playfair Display',serif;}
 .level-pill{display:inline-block;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.6);color:#fff;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;margin-top:4px;}
-.action-bar{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;display:flex;gap:10px;align-items:center;z-index:10;background:linear-gradient(0deg,rgba(0,0,0,.5),transparent);}
-.btn-recharge{background:#00bcd4;color:#fff;border:none;border-radius:14px;padding:10px 16px;font-size:13px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;white-space:nowrap;box-shadow:0 4px 14px rgba(0,188,212,.4);}
-.btn-commencer{flex:1;background:#fff;color:#00bcd4;border:none;border-radius:14px;padding:10px 0;font-size:14px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;}
-.quick-actions{display:flex;justify-content:space-around;padding:20px 20px 10px;background:#fff;border-bottom:1px solid #f0ebe8;}
-.qa-btn{display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.qa-icon{width:58px;height:58px;border-radius:18px;background:#00bcd4;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 16px rgba(0,188,212,.35);}
-.qa-label{font-size:12px;font-weight:600;color:#333;}
-.balance-row{display:flex;gap:10px;padding:14px 14px 6px;}
-.balance-card{flex:1;background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.07);border-top:3px solid #00bcd4;position:relative;overflow:hidden;}
-.bc-label{font-size:10px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
+.user-name{font-size:18px;font-weight:700;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5);}
+.action-bar{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;display:flex;gap:10px;z-index:10;background:linear-gradient(0deg,rgba(0,0,0,.5),transparent);}
+.btn-recharge{background:#00bcd4;color:#fff;border:none;border-radius:14px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;}
+.btn-commencer{flex:1;background:#fff;color:#00bcd4;border:none;border-radius:14px;padding:10px 0;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.bonus-banner{margin:12px 14px 0;background:#fff8e1;border:1px solid #ffe082;border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;}
+.plan-banner{margin:10px 14px 0;background:linear-gradient(135deg,#00bcd4,#0097a7);border-radius:14px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;color:#fff;}
+.pb-btn{background:rgba(255,255,255,.25);border:none;color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.balance-row{display:flex;gap:10px;padding:12px 14px 6px;}
+.balance-card{flex:1;background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+.balance-card.main{border-top:3px solid #00bcd4;}
+.balance-card.earn{border-top:3px solid #ffa000;}
+.bc-label{font-size:10px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;}
 .bc-amount{font-size:20px;font-weight:800;color:#1a1a1a;font-family:'Playfair Display',serif;}
-
-/* Plan actif badge */
-.plan-actif-banner{margin:0 14px 6px;background:linear-gradient(135deg,#00bcd4,#0097a7);border-radius:14px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;color:#fff;display:none;}
-.pab-left{font-size:13px;font-weight:700;}
-.pab-right{font-size:11px;opacity:.85;}
-.pab-btn{background:rgba(255,255,255,.25);border:none;color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;cursor:pointer;font-family:inherit;margin-left:8px;}
-
-/* Bonus badge */
-.bonus-banner{margin:14px 14px 0;background:linear-gradient(135deg,#fff8e1,#fef3c7);border:1px solid #ffe082;border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:10px;}
-.bb-icon{font-size:24px;}
-.bb-text{font-size:13px;font-weight:700;color:#f57f17;}
-.bb-sub{font-size:11px;color:#ffa000;margin-top:1px;}
-
-.menu-section{padding:14px 14px 6px;}
+.menu-section{padding:12px 14px 6px;}
 .menu-title{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;}
 .menu-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-.menu-btn{display:flex;flex-direction:column;align-items:center;gap:6px;background:#fff;border:none;border-radius:14px;padding:12px 4px;cursor:pointer;color:#444;font-size:10px;font-weight:600;text-align:center;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:all .2s;font-family:'DM Sans',sans-serif;}
-.menu-btn:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,188,212,.2);}
+.menu-btn{display:flex;flex-direction:column;align-items:center;gap:6px;background:#fff;border:none;border-radius:14px;padding:12px 4px;cursor:pointer;color:#444;font-size:10px;font-weight:600;text-align:center;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.06);font-family:'DM Sans',sans-serif;}
 .mi{width:34px;height:34px;border-radius:10px;background:#e0f7fa;display:flex;align-items:center;justify-content:center;font-size:17px;margin:0 auto;}
 .logout-wrap{padding:12px 14px;}
 .btn-logout{width:100%;padding:13px;background:#fff;border:1.5px solid #00bcd4;border-radius:13px;color:#00bcd4;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;}
@@ -60,25 +46,22 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
 .nav-item.active{color:#00bcd4;}
 .nav-item .ni{font-size:21px;}
 .nav-dot{width:5px;height:5px;border-radius:50%;background:#00bcd4;margin:1px auto 0;}
-.skeleton{background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:8px;height:20px;width:80px;display:inline-block;}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="slider">
     <div class="slides" id="slides">
-      <div class="slide"><img src="https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg" onerror="this.src='https://images.unsplash.com/photo-1545459720-aac8509eb61d?w=800'" alt="Velero"/><div class="slide-overlay"></div></div>
-      <div class="slide"><img src="https://images.unsplash.com/photo-1611538400436-84a7095b0d97?w=800&q=80" alt="Station 2"/><div class="slide-overlay"></div></div>
-      <div class="slide"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80" alt="Station 3"/><div class="slide-overlay"></div></div>
+      <div class="slide"><img src="https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg" alt="Velero"/><div class="slide-overlay"></div></div>
+      <div class="slide"><img src="https://images.unsplash.com/photo-1545459720-aac8509eb61d?w=800&q=80" alt="Station 2"/><div class="slide-overlay"></div></div>
+      <div class="slide"><img src="https://images.unsplash.com/photo-1611538400436-84a7095b0d97?w=800&q=80" alt="Station 3"/><div class="slide-overlay"></div></div>
     </div>
     <div class="profile-overlay">
       <div class="avatar-wrap">
-        <div class="avatar" id="av">A</div>
-        <div class="edit-btn">✏️</div>
+        <div class="avatar" id="av">?</div>
       </div>
       <div>
-        <div class="user-name" id="uname"><span class="skeleton"></span></div>
+        <div class="user-name" id="uname">Chargement...</div>
         <div class="level-pill" id="ulevel">LV1</div>
       </div>
     </div>
@@ -93,32 +76,34 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
     </div>
   </div>
 
-  <!-- Bonus bienvenue -->
-  <div class="bonus-banner" id="bonusBanner" style="display:none;">
-    <div class="bb-icon">🎁</div>
-    <div><div class="bb-text">Bonus de bienvenue : +500 FCFA crédités !</div><div class="bb-sub">Merci de rejoindre Velero Energy</div></div>
+  <div id="bonusBanner" class="bonus-banner" style="display:none;">
+    <span style="font-size:22px;">🎁</span>
+    <div><div style="font-size:13px;font-weight:700;color:#f57f17;">Bonus de bienvenue : +500 FCFA crédités !</div>
+    <div style="font-size:11px;color:#ffa000;">Merci de rejoindre Velero Energy 🎉</div></div>
   </div>
 
-  <!-- Plan actif -->
-  <div class="plan-actif-banner" id="planActifBanner">
-    <div class="pab-left">⚡ Plan actif : <span id="bannerPlanNom">—</span></div>
-    <div><span class="pab-right"><span id="bannerJours">—</span> jours restants</span>
-    <button class="pab-btn" onclick="location.href='tache.html'">Tâche du jour →</button></div>
+  <div id="planBanner" class="plan-banner" style="display:none;">
+    <div>
+      <div style="font-size:11px;opacity:.8;">Plan actif</div>
+      <div style="font-size:16px;font-weight:800;" id="planNom">—</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:11px;opacity:.8;" id="planJours">— jours</div>
+      <button class="pb-btn" onclick="location.href='tache.html'">Tâche →</button>
+    </div>
   </div>
 
-  <!-- Solde -->
   <div class="balance-row">
-    <div class="balance-card">
+    <div class="balance-card main">
       <div class="bc-label">Solde disponible</div>
-      <div class="bc-amount" id="soldeAffiche"><span class="skeleton"></span></div>
+      <div class="bc-amount" id="solde">...</div>
     </div>
-    <div class="balance-card" style="border-top-color:#ffa000;">
+    <div class="balance-card earn">
       <div class="bc-label">Revenus cumulés</div>
-      <div class="bc-amount" id="revenusAffiche"><span class="skeleton"></span></div>
+      <div class="bc-amount" id="revenus">...</div>
     </div>
   </div>
 
-  <!-- MENU SERVICES -->
   <div class="menu-section">
     <div class="menu-title">Services</div>
     <div class="menu-grid">
@@ -128,8 +113,6 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
       <a href="contrats.html" class="menu-btn"><div class="mi">📋</div>Contrats</a>
     </div>
   </div>
-
-  <!-- MENU COMPTE -->
   <div class="menu-section">
     <div class="menu-title">Mon compte</div>
     <div class="menu-grid">
@@ -143,9 +126,8 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
       <a href="parametres.html" class="menu-btn"><div class="mi">⚙️</div>Paramètres</a>
     </div>
   </div>
-
   <div class="logout-wrap">
-    <button class="btn-logout" onclick="logout()">🚪 Déconnexion</button>
+    <button class="btn-logout" onclick="doLogout()">🚪 Déconnexion</button>
   </div>
 </div>
 
@@ -156,55 +138,110 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
   <a href="compte.html" class="nav-item"><span class="ni">👤</span>Mon compte</a>
 </nav>
 
-<script src="api.js"></script>
 <script>
-if(!VE.checkAuth())window.location.href="index.html";
+const SB="https://seegoklunovyuieorkvy.supabase.co";
+const KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
 
-async function init(){
-  const prof=await VE.getProfile();
-  if(!prof)return;
+function tok(){return localStorage.getItem("velero_token");}
+function uid(){return localStorage.getItem("velero_uid");}
+function H(){return{"Content-Type":"application/json","apikey":KEY,"Authorization":"Bearer "+tok()};}
 
-  // Afficher infos profil
-  const name=prof.full_name||prof.email.split("@")[0];
-  document.getElementById("uname").textContent=name.charAt(0).toUpperCase()+name.slice(1);
-  document.getElementById("av").textContent=name[0].toUpperCase();
-  document.getElementById("ulevel").textContent="LV"+prof.level;
+async function refreshIfNeeded(){
+  const ref=localStorage.getItem("velero_refresh");
+  if(!ref)return false;
+  try{
+    const r=await fetch(SB+"/auth/v1/token?grant_type=refresh_token",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","apikey":KEY},
+      body:JSON.stringify({refresh_token:ref})
+    });
+    const d=await r.json();
+    if(d.access_token){
+      localStorage.setItem("velero_token",d.access_token);
+      if(d.refresh_token)localStorage.setItem("velero_refresh",d.refresh_token);
+      if(d.user?.id)localStorage.setItem("velero_uid",d.user.id);
+      return true;
+    }
+  }catch(e){}
+  return false;
+}
 
-  // Solde et revenus depuis BD
-  document.getElementById("soldeAffiche").textContent=parseFloat(prof.solde).toLocaleString()+" FCFA";
-  document.getElementById("revenusAffiche").textContent=parseFloat(prof.revenus_cumules).toLocaleString()+" FCFA";
-
-  // Bonus bienvenue (première connexion)
-  if(!localStorage.getItem("bonus_shown_"+prof.id)){
-    document.getElementById("bonusBanner").style.display="flex";
-    localStorage.setItem("bonus_shown_"+prof.id,"1");
-    setTimeout(()=>document.getElementById("bonusBanner").style.display="none",5000);
+async function get(url){
+  let r=await fetch(url,{headers:H()});
+  if(r.status===401){
+    const ok=await refreshIfNeeded();
+    if(!ok){doLogout();return null;}
+    r=await fetch(url,{headers:H()});
   }
+  if(!r.ok)return null;
+  return r.json();
+}
 
-  // Plan actif
-  const invests=await VE.select("investissements","?user_id=eq."+prof.id+"&statut=eq.actif&order=created_at.desc&limit=1");
-  if(invests&&invests.length>0){
-    const inv=invests[0];
-    document.getElementById("planActifBanner").style.display="flex";
-    document.getElementById("bannerPlanNom").textContent=inv.plan_nom;
-    document.getElementById("bannerJours").textContent=inv.jours_restants;
-    localStorage.setItem("invest_id",inv.id);
-    localStorage.setItem("invest_produit",inv.plan_nom);
-    localStorage.setItem("invest_revenu",inv.revenu_jour);
-  }
+async function doLogout(){
+  try{await fetch(SB+"/auth/v1/logout",{method:"POST",headers:H()});}catch(e){}
+  localStorage.clear();
+  location.href="index.html";
 }
 
 // Slider
 let cur=0;
-const slides=document.getElementById("slides");
-const dots=document.querySelectorAll(".dot");
-function goTo(i){cur=i;slides.style.transform="translateX(-"+i*100+"%)";dots.forEach((d,idx)=>d.classList.toggle("active",idx===i));}
+function goTo(i){
+  cur=i;
+  document.getElementById("slides").style.transform="translateX(-"+i*100+"%)";
+  document.querySelectorAll(".dot").forEach((d,idx)=>d.classList.toggle("active",idx===i));
+}
 setInterval(()=>goTo((cur+1)%3),3500);
 
-async function logout(){
-  await fetch(VE.SB_URL+"/auth/v1/logout",{method:"POST",headers:VE.getHeaders()});
-  localStorage.clear();
-  window.location.href="index.html";
+async function init(){
+  if(!tok()){location.href="index.html";return;}
+
+  // Récupérer uid si manquant
+  let userId=uid();
+  if(!userId){
+    const u=await get(SB+"/auth/v1/user");
+    if(!u){doLogout();return;}
+    userId=u.id;
+    localStorage.setItem("velero_uid",userId);
+  }
+
+  // Charger profil
+  const data=await get(SB+"/rest/v1/profiles?id=eq."+userId+"&select=*");
+  if(!data||data.length===0){
+    // Attendre que le trigger crée le profil
+    await new Promise(r=>setTimeout(r,2000));
+    const retry=await get(SB+"/rest/v1/profiles?id=eq."+userId+"&select=*");
+    if(!retry||retry.length===0){doLogout();return;}
+    afficher(retry[0]);
+  }else{
+    afficher(data[0]);
+  }
+
+  // Plan actif
+  const inv=await get(SB+"/rest/v1/investissements?user_id=eq."+userId+"&statut=eq.actif&limit=1");
+  if(inv&&inv.length>0){
+    document.getElementById("planBanner").style.display="flex";
+    document.getElementById("planNom").textContent="Plan "+inv[0].plan_nom;
+    document.getElementById("planJours").textContent=inv[0].jours_restants+" jours restants";
+    localStorage.setItem("invest_id",inv[0].id);
+    localStorage.setItem("invest_revenu",inv[0].revenu_jour);
+  }
+}
+
+function afficher(p){
+  const n=p.full_name||p.email.split("@")[0];
+  document.getElementById("av").textContent=n[0].toUpperCase();
+  document.getElementById("uname").textContent=n.charAt(0).toUpperCase()+n.slice(1);
+  document.getElementById("ulevel").textContent="LV"+(p.level||1);
+  document.getElementById("solde").textContent=parseFloat(p.solde||0).toLocaleString()+" FCFA";
+  document.getElementById("revenus").textContent=parseFloat(p.revenus_cumules||0).toLocaleString()+" FCFA";
+
+  // Bonus bienvenue (une seule fois)
+  const bonusKey="bonus_"+p.id;
+  if(!localStorage.getItem(bonusKey)){
+    document.getElementById("bonusBanner").style.display="flex";
+    localStorage.setItem(bonusKey,"1");
+    setTimeout(()=>document.getElementById("bonusBanner").style.display="none",6000);
+  }
 }
 
 init();
