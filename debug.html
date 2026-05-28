@@ -1,71 +1,120 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="UTF-8"/><title>Debug</title>
-<style>body{font-family:monospace;padding:20px;background:#111;color:#0f0;}
-.item{margin:8px 0;padding:8px;background:#1a1a1a;border-radius:6px;}
-.key{color:#0ff;}.val{color:#fff;word-break:break-all;}
-.btn{padding:10px 20px;background:#e53935;color:#fff;border:none;border-radius:8px;cursor:pointer;margin:4px;font-size:14px;}
-</style></head>
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Debug</title>
+<style>
+body{font-family:monospace;padding:16px;background:#0a0a0a;color:#0f0;font-size:13px;}
+.box{background:#111;border:1px solid #333;border-radius:8px;padding:12px;margin:8px 0;}
+.ok{color:#0f0;}.err{color:#f44;}.warn{color:#fa0;}.info{color:#0cf;}
+.btn{padding:10px 16px;background:#00bcd4;color:#fff;border:none;border-radius:8px;cursor:pointer;margin:4px;font-size:13px;font-family:monospace;}
+.btn.red{background:#e53935;}
+input{width:100%;padding:8px;background:#1a1a1a;border:1px solid #333;color:#0f0;border-radius:6px;font-size:13px;margin:4px 0;font-family:monospace;}
+</style>
+</head>
 <body>
-<h2 style="color:#0ff;">🔍 Debug Velero</h2>
-<div id="out"></div>
-<button class="btn" onclick="testSB()">🧪 Tester Supabase</button>
-<button class="btn" onclick="localStorage.clear();location.href='index.html'">🗑️ Clear + Login</button>
-<div id="test" style="margin-top:16px;"></div>
+<h2 style="color:#00bcd4;">🔧 Velero Debug v3</h2>
+
+<div class="box">
+  <div class="info">📦 LocalStorage</div>
+  <div id="ls"></div>
+</div>
+
+<div class="box">
+  <div class="info">🌐 Test connexion Supabase</div>
+  <div id="net"></div>
+</div>
+
+<div class="box">
+  <div class="info">🔐 Test login manuel</div>
+  <input type="email" id="em" placeholder="Email"/>
+  <input type="password" id="pw" placeholder="Mot de passe"/>
+  <button class="btn" onclick="testLogin()">Tester login</button>
+  <div id="loginResult"></div>
+</div>
+
+<button class="btn red" onclick="cls()">🗑️ Vider cache et relogin</button>
+<button class="btn" onclick="location.href='dashboard.html'">→ Dashboard</button>
+
 <script>
 const SB="https://seegoklunovyuieorkvy.supabase.co";
-const KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
 
+// Afficher localStorage
 const keys=["velero_token","velero_refresh","velero_uid","velero_email"];
-const out=document.getElementById("out");
+const ls=document.getElementById("ls");
 keys.forEach(k=>{
   const v=localStorage.getItem(k);
-  out.innerHTML+=`<div class="item"><span class="key">${k}:</span><br><span class="val">${v?v.substring(0,80)+"...":"❌ MANQUANT"}</span></div>`;
+  ls.innerHTML+=`<div class="${v?"ok":"err"}">${k}: ${v?v.substring(0,60)+"...":"❌ MANQUANT"}</div>`;
 });
 
-async function testSB(){
-  const tok=localStorage.getItem("velero_token");
-  const uid=localStorage.getItem("velero_uid");
-  const d=document.getElementById("test");
-  d.innerHTML="⏳ Test en cours...";
-  
-  if(!tok){d.innerHTML='<span style="color:red">❌ Pas de token !</span>';return;}
-  
+// Test réseau Supabase
+async function testNet(){
+  const n=document.getElementById("net");
   try{
-    // Test user
-    const r1=await fetch(SB+"/auth/v1/user",{
-      headers:{"apikey":KEY,"Authorization":"Bearer "+tok}
+    const r=await fetch(SB+"/rest/v1/plans?actif=eq.true&limit=1",{
+      headers:{"apikey":AK,"Content-Type":"application/json"}
     });
-    const u=await r1.json();
-    d.innerHTML=`<div class="item">Auth: ${r1.status} — ${u.id?"✅ "+u.email:"❌ "+JSON.stringify(u)}</div>`;
-    
-    if(u.id){
-      // Test profil
-      const r2=await fetch(SB+"/rest/v1/profiles?id=eq."+u.id+"&select=*",{
-        headers:{"apikey":KEY,"Authorization":"Bearer "+tok}
-      });
-      const p=await r2.json();
-      d.innerHTML+=`<div class="item">Profil: ${r2.status} — ${p.length>0?"✅ "+p[0].full_name+" | Solde: "+p[0].solde:"❌ Pas de profil - "+JSON.stringify(p)}</div>`;
-    }
-    
-    // Test refresh
-    const ref=localStorage.getItem("velero_refresh");
-    if(ref){
-      const r3=await fetch(SB+"/auth/v1/token?grant_type=refresh_token",{
-        method:"POST",
-        headers:{"Content-Type":"application/json","apikey":KEY},
-        body:JSON.stringify({refresh_token:ref})
-      });
-      const rd=await r3.json();
-      d.innerHTML+=`<div class="item">Refresh: ${r3.status} — ${rd.access_token?"✅ OK":"❌ "+JSON.stringify(rd)}</div>`;
+    if(r.ok){
+      const d=await r.json();
+      n.innerHTML=`<div class="ok">✅ Supabase accessible ! Plans: ${d.length}</div>`;
     }else{
-      d.innerHTML+='<div class="item" style="color:orange">⚠️ Pas de refresh token !</div>';
+      n.innerHTML=`<div class="err">❌ Supabase erreur: ${r.status}</div>`;
     }
   }catch(e){
-    d.innerHTML=`<div style="color:red">❌ Erreur: ${e.message}</div>`;
+    n.innerHTML=`<div class="err">❌ Réseau: ${e.message}</div>`;
   }
 }
-testSB();
+testNet();
+
+async function testLogin(){
+  const em=document.getElementById("em").value.trim();
+  const pw=document.getElementById("pw").value;
+  const res=document.getElementById("loginResult");
+  if(!em||!pw){res.innerHTML='<div class="warn">⚠️ Remplissez email et mot de passe</div>';return;}
+  res.innerHTML='<div class="info">⏳ Connexion...</div>';
+  try{
+    const r=await fetch(SB+"/auth/v1/token?grant_type=password",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","apikey":AK},
+      body:JSON.stringify({email:em,password:pw})
+    });
+    const d=await r.json();
+    if(d.access_token&&d.user){
+      // Sauvegarder
+      localStorage.setItem("velero_token",d.access_token);
+      localStorage.setItem("velero_refresh",d.refresh_token||"");
+      localStorage.setItem("velero_uid",d.user.id);
+      localStorage.setItem("velero_email",d.user.email);
+      // Vérifier sauvegarde
+      const check=localStorage.getItem("velero_token");
+      // Tester profil
+      const r2=await fetch(SB+"/rest/v1/profiles?id=eq."+d.user.id+"&select=*",{
+        headers:{"apikey":AK,"Authorization":"Bearer "+d.access_token}
+      });
+      const prof=await r2.json();
+      res.innerHTML=`
+        <div class="ok">✅ Login OK !</div>
+        <div class="ok">✅ Token sauvé: ${check?"OUI":"NON ⚠️"}</div>
+        <div class="${prof&&prof.length>0?"ok":"warn"}">
+          Profil: ${prof&&prof.length>0?"✅ "+prof[0].full_name+" | Solde: "+prof[0].solde+" FCFA":"⚠️ PAS ENCORE CRÉÉ"}
+        </div>
+        <div class="info">UID: ${d.user.id.substring(0,20)}...</div>
+      `;
+      if(check){
+        setTimeout(()=>{location.href="dashboard.html";},1500);
+      }
+    }else{
+      res.innerHTML=`<div class="err">❌ ${d.error_description||d.error||JSON.stringify(d)}</div>`;
+    }
+  }catch(e){
+    res.innerHTML=`<div class="err">❌ Erreur: ${e.message}</div>`;
+  }
+}
+
+function cls(){
+  localStorage.clear();sessionStorage.clear();
+  location.reload();
+}
 </script>
 </body>
 </html>
