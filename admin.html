@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Admin — Velero Energy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#0a0f1a;font-family:'DM Sans',sans-serif;color:#fff;display:flex;flex-direction:column;align-items:center;}
+.wrap{width:100%;max-width:520px;padding-bottom:40px;}
+
+/* Login admin */
+.login-box{margin:60px 20px;background:#111c2e;border-radius:20px;padding:32px 24px;box-shadow:0 8px 40px rgba(0,0,0,.4);}
+.login-logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#00bcd4;text-align:center;margin-bottom:4px;}
+.login-sub{font-size:13px;color:#607d8b;text-align:center;margin-bottom:24px;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:12px;font-weight:600;color:#90a4ae;margin-bottom:5px;}
+.field input{width:100%;padding:12px 14px;font-size:14px;font-family:inherit;border:1.5px solid #1e3a5f;border-radius:11px;outline:none;background:#0d1829;color:#fff;}
+.field input:focus{border-color:#00bcd4;}
+.btn-login{width:100%;padding:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;}
+.alert{padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:14px;display:none;}
+.alert.show{display:block;}
+.err{background:rgba(197,48,48,.2);border:1px solid #c53030;color:#fc8181;}
+.suc{background:rgba(21,128,61,.2);border:1px solid #15803d;color:#86efac;}
+
+/* Dashboard admin */
+.admin-header{background:#111c2e;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;border-bottom:1px solid #1e3a5f;}
+.admin-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:#00bcd4;}
+.btn-logout-a{background:rgba(229,57,53,.2);border:1px solid rgba(229,57,53,.4);color:#ef5350;font-size:12px;font-weight:700;padding:6px 12px;border-radius:8px;cursor:pointer;font-family:inherit;}
+
+.stats-row{display:flex;gap:8px;padding:14px;}
+.stat-card{flex:1;background:#111c2e;border-radius:14px;padding:14px;text-align:center;border-top:3px solid #00bcd4;}
+.stat-card.orange{border-top-color:#ffa000;}
+.stat-card.green{border-top-color:#4caf50;}
+.stat-card.red{border-top-color:#e53935;}
+.stat-val{font-size:22px;font-weight:900;font-family:'Playfair Display',serif;color:#fff;}
+.stat-lbl{font-size:10px;color:#607d8b;font-weight:600;margin-top:3px;text-transform:uppercase;}
+
+.section{padding:8px 14px;}
+.section-title{font-size:13px;font-weight:700;color:#90a4ae;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.badge-count{background:#e53935;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+
+.tx-card{background:#111c2e;border-radius:14px;padding:14px 16px;margin-bottom:8px;border-left:3px solid #00bcd4;}
+.tx-card.attente{border-left-color:#ffa000;}
+.tx-card.valide{border-left-color:#4caf50;}
+.tx-card.rejete{border-left-color:#e53935;}
+.tx-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.tx-user{font-size:13px;font-weight:700;color:#fff;}
+.tx-amount{font-size:16px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
+.tx-details{font-size:11px;color:#607d8b;margin-bottom:10px;line-height:1.6;}
+.tx-ref{font-size:11px;color:#4dd0e1;margin-bottom:8px;word-break:break-all;}
+.tx-actions{display:flex;gap:8px;}
+.btn-valider{flex:1;padding:9px;background:rgba(76,175,80,.2);border:1.5px solid rgba(76,175,80,.5);color:#81c784;font-size:12px;font-weight:700;border-radius:9px;cursor:pointer;font-family:inherit;}
+.btn-valider:hover{background:rgba(76,175,80,.35);}
+.btn-rejeter{flex:1;padding:9px;background:rgba(229,57,53,.2);border:1.5px solid rgba(229,57,53,.4);color:#ef5350;font-size:12px;font-weight:700;border-radius:9px;cursor:pointer;font-family:inherit;}
+.btn-rejeter:hover{background:rgba(229,57,53,.35);}
+.btn-credit{flex:2;padding:9px;background:linear-gradient(135deg,#00bcd4,#0097a7);border:none;color:#fff;font-size:12px;font-weight:700;border-radius:9px;cursor:pointer;font-family:inherit;}
+.statut-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;}
+.statut-badge.attente{background:rgba(255,160,0,.2);color:#ffa000;}
+.statut-badge.valide{background:rgba(76,175,80,.2);color:#4caf50;}
+.statut-badge.rejete{background:rgba(229,57,53,.2);color:#e53935;}
+
+.tabs-admin{display:flex;padding:0 14px;gap:8px;margin-bottom:4px;}
+.tab-a{flex:1;padding:10px;background:#111c2e;border:1px solid #1e3a5f;border-radius:10px;color:#607d8b;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;}
+.tab-a.active{border-color:#00bcd4;color:#00bcd4;background:rgba(0,188,212,.1);}
+
+.empty{text-align:center;padding:30px;color:#607d8b;}
+.empty-icon{font-size:36px;margin-bottom:8px;}
+.loading{text-align:center;padding:20px;color:#607d8b;font-size:13px;}
+
+/* Toast */
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#00bcd4;color:#fff;padding:12px 24px;border-radius:12px;font-size:13px;font-weight:700;z-index:999;display:none;animation:fadeIn .3s;}
+.toast.show{display:block;}
+.toast.err{background:#e53935;}
+@keyframes fadeIn{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- LOGIN -->
+<div id="loginSection" class="wrap">
+  <div class="login-box">
+    <div class="login-logo">⚡ Velero Admin</div>
+    <div class="login-sub">Panneau d'administration</div>
+    <div id="loginErr" class="alert err"></div>
+    <div class="field"><label>Email admin</label>
+      <input type="email" id="adminEmail" placeholder="admin@veleroenergy.com"/>
+    </div>
+    <div class="field"><label>Mot de passe</label>
+      <input type="password" id="adminPass" placeholder="••••••••"/>
+    </div>
+    <button class="btn-login" onclick="adminLogin()">🔐 Se connecter</button>
+  </div>
+</div>
+
+<!-- DASHBOARD ADMIN -->
+<div id="adminSection" class="wrap" style="display:none;">
+  <div class="admin-header">
+    <div class="admin-logo">⚡ Velero Admin</div>
+    <button class="btn-logout-a" onclick="adminLogout()">Déconnexion</button>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card orange">
+      <div class="stat-val" id="statAttente">0</div>
+      <div class="stat-lbl">En attente</div>
+    </div>
+    <div class="stat-card green">
+      <div class="stat-val" id="statValide">0</div>
+      <div class="stat-lbl">Validés</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="statUsers">0</div>
+      <div class="stat-lbl">Utilisateurs</div>
+    </div>
+    <div class="stat-card red">
+      <div class="stat-val" id="statRetraits">0</div>
+      <div class="stat-lbl">Retraits</div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs-admin">
+    <button class="tab-a active" onclick="showAdminTab('depots',this)">💳 Dépôts</button>
+    <button class="tab-a" onclick="showAdminTab('retraits',this)">💸 Retraits</button>
+    <button class="tab-a" onclick="showAdminTab('users',this)">👥 Membres</button>
+  </div>
+
+  <!-- Dépôts en attente -->
+  <div id="tabDepots" class="section">
+    <div class="section-title">💳 Dépôts <span class="badge-count" id="badgeDepots">0</span></div>
+    <div id="listDepots"><div class="loading">⏳ Chargement...</div></div>
+  </div>
+
+  <!-- Retraits en attente -->
+  <div id="tabRetraits" class="section" style="display:none;">
+    <div class="section-title">💸 Retraits <span class="badge-count" id="badgeRetraits">0</span></div>
+    <div id="listRetraits"><div class="loading">⏳ Chargement...</div></div>
+  </div>
+
+  <!-- Membres -->
+  <div id="tabUsers" class="section" style="display:none;">
+    <div class="section-title">👥 Membres</div>
+    <div id="listUsers"><div class="loading">⏳ Chargement...</div></div>
+  </div>
+</div>
+
+<script>
+const SB="https://seegoklunovyuieorkvy.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
+
+// Email admin autorisé
+const ADMIN_EMAIL = "abdoula12cherif@gmail.com";
+
+let adminTok = localStorage.getItem("admin_token")||"";
+let adminUid = localStorage.getItem("admin_uid")||"";
+
+function H(t){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+(t||adminTok)};}
+
+function toast(msg,type="ok"){
+  const el=document.getElementById("toast");
+  el.textContent=msg;
+  el.className="toast "+(type==="err"?"err":"")+" show";
+  setTimeout(()=>el.classList.remove("show"),3000);
+}
+
+async function adminLogin(){
+  const email=document.getElementById("adminEmail").value.trim();
+  const pass=document.getElementById("adminPass").value;
+  if(!email||!pass){
+    const el=document.getElementById("loginErr");
+    el.textContent="Remplissez tous les champs";el.className="alert err show";return;
+  }
+  const r=await fetch(SB+"/auth/v1/token?grant_type=password",{
+    method:"POST",
+    headers:{"Content-Type":"application/json","apikey":AK},
+    body:JSON.stringify({email,password:pass})
+  });
+  const d=await r.json();
+  if(!d.access_token){
+    const el=document.getElementById("loginErr");
+    el.textContent=d.error_description||"Identifiants incorrects";el.className="alert err show";return;
+  }
+  // Vérifier que c'est bien l'admin
+  if(d.user.email!==ADMIN_EMAIL){
+    const el=document.getElementById("loginErr");
+    el.textContent="Accès refusé — compte non autorisé";el.className="alert err show";return;
+  }
+  adminTok=d.access_token;
+  adminUid=d.user.id;
+  localStorage.setItem("admin_token",adminTok);
+  localStorage.setItem("admin_uid",adminUid);
+  document.getElementById("loginSection").style.display="none";
+  document.getElementById("adminSection").style.display="block";
+  loadAll();
+}
+
+function adminLogout(){
+  localStorage.removeItem("admin_token");
+  localStorage.removeItem("admin_uid");
+  document.getElementById("adminSection").style.display="none";
+  document.getElementById("loginSection").style.display="block";
+}
+
+// Vérifier si déjà connecté
+if(adminTok){
+  document.getElementById("loginSection").style.display="none";
+  document.getElementById("adminSection").style.display="block";
+  loadAll();
+}
+
+function showAdminTab(tab,el){
+  document.querySelectorAll(".tab-a").forEach(b=>b.classList.remove("active"));
+  el.classList.add("active");
+  document.getElementById("tabDepots").style.display=tab==="depots"?"block":"none";
+  document.getElementById("tabRetraits").style.display=tab==="retraits"?"block":"none";
+  document.getElementById("tabUsers").style.display=tab==="users"?"block":"none";
+}
+
+async function loadAll(){
+  loadDepots();
+  loadRetraits();
+  loadUsers();
+  loadStats();
+}
+
+async function loadStats(){
+  try{
+    const [att,val,users,ret]=await Promise.all([
+      fetch(SB+"/rest/v1/transactions?type=eq.depot&statut=eq.en_attente&select=id",{headers:H()}).then(r=>r.json()),
+      fetch(SB+"/rest/v1/transactions?type=eq.depot&statut=eq.valide&select=id",{headers:H()}).then(r=>r.json()),
+      fetch(SB+"/rest/v1/profiles?select=id",{headers:H()}).then(r=>r.json()),
+      fetch(SB+"/rest/v1/transactions?type=eq.retrait&statut=eq.en_attente&select=id",{headers:H()}).then(r=>r.json()),
+    ]);
+    document.getElementById("statAttente").textContent=att.length||0;
+    document.getElementById("statValide").textContent=val.length||0;
+    document.getElementById("statUsers").textContent=users.length||0;
+    document.getElementById("statRetraits").textContent=ret.length||0;
+    document.getElementById("badgeDepots").textContent=att.length||0;
+    document.getElementById("badgeRetraits").textContent=ret.length||0;
+  }catch(e){}
+}
+
+async function loadDepots(){
+  const el=document.getElementById("listDepots");
+  try{
+    const r=await fetch(SB+"/rest/v1/transactions?type=eq.depot&order=created_at.desc&limit=50&select=*,profiles(full_name,email,solde)",{headers:H()});
+    const txs=await r.json();
+    if(!txs.length){el.innerHTML='<div class="empty"><div class="empty-icon">📭</div>Aucun dépôt</div>';return;}
+    el.innerHTML=txs.map(tx=>txCard(tx)).join("");
+  }catch(e){el.innerHTML='<div class="empty">❌ Erreur chargement</div>';}
+}
+
+async function loadRetraits(){
+  const el=document.getElementById("listRetraits");
+  try{
+    const r=await fetch(SB+"/rest/v1/transactions?type=eq.retrait&order=created_at.desc&limit=50&select=*,profiles(full_name,email,solde)",{headers:H()});
+    const txs=await r.json();
+    if(!txs.length){el.innerHTML='<div class="empty"><div class="empty-icon">📭</div>Aucun retrait</div>';return;}
+    el.innerHTML=txs.map(tx=>txCard(tx)).join("");
+  }catch(e){el.innerHTML='<div class="empty">❌ Erreur chargement</div>';}
+}
+
+async function loadUsers(){
+  const el=document.getElementById("listUsers");
+  try{
+    const r=await fetch(SB+"/rest/v1/profiles?order=created_at.desc&limit=100&select=*",{headers:H()});
+    const users=await r.json();
+    if(!users.length){el.innerHTML='<div class="empty"><div class="empty-icon">👥</div>Aucun membre</div>';return;}
+    el.innerHTML=users.map(u=>`
+      <div class="tx-card" style="border-left-color:#00bcd4;">
+        <div class="tx-top">
+          <div class="tx-user">👤 ${u.full_name||"—"}</div>
+          <div class="tx-amount">${parseFloat(u.solde||0).toLocaleString()} FCFA</div>
+        </div>
+        <div class="tx-details">
+          📧 ${u.email}<br>
+          📱 ${u.phone||"—"} · 🌍 ${u.country||"—"}<br>
+          🎁 Code: ${u.referral_code||"—"} · LV${u.level||1}<br>
+          📅 ${new Date(u.created_at).toLocaleDateString("fr-FR")}
+        </div>
+        <div class="tx-actions">
+          <button class="btn-credit" onclick="crediterManuel('${u.id}','${u.full_name||u.email}')">
+            💰 Créditer manuellement
+          </button>
+        </div>
+      </div>`).join("");
+  }catch(e){el.innerHTML='<div class="empty">❌ Erreur chargement</div>';}
+}
+
+function txCard(tx){
+  const prof=tx.profiles;
+  const date=new Date(tx.created_at).toLocaleDateString("fr-FR",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
+  const actions = tx.statut==="en_attente" ? `
+    <div class="tx-actions">
+      <button class="btn-valider" onclick="validerTx('${tx.id}','${tx.user_id}',${tx.montant},'${tx.type}')">✅ Valider</button>
+      <button class="btn-rejeter" onclick="rejeterTx('${tx.id}','${tx.user_id}',${tx.montant},'${tx.type}')">❌ Rejeter</button>
+    </div>` : "";
+  return `
+    <div class="tx-card ${tx.statut}" id="tx-${tx.id}">
+      <div class="tx-top">
+        <div class="tx-user">👤 ${prof?.full_name||prof?.email||tx.user_id.substring(0,8)}</div>
+        <span class="statut-badge ${tx.statut}">${tx.statut==="en_attente"?"⏳ Attente":tx.statut==="valide"?"✅ Validé":"❌ Rejeté"}</span>
+      </div>
+      <div class="tx-amount" style="margin-bottom:6px;">${parseFloat(tx.montant).toLocaleString()} FCFA</div>
+      <div class="tx-details">
+        📱 ${tx.reseau||"—"} · ${tx.numero_mobile||"—"}<br>
+        📅 ${date}<br>
+        📝 ${tx.note||"—"}
+      </div>
+      ${tx.reference?`<div class="tx-ref">🔑 Réf: ${tx.reference}</div>`:""}
+      ${actions}
+    </div>`;
+}
+
+async function validerTx(txId, userId, montant, type){
+  if(!confirm("Valider cette transaction de "+parseInt(montant).toLocaleString()+" FCFA ?"))return;
+  try{
+    // Mettre à jour statut transaction
+    await fetch(SB+"/rest/v1/transactions?id=eq."+txId,{
+      method:"PATCH",headers:H(),
+      body:JSON.stringify({statut:"valide"})
+    });
+    // Si dépôt → créditer le solde
+    if(type==="depot"){
+      const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+userId+"&select=solde",{headers:H()});
+      const prof=await rp.json();
+      const ancienSolde=parseFloat(prof[0]?.solde||0);
+      await fetch(SB+"/rest/v1/profiles?id=eq."+userId,{
+        method:"PATCH",headers:H(),
+        body:JSON.stringify({solde: ancienSolde+parseFloat(montant)})
+      });
+    }
+    toast("✅ Transaction validée ! Solde crédité.");
+    document.getElementById("tx-"+txId).remove();
+    loadStats();
+  }catch(e){toast("❌ Erreur: "+e.message,"err");}
+}
+
+async function rejeterTx(txId, userId, montant, type){
+  if(!confirm("Rejeter cette transaction ?"))return;
+  try{
+    await fetch(SB+"/rest/v1/transactions?id=eq."+txId,{
+      method:"PATCH",headers:H(),
+      body:JSON.stringify({statut:"rejete"})
+    });
+    // Si retrait → recréditer le solde
+    if(type==="retrait"){
+      const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+userId+"&select=solde",{headers:H()});
+      const prof=await rp.json();
+      const ancienSolde=parseFloat(prof[0]?.solde||0);
+      await fetch(SB+"/rest/v1/profiles?id=eq."+userId,{
+        method:"PATCH",headers:H(),
+        body:JSON.stringify({solde: ancienSolde+parseFloat(montant)})
+      });
+    }
+    toast("❌ Transaction rejetée.");
+    document.getElementById("tx-"+txId).remove();
+    loadStats();
+  }catch(e){toast("❌ Erreur: "+e.message,"err");}
+}
+
+async function crediterManuel(userId, nom){
+  const montant=prompt("Montant à créditer (FCFA) pour "+nom+" :");
+  if(!montant||isNaN(montant)||parseInt(montant)<=0)return;
+  const raison=prompt("Raison (ex: Correction, Bonus, etc.) :")||"Crédit manuel admin";
+  try{
+    const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+userId+"&select=solde",{headers:H()});
+    const prof=await rp.json();
+    const ancienSolde=parseFloat(prof[0]?.solde||0);
+    await fetch(SB+"/rest/v1/profiles?id=eq."+userId,{
+      method:"PATCH",headers:H(),
+      body:JSON.stringify({solde: ancienSolde+parseInt(montant)})
+    });
+    await fetch(SB+"/rest/v1/transactions",{
+      method:"POST",headers:{...H(),"Prefer":"return=representation"},
+      body:JSON.stringify({
+        user_id:userId,type:"bonus",montant:parseInt(montant),
+        montant_net:parseInt(montant),statut:"valide",note:"Crédit admin: "+raison
+      })
+    });
+    toast("✅ "+parseInt(montant).toLocaleString()+" FCFA crédités à "+nom);
+    loadUsers();
+  }catch(e){toast("❌ Erreur: "+e.message,"err");}
+}
+</script>
+</body>
+</html>

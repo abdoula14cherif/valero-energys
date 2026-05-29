@@ -10,7 +10,7 @@
 body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
 .wrap{width:100%;max-width:480px;padding-bottom:80px;}
 .topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
-.back-btn{background:none;border:none;font-size:22px;cursor:pointer;color:#333;}
+.back-btn{background:none;border:none;font-size:22px;cursor:pointer;}
 .topbar-title{font-size:17px;font-weight:700;}
 .balance-banner{margin:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);border-radius:18px;padding:22px;color:#fff;text-align:center;}
 .bb-label{font-size:11px;opacity:.8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
@@ -26,40 +26,45 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 .form-title{font-size:15px;font-weight:700;margin-bottom:14px;}
 .field{margin-bottom:14px;}
 .field label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;}
-.field input,.field select{width:100%;padding:11px 13px;font-size:14px;font-family:inherit;border:1.5px solid #e0e0e0;border-radius:11px;outline:none;background:#fafafa;color:#1a1a1a;}
-.field input:focus,.field select:focus{border-color:#00bcd4;box-shadow:0 0 0 3px rgba(0,188,212,.12);}
+.field input{width:100%;padding:11px 13px;font-size:14px;font-family:inherit;border:1.5px solid #e0e0e0;border-radius:11px;outline:none;background:#fafafa;color:#1a1a1a;}
+.field input:focus{border-color:#00bcd4;box-shadow:0 0 0 3px rgba(0,188,212,.12);}
 .amounts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px;}
 .amt-btn{padding:10px;border:1.5px solid #e0e0e0;border-radius:10px;background:#fafafa;cursor:pointer;font-size:13px;font-weight:700;color:#555;text-align:center;font-family:inherit;transition:all .2s;}
 .amt-btn.sel{border-color:#00bcd4;background:#e0f7fa;color:#00bcd4;}
-.network-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px;}
-.net-btn{padding:10px 4px;border:1.5px solid #e0e0e0;border-radius:11px;background:#fafafa;cursor:pointer;text-align:center;font-size:11px;font-weight:700;color:#555;transition:all .2s;font-family:inherit;}
-.net-btn.sel{border-color:#00bcd4;background:#e0f7fa;color:#00bcd4;}
-.net-icon{font-size:20px;display:block;margin-bottom:3px;}
 .total-row{display:flex;justify-content:space-between;align-items:center;background:#e0f7fa;border-radius:12px;padding:14px 16px;margin-bottom:16px;}
 .tr-label{font-size:13px;font-weight:600;color:#555;}
-.tr-val{font-size:20px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
-.btn-pay{width:100%;padding:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:800;border:none;border-radius:13px;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(0,188,212,.3);}
-.btn-pay:disabled{opacity:.6;cursor:not-allowed;}
+.tr-val{font-size:22px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
+.btn-pay{width:100%;padding:15px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:16px;font-weight:800;border:none;border-radius:13px;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(0,188,212,.3);display:flex;align-items:center;justify-content:center;gap:10px;}
+.btn-pay:disabled{opacity:.6;}
 .alert{padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:14px;display:none;}
 .alert.show{display:block;}
 .err{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
 .suc{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
-.info{background:#e0f7fa;border:1px solid #b2ebf2;color:#00838f;}
-/* Confirmation modal */
+.info-box{background:#e0f7fa;border:1px solid #b2ebf2;border-radius:12px;padding:14px 16px;margin-bottom:14px;font-size:12px;color:#00838f;line-height:1.6;}
+.steps{margin:0 14px 12px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.08);}
+.steps-title{font-size:14px;font-weight:700;margin-bottom:14px;}
+.step{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
+.step:last-child{margin-bottom:0;}
+.step-num{width:28px;height:28px;border-radius:50%;background:#00bcd4;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step-text{font-size:13px;color:#555;line-height:1.5;}
+.step-text strong{color:#1a1a1a;}
+/* Modal confirmation référence */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;display:none;align-items:flex-end;justify-content:center;}
 .modal-bg.show{display:flex;}
-.modal{background:#fff;border-radius:24px 24px 0 0;padding:24px 20px;width:100%;max-width:480px;animation:su .3s ease;}
+.modal{background:#fff;border-radius:24px 24px 0 0;padding:24px 20px 32px;width:100%;max-width:480px;animation:su .3s ease;}
 @keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.modal-title{font-size:18px;font-weight:800;font-family:'Playfair Display',serif;margin-bottom:4px;}
-.modal-sub{font-size:13px;color:#888;margin-bottom:18px;}
-.mrow{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f5f5f5;font-size:13px;}
-.mrow:last-of-type{border-bottom:none;}
-.mlbl{color:#888;}.mval{font-weight:700;}
-.mval.teal{color:#00bcd4;}
-.modal-btns{display:flex;gap:10px;margin-top:18px;}
-.btn-cancel{flex:1;padding:13px;background:#f5f5f5;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
-.btn-confirm{flex:2;padding:13px;background:linear-gradient(135deg,#00bcd4,#0097a7);border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;color:#fff;}
-.btn-confirm:disabled{opacity:.6;}
+.modal-icon{font-size:50px;text-align:center;margin-bottom:12px;}
+.modal-title{font-size:18px;font-weight:800;text-align:center;margin-bottom:6px;}
+.modal-sub{font-size:13px;color:#888;text-align:center;margin-bottom:20px;}
+.ref-box{background:#f0fdf4;border:2px dashed #00bcd4;border-radius:12px;padding:14px;text-align:center;margin-bottom:16px;}
+.ref-label{font-size:11px;color:#888;margin-bottom:4px;}
+.ref-val{font-size:20px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;letter-spacing:2px;}
+.modal-field{margin-bottom:14px;}
+.modal-field label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;}
+.modal-field input{width:100%;padding:11px 13px;font-size:14px;font-family:inherit;border:1.5px solid #e0e0e0;border-radius:11px;outline:none;background:#fafafa;}
+.modal-field input:focus{border-color:#00bcd4;}
+.btn-confirm{width:100%;padding:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;margin-bottom:10px;}
+.btn-cancel{width:100%;padding:12px;background:#f5f5f5;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;color:#666;}
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
 .nav-item.active{color:#00bcd4;}
@@ -83,9 +88,33 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
   <div class="rules-card">
     <div class="rules-title">📋 Règles de dépôt</div>
     <div class="rule-row"><span class="rule-label">Minimum</span><span class="rule-val">3 000 FCFA</span></div>
-    <div class="rule-row"><span class="rule-label">Traitement</span><span class="rule-val">⚡ Automatique</span></div>
+    <div class="rule-row"><span class="rule-label">Traitement</span><span class="rule-val">Après validation admin</span></div>
     <div class="rule-row"><span class="rule-label">Frais</span><span class="rule-val">Gratuit</span></div>
-    <div class="rule-row"><span class="rule-label">Validation</span><span class="rule-val">Admin requis</span></div>
+    <div class="rule-row"><span class="rule-label">Délai</span><span class="rule-val">Quelques minutes</span></div>
+  </div>
+
+  <div class="steps">
+    <div class="steps-title">📝 Comment recharger</div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text"><strong>Choisissez le montant</strong> que vous souhaitez déposer</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>Cliquez "Payer via SoinaPay"</strong> — vous serez redirigé vers la page de paiement</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>Effectuez le paiement</strong> sur SoinaPay (Mobile Money)</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-text"><strong>Revenez ici</strong> et entrez votre référence de transaction pour confirmation</div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-text"><strong>L'admin valide</strong> et votre solde est crédité automatiquement</div>
+    </div>
   </div>
 
   <div class="form-card">
@@ -106,60 +135,41 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 
     <div class="field">
       <label>Ou saisir un montant</label>
-      <input type="number" id="montant" placeholder="Ex: 15000" min="3000" oninput="updateTotal(this.value)"/>
-    </div>
-
-    <div class="field">
-      <label>Pays</label>
-      <select id="pays" onchange="updateNetworks()">
-        <option value="">-- Sélectionnez votre pays --</option>
-        <option value="BJ">🇧🇯 Bénin</option>
-        <option value="BF">🇧🇫 Burkina Faso</option>
-        <option value="CM">🇨🇲 Cameroun</option>
-        <option value="CI">🇨🇮 Côte d'Ivoire</option>
-        <option value="GA">🇬🇦 Gabon</option>
-        <option value="ML">🇲🇱 Mali</option>
-        <option value="NE">🇳🇪 Niger</option>
-        <option value="NG">🇳🇬 Nigeria</option>
-        <option value="CD">🇨🇩 RDC</option>
-        <option value="SN">🇸🇳 Sénégal</option>
-        <option value="TG">🇹🇬 Togo</option>
-      </select>
-    </div>
-
-    <div class="field" id="networkField" style="display:none;">
-      <label>Opérateur Mobile Money</label>
-      <div class="network-grid" id="networkGrid"></div>
-    </div>
-
-    <div class="field" id="phoneField" style="display:none;">
-      <label>Numéro Mobile Money</label>
-      <input type="tel" id="mmPhone" placeholder="Ex: 6XX XXX XXX"/>
+      <input type="number" id="montantInput" placeholder="Ex: 15000" min="3000" oninput="updateTotal(this.value)"/>
     </div>
 
     <div class="total-row">
-      <span class="tr-label">Total à payer</span>
+      <span class="tr-label">Montant à payer</span>
       <span class="tr-val" id="totalAffiche">0 FCFA</span>
     </div>
 
-    <button class="btn-pay" id="btnPay" onclick="ouvrirConfirmation()">⚡ Continuer</button>
+    <button class="btn-pay" id="btnPay" onclick="allerPayer()">
+      💳 Payer via SoinaPay
+    </button>
   </div>
 </div>
 
-<!-- Modal confirmation -->
+<!-- Modal retour après paiement -->
 <div class="modal-bg" id="modalBg">
   <div class="modal">
-    <div class="modal-title">✅ Confirmer le dépôt</div>
-    <div class="modal-sub">Vérifiez les détails avant de valider</div>
+    <div class="modal-icon">✅</div>
+    <div class="modal-title">Paiement effectué ?</div>
+    <div class="modal-sub">Entrez votre référence SoinaPay pour confirmer votre dépôt</div>
+
     <div id="modalAlert" class="alert"></div>
-    <div class="mrow"><span class="mlbl">Montant</span><span class="mval teal" id="mMontant">—</span></div>
-    <div class="mrow"><span class="mlbl">Réseau</span><span class="mval" id="mReseau">—</span></div>
-    <div class="mrow"><span class="mlbl">Numéro</span><span class="mval" id="mNumero">—</span></div>
-    <div class="mrow"><span class="mlbl">Statut</span><span class="mval" style="color:#f57f17;">⏳ En attente validation</span></div>
-    <div class="modal-btns">
-      <button class="btn-cancel" onclick="fermerModal()">Annuler</button>
-      <button class="btn-confirm" id="btnConfirm" onclick="confirmerPaiement()">💳 Payer maintenant</button>
+
+    <div class="ref-box">
+      <div class="ref-label">Montant payé</div>
+      <div class="ref-val" id="refMontant">0 FCFA</div>
     </div>
+
+    <div class="modal-field">
+      <label>Référence de transaction SoinaPay</label>
+      <input type="text" id="refInput" placeholder="Ex: SP_123456789"/>
+    </div>
+
+    <button class="btn-confirm" onclick="confirmerDepot()">✅ Confirmer mon dépôt</button>
+    <button class="btn-cancel" onclick="fermerModal()">Annuler</button>
   </div>
 </div>
 
@@ -173,41 +183,30 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 <script>
 const SB="https://seegoklunovyuieorkvy.supabase.co";
 const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
-const SOINAPAY_PK="pk_live_fefa8219510c45886a8b8fb46a634ab9";
+const SOINAPAY_LINK = "https://soinapay.com/pay/i73gnwp0";
 
 function tok(){return localStorage.getItem("velero_token")||"";}
 function uid(){return localStorage.getItem("velero_uid")||"";}
 function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
 
-const NETWORKS={
-  BJ:[{id:"mtn",icon:"🟡",name:"MTN MoMo"},{id:"moov",icon:"🔵",name:"Moov Money"}],
-  BF:[{id:"orange",icon:"🟠",name:"Orange Money"},{id:"moov",icon:"🔵",name:"Moov Money"}],
-  CM:[{id:"mtn",icon:"🟡",name:"MTN MoMo"},{id:"orange",icon:"🟠",name:"Orange Money"}],
-  CI:[{id:"orange",icon:"🟠",name:"Orange Money"},{id:"mtn",icon:"🟡",name:"MTN MoMo"},{id:"wave",icon:"🌊",name:"Wave"}],
-  GA:[{id:"airtel",icon:"🔴",name:"Airtel Money"},{id:"moov",icon:"🔵",name:"Moov Money"}],
-  ML:[{id:"orange",icon:"🟠",name:"Orange Money"},{id:"moov",icon:"🔵",name:"Moov Money"}],
-  NE:[{id:"airtel",icon:"🔴",name:"Airtel Money"},{id:"moov",icon:"🔵",name:"Moov Money"}],
-  NG:[{id:"opay",icon:"🟢",name:"OPay"},{id:"palmpay",icon:"💚",name:"PalmPay"}],
-  CD:[{id:"mpesa",icon:"🟢",name:"M-Pesa"},{id:"airtel",icon:"🔴",name:"Airtel Money"}],
-  SN:[{id:"wave",icon:"🌊",name:"Wave"},{id:"orange",icon:"🟠",name:"Orange Money"},{id:"free",icon:"🔵",name:"Free Money"}],
-  TG:[{id:"tmoney",icon:"🔴",name:"T-Money"},{id:"flooz",icon:"🟢",name:"Flooz"}]
-};
-
-let montantChoisi=0, selectedNet=null, selectedNetName="";
+let montantChoisi = 0;
 
 async function init(){
   if(!tok()){location.href="index.html";return;}
-  const r=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()});
-  const d=await r.json();
-  document.getElementById("soldeActuel").textContent=d&&d[0]?parseFloat(d[0].solde).toLocaleString()+" FCFA":"0 FCFA";
+  try{
+    const r=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()});
+    const d=await r.json();
+    document.getElementById("soldeActuel").textContent=
+      d&&d[0]?parseFloat(d[0].solde).toLocaleString()+" FCFA":"0 FCFA";
+  }catch(e){}
 }
 
 function setAmt(v,el){
   montantChoisi=v;
-  document.getElementById("montant").value=v;
+  document.getElementById("montantInput").value=v;
   document.querySelectorAll(".amt-btn").forEach(b=>b.classList.remove("sel"));
   el.classList.add("sel");
-  updateTotal(v);
+  document.getElementById("totalAffiche").textContent=v.toLocaleString()+" FCFA";
 }
 
 function updateTotal(v){
@@ -215,83 +214,87 @@ function updateTotal(v){
   document.getElementById("totalAffiche").textContent=montantChoisi.toLocaleString()+" FCFA";
 }
 
-function updateNetworks(){
-  const pays=document.getElementById("pays").value;
-  if(!pays)return;
-  const nets=NETWORKS[pays]||[];
-  const grid=document.getElementById("networkGrid");
-  grid.innerHTML=nets.map(n=>`
-    <button class="net-btn" onclick="selectNet('${n.id}','${n.name}')" id="net-${n.id}">
-      <span class="net-icon">${n.icon}</span>${n.name}
-    </button>`).join("");
-  document.getElementById("networkField").style.display="block";
-  document.getElementById("phoneField").style.display="block";
-  selectedNet=null;
-}
-
-function selectNet(id,name){
-  selectedNet=id;
-  selectedNetName=name;
-  document.querySelectorAll(".net-btn").forEach(b=>b.classList.remove("sel"));
-  document.getElementById("net-"+id).classList.add("sel");
-}
-
 function showAlert(id,msg,type){
   const el=document.getElementById(id);
   el.textContent=msg;el.className="alert "+type+" show";
 }
 
-function ouvrirConfirmation(){
-  const phone=document.getElementById("mmPhone").value.trim();
+function allerPayer(){
   if(montantChoisi<3000)return showAlert("alertBox","❌ Minimum 3 000 FCFA","err");
-  if(!selectedNet)return showAlert("alertBox","⚠️ Choisissez un opérateur","err");
-  if(!phone||phone.length<8)return showAlert("alertBox","⚠️ Entrez votre numéro","err");
 
-  document.getElementById("mMontant").textContent=montantChoisi.toLocaleString()+" FCFA";
-  document.getElementById("mReseau").textContent=selectedNetName;
-  document.getElementById("mNumero").textContent=phone;
-  document.getElementById("modalAlert").className="alert";
-  document.getElementById("btnConfirm").disabled=false;
-  document.getElementById("btnConfirm").textContent="💳 Payer maintenant";
-  document.getElementById("modalBg").classList.add("show");
+  // Sauvegarder le montant en cours
+  localStorage.setItem("depot_montant", montantChoisi);
+  localStorage.setItem("depot_ts", Date.now());
+
+  // Ouvrir SoinaPay dans un nouvel onglet
+  window.open(SOINAPAY_LINK, "_blank");
+
+  // Afficher modal pour référence après paiement
+  setTimeout(()=>{
+    document.getElementById("refMontant").textContent=montantChoisi.toLocaleString()+" FCFA";
+    document.getElementById("modalBg").classList.add("show");
+  }, 2000);
 }
 
-function fermerModal(){document.getElementById("modalBg").classList.remove("show");}
+function fermerModal(){
+  document.getElementById("modalBg").classList.remove("show");
+}
 
-async function confirmerPaiement(){
-  const btn=document.getElementById("btnConfirm");
-  btn.disabled=true;btn.textContent="⏳ Traitement...";
-  const phone=document.getElementById("mmPhone").value.trim();
-  const pays=document.getElementById("pays").value;
+async function confirmerDepot(){
+  const ref=document.getElementById("refInput").value.trim();
+  const montant=parseInt(localStorage.getItem("depot_montant")||"0");
+
+  if(!ref)return showAlert("modalAlert","⚠️ Entrez votre référence SoinaPay","err");
+  if(montant<3000)return showAlert("modalAlert","❌ Montant invalide","err");
+
+  const btn=document.querySelector(".btn-confirm");
+  btn.disabled=true;btn.textContent="⏳ Envoi...";
 
   try{
-    // Appel via Supabase Edge Function (clé privée sécurisée côté serveur)
-    const r=await fetch(SB+"/functions/v1/initier-paiement",{
+    // Enregistrer la transaction en attente dans Supabase
+    const r=await fetch(SB+"/rest/v1/transactions",{
       method:"POST",
-      headers:{...H(),"Content-Type":"application/json"},
+      headers:{...H(),"Prefer":"return=representation"},
       body:JSON.stringify({
-        montant:montantChoisi,
-        reseau:selectedNetName,
-        numero:phone,
-        pays,
-        user_id:uid()
+        user_id: uid(),
+        type: "depot",
+        montant: montant,
+        montant_net: montant,
+        statut: "en_attente",
+        reference: ref,
+        reseau: "SoinaPay",
+        note: "Dépôt via SoinaPay - Ref: "+ref+" - En attente validation admin"
       })
     });
     const d=await r.json();
 
-    if(d.success){
-      showAlert("modalAlert","✅ "+d.message,"suc");
-      btn.textContent="✅ Demande envoyée !";
-      setTimeout(()=>{fermerModal();location.href="historique.html";},2500);
+    if(Array.isArray(d)&&d.length>0){
+      showAlert("modalAlert","✅ Demande enregistrée ! L'admin va valider sous peu.","suc");
+      btn.textContent="✅ Envoyé !";
+      localStorage.removeItem("depot_montant");
+      setTimeout(()=>{
+        fermerModal();
+        location.href="historique.html";
+      },2500);
     }else{
-      showAlert("modalAlert","❌ "+(d.error||"Erreur de paiement"),"err");
-      btn.disabled=false;btn.textContent="💳 Réessayer";
+      showAlert("modalAlert","❌ Erreur d'enregistrement. Contactez le support.","err");
+      btn.disabled=false;btn.textContent="✅ Confirmer mon dépôt";
     }
   }catch(e){
-    showAlert("modalAlert","❌ Erreur réseau: "+e.message,"err");
-    btn.disabled=false;btn.textContent="💳 Réessayer";
+    showAlert("modalAlert","❌ Erreur: "+e.message,"err");
+    btn.disabled=false;btn.textContent="✅ Confirmer mon dépôt";
   }
 }
+
+// Vérifier si retour depuis SoinaPay
+window.addEventListener("focus",function(){
+  const montant=localStorage.getItem("depot_montant");
+  const ts=localStorage.getItem("depot_ts");
+  if(montant&&ts&&(Date.now()-parseInt(ts))<600000){
+    document.getElementById("refMontant").textContent=parseInt(montant).toLocaleString()+" FCFA";
+    document.getElementById("modalBg").classList.add("show");
+  }
+});
 
 init();
 </script>
