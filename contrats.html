@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Contrats — Velero Energy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
+.wrap{width:100%;max-width:480px;padding-bottom:80px;}
+.topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+.back-btn{background:none;border:none;font-size:22px;cursor:pointer;}
+.topbar-title{font-size:17px;font-weight:700;}
+.hero-img{width:100%;height:160px;object-fit:cover;object-position:center;}
+.hero-overlay-c{position:relative;}
+.hero-overlay-c::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.5));}
+.hero-text{position:absolute;bottom:16px;left:16px;z-index:2;color:#fff;}
+.hero-text h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;}
+.hero-text p{font-size:12px;opacity:.85;}
+.no-invest{margin:14px;background:#fff;border-radius:18px;padding:32px;text-align:center;box-shadow:0 3px 14px rgba(0,0,0,.08);}
+.ni-icon{font-size:60px;margin-bottom:14px;}
+.ni-title{font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:8px;}
+.ni-sub{font-size:13px;color:#888;margin-bottom:20px;}
+.btn-invest{padding:13px 24px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:14px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;}
+.contrat-card{margin:8px 14px;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.08);}
+.cc-header{padding:16px 18px;display:flex;justify-content:space-between;align-items:center;}
+.cc-plan{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;}
+.cc-statut{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;}
+.cc-statut.actif{background:#e0f7fa;color:#00838f;}
+.cc-statut.termine{background:#f5f5f5;color:#888;}
+.cc-body{padding:0 18px 18px;}
+.cc-progress{margin-bottom:14px;}
+.cp-label{display:flex;justify-content:space-between;font-size:12px;color:#888;margin-bottom:6px;}
+.cp-bar{background:#f0f0f0;border-radius:20px;height:8px;}
+.cp-fill{background:linear-gradient(90deg,#00bcd4,#0097a7);border-radius:20px;height:100%;transition:width .5s;}
+.cc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.cs-box{background:#f8f9fa;border-radius:12px;padding:12px;text-align:center;}
+.cs-val{font-size:15px;font-weight:800;color:#00bcd4;font-family:'Playfair Display',serif;}
+.cs-lbl{font-size:10px;color:#888;margin-top:2px;}
+.cc-detail{font-size:12px;color:#888;line-height:1.8;background:#f8f9fa;border-radius:12px;padding:12px;}
+.cc-detail span{color:#1a1a1a;font-weight:600;}
+.btn-tache-c{width:100%;padding:12px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:14px;font-weight:700;border:none;border-radius:11px;cursor:pointer;font-family:inherit;margin-top:14px;}
+.loading{text-align:center;padding:40px;color:#aaa;}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;}
+.nav-item.active{color:#00bcd4;}
+.nav-item .ni{font-size:21px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <button class="back-btn" onclick="history.back()">←</button>
+    <span class="topbar-title">📋 Mes Contrats</span>
+  </div>
+
+  <div class="hero-overlay-c" style="position:relative;">
+    <img class="hero-img" src="https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg" alt="Velero"/>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.6));"></div>
+    <div style="position:absolute;bottom:16px;left:16px;color:#fff;">
+      <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:900;">Mes Investissements</div>
+      <div style="font-size:12px;opacity:.85;">Suivez vos contrats actifs et terminés</div>
+    </div>
+  </div>
+
+  <div id="content"><div class="loading">⏳ Chargement...</div></div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html" class="nav-item"><span class="ni">🏠</span>Accueil</a>
+  <a href="produits.html" class="nav-item active"><span class="ni">💲</span>Produit</a>
+  <a href="parrainage.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
+  <a href="compte.html" class="nav-item"><span class="ni">👤</span>Mon compte</a>
+</nav>
+
+<script>
+const SB="https://seegoklunovyuieorkvy.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
+function tok(){return localStorage.getItem("velero_token")||"";}
+function uid(){return localStorage.getItem("velero_uid")||"";}
+function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
+
+const COLORS={Starter:"#00bcd4",Bronze:"#cd7f32",Silver:"#78909c",Gold:"#ffd700",Premium:"#e53935",VIP:"#9c27b0",Cold:"#1565c0"};
+
+async function init(){
+  if(!tok()){location.href="index.html";return;}
+  const r=await fetch(SB+"/rest/v1/investissements?user_id=eq."+uid()+"&order=created_at.desc&select=*",{headers:H()});
+  const invs=await r.json();
+  const el=document.getElementById("content");
+  if(!invs||invs.length===0){
+    el.innerHTML=`<div class="no-invest">
+      <div class="ni-icon">📋</div>
+      <div class="ni-title">Aucun contrat actif</div>
+      <div class="ni-sub">Investissez dans un plan pour voir vos contrats ici</div>
+      <button class="btn-invest" onclick="location.href='produits.html'">📈 Voir les plans</button>
+    </div>`;
+    return;
+  }
+  el.innerHTML=invs.map(inv=>{
+    const pct=Math.round(((inv.jours_total-inv.jours_restants)/inv.jours_total)*100);
+    const color=COLORS[inv.plan_nom]||"#00bcd4";
+    const actif=inv.statut==="actif";
+    const totalGagne=(inv.jours_total-inv.jours_restants)*inv.revenu_jour;
+    const totalAttendu=inv.jours_total*inv.revenu_jour;
+    return `<div class="contrat-card">
+      <div class="cc-header" style="background:linear-gradient(135deg,${color}22,${color}11);">
+        <div>
+          <div style="font-size:11px;color:#888;margin-bottom:2px;">Plan d'investissement</div>
+          <div class="cc-plan" style="color:${color};">Plan ${inv.plan_nom}</div>
+        </div>
+        <span class="cc-statut ${inv.statut}">${actif?"⚡ Actif":"✅ Terminé"}</span>
+      </div>
+      <div class="cc-body">
+        <div class="cc-progress">
+          <div class="cp-label"><span>Progression</span><span>${pct}%</span></div>
+          <div class="cp-bar"><div class="cp-fill" style="width:${pct}%;background:linear-gradient(90deg,${color},${color}99);"></div></div>
+        </div>
+        <div class="cc-stats">
+          <div class="cs-box"><div class="cs-val">${inv.jours_restants}j</div><div class="cs-lbl">Restants</div></div>
+          <div class="cs-box"><div class="cs-val">${parseFloat(inv.revenu_jour).toLocaleString()}</div><div class="cs-lbl">FCFA/jour</div></div>
+          <div class="cs-box"><div class="cs-val">${totalGagne.toLocaleString()}</div><div class="cs-lbl">Gagné</div></div>
+        </div>
+        <div class="cc-detail">
+          💰 Investi : <span>${parseFloat(inv.montant_investi).toLocaleString()} FCFA</span><br>
+          📈 Total attendu : <span>${totalAttendu.toLocaleString()} FCFA</span><br>
+          📅 Début : <span>${new Date(inv.date_debut).toLocaleDateString("fr-FR")}</span><br>
+          🏁 Fin prévue : <span>${new Date(inv.date_fin).toLocaleDateString("fr-FR")}</span>
+        </div>
+        ${actif?`<button class="btn-tache-c" onclick="location.href='tache.html'">⛽ Faire ma tâche du jour</button>`:""}
+      </div>
+    </div>`;
+  }).join("");
+}
+init();
+</script>
+</body>
+</html>

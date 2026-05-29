@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Sécurité — Velero Energy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
+.wrap{width:100%;max-width:480px;padding-bottom:40px;}
+.topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+.back-btn{background:none;border:none;font-size:22px;cursor:pointer;}
+.topbar-title{font-size:17px;font-weight:700;}
+.section{margin:12px 14px 0;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.07);}
+.sec-title{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;padding:14px 16px 8px;}
+.field{padding:0 16px 14px;}
+.field label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;}
+.field input{width:100%;padding:11px 13px;font-size:14px;font-family:inherit;border:1.5px solid #e0e0e0;border-radius:11px;outline:none;background:#fafafa;}
+.field input:focus{border-color:#00bcd4;box-shadow:0 0 0 3px rgba(0,188,212,.12);}
+.btn-save{width:calc(100% - 32px);margin:0 16px 16px;padding:13px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:14px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;}
+.alert{padding:10px 13px;border-radius:10px;font-size:13px;margin:0 16px 14px;display:none;}
+.alert.show{display:block;}
+.err{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
+.suc{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
+.info-row{display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid #f5f5f5;}
+.info-row:last-child{border-bottom:none;}
+.ir-icon{font-size:20px;width:32px;text-align:center;margin-right:12px;}
+.ir-label{font-size:11px;color:#aaa;margin-bottom:2px;}
+.ir-val{font-size:14px;font-weight:600;color:#1a1a1a;}
+.tip-card{margin:12px 14px 0;background:#e0f7fa;border-radius:14px;padding:16px;}
+.tip-title{font-size:13px;font-weight:700;color:#00838f;margin-bottom:10px;}
+.tip-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:#00838f;margin-bottom:8px;line-height:1.5;}
+.tip-item:last-child{margin-bottom:0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <button class="back-btn" onclick="history.back()">←</button>
+    <span class="topbar-title">🔑 Sécurité</span>
+  </div>
+
+  <!-- Infos compte -->
+  <div class="section">
+    <div class="sec-title">Informations du compte</div>
+    <div class="info-row"><span class="ir-icon">📧</span><div><div class="ir-label">Email</div><div class="ir-val" id="infoEmail">...</div></div></div>
+    <div class="info-row"><span class="ir-icon">📅</span><div><div class="ir-label">Compte créé le</div><div class="ir-val" id="infoDate">...</div></div></div>
+    <div class="info-row"><span class="ir-icon">🔐</span><div><div class="ir-label">Statut</div><div class="ir-val" style="color:#4caf50;">✅ Compte vérifié</div></div></div>
+  </div>
+
+  <!-- Changer mot de passe -->
+  <div class="section" style="margin-top:12px;">
+    <div class="sec-title">Changer le mot de passe</div>
+    <div id="passAlert" class="alert"></div>
+    <div class="field">
+      <label>Nouveau mot de passe</label>
+      <input type="password" id="newPass" placeholder="Minimum 6 caractères"/>
+    </div>
+    <div class="field">
+      <label>Confirmer le nouveau mot de passe</label>
+      <input type="password" id="confPass" placeholder="••••••••"/>
+    </div>
+    <button class="btn-save" onclick="changerPass()">🔑 Mettre à jour le mot de passe</button>
+  </div>
+
+  <!-- Conseils sécurité -->
+  <div class="tip-card">
+    <div class="tip-title">🛡️ Conseils de sécurité</div>
+    <div class="tip-item"><span>🔒</span>Ne partagez jamais votre mot de passe avec personne</div>
+    <div class="tip-item"><span>📱</span>Utilisez un mot de passe unique pour Velero Energy</div>
+    <div class="tip-item"><span>⚠️</span>Velero Energy ne vous demandera jamais votre mot de passe par téléphone ou email</div>
+    <div class="tip-item"><span>🚪</span>Déconnectez-vous toujours après utilisation sur un appareil partagé</div>
+    <div class="tip-item"><span>📧</span>En cas de problème : support@veleroenergy.com</div>
+  </div>
+</div>
+
+<script>
+const SB="https://seegoklunovyuieorkvy.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
+function tok(){return localStorage.getItem("velero_token")||"";}
+function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
+
+async function init(){
+  if(!tok()){location.href="index.html";return;}
+  const r=await fetch(SB+"/auth/v1/user",{headers:H()});
+  const u=await r.json();
+  if(u.email)document.getElementById("infoEmail").textContent=u.email;
+  if(u.created_at)document.getElementById("infoDate").textContent=new Date(u.created_at).toLocaleDateString("fr-FR",{day:"2-digit",month:"long",year:"numeric"});
+}
+
+function showAlert(id,msg,type){
+  const el=document.getElementById(id);
+  el.textContent=msg;el.className="alert "+type+" show";
+  setTimeout(()=>el.classList.remove("show"),4000);
+}
+
+async function changerPass(){
+  const np=document.getElementById("newPass").value;
+  const cp=document.getElementById("confPass").value;
+  if(!np||!cp)return showAlert("passAlert","Remplissez les deux champs","err");
+  if(np!==cp)return showAlert("passAlert","Les mots de passe ne correspondent pas","err");
+  if(np.length<6)return showAlert("passAlert","Minimum 6 caractères","err");
+  const btn=document.querySelector(".btn-save");
+  btn.disabled=true;btn.textContent="⏳ Mise à jour...";
+  const r=await fetch(SB+"/auth/v1/user",{
+    method:"PUT",headers:H(),
+    body:JSON.stringify({password:np})
+  });
+  const d=await r.json();
+  if(d.id||d.email){
+    showAlert("passAlert","✅ Mot de passe mis à jour avec succès !","suc");
+    document.getElementById("newPass").value="";
+    document.getElementById("confPass").value="";
+  }else{
+    showAlert("passAlert","❌ Erreur: "+(d.message||"Impossible de mettre à jour"),"err");
+  }
+  btn.disabled=false;btn.textContent="🔑 Mettre à jour le mot de passe";
+}
+init();
+</script>
+</body>
+</html>
