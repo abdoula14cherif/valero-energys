@@ -3,13 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-<link rel="manifest" href="/manifest.json"/>
-<meta name="theme-color" content="#00bcd4"/>
-<meta name="mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<meta name="apple-mobile-web-app-title" content="Velero Energy"/>
 <title>Parrainage — Velero Energy</title>
+<script src="/pwa-install.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -22,8 +17,8 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 .hero::before{content:'🤝';font-size:80px;position:absolute;right:-10px;top:-10px;opacity:.15;}
 .h-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-bottom:6px;}
 .h-sub{font-size:13px;opacity:.85;margin-bottom:16px;}
-.code-box{background:rgba(255,255,255,.2);border:2px dashed rgba(255,255,255,.5);border-radius:14px;padding:14px;font-size:26px;font-weight:900;letter-spacing:4px;font-family:'Playfair Display',serif;margin-bottom:14px;}
 .code-label{font-size:11px;opacity:.75;margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px;}
+.code-box{background:rgba(255,255,255,.2);border:2px dashed rgba(255,255,255,.5);border-radius:14px;padding:14px;font-size:26px;font-weight:900;letter-spacing:4px;font-family:'Playfair Display',serif;margin-bottom:14px;}
 .btns-row{display:flex;gap:8px;}
 .btn-copy{flex:1;padding:11px;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.4);color:#fff;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
 .btn-share{flex:1;padding:11px;background:#fff;color:#00bcd4;border:none;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
@@ -49,16 +44,14 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 .tab-f.active{background:#e0f7fa;color:#00bcd4;}
 .filleul-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f5f5f5;}
 .filleul-item:last-child{border-bottom:none;}
-.fi-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#00bcd4,#0097a7);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0;}
+.fi-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#00bcd4,#0097a7);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0;}
 .fi-info{flex:1;}
 .fi-name{font-size:13px;font-weight:700;}
 .fi-date{font-size:11px;color:#aaa;margin-top:1px;}
 .fi-gain{font-size:13px;font-weight:800;color:#00bcd4;}
 .empty-f{text-align:center;padding:24px;color:#aaa;font-size:13px;}
-.commissions-card{margin:0 14px 12px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.08);}
 .comm-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f5f5f5;}
 .comm-item:last-child{border-bottom:none;}
-.ci-left{}
 .ci-name{font-size:13px;font-weight:600;}
 .ci-date{font-size:11px;color:#aaa;}
 .ci-gain{font-size:14px;font-weight:900;color:#15803d;}
@@ -71,12 +64,11 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 .nav-item.active{color:#00bcd4;}
 .nav-item .ni{font-size:21px;}
 .nav-dot{width:5px;height:5px;border-radius:50%;background:#00bcd4;margin:1px auto 0;}
-.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#00bcd4;color:#fff;padding:10px 20px;border-radius:12px;font-size:13px;font-weight:700;z-index:999;display:none;}
+.toast{position:fixed;top:70px;left:50%;transform:translateX(-50%);background:#00bcd4;color:#fff;padding:10px 20px;border-radius:12px;font-size:13px;font-weight:700;z-index:99998;display:none;white-space:nowrap;}
 .toast.show{display:block;}
 </style>
 </head>
 <body>
-<script src="/pwa-install.js"></script>
 <div class="toast" id="toast"></div>
 <div class="wrap">
   <div class="topbar">
@@ -90,46 +82,41 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
     <div class="code-label">Votre code de parrainage</div>
     <div class="code-box" id="refCode">...</div>
     <div class="btns-row">
-      <button class="btn-copy" onclick="copyCode()">📋 Copier le code</button>
+      <button class="btn-copy" onclick="copyCode()">📋 Copier</button>
       <button class="btn-share" onclick="shareLink()">🚀 Partager</button>
     </div>
   </div>
 
-  <!-- Stats -->
   <div class="stats-grid">
     <div class="sg-card"><div class="sg-val" id="statN1">0</div><div class="sg-lbl">Niveau 1</div></div>
     <div class="sg-card"><div class="sg-val" id="statN2">0</div><div class="sg-lbl">Niveau 2</div></div>
     <div class="sg-card"><div class="sg-val" id="statComm">0</div><div class="sg-lbl">FCFA gagnés</div></div>
   </div>
 
-  <!-- Niveaux -->
   <div class="levels-card">
-    <div class="lc-title">💸 Commissions sur investissement</div>
-    <div class="lv-item l1"><div class="lv-medal">🥇</div><div class="lv-info"><div class="lv-name">Niveau 1 — Filleuls directs</div><div class="lv-desc">Sur chaque investissement de vos filleuls directs</div></div><div class="lv-pct">20%</div></div>
-    <div class="lv-item l2"><div class="lv-medal">🥈</div><div class="lv-info"><div class="lv-name">Niveau 2 — Filleuls indirects</div><div class="lv-desc">Sur les filleuls de vos filleuls</div></div><div class="lv-pct">2%</div></div>
-    <div class="lv-item l3"><div class="lv-medal">🥉</div><div class="lv-info"><div class="lv-name">Niveau 3 — Réseau étendu</div><div class="lv-desc">3ème niveau du réseau</div></div><div class="lv-pct">1%</div></div>
+    <div class="lc-title">💸 Commissions</div>
+    <div class="lv-item l1"><div class="lv-medal">🥇</div><div class="lv-info"><div class="lv-name">Niveau 1 — Filleuls directs</div><div class="lv-desc">Sur chaque investissement</div></div><div class="lv-pct">20%</div></div>
+    <div class="lv-item l2"><div class="lv-medal">🥈</div><div class="lv-info"><div class="lv-name">Niveau 2</div><div class="lv-desc">Filleuls indirects</div></div><div class="lv-pct">2%</div></div>
+    <div class="lv-item l3"><div class="lv-medal">🥉</div><div class="lv-info"><div class="lv-name">Niveau 3</div><div class="lv-desc">Réseau étendu</div></div><div class="lv-pct">1%</div></div>
   </div>
 
-  <!-- Filleuls -->
   <div class="filleuls-card">
     <div class="fc-title">👥 Mon équipe</div>
     <div class="tabs-f">
-      <button class="tab-f active" onclick="showFilleuls(1,this)">Niveau 1</button>
-      <button class="tab-f" onclick="showFilleuls(2,this)">Niveau 2</button>
-      <button class="tab-f" onclick="showFilleuls(3,this)">Niveau 3</button>
+      <button class="tab-f active" onclick="showTab(1,this)">Niveau 1</button>
+      <button class="tab-f" onclick="showTab(2,this)">Niveau 2</button>
+      <button class="tab-f" onclick="showTab(3,this)">Niveau 3</button>
     </div>
     <div id="filleulsList"><div class="empty-f">⏳ Chargement...</div></div>
   </div>
 
-  <!-- Commissions reçues -->
-  <div class="commissions-card">
+  <div class="filleuls-card">
     <div class="fc-title">💰 Dernières commissions</div>
     <div id="commList"><div class="empty-f">⏳ Chargement...</div></div>
   </div>
 
-  <!-- Lien -->
   <div class="link-card">
-    <div style="font-size:14px;font-weight:700;margin-bottom:10px;">🔗 Votre lien de parrainage</div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:10px;">🔗 Lien de parrainage</div>
     <div class="link-wrap">
       <input class="link-inp" id="refLink" readonly/>
       <button class="btn-lc" onclick="copyLink()">Copier</button>
@@ -151,54 +138,72 @@ function tok(){return localStorage.getItem("velero_token")||"";}
 function uid(){return localStorage.getItem("velero_uid")||"";}
 function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
 
-let profil=null,refCode="",allParrainages=[];
+let myCode="",allParrainages=[],filleulsData={};
 
-function toast(msg){const el=document.getElementById("toast");el.textContent=msg;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2500);}
+function toast(msg){
+  const el=document.getElementById("toast");
+  el.textContent=msg;el.classList.add("show");
+  setTimeout(()=>el.classList.remove("show"),2500);
+}
 
 async function init(){
   if(!tok()){location.href="index.html";return;}
-  const r=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=*",{headers:H()});
-  const d=await r.json();
-  if(!d||!d.length){location.href="index.html";return;}
-  profil=d[0];
-  refCode=profil.referral_code||"VELERO";
-  document.getElementById("refCode").textContent=refCode;
-  const lien=location.origin+"/index.html?ref="+refCode;
+
+  // 1. Charger mon profil
+  const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=*",{headers:H()});
+  const dp=await rp.json();
+  if(!dp||!dp.length){location.href="index.html";return;}
+  const profil=dp[0];
+  myCode=profil.referral_code||"";
+  document.getElementById("refCode").textContent=myCode||"—";
+  const lien=location.origin+"/index.html?ref="+myCode;
   document.getElementById("refLink").value=lien;
 
-  await loadParrainages();
-  await loadCommissions();
-}
+  // 2. Charger parrainages
+  const rr=await fetch(SB+"/rest/v1/parrainages?parrain_id=eq."+uid()+"&select=*",{headers:H()});
+  allParrainages=await rr.json()||[];
 
-async function loadParrainages(){
-  const r=await fetch(SB+"/rest/v1/parrainages?parrain_id=eq."+uid()+"&select=*,profiles!filleul_id(full_name,email,created_at)",{headers:H()});
-  allParrainages=await r.json()||[];
+  // 3. Charger les profils des filleuls séparément
+  const filleulIds=[...new Set(allParrainages.map(p=>p.filleul_id))];
+  if(filleulIds.length>0){
+    const ids=filleulIds.map(id=>"id=eq."+id).join("&");
+    const rf=await fetch(SB+"/rest/v1/profiles?or=("+filleulIds.map(id=>"id.eq."+id).join(",")+")"+"&select=id,full_name,email,created_at",{headers:H()});
+    const df=await rf.json()||[];
+    df.forEach(f=>filleulsData[f.id]=f);
+  }
 
+  // Stats
   const n1=allParrainages.filter(p=>p.niveau===1).length;
   const n2=allParrainages.filter(p=>p.niveau===2).length;
   const totalComm=allParrainages.reduce((s,p)=>s+parseFloat(p.commission_gagnee||0),0);
-
   document.getElementById("statN1").textContent=n1;
   document.getElementById("statN2").textContent=n2;
   document.getElementById("statComm").textContent=totalComm.toLocaleString();
 
-  showFilleuls(1,document.querySelector(".tab-f.active"));
+  showTab(1,document.querySelector(".tab-f.active"));
+  loadCommissions();
 }
 
-function showFilleuls(niveau,el){
+function showTab(niveau,el){
   document.querySelectorAll(".tab-f").forEach(b=>b.classList.remove("active"));
   el.classList.add("active");
   const list=document.getElementById("filleulsList");
   const items=allParrainages.filter(p=>p.niveau===niveau);
-  if(!items.length){list.innerHTML='<div class="empty-f">Aucun filleul niveau '+niveau+'</div>';return;}
+  if(!items.length){
+    list.innerHTML='<div class="empty-f">Aucun filleul niveau '+niveau+'<br><small>Partagez votre code pour inviter !</small></div>';
+    return;
+  }
   list.innerHTML=items.map(p=>{
-    const f=p.profiles||{};
-    const name=f.full_name||f.email?.split("@")[0]||"—";
+    const f=filleulsData[p.filleul_id]||{};
+    const name=(f.full_name||f.email||"Utilisateur").split("@")[0];
     const date=f.created_at?new Date(f.created_at).toLocaleDateString("fr-FR"):"—";
     const comm=parseFloat(p.commission_gagnee||0);
     return `<div class="filleul-item">
       <div class="fi-avatar">${name[0].toUpperCase()}</div>
-      <div class="fi-info"><div class="fi-name">${name}</div><div class="fi-date">Inscrit le ${date}</div></div>
+      <div class="fi-info">
+        <div class="fi-name">${name.charAt(0).toUpperCase()+name.slice(1)}</div>
+        <div class="fi-date">Inscrit le ${date}</div>
+      </div>
       <div class="fi-gain">${comm>0?"+"+comm.toLocaleString()+" FCFA":"En attente"}</div>
     </div>`;
   }).join("");
@@ -208,24 +213,27 @@ async function loadCommissions(){
   const r=await fetch(SB+"/rest/v1/transactions?user_id=eq."+uid()+"&type=eq.commission&order=created_at.desc&limit=20",{headers:H()});
   const txs=await r.json()||[];
   const list=document.getElementById("commList");
-  if(!txs.length){list.innerHTML='<div class="empty-f">Aucune commission reçue pour l\'instant</div>';return;}
+  if(!txs.length){
+    list.innerHTML='<div class="empty-f">Aucune commission reçue<br><small>Invitez des amis à investir !</small></div>';
+    return;
+  }
   list.innerHTML=txs.map(t=>`
     <div class="comm-item">
-      <div class="ci-left">
-        <div class="ci-name">${t.note||"Commission parrainage"}</div>
-        <div class="ci-date">${new Date(t.created_at).toLocaleDateString("fr-FR")}</div>
-      </div>
+      <div><div class="ci-name">${t.note||"Commission parrainage"}</div>
+      <div class="ci-date">${new Date(t.created_at).toLocaleDateString("fr-FR")}</div></div>
       <div class="ci-gain">+${parseFloat(t.montant).toLocaleString()} FCFA</div>
     </div>`).join("");
 }
 
-function copyCode(){navigator.clipboard.writeText(refCode).then(()=>toast("✅ Code copié : "+refCode));}
+function copyCode(){navigator.clipboard.writeText(myCode).then(()=>toast("✅ Code copié : "+myCode));}
 function copyLink(){navigator.clipboard.writeText(document.getElementById("refLink").value).then(()=>toast("✅ Lien copié !"));}
 function shareLink(){
   const lien=document.getElementById("refLink").value;
-  if(navigator.share){navigator.share({title:"Velero Energy",text:"Rejoignez Velero Energy avec mon code "+refCode+" et recevez 500 FCFA !",url:lien});}
-  else copyLink();
+  if(navigator.share){
+    navigator.share({title:"Velero Energy",text:"Rejoignez Velero Energy avec mon code "+myCode+" et recevez 500 FCFA de bonus !",url:lien});
+  }else copyLink();
 }
+
 init();
 </script>
 </body>
