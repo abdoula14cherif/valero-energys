@@ -63,6 +63,7 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 </style>
 </head>
 <body>
+<script src="/pwa-install.js"></script>
 <div class="wrap">
   <div class="topbar">
     <button class="back-btn" onclick="history.back()">←</button>
@@ -178,6 +179,5 @@ async function valider(){
 }
 init();
 </script>
-<script>if("serviceWorker"in navigator){navigator.serviceWorker.register("/sw.js");}</script>
 </body>
 </html>

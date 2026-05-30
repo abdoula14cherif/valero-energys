@@ -47,6 +47,7 @@ input:checked+.slider-t::before{transform:translateX(20px);}
 </style>
 </head>
 <body>
+<script src="/pwa-install.js"></script>
 <div class="wrap">
   <div class="topbar">
     <button class="back-btn" onclick="history.back()">←</button>
@@ -139,6 +140,5 @@ window.onload=()=>{
   if(ta==="false")document.getElementById("toggleTache").checked=false;
 };
 </script>
-<script>if("serviceWorker"in navigator){navigator.serviceWorker.register("/sw.js");}</script>
 </body>
 </html>
