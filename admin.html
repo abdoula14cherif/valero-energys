@@ -3,321 +3,497 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-<link rel="manifest" href="/manifest.json"/>
-<meta name="theme-color" content="#00bcd4"/>
-<meta name="mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<meta name="apple-mobile-web-app-title" content="Velero Energy"/>
-<title>Admin — Velero Energy</title>
+<title>Velero Admin</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:#0a0f1a;font-family:'DM Sans',sans-serif;color:#fff;display:flex;flex-direction:column;align-items:center;}
+:root{--bg:#0d1117;--card:#161b22;--card2:#1c2230;--teal:#00bcd4;--gold:#ffa000;--green:#4caf50;--red:#e53935;--purple:#9c27b0;--text:#e6edf3;--muted:#8b949e;--border:#30363d;}
+body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);display:flex;flex-direction:column;align-items:center;}
 .wrap{width:100%;max-width:520px;padding-bottom:40px;}
-.login-box{margin:60px 20px;background:#111c2e;border-radius:20px;padding:32px 24px;box-shadow:0 8px 40px rgba(0,0,0,.4);}
-.login-logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#00bcd4;text-align:center;margin-bottom:4px;}
-.login-sub{font-size:13px;color:#607d8b;text-align:center;margin-bottom:24px;}
-.field{margin-bottom:14px;}
-.field label{display:block;font-size:12px;font-weight:600;color:#90a4ae;margin-bottom:5px;}
-.field input,.field select{width:100%;padding:12px 14px;font-size:14px;font-family:inherit;border:1.5px solid #1e3a5f;border-radius:11px;outline:none;background:#0d1829;color:#fff;}
-.field input:focus,.field select:focus{border-color:#00bcd4;}
-.btn-login{width:100%;padding:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;}
-.alert{padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:14px;display:none;}
-.alert.show{display:block;}
-.err{background:rgba(197,48,48,.2);border:1px solid #c53030;color:#fc8181;}
-.suc{background:rgba(21,128,61,.2);border:1px solid #15803d;color:#86efac;}
-.admin-header{background:#111c2e;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;border-bottom:1px solid #1e3a5f;}
-.admin-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:#00bcd4;}
-.btn-logout-a{background:rgba(229,57,53,.2);border:1px solid rgba(229,57,53,.4);color:#ef5350;font-size:12px;font-weight:700;padding:6px 12px;border-radius:8px;cursor:pointer;font-family:inherit;}
-.stats-row{display:flex;gap:8px;padding:14px;overflow-x:auto;}
-.stat-card{flex-shrink:0;min-width:80px;background:#111c2e;border-radius:14px;padding:14px;text-align:center;border-top:3px solid #00bcd4;}
-.stat-card.orange{border-top-color:#ffa000;}
-.stat-card.green{border-top-color:#4caf50;}
-.stat-card.red{border-top-color:#e53935;}
-.stat-card.purple{border-top-color:#9c27b0;}
-.stat-val{font-size:20px;font-weight:900;font-family:'Playfair Display',serif;color:#fff;}
-.stat-lbl{font-size:9px;color:#607d8b;font-weight:600;margin-top:3px;text-transform:uppercase;}
-.tabs-admin{display:flex;padding:0 14px;gap:6px;margin-bottom:4px;overflow-x:auto;}
-.tab-a{flex-shrink:0;padding:9px 14px;background:#111c2e;border:1px solid #1e3a5f;border-radius:10px;color:#607d8b;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;}
-.tab-a.active{border-color:#00bcd4;color:#00bcd4;background:rgba(0,188,212,.1);}
-.section{padding:8px 14px;}
-.section-title{font-size:13px;font-weight:700;color:#90a4ae;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
-.badge-count{background:#e53935;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
-.tx-card{background:#111c2e;border-radius:14px;padding:14px 16px;margin-bottom:8px;border-left:3px solid #00bcd4;}
-.tx-card.attente{border-left-color:#ffa000;}
-.tx-card.valide{border-left-color:#4caf50;}
-.tx-card.rejete{border-left-color:#e53935;}
-.tx-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:8px;}
-.tx-user{font-size:13px;font-weight:700;color:#fff;}
-.tx-amount{font-size:16px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;flex-shrink:0;}
-.tx-details{font-size:11px;color:#607d8b;margin-bottom:10px;line-height:1.7;}
-.tx-ref{font-size:11px;color:#4dd0e1;margin-bottom:8px;word-break:break-all;}
-.tx-actions{display:flex;gap:8px;}
-.btn-v{flex:1;padding:9px;background:rgba(76,175,80,.2);border:1.5px solid rgba(76,175,80,.5);color:#81c784;font-size:12px;font-weight:700;border-radius:9px;cursor:pointer;font-family:inherit;}
-.btn-r{flex:1;padding:9px;background:rgba(229,57,53,.2);border:1.5px solid rgba(229,57,53,.4);color:#ef5350;font-size:12px;font-weight:700;border-radius:9px;cursor:pointer;font-family:inherit;}
-.btn-cr{flex:2;padding:9px;background:linear-gradient(135deg,#00bcd4,#0097a7);border:none;color:#fff;font-size:12px;font-weight:700;border-radius:9px;cursor:pointer;font-family:inherit;}
+
+/* LOGIN */
+.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+.login-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px 28px;width:100%;max-width:380px;}
+.login-logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;text-align:center;margin-bottom:4px;}
+.login-logo span{color:var(--teal);}
+.login-badge{display:inline-block;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;margin:0 auto 24px;display:block;width:fit-content;}
+.lf-field{margin-bottom:14px;}
+.lf-field label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px;}
+.lf-field input{width:100%;padding:12px 14px;font-size:14px;font-family:inherit;border:1.5px solid var(--border);border-radius:11px;outline:none;background:#0d1117;color:var(--text);}
+.lf-field input:focus{border-color:var(--teal);}
+.btn-login{width:100%;padding:14px;background:linear-gradient(135deg,var(--teal),#0097a7);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;margin-top:6px;}
+.login-err{background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.4);color:#fc8181;padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:14px;display:none;}
+.login-err.show{display:block;}
+
+/* HEADER */
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.h-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;}
+.h-logo span{color:var(--teal);}
+.h-badge{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;margin-left:8px;}
+.h-right{display:flex;align-items:center;gap:10px;}
+.btn-quit{background:rgba(255,255,255,.08);border:1px solid var(--border);color:var(--muted);font-size:13px;font-weight:600;padding:7px 14px;border-radius:10px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;}
+
+/* NAV TABS */
+.nav-tabs{display:flex;background:var(--card);border-bottom:1px solid var(--border);overflow-x:auto;}
+.nav-tab{flex:1;min-width:80px;padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;border:none;background:none;font-family:inherit;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;}
+.nav-tab.active{color:var(--teal);border-bottom-color:var(--teal);}
+.nav-tab .ti{font-size:22px;}
+
+/* STATS GRID */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px;}
+.stat-card{background:var(--card);border-radius:16px;padding:18px;border-top:3px solid var(--teal);position:relative;overflow:hidden;}
+.stat-card.gold{border-top-color:var(--gold);}
+.stat-card.orange{border-top-color:#ff6d00;}
+.stat-card.green{border-top-color:var(--green);}
+.stat-card.red{border-top-color:var(--red);}
+.stat-card.purple{border-top-color:var(--purple);}
+.sc-icon{font-size:32px;margin-bottom:10px;opacity:.8;}
+.sc-val{font-size:28px;font-weight:900;font-family:'Playfair Display',serif;color:var(--text);margin-bottom:4px;}
+.sc-lbl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+
+/* ACTIONS RAPIDES */
+.quick-section{padding:0 14px 14px;}
+.qs-title{font-size:13px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.quick-btn{background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:14px;cursor:pointer;font-family:inherit;color:var(--text);font-size:12px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .2s;}
+.quick-btn:hover{border-color:var(--teal);background:rgba(0,188,212,.08);}
+.quick-btn .qi{font-size:24px;}
+
+/* SECTION CONTENT */
+.section{padding:0 14px;}
+.sec-title{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;}
+.badge-n{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+
+/* CARDS TX */
+.tx-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--teal);}
+.tx-card.attente{border-left-color:var(--gold);}
+.tx-card.valide{border-left-color:var(--green);}
+.tx-card.rejete{border-left-color:var(--red);}
+.tc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:8px;}
+.tc-user{font-size:13px;font-weight:700;}
+.tc-amount{font-size:17px;font-weight:900;font-family:'Playfair Display',serif;color:var(--teal);}
+.tc-details{font-size:11px;color:var(--muted);line-height:1.8;margin-bottom:8px;}
+.tc-ref{font-size:11px;color:#4dd0e1;margin-bottom:8px;word-break:break-all;}
+.tc-actions{display:flex;gap:8px;}
+.btn-v{flex:1;padding:9px;background:rgba(76,175,80,.15);border:1px solid rgba(76,175,80,.4);color:#81c784;font-size:12px;font-weight:700;border-radius:9px;cursor:pointer;font-family:inherit;}
+.btn-r{flex:1;padding:9px;background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.4);color:#ef5350;font-size:12px;font-weight:700;border-radius:9px;cursor:pointer;font-family:inherit;}
+.btn-cr{flex:2;padding:9px;background:linear-gradient(135deg,var(--teal),#0097a7);border:none;color:#fff;font-size:12px;font-weight:700;border-radius:9px;cursor:pointer;font-family:inherit;}
 .statut-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;}
-.statut-badge.attente{background:rgba(255,160,0,.2);color:#ffa000;}
-.statut-badge.valide{background:rgba(76,175,80,.2);color:#4caf50;}
-.statut-badge.rejete{background:rgba(229,57,53,.2);color:#e53935;}
+.sb-attente{background:rgba(255,160,0,.15);color:var(--gold);}
+.sb-valide{background:rgba(76,175,80,.15);color:var(--green);}
+.sb-rejete{background:rgba(229,57,53,.15);color:var(--red);}
 
-/* Codes cadeaux */
-.create-code-form{background:#111c2e;border-radius:16px;padding:18px;margin-bottom:14px;border:1px solid #1e3a5f;}
-.form-title-a{font-size:14px;font-weight:700;color:#00bcd4;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
-.form-row{display:flex;gap:8px;margin-bottom:12px;}
-.form-row .field{flex:1;margin-bottom:0;}
-.btn-create{width:100%;padding:13px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:14px;font-weight:700;border:none;border-radius:11px;cursor:pointer;font-family:inherit;}
-.btn-generate{padding:10px 14px;background:rgba(0,188,212,.2);border:1.5px solid rgba(0,188,212,.4);color:#00bcd4;font-size:12px;font-weight:700;border-radius:9px;cursor:pointer;font-family:inherit;white-space:nowrap;}
-.code-card{background:#111c2e;border-radius:14px;padding:14px 16px;margin-bottom:8px;border:1px solid #1e3a5f;}
-.code-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
-.code-val{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:#00bcd4;letter-spacing:2px;}
-.code-montant{font-size:16px;font-weight:900;color:#4caf50;font-family:'Playfair Display',serif;}
-.code-details{font-size:11px;color:#607d8b;line-height:1.7;margin-bottom:10px;}
-.progress-bar{background:#1e3a5f;border-radius:20px;height:6px;margin-bottom:8px;}
-.progress-fill{background:linear-gradient(90deg,#00bcd4,#0097a7);border-radius:20px;height:100%;transition:width .3s;}
-.code-actions{display:flex;gap:8px;}
-.btn-desact{padding:8px 14px;background:rgba(229,57,53,.2);border:1.5px solid rgba(229,57,53,.4);color:#ef5350;font-size:11px;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
-.btn-copy-code{padding:8px 14px;background:rgba(0,188,212,.15);border:1.5px solid rgba(0,188,212,.3);color:#00bcd4;font-size:11px;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
-.badge-actif{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(76,175,80,.2);color:#4caf50;}
-.badge-inactif{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(229,57,53,.2);color:#ef5350;}
+/* USER CARDS */
+.user-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;}
+.ua-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--teal),#0097a7);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#fff;flex-shrink:0;font-family:'Playfair Display',serif;}
+.ua-info{flex:1;}
+.ua-name{font-size:14px;font-weight:700;}
+.ua-email{font-size:11px;color:var(--muted);margin-top:1px;}
+.ua-solde{font-size:13px;font-weight:800;color:var(--teal);margin-top:3px;}
+.ua-actions{display:flex;flex-direction:column;gap:6px;}
+.btn-sm{padding:6px 12px;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;}
+.btn-sm.green{background:rgba(76,175,80,.15);color:var(--green);border:1px solid rgba(76,175,80,.3);}
+.btn-sm.red{background:rgba(229,57,53,.15);color:var(--red);border:1px solid rgba(229,57,53,.3);}
 
-/* User card */
-.user-card{background:#111c2e;border-radius:14px;padding:14px 16px;margin-bottom:8px;border-left:3px solid #00bcd4;}
-.user-name-a{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px;}
-.user-details-a{font-size:11px;color:#607d8b;line-height:1.7;margin-bottom:10px;}
-.user-solde{font-size:18px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;margin-bottom:8px;}
+/* CODES CADEAUX */
+.create-form{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:14px;}
+.cf-title{font-size:14px;font-weight:700;color:var(--teal);margin-bottom:14px;}
+.cf-row{display:flex;gap:8px;margin-bottom:12px;}
+.cf-field{flex:1;}
+.cf-field label{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-bottom:4px;}
+.cf-field input{width:100%;padding:10px 12px;font-size:13px;font-family:inherit;border:1.5px solid var(--border);border-radius:10px;outline:none;background:var(--bg);color:var(--text);}
+.cf-field input:focus{border-color:var(--teal);}
+.btn-gen{padding:10px 14px;background:rgba(0,188,212,.15);border:1px solid rgba(0,188,212,.3);color:var(--teal);font-size:12px;font-weight:700;border-radius:9px;cursor:pointer;font-family:inherit;white-space:nowrap;align-self:flex-end;}
+.btn-create-c{width:100%;padding:13px;background:linear-gradient(135deg,var(--teal),#0097a7);color:#fff;font-size:14px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;}
+.form-alert{padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:12px;display:none;}
+.form-alert.show{display:block;}
+.fa-err{background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.4);color:#fc8181;}
+.fa-ok{background:rgba(76,175,80,.15);border:1px solid rgba(76,175,80,.4);color:#86efac;}
 
-.empty{text-align:center;padding:30px;color:#607d8b;}
+.code-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:10px;}
+.cc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.cc-code{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--teal);letter-spacing:2px;}
+.cc-montant{font-size:15px;font-weight:900;color:var(--green);}
+.cc-details{font-size:11px;color:var(--muted);line-height:1.8;margin-bottom:8px;}
+.progress-bar{background:var(--border);border-radius:20px;height:5px;margin-bottom:8px;}
+.progress-fill{background:linear-gradient(90deg,var(--teal),#0097a7);border-radius:20px;height:100%;}
+.cc-actions{display:flex;gap:8px;}
+.btn-tog{padding:7px 12px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn-tog.on{background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.3);color:var(--red);}
+.btn-tog.off{background:rgba(76,175,80,.15);border:1px solid rgba(76,175,80,.3);color:var(--green);}
+.btn-cpyc{padding:7px 12px;background:rgba(0,188,212,.12);border:1px solid rgba(0,188,212,.3);color:var(--teal);font-size:11px;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
+.badge-actif{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(76,175,80,.15);color:var(--green);}
+.badge-inactif{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(229,57,53,.15);color:var(--red);}
+
+/* INVEST */
+.invest-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:10px;}
+.ic-top{display:flex;justify-content:space-between;margin-bottom:8px;}
+.ic-plan{font-size:15px;font-weight:700;}
+.ic-user{font-size:12px;color:var(--muted);}
+.ic-progress{margin-bottom:8px;}
+.ic-stats{display:flex;gap:10px;font-size:11px;color:var(--muted);}
+.ic-stat span{color:var(--text);font-weight:700;}
+
+.empty{text-align:center;padding:30px;color:var(--muted);}
 .empty-icon{font-size:36px;margin-bottom:8px;}
-.loading{text-align:center;padding:20px;color:#607d8b;font-size:13px;}
-.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#00bcd4;color:#fff;padding:12px 24px;border-radius:12px;font-size:13px;font-weight:700;z-index:999;display:none;}
+.loading{text-align:center;padding:20px;color:var(--muted);font-size:13px;}
+
+/* TOAST */
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:12px;font-size:13px;font-weight:700;z-index:999;display:none;white-space:nowrap;}
 .toast.show{display:block;}
-.toast.err{background:#e53935;}
+.toast.ok{background:var(--teal);color:#fff;}
+.toast.err{background:var(--red);color:#fff;}
 </style>
 </head>
 <body>
+
 <div class="toast" id="toast"></div>
 
 <!-- LOGIN -->
-<div id="loginSection" class="wrap">
+<div id="loginPage" class="login-page" style="width:100%;">
   <div class="login-box">
-    <div class="login-logo">⚡ Velero Admin</div>
-    <div class="login-sub">Panneau d'administration</div>
-    <div id="loginErr" class="alert err"></div>
-    <div class="field"><label>Email admin</label>
+    <div class="login-logo">VELERO <span>ENERGY</span></div>
+    <div class="login-badge">ADMIN</div>
+    <div id="loginErr" class="login-err"></div>
+    <div class="lf-field"><label>Email administrateur</label>
       <input type="email" id="adminEmail" placeholder="admin@veleroenergy.com"/>
     </div>
-    <div class="field"><label>Mot de passe</label>
+    <div class="lf-field"><label>Mot de passe</label>
       <input type="password" id="adminPass" placeholder="••••••••"/>
     </div>
-    <button class="btn-login" onclick="adminLogin()">🔐 Se connecter</button>
+    <button class="btn-login" onclick="doLogin()">🔐 Accéder au panneau admin</button>
   </div>
 </div>
 
-<!-- DASHBOARD ADMIN -->
-<div id="adminSection" class="wrap" style="display:none;">
-  <div class="admin-header">
-    <div class="admin-logo">⚡ Velero Admin</div>
-    <button class="btn-logout-a" onclick="adminLogout()">Déconnexion</button>
+<!-- ADMIN PANEL -->
+<div id="adminPanel" class="wrap" style="display:none;">
+
+  <div class="header">
+    <div>
+      <span class="h-logo">VELERO <span>ENERGY</span></span>
+      <span class="h-badge">ADMIN</span>
+    </div>
+    <div class="h-right">
+      <button class="btn-quit" onclick="doLogout()">↩ Quitter</button>
+    </div>
   </div>
 
-  <div class="stats-row">
-    <div class="stat-card orange"><div class="stat-val" id="statAttente">0</div><div class="stat-lbl">Dépôts</div></div>
-    <div class="stat-card red"><div class="stat-val" id="statRetraits">0</div><div class="stat-lbl">Retraits</div></div>
-    <div class="stat-card green"><div class="stat-val" id="statUsers">0</div><div class="stat-lbl">Membres</div></div>
-    <div class="stat-card purple"><div class="stat-val" id="statCodes">0</div><div class="stat-lbl">Codes</div></div>
-    <div class="stat-card"><div class="stat-val" id="statValide">0</div><div class="stat-lbl">Validés</div></div>
+  <!-- NAV -->
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('dashboard',this)">
+      <span class="ti">📊</span>Dashboard
+    </button>
+    <button class="nav-tab" onclick="showTab('users',this)">
+      <span class="ti">👥</span>Utilisateurs
+    </button>
+    <button class="nav-tab" onclick="showTab('invest',this)">
+      <span class="ti">📈</span>Invest.
+    </button>
+    <button class="nav-tab" onclick="showTab('recharges',this)">
+      <span class="ti">💳</span>Recharges
+    </button>
+    <button class="nav-tab" onclick="showTab('retraits',this)">
+      <span class="ti">💸</span>Retraits
+    </button>
+    <button class="nav-tab" onclick="showTab('codes',this)">
+      <span class="ti">🎁</span>Codes
+    </button>
   </div>
 
-  <div class="tabs-admin">
-    <button class="tab-a active" onclick="showTab('depots',this)">💳 Dépôts</button>
-    <button class="tab-a" onclick="showTab('retraits',this)">💸 Retraits</button>
-    <button class="tab-a" onclick="showTab('codes',this)">🎁 Codes</button>
-    <button class="tab-a" onclick="showTab('users',this)">👥 Membres</button>
-  </div>
-
-  <!-- DÉPÔTS -->
-  <div id="tabDepots" class="section">
-    <div class="section-title">💳 Dépôts en attente <span class="badge-count" id="badgeDepots">0</span></div>
-    <div id="listDepots"><div class="loading">⏳ Chargement...</div></div>
-  </div>
-
-  <!-- RETRAITS -->
-  <div id="tabRetraits" class="section" style="display:none;">
-    <div class="section-title">💸 Retraits en attente <span class="badge-count" id="badgeRetraits">0</span></div>
-    <div id="listRetraits"><div class="loading">⏳ Chargement...</div></div>
-  </div>
-
-  <!-- CODES CADEAUX -->
-  <div id="tabCodes" class="section" style="display:none;">
-    <div class="section-title">🎁 Codes Cadeaux</div>
-
-    <!-- Formulaire création -->
-    <div class="create-code-form">
-      <div class="form-title-a">➕ Créer un nouveau code</div>
-      <div id="codeFormAlert" class="alert"></div>
-
-      <div class="form-row">
-        <div class="field">
-          <label>Code</label>
-          <input type="text" id="newCode" placeholder="Ex: VELERO500" style="text-transform:uppercase;" oninput="this.value=this.value.toUpperCase()"/>
-        </div>
-        <button class="btn-generate" onclick="genererCode()">🎲 Auto</button>
+  <!-- DASHBOARD TAB -->
+  <div id="tab-dashboard">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="sc-icon">👥</div>
+        <div class="sc-val" id="s-users">—</div>
+        <div class="sc-lbl">Utilisateurs</div>
       </div>
-
-      <div class="field">
-        <label>Description</label>
-        <input type="text" id="newDesc" placeholder="Ex: Offre de lancement, Promo été..."/>
+      <div class="stat-card gold">
+        <div class="sc-icon">💰</div>
+        <div class="sc-val" id="s-soldes">—</div>
+        <div class="sc-lbl">Soldes Total (F)</div>
       </div>
-
-      <div class="form-row">
-        <div class="field">
-          <label>Montant (FCFA)</label>
-          <input type="number" id="newMontant" placeholder="500" min="100"/>
-        </div>
-        <div class="field">
-          <label>Nb utilisations max</label>
-          <input type="number" id="newUtil" placeholder="100" min="1"/>
-        </div>
+      <div class="stat-card orange">
+        <div class="sc-icon">📈</div>
+        <div class="sc-val" id="s-invests">—</div>
+        <div class="sc-lbl">Investissements</div>
       </div>
-
-      <div class="field">
-        <label>Date d'expiration (optionnel)</label>
-        <input type="date" id="newExpire"/>
+      <div class="stat-card green">
+        <div class="sc-icon">💳</div>
+        <div class="sc-val" id="s-recharges">—</div>
+        <div class="sc-lbl">Recharges</div>
       </div>
-
-      <button class="btn-create" onclick="creerCode()">🎁 Créer le code cadeau</button>
+      <div class="stat-card red">
+        <div class="sc-icon">⏳</div>
+        <div class="sc-val" id="s-attente">—</div>
+        <div class="sc-lbl">En attente</div>
+      </div>
+      <div class="stat-card purple">
+        <div class="sc-icon">👑</div>
+        <div class="sc-val" id="s-commissions">—</div>
+        <div class="sc-lbl">Gains Parrain (F)</div>
+      </div>
     </div>
 
-    <!-- Liste des codes -->
-    <div class="section-title" style="margin-top:8px;">📋 Codes existants</div>
-    <div id="listCodes"><div class="loading">⏳ Chargement...</div></div>
+    <div class="quick-section">
+      <div class="qs-title">⚡ ACTIONS RAPIDES</div>
+      <div class="quick-grid">
+        <button class="quick-btn" onclick="showTab('recharges',document.querySelectorAll('.nav-tab')[3])">
+          <span class="qi">💳</span>Valider dépôts
+        </button>
+        <button class="quick-btn" onclick="showTab('retraits',document.querySelectorAll('.nav-tab')[4])">
+          <span class="qi">💸</span>Traiter retraits
+        </button>
+        <button class="quick-btn" onclick="showTab('users',document.querySelectorAll('.nav-tab')[1])">
+          <span class="qi">👥</span>Voir membres
+        </button>
+        <button class="quick-btn" onclick="showTab('codes',document.querySelectorAll('.nav-tab')[5])">
+          <span class="qi">🎁</span>Créer code
+        </button>
+      </div>
+    </div>
   </div>
 
-  <!-- MEMBRES -->
-  <div id="tabUsers" class="section" style="display:none;">
-    <div class="section-title">👥 Membres</div>
-    <div id="listUsers"><div class="loading">⏳ Chargement...</div></div>
+  <!-- USERS TAB -->
+  <div id="tab-users" style="display:none;" class="section">
+    <br/>
+    <div class="sec-title">👥 Membres <span id="badge-users" class="badge-n">0</span></div>
+    <div id="list-users"><div class="loading">⏳ Chargement...</div></div>
   </div>
+
+  <!-- INVEST TAB -->
+  <div id="tab-invest" style="display:none;" class="section">
+    <br/>
+    <div class="sec-title">📈 Investissements actifs <span id="badge-invest" class="badge-n">0</span></div>
+    <div id="list-invest"><div class="loading">⏳ Chargement...</div></div>
+  </div>
+
+  <!-- RECHARGES TAB -->
+  <div id="tab-recharges" style="display:none;" class="section">
+    <br/>
+    <div class="sec-title">💳 Dépôts <span id="badge-recharges" class="badge-n">0</span></div>
+    <div id="list-recharges"><div class="loading">⏳ Chargement...</div></div>
+  </div>
+
+  <!-- RETRAITS TAB -->
+  <div id="tab-retraits" style="display:none;" class="section">
+    <br/>
+    <div class="sec-title">💸 Retraits <span id="badge-retraits" class="badge-n">0</span></div>
+    <div id="list-retraits"><div class="loading">⏳ Chargement...</div></div>
+  </div>
+
+  <!-- CODES TAB -->
+  <div id="tab-codes" style="display:none;" class="section">
+    <br/>
+    <div class="create-form">
+      <div class="cf-title">➕ Créer un code cadeau</div>
+      <div id="cf-alert" class="form-alert"></div>
+      <div class="cf-row">
+        <div class="cf-field">
+          <label>Code</label>
+          <input type="text" id="newCode" placeholder="VELERO500" style="text-transform:uppercase;" oninput="this.value=this.value.toUpperCase()"/>
+        </div>
+        <button class="btn-gen" onclick="genCode()">🎲 Auto</button>
+      </div>
+      <div class="cf-row">
+        <div class="cf-field">
+          <label>Description</label>
+          <input type="text" id="newDesc" placeholder="Promo lancement..."/>
+        </div>
+      </div>
+      <div class="cf-row">
+        <div class="cf-field">
+          <label>Montant (FCFA)</label>
+          <input type="number" id="newMontant" placeholder="500"/>
+        </div>
+        <div class="cf-field">
+          <label>Max utilisations</label>
+          <input type="number" id="newUtil" placeholder="100"/>
+        </div>
+      </div>
+      <div class="cf-row">
+        <div class="cf-field">
+          <label>Expiration (optionnel)</label>
+          <input type="date" id="newExpire"/>
+        </div>
+      </div>
+      <button class="btn-create-c" onclick="creerCode()">🎁 Créer le code</button>
+    </div>
+    <div class="sec-title">📋 Codes existants</div>
+    <div id="list-codes"><div class="loading">⏳ Chargement...</div></div>
+  </div>
+
 </div>
 
 <script>
 const SB="https://seegoklunovyuieorkvy.supabase.co";
 const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
-const ADMIN_EMAIL="abdoula12cherif@gmail.com";
-
-let adminTok=localStorage.getItem("admin_token")||"";
-function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+adminTok};}
+const ADMIN="abdoula12cherif@gmail.com";
+let AT=localStorage.getItem("admin_tok")||"";
+function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+AT};}
 
 function toast(msg,type="ok"){
   const el=document.getElementById("toast");
-  el.textContent=msg;el.className="toast "+(type==="err"?"err":"")+" show";
+  el.textContent=msg;el.className="toast "+type+" show";
   setTimeout(()=>el.classList.remove("show"),3000);
 }
 
-async function adminLogin(){
+async function doLogin(){
   const email=document.getElementById("adminEmail").value.trim();
   const pass=document.getElementById("adminPass").value;
   const errEl=document.getElementById("loginErr");
-  if(!email||!pass){errEl.textContent="Remplissez tous les champs";errEl.className="alert err show";return;}
+  if(!email||!pass){errEl.textContent="Remplissez tous les champs";errEl.className="login-err show";return;}
   const r=await fetch(SB+"/auth/v1/token?grant_type=password",{
     method:"POST",headers:{"Content-Type":"application/json","apikey":AK},
     body:JSON.stringify({email,password:pass})
   });
   const d=await r.json();
-  if(!d.access_token){errEl.textContent=d.error_description||"Identifiants incorrects";errEl.className="alert err show";return;}
-  if(d.user.email!==ADMIN_EMAIL){errEl.textContent="Accès refusé";errEl.className="alert err show";return;}
-  adminTok=d.access_token;
-  localStorage.setItem("admin_token",adminTok);
-  document.getElementById("loginSection").style.display="none";
-  document.getElementById("adminSection").style.display="block";
+  if(!d.access_token){errEl.textContent=d.error_description||"Identifiants incorrects";errEl.className="login-err show";return;}
+  if(d.user.email!==ADMIN){errEl.textContent="Accès refusé";errEl.className="login-err show";return;}
+  AT=d.access_token;
+  localStorage.setItem("admin_tok",AT);
+  document.getElementById("loginPage").style.display="none";
+  document.getElementById("adminPanel").style.display="block";
   loadAll();
 }
 
-function adminLogout(){
-  localStorage.removeItem("admin_token");
-  adminTok="";
-  document.getElementById("adminSection").style.display="none";
-  document.getElementById("loginSection").style.display="block";
+function doLogout(){
+  localStorage.removeItem("admin_tok");AT="";
+  document.getElementById("adminPanel").style.display="none";
+  document.getElementById("loginPage").style.display="flex";
 }
 
-if(adminTok){
-  document.getElementById("loginSection").style.display="none";
-  document.getElementById("adminSection").style.display="block";
+if(AT){
+  document.getElementById("loginPage").style.display="none";
+  document.getElementById("adminPanel").style.display="block";
   loadAll();
 }
 
-function showTab(tab,el){
-  document.querySelectorAll(".tab-a").forEach(b=>b.classList.remove("active"));
-  el.classList.add("active");
-  ["Depots","Retraits","Codes","Users"].forEach(t=>
-    document.getElementById("tab"+t).style.display=tab===t.toLowerCase()?"block":"none"
-  );
+const TABS=["dashboard","users","invest","recharges","retraits","codes"];
+function showTab(name,el){
+  document.querySelectorAll(".nav-tab").forEach(b=>b.classList.remove("active"));
+  if(el)el.classList.add("active");
+  TABS.forEach(t=>document.getElementById("tab-"+t).style.display=t===name?"block":"none");
+  if(name==="users")loadUsers();
+  if(name==="invest")loadInvest();
+  if(name==="recharges")loadRecharges();
+  if(name==="retraits")loadRetraits();
+  if(name==="codes")loadCodes();
 }
 
-async function loadAll(){loadStats();loadDepots();loadRetraits();loadCodes();loadUsers();}
+async function G(url){
+  const r=await fetch(SB+"/rest/v1/"+url,{headers:H()});
+  if(!r.ok)return[];
+  return r.json();
+}
 
-async function loadStats(){
+async function loadAll(){
   try{
-    const [att,ret,users,codes,val]=await Promise.all([
-      fetch(SB+"/rest/v1/transactions?type=eq.depot&statut=eq.en_attente&select=id",{headers:H()}).then(r=>r.json()),
-      fetch(SB+"/rest/v1/transactions?type=eq.retrait&statut=eq.en_attente&select=id",{headers:H()}).then(r=>r.json()),
-      fetch(SB+"/rest/v1/profiles?select=id",{headers:H()}).then(r=>r.json()),
-      fetch(SB+"/rest/v1/codes_cadeaux?actif=eq.true&select=id",{headers:H()}).then(r=>r.json()),
-      fetch(SB+"/rest/v1/transactions?type=eq.depot&statut=eq.valide&select=id",{headers:H()}).then(r=>r.json()),
+    const [users,invests,deps,rets,comms]=await Promise.all([
+      G("profiles?select=id,solde"),
+      G("investissements?statut=eq.actif&select=id"),
+      G("transactions?type=eq.depot&select=id,statut,montant"),
+      G("transactions?type=eq.retrait&statut=eq.en_attente&select=id"),
+      G("transactions?type=eq.commission&select=montant")
     ]);
-    document.getElementById("statAttente").textContent=att.length||0;
-    document.getElementById("statRetraits").textContent=ret.length||0;
-    document.getElementById("statUsers").textContent=users.length||0;
-    document.getElementById("statCodes").textContent=codes.length||0;
-    document.getElementById("statValide").textContent=val.length||0;
-    document.getElementById("badgeDepots").textContent=att.length||0;
-    document.getElementById("badgeRetraits").textContent=ret.length||0;
+    document.getElementById("s-users").textContent=users.length||0;
+    const totalSolde=users.reduce((s,u)=>s+parseFloat(u.solde||0),0);
+    document.getElementById("s-soldes").textContent=totalSolde.toLocaleString();
+    document.getElementById("s-invests").textContent=invests.length||0;
+    document.getElementById("s-recharges").textContent=deps.filter(d=>d.statut==="valide").length||0;
+    const attente=deps.filter(d=>d.statut==="en_attente").length+rets.length;
+    document.getElementById("s-attente").textContent=attente||0;
+    const totalComm=comms.reduce((s,c)=>s+parseFloat(c.montant||0),0);
+    document.getElementById("s-commissions").textContent=totalComm.toLocaleString();
+    document.getElementById("badge-recharges").textContent=deps.filter(d=>d.statut==="en_attente").length||0;
+    document.getElementById("badge-retraits").textContent=rets.length||0;
+    document.getElementById("badge-users").textContent=users.length||0;
   }catch(e){}
 }
 
-async function loadDepots(){
-  const el=document.getElementById("listDepots");
-  try{
-    const r=await fetch(SB+"/rest/v1/transactions?type=eq.depot&order=created_at.desc&limit=50&select=*,profiles(full_name,email)",{headers:H()});
-    const txs=await r.json();
-    if(!txs.length){el.innerHTML='<div class="empty"><div class="empty-icon">📭</div>Aucun dépôt</div>';return;}
-    el.innerHTML=txs.map(tx=>txCard(tx,"depot")).join("");
-  }catch(e){el.innerHTML='<div class="empty">❌ Erreur</div>';}
+async function loadUsers(){
+  const el=document.getElementById("list-users");
+  const d=await G("profiles?order=created_at.desc&limit=100&select=*");
+  if(!d.length){el.innerHTML='<div class="empty"><div class="empty-icon">👥</div>Aucun membre</div>';return;}
+  document.getElementById("badge-users").textContent=d.length;
+  el.innerHTML=d.map(u=>`
+    <div class="user-card">
+      <div class="ua-avatar">${(u.full_name||u.email||"U")[0].toUpperCase()}</div>
+      <div class="ua-info">
+        <div class="ua-name">${u.full_name||"—"}</div>
+        <div class="ua-email">${u.email}</div>
+        <div class="ua-solde">${parseFloat(u.solde||0).toLocaleString()} FCFA · LV${u.level||1}</div>
+      </div>
+      <div class="ua-actions">
+        <button class="btn-sm green" onclick="crediter('${u.id}','${u.full_name||u.email}')">💰 Créditer</button>
+        <button class="btn-sm red" onclick="debiter('${u.id}','${u.full_name||u.email}')">💸 Débiter</button>
+      </div>
+    </div>`).join("");
+}
+
+async function loadInvest(){
+  const el=document.getElementById("list-invest");
+  const d=await G("investissements?order=created_at.desc&limit=50&select=*,profiles(full_name,email)");
+  if(!d.length){el.innerHTML='<div class="empty"><div class="empty-icon">📈</div>Aucun investissement</div>';return;}
+  document.getElementById("badge-invest").textContent=d.length;
+  el.innerHTML=d.map(inv=>{
+    const p=inv.profiles||{};
+    const pct=Math.round(((inv.jours_total-inv.jours_restants)/inv.jours_total)*100);
+    return `<div class="invest-card">
+      <div class="ic-top">
+        <div class="ic-plan">Plan ${inv.plan_nom}</div>
+        <span class="badge-actif">⚡ Actif</span>
+      </div>
+      <div class="ic-user">👤 ${p.full_name||p.email||"—"}</div>
+      <div class="ic-progress" style="margin:8px 0;">
+        <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      </div>
+      <div class="ic-stats">
+        <span>💰 ${parseFloat(inv.montant_investi).toLocaleString()} FCFA</span>
+        <span>📈 +${parseFloat(inv.revenu_jour).toLocaleString()}/j</span>
+        <span>⏳ ${inv.jours_restants}j restants</span>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+async function loadRecharges(){
+  const el=document.getElementById("list-recharges");
+  const d=await G("transactions?type=eq.depot&order=created_at.desc&limit=50&select=*,profiles(full_name,email)");
+  if(!d.length){el.innerHTML='<div class="empty"><div class="empty-icon">💳</div>Aucun dépôt</div>';return;}
+  el.innerHTML=d.map(tx=>txCard(tx,"depot")).join("");
 }
 
 async function loadRetraits(){
-  const el=document.getElementById("listRetraits");
-  try{
-    const r=await fetch(SB+"/rest/v1/transactions?type=eq.retrait&order=created_at.desc&limit=50&select=*,profiles(full_name,email)",{headers:H()});
-    const txs=await r.json();
-    if(!txs.length){el.innerHTML='<div class="empty"><div class="empty-icon">📭</div>Aucun retrait</div>';return;}
-    el.innerHTML=txs.map(tx=>txCard(tx,"retrait")).join("");
-  }catch(e){el.innerHTML='<div class="empty">❌ Erreur</div>';}
+  const el=document.getElementById("list-retraits");
+  const d=await G("transactions?type=eq.retrait&order=created_at.desc&limit=50&select=*,profiles(full_name,email)");
+  if(!d.length){el.innerHTML='<div class="empty"><div class="empty-icon">💸</div>Aucun retrait</div>';return;}
+  el.innerHTML=d.map(tx=>txCard(tx,"retrait")).join("");
 }
 
 function txCard(tx,type){
-  const prof=tx.profiles;
+  const p=tx.profiles||{};
   const date=new Date(tx.created_at).toLocaleDateString("fr-FR",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
   const actions=tx.statut==="en_attente"?`
-    <div class="tx-actions">
-      <button class="btn-v" onclick="validerTx('${tx.id}','${tx.user_id}',${tx.montant},'${type}')">✅ Valider</button>
-      <button class="btn-r" onclick="rejeterTx('${tx.id}','${tx.user_id}',${tx.montant},'${type}')">❌ Rejeter</button>
+    <div class="tc-actions">
+      <button class="btn-v" onclick="valider('${tx.id}','${tx.user_id}',${tx.montant},'${type}')">✅ Valider</button>
+      <button class="btn-r" onclick="rejeter('${tx.id}','${tx.user_id}',${tx.montant},'${type}')">❌ Rejeter</button>
     </div>`:"";
   return `<div class="tx-card ${tx.statut}" id="tx-${tx.id}">
-    <div class="tx-top">
-      <div class="tx-user">👤 ${prof?.full_name||prof?.email||"—"}</div>
-      <span class="statut-badge ${tx.statut}">${tx.statut==="en_attente"?"⏳":tx.statut==="valide"?"✅":"❌"} ${tx.statut}</span>
+    <div class="tc-top">
+      <div>
+        <div class="tc-user">👤 ${p.full_name||p.email||"—"}</div>
+        <div class="tc-amount">${parseFloat(tx.montant).toLocaleString()} FCFA</div>
+      </div>
+      <span class="statut-badge sb-${tx.statut}">${tx.statut==="en_attente"?"⏳ Attente":tx.statut==="valide"?"✅ Validé":"❌ Rejeté"}</span>
     </div>
-    <div class="tx-amount">${parseFloat(tx.montant).toLocaleString()} FCFA</div>
-    <div class="tx-details">📱 ${tx.reseau||"—"} · ${tx.numero_mobile||"—"}<br>📅 ${date}<br>📝 ${tx.note||"—"}</div>
-    ${tx.reference?`<div class="tx-ref">🔑 ${tx.reference}</div>`:""}
+    <div class="tc-details">📱 ${tx.reseau||"—"} · ${tx.numero_mobile||"—"}<br>📅 ${date}<br>📝 ${tx.note||"—"}</div>
+    ${tx.reference?`<div class="tc-ref">🔑 ${tx.reference}</div>`:""}
     ${actions}
   </div>`;
 }
 
-async function validerTx(txId,userId,montant,type){
+async function valider(txId,userId,montant,type){
   if(!confirm("Valider "+parseInt(montant).toLocaleString()+" FCFA ?"))return;
   await fetch(SB+"/rest/v1/transactions?id=eq."+txId,{method:"PATCH",headers:H(),body:JSON.stringify({statut:"valide"})});
   if(type==="depot"){
@@ -326,28 +502,50 @@ async function validerTx(txId,userId,montant,type){
     await fetch(SB+"/rest/v1/profiles?id=eq."+userId,{method:"PATCH",headers:H(),body:JSON.stringify({solde:parseFloat(p[0]?.solde||0)+parseFloat(montant)})});
   }
   toast("✅ Validé ! Solde crédité.");
-  document.getElementById("tx-"+txId).remove();
-  loadStats();
+  document.getElementById("tx-"+txId)?.remove();
+  loadAll();
 }
 
-async function rejeterTx(txId,userId,montant,type){
-  if(!confirm("Rejeter cette transaction ?"))return;
+async function rejeter(txId,userId,montant,type){
+  if(!confirm("Rejeter ?"))return;
   await fetch(SB+"/rest/v1/transactions?id=eq."+txId,{method:"PATCH",headers:H(),body:JSON.stringify({statut:"rejete"})});
   if(type==="retrait"){
     const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+userId+"&select=solde",{headers:H()});
     const p=await rp.json();
     await fetch(SB+"/rest/v1/profiles?id=eq."+userId,{method:"PATCH",headers:H(),body:JSON.stringify({solde:parseFloat(p[0]?.solde||0)+parseFloat(montant)})});
   }
-  toast("❌ Rejeté.");
-  document.getElementById("tx-"+txId).remove();
-  loadStats();
+  toast("❌ Rejeté.","err");
+  document.getElementById("tx-"+txId)?.remove();
+  loadAll();
 }
 
-// ─── CODES CADEAUX ───────────────────────────────────────
-function genererCode(){
-  const chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+async function crediter(uid,nom){
+  const m=prompt("Montant à CRÉDITER pour "+nom+" (FCFA) :");
+  if(!m||isNaN(m)||parseInt(m)<=0)return;
+  const raison=prompt("Raison :")||"Crédit admin";
+  const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid+"&select=solde",{headers:H()});
+  const p=await rp.json();
+  await fetch(SB+"/rest/v1/profiles?id=eq."+uid,{method:"PATCH",headers:H(),body:JSON.stringify({solde:parseFloat(p[0]?.solde||0)+parseInt(m)})});
+  await fetch(SB+"/rest/v1/transactions",{method:"POST",headers:{...H(),"Prefer":"return=minimal"},body:JSON.stringify({user_id:uid,type:"bonus",montant:parseInt(m),montant_net:parseInt(m),statut:"valide",note:"Crédit admin: "+raison})});
+  toast("✅ "+parseInt(m).toLocaleString()+" FCFA crédités à "+nom);
+  loadUsers();loadAll();
+}
+
+async function debiter(uid,nom){
+  const m=prompt("Montant à DÉBITER pour "+nom+" (FCFA) :");
+  if(!m||isNaN(m)||parseInt(m)<=0)return;
+  const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid+"&select=solde",{headers:H()});
+  const p=await rp.json();
+  const nouveau=Math.max(0,parseFloat(p[0]?.solde||0)-parseInt(m));
+  await fetch(SB+"/rest/v1/profiles?id=eq."+uid,{method:"PATCH",headers:H(),body:JSON.stringify({solde:nouveau})});
+  toast("💸 "+parseInt(m).toLocaleString()+" FCFA débités");
+  loadUsers();loadAll();
+}
+
+function genCode(){
+  const c="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let code="VE";
-  for(let i=0;i<6;i++)code+=chars[Math.floor(Math.random()*chars.length)];
+  for(let i=0;i<6;i++)code+=c[Math.floor(Math.random()*c.length)];
   document.getElementById("newCode").value=code;
 }
 
@@ -357,130 +555,51 @@ async function creerCode(){
   const montant=parseInt(document.getElementById("newMontant").value);
   const util=parseInt(document.getElementById("newUtil").value);
   const expire=document.getElementById("newExpire").value||null;
-  const alertEl=document.getElementById("codeFormAlert");
-
-  if(!code||!montant||!util){
-    alertEl.textContent="⚠️ Code, montant et utilisations sont requis";
-    alertEl.className="alert err show";return;
-  }
-
+  const al=document.getElementById("cf-alert");
+  if(!code||!montant||!util){al.textContent="⚠️ Code, montant et utilisations requis";al.className="form-alert fa-err show";return;}
   const r=await fetch(SB+"/rest/v1/codes_cadeaux",{
-    method:"POST",
-    headers:{...H(),"Prefer":"return=representation"},
-    body:JSON.stringify({
-      code,description:desc||"Code cadeau Velero",
-      montant,utilisations_max:util,
-      utilisations_actuelles:0,
-      expire_le:expire,actif:true
-    })
+    method:"POST",headers:{...H(),"Prefer":"return=representation"},
+    body:JSON.stringify({code,description:desc||"Code cadeau Velero",montant,utilisations_max:util,utilisations_actuelles:0,expire_le:expire,actif:true})
   });
   const d=await r.json();
   if(Array.isArray(d)&&d.length>0){
-    alertEl.textContent="✅ Code créé : "+code;
-    alertEl.className="alert suc show";
-    document.getElementById("newCode").value="";
-    document.getElementById("newDesc").value="";
-    document.getElementById("newMontant").value="";
-    document.getElementById("newUtil").value="";
-    document.getElementById("newExpire").value="";
-    loadCodes();loadStats();
+    al.textContent="✅ Code créé : "+code;al.className="form-alert fa-ok show";
+    document.getElementById("newCode").value="";document.getElementById("newDesc").value="";
+    document.getElementById("newMontant").value="";document.getElementById("newUtil").value="";
+    loadCodes();loadAll();
   }else{
-    alertEl.textContent="❌ Erreur: "+(d.message||JSON.stringify(d));
-    alertEl.className="alert err show";
+    al.textContent="❌ "+(d.message||JSON.stringify(d));al.className="form-alert fa-err show";
   }
 }
 
 async function loadCodes(){
-  const el=document.getElementById("listCodes");
-  try{
-    const r=await fetch(SB+"/rest/v1/codes_cadeaux?order=created_at.desc&limit=50",{headers:H()});
-    const codes=await r.json();
-    if(!codes.length){el.innerHTML='<div class="empty"><div class="empty-icon">🎁</div>Aucun code</div>';return;}
-    el.innerHTML=codes.map(c=>{
-      const pct=Math.round((c.utilisations_actuelles/c.utilisations_max)*100);
-      const expire=c.expire_le?new Date(c.expire_le).toLocaleDateString("fr-FR"):"Illimité";
-      return `<div class="code-card" id="code-${c.id}">
-        <div class="code-top">
-          <div class="code-val">${c.code}</div>
-          <span class="${c.actif?"badge-actif":"badge-inactif"}">${c.actif?"✅ Actif":"❌ Inactif"}</span>
-        </div>
-        <div class="code-montant">+${parseFloat(c.montant).toLocaleString()} FCFA</div>
-        <div class="code-details">
-          📝 ${c.description||"—"}<br>
-          👥 ${c.utilisations_actuelles}/${c.utilisations_max} utilisations<br>
-          ⏰ Expire: ${expire}
-        </div>
-        <div class="progress-bar">
-          <div class="progress-fill" style="width:${pct}%"></div>
-        </div>
-        <div class="code-actions">
-          <button class="btn-copy-code" onclick="navigator.clipboard.writeText('${c.code}').then(()=>toast('✅ Code copié !'))">📋 Copier</button>
-          <button class="btn-desact" onclick="toggleCode('${c.id}',${c.actif})">${c.actif?"🔴 Désactiver":"🟢 Activer"}</button>
-        </div>
-      </div>`;
-    }).join("");
-  }catch(e){el.innerHTML='<div class="empty">❌ Erreur</div>';}
+  const el=document.getElementById("list-codes");
+  const d=await G("codes_cadeaux?order=created_at.desc&limit=50");
+  if(!d.length){el.innerHTML='<div class="empty"><div class="empty-icon">🎁</div>Aucun code</div>';return;}
+  el.innerHTML=d.map(c=>{
+    const pct=Math.round((c.utilisations_actuelles/c.utilisations_max)*100);
+    const exp=c.expire_le?new Date(c.expire_le).toLocaleDateString("fr-FR"):"Illimité";
+    return `<div class="code-card">
+      <div class="cc-top">
+        <div class="cc-code">${c.code}</div>
+        <span class="${c.actif?"badge-actif":"badge-inactif"}">${c.actif?"✅ Actif":"❌ Inactif"}</span>
+      </div>
+      <div class="cc-montant">+${parseFloat(c.montant).toLocaleString()} FCFA</div>
+      <div class="cc-details">📝 ${c.description||"—"}<br>👥 ${c.utilisations_actuelles}/${c.utilisations_max} · ⏰ ${exp}</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div class="cc-actions">
+        <button class="btn-cpyc" onclick="navigator.clipboard.writeText('${c.code}').then(()=>toast('✅ Copié !'))">📋 Copier</button>
+        <button class="btn-tog ${c.actif?"on":"off"}" onclick="toggleCode('${c.id}',${c.actif})">${c.actif?"🔴 Désactiver":"🟢 Activer"}</button>
+      </div>
+    </div>`;
+  }).join("");
 }
 
 async function toggleCode(id,actif){
-  await fetch(SB+"/rest/v1/codes_cadeaux?id=eq."+id,{
-    method:"PATCH",headers:H(),
-    body:JSON.stringify({actif:!actif})
-  });
+  await fetch(SB+"/rest/v1/codes_cadeaux?id=eq."+id,{method:"PATCH",headers:H(),body:JSON.stringify({actif:!actif})});
   toast(actif?"Code désactivé":"Code activé");
   loadCodes();
 }
-
-async function loadUsers(){
-  const el=document.getElementById("listUsers");
-  try{
-    const r=await fetch(SB+"/rest/v1/profiles?order=created_at.desc&limit=100&select=*",{headers:H()});
-    const users=await r.json();
-    if(!users.length){el.innerHTML='<div class="empty"><div class="empty-icon">👥</div>Aucun membre</div>';return;}
-    el.innerHTML=users.map(u=>`
-      <div class="user-card">
-        <div class="user-name-a">👤 ${u.full_name||"—"}</div>
-        <div class="user-solde">${parseFloat(u.solde||0).toLocaleString()} FCFA</div>
-        <div class="user-details-a">
-          📧 ${u.email}<br>
-          📱 ${u.phone||"—"} · 🌍 ${u.country||"—"}<br>
-          🎁 Code: ${u.referral_code||"—"} · LV${u.level||1}<br>
-          💰 Revenus: ${parseFloat(u.revenus_cumules||0).toLocaleString()} FCFA<br>
-          📅 ${new Date(u.created_at).toLocaleDateString("fr-FR")}
-        </div>
-        <div class="tx-actions">
-          <button class="btn-cr" onclick="crediterManuel('${u.id}','${u.full_name||u.email}')">💰 Créditer</button>
-          <button class="btn-r" onclick="debiterManuel('${u.id}','${u.full_name||u.email}')">💸 Débiter</button>
-        </div>
-      </div>`).join("");
-  }catch(e){el.innerHTML='<div class="empty">❌ Erreur</div>';}
-}
-
-async function crediterManuel(userId,nom){
-  const montant=prompt("Montant à CRÉDITER pour "+nom+" (FCFA) :");
-  if(!montant||isNaN(montant)||parseInt(montant)<=0)return;
-  const raison=prompt("Raison :")||"Crédit manuel admin";
-  const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+userId+"&select=solde",{headers:H()});
-  const p=await rp.json();
-  await fetch(SB+"/rest/v1/profiles?id=eq."+userId,{method:"PATCH",headers:H(),body:JSON.stringify({solde:parseFloat(p[0]?.solde||0)+parseInt(montant)})});
-  await fetch(SB+"/rest/v1/transactions",{method:"POST",headers:{...H(),"Prefer":"return=representation"},body:JSON.stringify({user_id:userId,type:"bonus",montant:parseInt(montant),montant_net:parseInt(montant),statut:"valide",note:"Crédit admin: "+raison})});
-  toast("✅ "+parseInt(montant).toLocaleString()+" FCFA crédités");
-  loadUsers();
-}
-
-async function debiterManuel(userId,nom){
-  const montant=prompt("Montant à DÉBITER pour "+nom+" (FCFA) :");
-  if(!montant||isNaN(montant)||parseInt(montant)<=0)return;
-  const raison=prompt("Raison :")||"Débit manuel admin";
-  const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+userId+"&select=solde",{headers:H()});
-  const p=await rp.json();
-  const nouveau=Math.max(0,parseFloat(p[0]?.solde||0)-parseInt(montant));
-  await fetch(SB+"/rest/v1/profiles?id=eq."+userId,{method:"PATCH",headers:H(),body:JSON.stringify({solde:nouveau})});
-  await fetch(SB+"/rest/v1/transactions",{method:"POST",headers:{...H(),"Prefer":"return=representation"},body:JSON.stringify({user_id:userId,type:"retrait",montant:parseInt(montant),montant_net:parseInt(montant),statut:"valide",note:"Débit admin: "+raison})});
-  toast("💸 "+parseInt(montant).toLocaleString()+" FCFA débités");
-  loadUsers();
-}
 </script>
-<script>if("serviceWorker"in navigator){navigator.serviceWorker.register("/sw.js");}</script>
 </body>
 </html>
