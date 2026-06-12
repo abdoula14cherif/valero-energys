@@ -141,7 +141,7 @@ body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;colo
 .toast.ok{background:var(--teal);color:#fff;}
 .toast.err{background:var(--red);color:#fff;}
 
-/* ===== MODAL UTILISATEUR ===== */
+/* MODAL UTILISATEUR */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:none;align-items:flex-end;justify-content:center;}
 .modal-bg.show{display:flex;}
 .modal{background:var(--card);border-radius:24px 24px 0 0;padding:0;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;animation:slideUp .3s ease;}
@@ -310,7 +310,7 @@ body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;colo
 
 </div>
 
-<!-- ===== MODAL UTILISATEUR ===== -->
+<!-- MODAL UTILISATEUR -->
 <div class="modal-bg" id="userModal" onclick="closeUserModal(event)">
   <div class="modal" id="userModalBox">
     <div class="modal-header">
@@ -320,36 +320,20 @@ body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;colo
       <div class="modal-email" id="mu-email">—</div>
     </div>
     <div class="modal-body">
-
       <div class="info-grid">
-        <div class="info-tile">
-          <div class="it-label">💰 Solde</div>
-          <div class="it-val teal" id="mu-solde">—</div>
-        </div>
-        <div class="info-tile">
-          <div class="it-label">📊 Niveau</div>
-          <div class="it-val gold" id="mu-level">—</div>
-        </div>
-        <div class="info-tile">
-          <div class="it-label">📈 Revenus cumulés</div>
-          <div class="it-val green" id="mu-revenus">—</div>
-        </div>
-        <div class="info-tile">
-          <div class="it-label">📱 Téléphone</div>
-          <div class="it-val" id="mu-phone" style="font-size:13px;">—</div>
-        </div>
+        <div class="info-tile"><div class="it-label">💰 Solde</div><div class="it-val teal" id="mu-solde">—</div></div>
+        <div class="info-tile"><div class="it-label">📊 Niveau</div><div class="it-val gold" id="mu-level">—</div></div>
+        <div class="info-tile"><div class="it-label">📈 Revenus cumulés</div><div class="it-val green" id="mu-revenus">—</div></div>
+        <div class="info-tile"><div class="it-label">📱 Téléphone</div><div class="it-val" id="mu-phone" style="font-size:13px;">—</div></div>
       </div>
-
       <div class="modal-section-title">📋 INFORMATIONS</div>
       <div class="info-row"><span class="ir-label">🌍 Pays</span><span class="ir-val" id="mu-pays">—</span></div>
       <div class="info-row"><span class="ir-label">🔑 Code parrainage</span><span class="ir-val" id="mu-refcode">—</span></div>
       <div class="info-row"><span class="ir-label">👥 Parrainé par</span><span class="ir-val" id="mu-refby">—</span></div>
       <div class="info-row"><span class="ir-label">🎁 Bonus bienvenue</span><span class="ir-val" id="mu-bonus">—</span></div>
       <div class="info-row"><span class="ir-label">📅 Inscrit le</span><span class="ir-val" id="mu-date">—</span></div>
-
       <div class="modal-section-title">🕓 DERNIÈRES TRANSACTIONS</div>
       <div id="mu-txs"><div class="loading" style="padding:12px 0;">⏳ Chargement...</div></div>
-
       <div class="modal-section-title">⚡ ACTIONS</div>
       <div class="modal-actions">
         <button class="btn-ma credit" id="mu-btn-credit">💰 Créditer</button>
@@ -363,10 +347,10 @@ body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;colo
 const SB  = "https://seegoklunovyuieorkvy.supabase.co";
 const AK  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
 
-// ✅ LES DEUX ADMINS AUTORISÉS
 const ADMINS = ["abdoula12cherif@gmail.com", "elom50106@gmail.com"];
 
 let AT = localStorage.getItem("admin_tok") || "";
+
 function H(){
   return {
     "Content-Type":"application/json",
@@ -374,10 +358,10 @@ function H(){
     "Authorization":"Bearer "+AT
   };
 }
+
 async function Gcheck(url){
   const r = await fetch(SB+"/rest/v1/"+url, {headers:H()});
   if(r.status===401||r.status===403){
-    // Token expiré → forcer reconnexion
     localStorage.removeItem("admin_tok"); AT="";
     document.getElementById("adminPanel").style.display="none";
     document.getElementById("loginPage").style.display="flex";
@@ -385,6 +369,16 @@ async function Gcheck(url){
     return null;
   }
   return r;
+}
+
+async function G(url){
+  try{
+    const r = await Gcheck(url);
+    if(!r) return [];
+    const d = await r.json();
+    if(!Array.isArray(d)){ console.warn("G non-array:", url, d); return []; }
+    return d;
+  }catch(e){ console.error("G error:", url, e); return []; }
 }
 
 function toast(msg, type="ok"){
@@ -410,6 +404,7 @@ async function doLogin(){
   document.getElementById("loginPage").style.display = "none";
   document.getElementById("adminPanel").style.display = "block";
   loadAll();
+  showTab('dashboard', document.querySelector('.nav-tab.active'));
 }
 
 function doLogout(){
@@ -420,9 +415,10 @@ function doLogout(){
 
 document.addEventListener("DOMContentLoaded", function(){
   if(AT){
-  document.getElementById("loginPage").style.display = "none";
-  document.getElementById("adminPanel").style.display = "block";
-  loadAll();
+    document.getElementById("loginPage").style.display = "none";
+    document.getElementById("adminPanel").style.display = "block";
+    loadAll();
+    showTab('dashboard', document.querySelector('.nav-tab.active'));
   }
 });
 
@@ -436,16 +432,6 @@ function showTab(name, el){
   if(name==="recharges") loadRecharges();
   if(name==="retraits")  loadRetraits();
   if(name==="codes")     loadCodes();
-}
-
-async function G(url){
-  try{
-    const r = await Gcheck(url);
-    if(!r) return [];
-    const d = await r.json();
-    if(!Array.isArray(d)){ console.warn("G non-array:", url, d); return []; }
-    return d;
-  }catch(e){ console.error("G error:", url, e); return []; }
 }
 
 async function loadAll(){
@@ -468,7 +454,6 @@ async function loadAll(){
     document.getElementById("s-commissions").textContent = totalComm.toLocaleString();
     document.getElementById("badge-recharges").textContent = deps.filter(d=>d.statut==="en_attente").length||0;
     document.getElementById("badge-retraits").textContent = rets.length||0;
-    document.getElementById("badge-users").textContent = users.length||0;
   }catch(e){}
 }
 
@@ -481,17 +466,17 @@ async function loadUsers(){
     <div class="user-card" onclick='openUserModal(${JSON.stringify(u)})'>
       <div class="ua-avatar">${(u.full_name||u.email||"U")[0].toUpperCase()}</div>
       <div class="ua-info">
-        <div class="ua-name">${u.full_name||"—"}</div>
-        <div class="ua-email">${u.email}</div>
+        <div class="ua-name">${escapeHtml(u.full_name||"—")}</div>
+        <div class="ua-email">${escapeHtml(u.email)}</div>
         <div class="ua-solde">${parseFloat(u.solde||0).toLocaleString()} FCFA · LV${u.level||1}</div>
       </div>
       <div class="ua-arrow">›</div>
     </div>`).join("");
 }
 
-// ===== MODAL UTILISATEUR =====
+function escapeHtml(str){ if(!str) return ""; return str.replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
 async function openUserModal(u){
-  // Remplir les champs de base
   document.getElementById("mu-avatar").textContent = (u.full_name||u.email||"U")[0].toUpperCase();
   document.getElementById("mu-name").textContent   = u.full_name || "Sans nom";
   document.getElementById("mu-email").textContent  = u.email || "—";
@@ -503,18 +488,13 @@ async function openUserModal(u){
   document.getElementById("mu-refcode").textContent= u.referral_code || "—";
   document.getElementById("mu-refby").textContent  = u.referred_by || "Aucun";
   document.getElementById("mu-bonus").textContent  = u.bonus_bienvenue_recu ? "✅ Reçu" : "❌ Non reçu";
-  document.getElementById("mu-date").textContent   = u.created_at
-    ? new Date(u.created_at).toLocaleDateString("fr-FR",{day:"2-digit",month:"long",year:"numeric"})
-    : "—";
+  document.getElementById("mu-date").textContent   = u.created_at ? new Date(u.created_at).toLocaleDateString("fr-FR",{day:"2-digit",month:"long",year:"numeric"}) : "—";
 
-  // Boutons actions
   document.getElementById("mu-btn-credit").onclick = () => crediter(u.id, u.full_name||u.email);
   document.getElementById("mu-btn-debit").onclick  = () => debiter(u.id, u.full_name||u.email);
 
-  // Ouvrir modal
   document.getElementById("userModal").classList.add("show");
 
-  // Charger les transactions
   const txEl = document.getElementById("mu-txs");
   txEl.innerHTML = '<div class="loading" style="padding:12px 0;">⏳ Chargement...</div>';
   try{
@@ -561,7 +541,7 @@ async function loadInvest(){
         <div class="ic-plan">Plan ${inv.plan_nom}</div>
         <span class="badge-actif">⚡ Actif</span>
       </div>
-      <div class="ic-user">👤 ${p.full_name||p.email||"—"}</div>
+      <div class="ic-user">👤 ${escapeHtml(p.full_name||p.email||"—")}</div>
       <div class="ic-progress" style="margin:8px 0;">
         <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
       </div>
@@ -599,13 +579,13 @@ function txCard(tx, type){
   return `<div class="tx-card ${tx.statut}" id="tx-${tx.id}">
     <div class="tc-top">
       <div>
-        <div class="tc-user">👤 ${p.full_name||p.email||"—"}</div>
+        <div class="tc-user">👤 ${escapeHtml(p.full_name||p.email||"—")}</div>
         <div class="tc-amount">${parseFloat(tx.montant).toLocaleString()} FCFA</div>
       </div>
       <span class="statut-badge sb-${tx.statut}">${tx.statut==="en_attente"?"⏳ Attente":tx.statut==="valide"?"✅ Validé":"❌ Rejeté"}</span>
     </div>
-    <div class="tc-details">📱 ${tx.reseau||"—"} · ${tx.numero_mobile||"—"}<br>📅 ${date}<br>📝 ${tx.note||"—"}</div>
-    ${tx.reference?`<div class="tc-ref">🔑 ${tx.reference}</div>`:""}
+    <div class="tc-details">📱 ${escapeHtml(tx.reseau||"—")} · ${escapeHtml(tx.numero_mobile||"—")}<br>📅 ${date}<br>📝 ${escapeHtml(tx.note||"—")}</div>
+    ${tx.reference?`<div class="tc-ref">🔑 ${escapeHtml(tx.reference)}</div>`:""}
     ${actions}
   </div>`;
 }
@@ -617,12 +597,16 @@ async function valider(txId, userId, montant, type){
     const rp = await fetch(SB+"/rest/v1/profiles?id=eq."+userId+"&select=solde",{headers:H()});
     const p  = await rp.json();
     await fetch(SB+"/rest/v1/profiles?id=eq."+userId,{method:"PATCH",headers:H(),body:JSON.stringify({solde:parseFloat(p[0]?.solde||0)+parseFloat(montant)})});
+  } else if(type==="retrait"){
+    // Pour un retrait, on ne fait rien au niveau du solde car déjà déduit à la demande
   }
-  toast("✅ Validé ! Solde crédité.");
-  document.getElementById("tx-"+txId)?.remove();
+  toast("✅ Validé !", "ok");
+  const txDiv = document.getElementById("tx-"+txId);
+  if(txDiv) txDiv.remove();
   loadAll();
-  }
-});
+  loadRecharges();
+  loadRetraits();
+}
 
 async function rejeter(txId, userId, montant, type){
   if(!confirm("Rejeter ?")) return;
@@ -633,10 +617,12 @@ async function rejeter(txId, userId, montant, type){
     await fetch(SB+"/rest/v1/profiles?id=eq."+userId,{method:"PATCH",headers:H(),body:JSON.stringify({solde:parseFloat(p[0]?.solde||0)+parseFloat(montant)})});
   }
   toast("❌ Rejeté.","err");
-  document.getElementById("tx-"+txId)?.remove();
+  const txDiv = document.getElementById("tx-"+txId);
+  if(txDiv) txDiv.remove();
   loadAll();
-  }
-});
+  loadRecharges();
+  loadRetraits();
+}
 
 async function crediter(uid, nom){
   const m = prompt("Montant à CRÉDITER pour "+nom+" (FCFA) :");
@@ -648,7 +634,8 @@ async function crediter(uid, nom){
   await fetch(SB+"/rest/v1/transactions",{method:"POST",headers:{...H(),"Prefer":"return=minimal"},body:JSON.stringify({user_id:uid,type:"bonus",montant:parseInt(m),montant_net:parseInt(m),statut:"valide",note:"Crédit admin: "+raison})});
   toast("✅ "+parseInt(m).toLocaleString()+" FCFA crédités à "+nom);
   closeModal();
-  loadUsers(); loadAll();
+  loadUsers();
+  loadAll();
 }
 
 async function debiter(uid, nom){
@@ -660,7 +647,8 @@ async function debiter(uid, nom){
   await fetch(SB+"/rest/v1/profiles?id=eq."+uid,{method:"PATCH",headers:H(),body:JSON.stringify({solde:nouveau})});
   toast("💸 "+parseInt(m).toLocaleString()+" FCFA débités");
   closeModal();
-  loadUsers(); loadAll();
+  loadUsers();
+  loadAll();
 }
 
 function genCode(){
@@ -689,7 +677,8 @@ async function creerCode(){
     document.getElementById("newDesc").value="";
     document.getElementById("newMontant").value="";
     document.getElementById("newUtil").value="";
-    loadCodes(); loadAll();
+    loadCodes();
+    loadAll();
   }else{
     al.textContent="❌ "+(d.message||JSON.stringify(d)); al.className="form-alert fa-err show";
   }
@@ -704,14 +693,14 @@ async function loadCodes(){
     const exp = c.expire_le ? new Date(c.expire_le).toLocaleDateString("fr-FR") : "Illimité";
     return `<div class="code-card">
       <div class="cc-top">
-        <div class="cc-code">${c.code}</div>
+        <div class="cc-code">${escapeHtml(c.code)}</div>
         <span class="${c.actif?"badge-actif":"badge-inactif"}">${c.actif?"✅ Actif":"❌ Inactif"}</span>
       </div>
       <div class="cc-montant">+${parseFloat(c.montant).toLocaleString()} FCFA</div>
-      <div class="cc-details">📝 ${c.description||"—"}<br>👥 ${c.utilisations_actuelles}/${c.utilisations_max} · ⏰ ${exp}</div>
+      <div class="cc-details">📝 ${escapeHtml(c.description||"—")}<br>👥 ${c.utilisations_actuelles}/${c.utilisations_max} · ⏰ ${exp}</div>
       <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
       <div class="cc-actions">
-        <button class="btn-cpyc" onclick="navigator.clipboard.writeText('${c.code}').then(()=>toast('✅ Copié !'))">📋 Copier</button>
+        <button class="btn-cpyc" onclick="navigator.clipboard.writeText('${c.code.replace(/'/g, "\\'")}').then(()=>toast('✅ Copié !'))">📋 Copier</button>
         <button class="btn-tog ${c.actif?"on":"off"}" onclick="toggleCode('${c.id}',${c.actif})">${c.actif?"🔴 Désactiver":"🟢 Activer"}</button>
       </div>
     </div>`;
