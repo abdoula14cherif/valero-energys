@@ -367,7 +367,25 @@ const AK  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZi
 const ADMINS = ["abdoula12cherif@gmail.com", "elom50106@gmail.com"];
 
 let AT = localStorage.getItem("admin_tok") || "";
-function H(){ return {"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+AT}; }
+function H(){
+  return {
+    "Content-Type":"application/json",
+    "apikey":AK,
+    "Authorization":"Bearer "+AT
+  };
+}
+async function Gcheck(url){
+  const r = await fetch(SB+"/rest/v1/"+url, {headers:H()});
+  if(r.status===401||r.status===403){
+    // Token expiré → forcer reconnexion
+    localStorage.removeItem("admin_tok"); AT="";
+    document.getElementById("adminPanel").style.display="none";
+    document.getElementById("loginPage").style.display="flex";
+    toast("Session expirée, reconnectez-vous","err");
+    return null;
+  }
+  return r;
+}
 
 function toast(msg, type="ok"){
   const el = document.getElementById("toast");
@@ -400,11 +418,13 @@ function doLogout(){
   document.getElementById("loginPage").style.display = "flex";
 }
 
-if(AT){
+document.addEventListener("DOMContentLoaded", function(){
+  if(AT){
   document.getElementById("loginPage").style.display = "none";
   document.getElementById("adminPanel").style.display = "block";
   loadAll();
-}
+  }
+});
 
 const TABS = ["dashboard","users","invest","recharges","retraits","codes"];
 function showTab(name, el){
@@ -419,9 +439,13 @@ function showTab(name, el){
 }
 
 async function G(url){
-  const r = await fetch(SB+"/rest/v1/"+url, {headers:H()});
-  if(!r.ok) return [];
-  return r.json();
+  try{
+    const r = await Gcheck(url);
+    if(!r) return [];
+    const d = await r.json();
+    if(!Array.isArray(d)){ console.warn("G non-array:", url, d); return []; }
+    return d;
+  }catch(e){ console.error("G error:", url, e); return []; }
 }
 
 async function loadAll(){
@@ -597,7 +621,8 @@ async function valider(txId, userId, montant, type){
   toast("✅ Validé ! Solde crédité.");
   document.getElementById("tx-"+txId)?.remove();
   loadAll();
-}
+  }
+});
 
 async function rejeter(txId, userId, montant, type){
   if(!confirm("Rejeter ?")) return;
@@ -610,7 +635,8 @@ async function rejeter(txId, userId, montant, type){
   toast("❌ Rejeté.","err");
   document.getElementById("tx-"+txId)?.remove();
   loadAll();
-}
+  }
+});
 
 async function crediter(uid, nom){
   const m = prompt("Montant à CRÉDITER pour "+nom+" (FCFA) :");
