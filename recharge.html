@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-title" content="Velero Energy"/>
 <title>Recharge — Velero Energy</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
-<!-- LeekPay Script -->
+<!-- LeekPay SDK -->
 <script src="https://leekpay.fr/js/leekpay.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -48,7 +48,6 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 .alert.show{display:block;}
 .err{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
 .suc{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
-.info-box{background:#e0f7fa;border:1px solid #b2ebf2;border-radius:12px;padding:14px 16px;margin-bottom:14px;font-size:12px;color:#00838f;line-height:1.6;}
 .steps{margin:0 14px 12px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.08);}
 .steps-title{font-size:14px;font-weight:700;margin-bottom:14px;}
 .step{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
@@ -56,22 +55,6 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 .step-num{width:28px;height:28px;border-radius:50%;background:#00bcd4;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .step-text{font-size:13px;color:#555;line-height:1.5;}
 .step-text strong{color:#1a1a1a;}
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;display:none;align-items:flex-end;justify-content:center;}
-.modal-bg.show{display:flex;}
-.modal{background:#fff;border-radius:24px 24px 0 0;padding:24px 20px 32px;width:100%;max-width:480px;animation:su .3s ease;}
-@keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.modal-icon{font-size:50px;text-align:center;margin-bottom:12px;}
-.modal-title{font-size:18px;font-weight:800;text-align:center;margin-bottom:6px;}
-.modal-sub{font-size:13px;color:#888;text-align:center;margin-bottom:20px;}
-.ref-box{background:#f0fdf4;border:2px dashed #00bcd4;border-radius:12px;padding:14px;text-align:center;margin-bottom:16px;}
-.ref-label{font-size:11px;color:#888;margin-bottom:4px;}
-.ref-val{font-size:20px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;letter-spacing:2px;}
-.modal-field{margin-bottom:14px;}
-.modal-field label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;}
-.modal-field input{width:100%;padding:11px 13px;font-size:14px;font-family:inherit;border:1.5px solid #e0e0e0;border-radius:11px;outline:none;background:#fafafa;}
-.modal-field input:focus{border-color:#00bcd4;}
-.btn-confirm{width:100%;padding:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;margin-bottom:10px;}
-.btn-cancel{width:100%;padding:12px;background:#f5f5f5;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;color:#666;}
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
 .nav-item.active{color:#00bcd4;}
@@ -109,19 +92,19 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
     </div>
     <div class="step">
       <div class="step-num">2</div>
-      <div class="step-text"><strong>Cliquez "Payer via LeekPay"</strong> — LeekPay s'ouvre automatiquement</div>
+      <div class="step-text"><strong>Cliquez "Payer via LeekPay"</strong> — une fenêtre de paiement s'ouvre</div>
     </div>
     <div class="step">
       <div class="step-num">3</div>
-      <div class="step-text"><strong>Effectuez le paiement</strong> (Carte bancaire / Mobile Money)</div>
+      <div class="step-text"><strong>Effectuez le paiement</strong> Mobile Money directement dans la fenêtre</div>
     </div>
     <div class="step">
       <div class="step-num">4</div>
-      <div class="step-text"><strong>Après paiement</strong>, entrez la référence reçue pour confirmer</div>
+      <div class="step-text"><strong>Votre dépôt est enregistré</strong> automatiquement après paiement confirmé</div>
     </div>
     <div class="step">
       <div class="step-num">5</div>
-      <div class="step-text"><strong>L'admin valide</strong> et votre solde est crédité</div>
+      <div class="step-text"><strong>L'admin valide</strong> et votre solde est crédité automatiquement</div>
     </div>
   </div>
 
@@ -151,37 +134,9 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
       <span class="tr-val" id="totalAffiche">0 FCFA</span>
     </div>
 
-    <!-- Bouton LeekPay dynamique (caché par défaut) -->
-    <div id="leekpayButtonContainer" style="display:none;"></div>
-    
-    <!-- Bouton personnalisé Velero -->
-    <button class="btn-pay" id="btnPay" onclick="initierPaiementLeekPay()">
+    <button class="btn-pay" id="btnPay" onclick="allerPayer()">
       💳 Payer via LeekPay
     </button>
-  </div>
-</div>
-
-<!-- Modal après paiement pour entrer la référence -->
-<div class="modal-bg" id="modalBg">
-  <div class="modal">
-    <div class="modal-icon">✅</div>
-    <div class="modal-title">Paiement effectué ?</div>
-    <div class="modal-sub">Entrez votre référence LeekPay pour confirmer votre dépôt</div>
-
-    <div id="modalAlert" class="alert"></div>
-
-    <div class="ref-box">
-      <div class="ref-label">Montant payé</div>
-      <div class="ref-val" id="refMontant">0 FCFA</div>
-    </div>
-
-    <div class="modal-field">
-      <label>Référence de transaction LeekPay</label>
-      <input type="text" id="refInput" placeholder="Ex: LK-123456789"/>
-    </div>
-
-    <button class="btn-confirm" onclick="confirmerDepot()">✅ Confirmer mon dépôt</button>
-    <button class="btn-cancel" onclick="fermerModal()">Annuler</button>
   </div>
 </div>
 
@@ -193,205 +148,107 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 </nav>
 
 <script>
-const SB = "https://seegoklunovyuieorkvy.supabase.co";
-const AK = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
+const SB  = "https://seegoklunovyuieorkvy.supabase.co";
+const AK  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
+const LEEKPAY_KEY = "pk_live_h0RQu365IhnhdXkW2YeWZiDmKQGo7Pn1";
 
-// ========== INTÉGRATION LEEKPAY (MÉTHODE SIMPLE) ==========
-// Clé publique LeekPay
-const LEEPAY_PUBLIC_KEY = "pk_live_h0RQu365IhnhdXkW2YeWZiDmKQGo7Pn1";
-
-// Fonction pour initier le paiement LeekPay
-function initierPaiementLeekPay() {
-  const montant = montantChoisi;
-  
-  // Vérification du montant minimum
-  if (montant < 3000) {
-    showAlert("alertBox", "❌ Le montant minimum est de 3 000 FCFA", "err");
-    return;
-  }
-  
-  // Générer une référence unique pour cette transaction
-  const reference = "VEL_" + Date.now() + "_" + Math.random().toString(36).substring(2, 8).toUpperCase();
-  
-  // Sauvegarder les informations du dépôt en cours
-  localStorage.setItem("depot_montant", montant);
-  localStorage.setItem("depot_reference", reference);
-  localStorage.setItem("depot_ts", Date.now());
-  
-  // Créer dynamiquement le bouton LeekPay
-  const container = document.getElementById("leekpayButtonContainer");
-  container.innerHTML = ''; // Nettoyer
-  
-  // Créer le bouton selon la doc LeekPay
-  const leekpayBtn = document.createElement('button');
-  leekpayBtn.setAttribute('data-leekpay-amount', montant);
-  leekpayBtn.setAttribute('data-leekpay-currency', 'XOF'); // XOF = Francs CFA
-  leekpayBtn.setAttribute('data-leekpay-key', LEEPAY_PUBLIC_KEY);
-  leekpayBtn.setAttribute('data-leekpay-reference', reference);
-  leekpayBtn.setAttribute('data-leekpay-description', 'Recharge Velero Energy');
-  leekpayBtn.setAttribute('data-leekpay-callback', 'https://votre-site.com/leekpay-callback'); // Optionnel
-  leekpayBtn.style.display = 'none';
-  
-  container.appendChild(leekpayBtn);
-  
-  // Déclencher le clic sur le bouton LeekPay (il va ouvrir la popup automatiquement)
-  leekpayBtn.click();
-  
-  // Afficher un message d'information
-  showAlert("alertBox", "💰 Redirection vers LeekPay en cours... Après paiement, revenez ici pour confirmer votre transaction avec la référence reçue par SMS/email.", "suc");
-  
-  // Écouter si LeekPay ferme sa fenêtre (pour afficher la modal)
-  window.addEventListener('focus', function onFocus() {
-    const savedMontant = localStorage.getItem("depot_montant");
-    if (savedMontant) {
-      document.getElementById("refMontant").textContent = parseInt(savedMontant).toLocaleString() + " FCFA";
-      document.getElementById("refInput").value = "";
-      document.getElementById("modalBg").classList.add("show");
-      showAlert("modalAlert", "💡 Une fois le paiement effectué, entrez la référence que vous avez reçue par SMS/email pour confirmer votre dépôt. L'admin validera ensuite votre transaction.", "suc");
-      window.removeEventListener('focus', onFocus);
-    }
-  });
-}
-
-// Fonction pour confirmer le dépôt (après paiement)
-async function confirmerDepot() {
-  const ref = document.getElementById("refInput").value.trim();
-  const montant = parseInt(localStorage.getItem("depot_montant") || "0");
-  const savedReference = localStorage.getItem("depot_reference") || "";
-  
-  if (!ref) {
-    showAlert("modalAlert", "⚠️ Veuillez entrer votre référence de transaction LeekPay", "err");
-    return;
-  }
-  
-  if (montant < 3000) {
-    showAlert("modalAlert", "❌ Montant invalide", "err");
-    return;
-  }
-  
-  const btn = document.querySelector(".btn-confirm");
-  const originalText = btn.textContent;
-  btn.disabled = true;
-  btn.textContent = "⏳ Envoi en cours...";
-  
-  try {
-    // Enregistrer la transaction en attente dans Supabase
-    // L'admin devra valider manuellement avant que le solde soit crédité
-    const response = await fetch(SB + "/rest/v1/transactions", {
-      method: "POST",
-      headers: { ...H(), "Prefer": "return=representation" },
-      body: JSON.stringify({
-        user_id: uid(),
-        type: "depot",
-        montant: montant,
-        montant_net: montant,
-        statut: "en_attente",
-        reference: ref,
-        reference_interne: savedReference,
-        reseau: "LeekPay",
-        note: `Dépôt via LeekPay - Ref: ${ref} - En attente validation admin`
-      })
-    });
-    
-    const data = await response.json();
-    
-    if (Array.isArray(data) && data.length > 0) {
-      showAlert("modalAlert", "✅ Votre demande de dépôt a été enregistrée ! L'administrateur va vérifier votre paiement et valider dans les prochaines minutes. Votre solde sera automatiquement mis à jour après validation.", "suc");
-      btn.textContent = "✅ Demande envoyée !";
-      
-      // Nettoyer le localStorage
-      localStorage.removeItem("depot_montant");
-      localStorage.removeItem("depot_reference");
-      localStorage.removeItem("depot_ts");
-      
-      // Fermer la modal après 3 secondes
-      setTimeout(() => {
-        fermerModal();
-      }, 3000);
-    } else {
-      showAlert("modalAlert", "❌ Erreur lors de l'enregistrement. Veuillez réessayer ou contacter le support.", "err");
-      btn.disabled = false;
-      btn.textContent = originalText;
-    }
-  } catch (error) {
-    console.error("Erreur:", error);
-    showAlert("modalAlert", "❌ Erreur: " + error.message, "err");
-    btn.disabled = false;
-    btn.textContent = originalText;
-  }
-}
-
-// ========== FONCTIONS EXISTANTES ==========
-function tok() { return localStorage.getItem("velero_token") || ""; }
-function uid() { return localStorage.getItem("velero_uid") || ""; }
-function H() { return { "Content-Type": "application/json", "apikey": AK, "Authorization": "Bearer " + tok() }; }
+function tok(){ return localStorage.getItem("velero_token") || ""; }
+function uid(){ return localStorage.getItem("velero_uid") || ""; }
+function H(){ return { "Content-Type":"application/json", "apikey":AK, "Authorization":"Bearer "+tok() }; }
 
 let montantChoisi = 0;
 
-async function init() {
-  if (!tok()) {
-    location.href = "index.html";
-    return;
-  }
-  
-  try {
-    const response = await fetch(SB + "/rest/v1/profiles?id=eq." + uid() + "&select=solde", { headers: H() });
-    const data = await response.json();
-    document.getElementById("soldeActuel").textContent = data && data[0] ? parseFloat(data[0].solde).toLocaleString() + " FCFA" : "0 FCFA";
-  } catch (error) {
-    console.error("Erreur chargement solde:", error);
-    document.getElementById("soldeActuel").textContent = "0 FCFA";
-  }
-  
-  // Vérifier s'il y a un dépôt en cours (non confirmé)
-  const pendingMontant = localStorage.getItem("depot_montant");
-  if (pendingMontant) {
-    const now = Date.now();
-    const ts = parseInt(localStorage.getItem("depot_ts") || "0");
-    // Si le dépôt a été initié il y a moins de 10 minutes, proposer de confirmer
-    if (ts && (now - ts) < 600000) {
-      document.getElementById("refMontant").textContent = parseInt(pendingMontant).toLocaleString() + " FCFA";
-      document.getElementById("modalBg").classList.add("show");
-      showAlert("modalAlert", "Vous avez un paiement en attente. Entrez votre référence LeekPay pour finaliser votre dépôt.", "suc");
-    }
-  }
+async function init(){
+  if(!tok()){ location.href = "index.html"; return; }
+  try{
+    const r = await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde", { headers: H() });
+    const d = await r.json();
+    document.getElementById("soldeActuel").textContent =
+      d && d[0] ? parseFloat(d[0].solde).toLocaleString()+" FCFA" : "0 FCFA";
+  }catch(e){}
 }
 
-function setAmt(v, el) {
+function setAmt(v, el){
   montantChoisi = v;
   document.getElementById("montantInput").value = v;
   document.querySelectorAll(".amt-btn").forEach(b => b.classList.remove("sel"));
   el.classList.add("sel");
-  document.getElementById("totalAffiche").textContent = v.toLocaleString() + " FCFA";
+  document.getElementById("totalAffiche").textContent = v.toLocaleString()+" FCFA";
 }
 
-function updateTotal(v) {
+function updateTotal(v){
   montantChoisi = parseInt(v) || 0;
-  document.getElementById("totalAffiche").textContent = montantChoisi.toLocaleString() + " FCFA";
+  document.querySelectorAll(".amt-btn").forEach(b => b.classList.remove("sel"));
+  document.getElementById("totalAffiche").textContent = montantChoisi.toLocaleString()+" FCFA";
 }
 
-function showAlert(id, msg, type) {
-  const el = document.getElementById(id);
-  if (!el) return;
+function showAlert(msg, type){
+  const el = document.getElementById("alertBox");
   el.textContent = msg;
-  el.className = "alert " + type + " show";
-  setTimeout(() => {
-    if (el) el.classList.remove("show");
-  }, 6000);
+  el.className = "alert "+type+" show";
 }
 
-function fermerModal() {
-  document.getElementById("modalBg").classList.remove("show");
-  // Réinitialiser les champs
-  document.getElementById("refInput").value = "";
-  const btn = document.querySelector(".btn-confirm");
-  if (btn) {
+function allerPayer(){
+  if(montantChoisi < 3000) return showAlert("❌ Minimum 3 000 FCFA", "err");
+
+  const btn = document.getElementById("btnPay");
+  btn.disabled = true;
+  btn.textContent = "⏳ Chargement...";
+
+  LeekPay.checkout({
+    amount: montantChoisi,
+    currency: "XOF",
+    apiKey: LEEKPAY_KEY,
+    description: "Recharge Velero Energy — "+montantChoisi.toLocaleString()+" FCFA",
+
+    onSuccess: async function(data){
+      // data.payment_id = référence LeekPay
+      await enregistrerDepot(montantChoisi, data.payment_id || "LP_"+Date.now());
+    },
+
+    onCancel: function(){
+      btn.disabled = false;
+      btn.innerHTML = "💳 Payer via LeekPay";
+      showAlert("⚠️ Paiement annulé. Réessayez quand vous voulez.", "err");
+    }
+  });
+}
+
+async function enregistrerDepot(montant, reference){
+  const btn = document.getElementById("btnPay");
+  btn.textContent = "⏳ Enregistrement...";
+
+  try{
+    const r = await fetch(SB+"/rest/v1/transactions", {
+      method: "POST",
+      headers: { ...H(), "Prefer": "return=representation" },
+      body: JSON.stringify({
+        user_id:     uid(),
+        type:        "depot",
+        montant:     montant,
+        montant_net: montant,
+        statut:      "en_attente",
+        reference:   reference,
+        reseau:      "LeekPay",
+        note:        "Dépôt via LeekPay — Ref: "+reference+" — En attente validation admin"
+      })
+    });
+    const d = await r.json();
+
+    if(Array.isArray(d) && d.length > 0){
+      btn.textContent = "✅ Dépôt enregistré !";
+      showAlert("✅ Paiement confirmé ! L'admin va valider votre dépôt sous peu.", "suc");
+      setTimeout(() => { location.href = "historique.html"; }, 2500);
+    } else {
+      throw new Error("Réponse inattendue de Supabase");
+    }
+  }catch(e){
     btn.disabled = false;
-    btn.textContent = "✅ Confirmer mon dépôt";
+    btn.innerHTML = "💳 Payer via LeekPay";
+    showAlert("❌ Paiement effectué mais erreur d'enregistrement. Contactez le support avec la référence : "+reference, "err");
   }
 }
 
-// Démarrer l'application
 init();
 </script>
 </body>
