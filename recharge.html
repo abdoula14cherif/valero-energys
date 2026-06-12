@@ -11,6 +11,8 @@
 <meta name="apple-mobile-web-app-title" content="Velero Energy"/>
 <title>Recharge — Velero Energy</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<!-- LeekPay Script -->
+<script src="https://leekpay.fr/js/leekpay.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
@@ -107,19 +109,19 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
     </div>
     <div class="step">
       <div class="step-num">2</div>
-      <div class="step-text"><strong>Cliquez "Payer via LeekPay"</strong> — vous serez redirigé vers la page de paiement</div>
+      <div class="step-text"><strong>Cliquez "Payer via LeekPay"</strong> — LeekPay s'ouvre automatiquement</div>
     </div>
     <div class="step">
       <div class="step-num">3</div>
-      <div class="step-text"><strong>Effectuez le paiement</strong> sur LeekPay (Carte / Mobile Money)</div>
+      <div class="step-text"><strong>Effectuez le paiement</strong> (Carte bancaire / Mobile Money)</div>
     </div>
     <div class="step">
       <div class="step-num">4</div>
-      <div class="step-text"><strong>Revenez ici</strong> et entrez votre référence de transaction pour confirmation</div>
+      <div class="step-text"><strong>Après paiement</strong>, entrez la référence reçue pour confirmer</div>
     </div>
     <div class="step">
       <div class="step-num">5</div>
-      <div class="step-text"><strong>L'admin valide</strong> et votre solde est crédité automatiquement</div>
+      <div class="step-text"><strong>L'admin valide</strong> et votre solde est crédité</div>
     </div>
   </div>
 
@@ -149,6 +151,10 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
       <span class="tr-val" id="totalAffiche">0 FCFA</span>
     </div>
 
+    <!-- Bouton LeekPay dynamique (caché par défaut) -->
+    <div id="leekpayButtonContainer" style="display:none;"></div>
+    
+    <!-- Bouton personnalisé Velero -->
     <button class="btn-pay" id="btnPay" onclick="initierPaiementLeekPay()">
       💳 Payer via LeekPay
     </button>
@@ -190,19 +196,9 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 const SB = "https://seegoklunovyuieorkvy.supabase.co";
 const AK = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
 
-// ========== INTÉGRATION LEEKPAY ==========
-// Clé publique LeekPay fournie
+// ========== INTÉGRATION LEEKPAY (MÉTHODE SIMPLE) ==========
+// Clé publique LeekPay
 const LEEPAY_PUBLIC_KEY = "pk_live_h0RQu365IhnhdXkW2YeWZiDmKQGo7Pn1";
-
-// Lien de paiement LeekPay (le plus simple : redirection avec paramètres)
-// Selon la doc LeekPay, l'URL de paiement est : https://leekpay.com/pay
-// Avec les paramètres : public_key, amount, currency, reference, description
-const LEEPAY_PAYMENT_URL = "https://leekpay.com/pay";
-
-// Générer une référence unique pour la transaction
-function genererReferenceLeekPay() {
-  return "VEL_" + Date.now() + "_" + Math.random().toString(36).substring(2, 8).toUpperCase();
-}
 
 // Fonction pour initier le paiement LeekPay
 function initierPaiementLeekPay() {
@@ -215,45 +211,46 @@ function initierPaiementLeekPay() {
   }
   
   // Générer une référence unique pour cette transaction
-  const reference = genererReferenceLeekPay();
+  const reference = "VEL_" + Date.now() + "_" + Math.random().toString(36).substring(2, 8).toUpperCase();
   
   // Sauvegarder les informations du dépôt en cours
   localStorage.setItem("depot_montant", montant);
   localStorage.setItem("depot_reference", reference);
   localStorage.setItem("depot_ts", Date.now());
   
-  // Construire l'URL de paiement LeekPay
-  // Format selon la documentation : paramètres dans l'URL
-  const params = new URLSearchParams({
-    public_key: LEEPAY_PUBLIC_KEY,
-    amount: montant,
-    currency: "XAF",
-    reference: reference,
-    description: "Recharge compte Velero Energy",
-    // URL de retour après paiement (la même page)
-    redirect_url: window.location.href
-  });
+  // Créer dynamiquement le bouton LeekPay
+  const container = document.getElementById("leekpayButtonContainer");
+  container.innerHTML = ''; // Nettoyer
   
-  const paymentUrl = `${LEEPAY_PAYMENT_URL}?${params.toString()}`;
+  // Créer le bouton selon la doc LeekPay
+  const leekpayBtn = document.createElement('button');
+  leekpayBtn.setAttribute('data-leekpay-amount', montant);
+  leekpayBtn.setAttribute('data-leekpay-currency', 'XOF'); // XOF = Francs CFA
+  leekpayBtn.setAttribute('data-leekpay-key', LEEPAY_PUBLIC_KEY);
+  leekpayBtn.setAttribute('data-leekpay-reference', reference);
+  leekpayBtn.setAttribute('data-leekpay-description', 'Recharge Velero Energy');
+  leekpayBtn.setAttribute('data-leekpay-callback', 'https://votre-site.com/leekpay-callback'); // Optionnel
+  leekpayBtn.style.display = 'none';
   
-  console.log("Redirection vers LeekPay:", paymentUrl);
+  container.appendChild(leekpayBtn);
   
-  // Ouvrir LeekPay dans un nouvel onglet
-  window.open(paymentUrl, "_blank");
+  // Déclencher le clic sur le bouton LeekPay (il va ouvrir la popup automatiquement)
+  leekpayBtn.click();
   
   // Afficher un message d'information
-  showAlert("alertBox", "💰 Redirection vers LeekPay en cours... Après paiement, revenez ici pour confirmer votre transaction.", "suc");
+  showAlert("alertBox", "💰 Redirection vers LeekPay en cours... Après paiement, revenez ici pour confirmer votre transaction avec la référence reçue par SMS/email.", "suc");
   
-  // Après 2 secondes, afficher la modal pour que l'utilisateur entre sa référence
-  setTimeout(() => {
+  // Écouter si LeekPay ferme sa fenêtre (pour afficher la modal)
+  window.addEventListener('focus', function onFocus() {
     const savedMontant = localStorage.getItem("depot_montant");
     if (savedMontant) {
       document.getElementById("refMontant").textContent = parseInt(savedMontant).toLocaleString() + " FCFA";
       document.getElementById("refInput").value = "";
       document.getElementById("modalBg").classList.add("show");
-      showAlert("modalAlert", "💡 Une fois le paiement effectué, entrez la référence reçue par SMS/email pour confirmer votre dépôt. L'admin validera ensuite votre transaction.", "suc");
+      showAlert("modalAlert", "💡 Une fois le paiement effectué, entrez la référence que vous avez reçue par SMS/email pour confirmer votre dépôt. L'admin validera ensuite votre transaction.", "suc");
+      window.removeEventListener('focus', onFocus);
     }
-  }, 2000);
+  });
 }
 
 // Fonction pour confirmer le dépôt (après paiement)
@@ -300,18 +297,16 @@ async function confirmerDepot() {
     
     if (Array.isArray(data) && data.length > 0) {
       showAlert("modalAlert", "✅ Votre demande de dépôt a été enregistrée ! L'administrateur va vérifier votre paiement et valider dans les prochaines minutes. Votre solde sera automatiquement mis à jour après validation.", "suc");
-      btn.textContent = "✅ Demandé envoyée !";
+      btn.textContent = "✅ Demande envoyée !";
       
       // Nettoyer le localStorage
       localStorage.removeItem("depot_montant");
       localStorage.removeItem("depot_reference");
       localStorage.removeItem("depot_ts");
       
-      // Fermer la modal après 3 secondes et rediriger
+      // Fermer la modal après 3 secondes
       setTimeout(() => {
         fermerModal();
-        // Optionnel : rediriger vers l'historique des transactions
-        // window.location.href = "historique.html";
       }, 3000);
     } else {
       showAlert("modalAlert", "❌ Erreur lors de l'enregistrement. Veuillez réessayer ou contacter le support.", "err");
