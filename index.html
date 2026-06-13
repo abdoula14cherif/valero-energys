@@ -180,6 +180,7 @@ function saveSession(tok,ref,uid,email){
   localStorage.setItem("velero_refresh",ref||"");
   localStorage.setItem("velero_uid",uid);
   localStorage.setItem("velero_email",email);
+  localStorage.setItem("velero_saved_at",Date.now().toString());
 }
 
 function goToDashboard(msg){

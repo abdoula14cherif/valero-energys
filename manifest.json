@@ -1,34 +1,26 @@
 {
   "name": "Velero Energy",
   "short_name": "Velero",
-  "description": "La plateforme d'investissement énergétique",
+  "description": "La plateforme d'investissement énergétique en Afrique",
   "start_url": "/index.html",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#f0f7f9",
   "theme_color": "#00bcd4",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
+  "lang": "fr",
   "icons": [
     {
       "src": "https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg",
       "sizes": "192x192",
       "type": "image/jpeg",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg",
       "sizes": "512x512",
       "type": "image/jpeg",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     }
-  ],
-  "screenshots": [
-    {
-      "src": "https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg",
-      "sizes": "390x844",
-      "type": "image/jpeg",
-      "form_factor": "narrow"
-    }
-  ],
-  "categories": ["finance", "business"],
-  "lang": "fr"
+  ]
 }
