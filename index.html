@@ -3,119 +3,222 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-<link rel="manifest" href="/manifest.json"/>
-<meta name="theme-color" content="#00bcd4"/>
-<meta name="mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<meta name="apple-mobile-web-app-title" content="Velero Energy"/>
 <title>Velero Energy</title>
+<script src="/pwa-install.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{background:#f0f7f9;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;}
-.hero{width:100%;height:200px;position:relative;overflow:hidden;}
-.hero img{width:100%;height:100%;object-fit:cover;object-position:center 55%;}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,50,70,.55),rgba(0,20,40,.80));}
-.hero-brand{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;}
-.logo{display:flex;align-items:center;}
-.logo-v{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:#e53935;}
-.logo-name{font-family:'Playfair Display',serif;font-size:34px;font-weight:700;color:#fff;}
-.tagline{color:rgba(255,255,255,.85);font-size:12px;}
-.wave{position:absolute;bottom:-1px;width:100%;height:40px;}
-.card-wrap{width:100%;max-width:440px;padding:0 12px 30px;margin-top:-16px;}
-.card{background:#fff;border-radius:20px;box-shadow:0 8px 40px rgba(0,100,130,.13);overflow:hidden;}
-.tabs{display:flex;border-bottom:2px solid #e8f4f7;}
-.tab{flex:1;padding:13px 0;font-size:14px;font-weight:700;background:none;border:none;cursor:pointer;color:#90a4ae;}
-.tab.active{color:#00bcd4;border-bottom:3px solid #00bcd4;margin-bottom:-2px;}
-.fb{padding:20px;}
-.title{font-size:20px;font-weight:700;margin-bottom:3px;}
-.sub{font-size:12px;color:#607d8b;margin-bottom:16px;}
-.field{margin-bottom:12px;}
-.field label{display:block;font-size:12px;font-weight:600;color:#334155;margin-bottom:4px;}
-.field input,.field select{width:100%;padding:10px 13px;font-size:14px;font-family:inherit;border:1.5px solid #cfe8ed;border-radius:10px;outline:none;background:#f5fafb;color:#0f2a3a;}
-.field input:focus{border-color:#00bcd4;box-shadow:0 0 0 3px rgba(0,188,212,.15);}
-.phone-row{display:flex;gap:6px;}
-.phone-row select{width:145px;flex-shrink:0;}
-.phone-row input{flex:1;}
-.ref-badge{display:inline-block;background:#e0f7fa;color:#0097a7;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:5px;}
-.alert{padding:10px 12px;border-radius:8px;font-size:13px;margin-bottom:11px;display:none;}
+html,body{height:100%;overflow-x:hidden;}
+body{
+  min-height:100vh;
+  font-family:'DM Sans',sans-serif;
+  display:flex;flex-direction:column;align-items:center;
+  background:linear-gradient(160deg,#003d4d 0%,#005f73 35%,#00bcd4 70%,#b2ebf2 100%);
+  position:relative;
+}
+body::before{
+  content:'';position:absolute;inset:0;
+  background:url('https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg') center/cover no-repeat;
+  opacity:.15;z-index:0;
+}
+.page{position:relative;z-index:1;width:100%;max-width:440px;min-height:100vh;display:flex;flex-direction:column;}
+
+/* LOGO */
+.logo-section{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:50px 20px 24px;
+}
+.logo-main{display:flex;align-items:flex-end;gap:4px;}
+.logo-v{
+  font-family:'Playfair Display',serif;
+  font-size:80px;font-weight:900;
+  color:#e53935;line-height:1;
+  text-shadow:0 4px 24px rgba(229,57,53,.4);
+}
+.logo-text{
+  font-family:'Playfair Display',serif;
+  font-size:42px;font-weight:700;
+  color:#fff;padding-bottom:8px;
+  text-shadow:0 2px 16px rgba(0,0,0,.3);
+}
+.logo-sub{
+  font-size:11px;color:rgba(255,255,255,.7);
+  letter-spacing:4px;text-transform:uppercase;
+  margin-top:8px;
+}
+
+/* CARD */
+.card{
+  background:#fff;
+  border-radius:32px 32px 0 0;
+  padding:28px 22px 44px;
+  box-shadow:0 -8px 40px rgba(0,0,0,.15);
+}
+
+/* TABS */
+.tabs{
+  display:flex;
+  background:rgba(0,188,212,.08);
+  border-radius:50px;padding:4px;
+  margin-bottom:24px;
+}
+.tab{
+  flex:1;padding:13px 0;
+  font-size:14px;font-weight:700;
+  background:none;border:none;cursor:pointer;
+  color:#90a4ae;border-radius:50px;
+  transition:all .25s;
+  font-family:'DM Sans',sans-serif;
+}
+.tab.active{
+  background:#fff;color:#00bcd4;
+  box-shadow:0 2px 12px rgba(0,188,212,.2);
+}
+
+/* CHAMPS */
+.field{margin-bottom:13px;position:relative;}
+.fi{
+  position:absolute;left:16px;top:50%;
+  transform:translateY(-50%);
+  font-size:17px;pointer-events:none;
+}
+.field input{
+  width:100%;padding:15px 15px 15px 46px;
+  font-size:15px;font-family:'DM Sans',sans-serif;
+  border:none;border-radius:14px;
+  background:#f0f7f9;color:#0f2a3a;outline:none;
+  transition:background .2s,box-shadow .2s;
+}
+.field input:focus{
+  background:#e0f7fa;
+  box-shadow:0 0 0 2.5px #00bcd4;
+}
+.field input::placeholder{color:#b0bec5;}
+
+/* PHONE */
+.phone-row{display:flex;gap:8px;}
+.cc-sel{
+  width:115px;flex-shrink:0;
+  padding:15px 8px;font-size:12px;
+  font-family:'DM Sans',sans-serif;
+  border:none;border-radius:14px;
+  background:#f0f7f9;color:#0f2a3a;outline:none;cursor:pointer;
+}
+.cc-sel:focus{background:#e0f7fa;box-shadow:0 0 0 2.5px #00bcd4;}
+.ph-inp{
+  flex:1;padding:15px 14px;font-size:15px;
+  font-family:'DM Sans',sans-serif;
+  border:none;border-radius:14px;
+  background:#f0f7f9;color:#0f2a3a;outline:none;
+}
+.ph-inp:focus{background:#e0f7fa;box-shadow:0 0 0 2.5px #00bcd4;}
+
+/* FORGOT */
+.forgot{
+  display:block;text-align:right;
+  font-size:12px;color:#00bcd4;
+  font-weight:600;text-decoration:none;
+  margin-top:-4px;margin-bottom:16px;
+}
+
+/* ALERTS */
+.alert{
+  padding:11px 14px;border-radius:12px;
+  font-size:13px;font-weight:600;
+  margin-bottom:13px;display:none;
+}
 .alert.show{display:block;}
-.err{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
-.suc{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
-.btn{width:100%;padding:13px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:11px;cursor:pointer;margin-bottom:14px;font-family:inherit;}
-.btn:disabled{opacity:.6;}
-.sw-text{text-align:center;font-size:12px;color:#607d8b;}
-.sw{color:#00bcd4;font-weight:700;background:none;border:none;cursor:pointer;font-size:12px;font-family:inherit;}
-.hidden{display:none;}
-.redir{position:fixed;inset:0;background:linear-gradient(135deg,#00bcd4,#0097a7);z-index:999;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+.err{background:#fff5f5;border-left:3px solid #e53935;color:#c53030;}
+.suc{background:#f0fdf4;border-left:3px solid #4caf50;color:#15803d;}
+
+/* BTN */
+.btn-main{
+  width:100%;padding:16px;
+  background:linear-gradient(135deg,#00bcd4,#0097a7);
+  color:#fff;font-size:16px;font-weight:800;
+  border:none;border-radius:16px;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  box-shadow:0 6px 20px rgba(0,188,212,.4);
+  margin-top:4px;margin-bottom:16px;
+  transition:opacity .2s,transform .15s;
+}
+.btn-main:active{transform:scale(.98);}
+.btn-main:disabled{opacity:.6;cursor:not-allowed;}
+
+/* CGU */
+.cgu{text-align:center;font-size:12px;color:#aaa;margin-top:2px;}
+.cgu a{color:#00bcd4;font-weight:600;text-decoration:none;}
+.sw-text{text-align:center;font-size:13px;color:#90a4ae;margin-top:10px;}
+.sw-btn{color:#00bcd4;font-weight:700;background:none;border:none;cursor:pointer;font-size:13px;font-family:inherit;}
+
+/* REDIR */
+.redir{position:fixed;inset:0;background:linear-gradient(135deg,#003d4d,#00bcd4);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
 .redir.show{display:flex;}
-.redir-logo{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#fff;}
-.redir-spin{width:40px;height:40px;border:3px solid rgba(255,255,255,.3);border-top:3px solid #fff;border-radius:50%;animation:sp .7s linear infinite;}
+.redir-logo{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:#fff;letter-spacing:3px;}
+.redir-spin{width:44px;height:44px;border:3px solid rgba(255,255,255,.3);border-top:3px solid #fff;border-radius:50%;animation:sp .7s linear infinite;}
 .redir-txt{color:rgba(255,255,255,.9);font-size:14px;font-weight:600;}
 @keyframes sp{to{transform:rotate(360deg)}}
+.hidden{display:none;}
 </style>
 </head>
 <body>
-<script src="/pwa-install.js"></script>
 
 <div class="redir" id="redir">
-  <div class="redir-logo">Velero Energy</div>
+  <div class="redir-logo">VELERO</div>
   <div class="redir-spin"></div>
-  <div class="redir-txt" id="redirTxt">Chargement...</div>
+  <div class="redir-txt" id="redirTxt">Connexion en cours...</div>
 </div>
 
-<div class="hero">
-  <img src="https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg" alt="Velero"/>
-  <div class="hero-overlay"></div>
-  <div class="hero-brand">
-    <div class="logo"><span class="logo-v">V</span><span class="logo-name">elero Energy</span></div>
-    <p class="tagline">La plateforme d'investissement énergétique</p>
+<div class="page">
+  <!-- LOGO -->
+  <div class="logo-section">
+    <div class="logo-main">
+      <span class="logo-v">V</span>
+      <span class="logo-text">elero</span>
+    </div>
+    <div class="logo-sub">Investment Platform · Energy</div>
   </div>
-  <svg class="wave" viewBox="0 0 1440 40" preserveAspectRatio="none">
-    <path d="M0,20 C360,40 1080,0 1440,20 L1440,40 L0,40 Z" fill="#f0f7f9"/>
-  </svg>
-</div>
 
-<div class="card-wrap">
+  <!-- CARD -->
   <div class="card">
     <div class="tabs">
-      <button class="tab active" id="t1" onclick="showTab('login')">Connexion</button>
-      <button class="tab" id="t2" onclick="showTab('reg')">Inscription</button>
+      <button class="tab active" id="t1" onclick="showTab('login')">Se connecter</button>
+      <button class="tab" id="t2" onclick="showTab('reg')">S'inscrire</button>
     </div>
 
     <!-- LOGIN -->
-    <div id="loginForm" class="fb">
-      <div class="title">Bon retour 👋</div>
-      <div class="sub">Connectez-vous à votre espace investisseur</div>
+    <div id="loginForm">
       <div id="lErr" class="alert err"></div>
-      <div id="lSuc" class="alert suc"></div>
-      <div class="field"><label>Email</label>
-        <input type="email" id="lEmail" placeholder="vous@exemple.com"/>
+      <div class="field">
+        <span class="fi">📧</span>
+        <input type="email" id="lEmail" placeholder="Adresse email" autocomplete="email"/>
       </div>
-      <div class="field"><label>Mot de passe</label>
-        <input type="password" id="lPass" placeholder="••••••••"/>
+      <div class="field">
+        <span class="fi">🔒</span>
+        <input type="password" id="lPass" placeholder="Mot de passe" autocomplete="current-password"/>
       </div>
-      <button class="btn" id="btnL" onclick="doLogin()">Se connecter</button>
-      <p class="sw-text">Pas de compte ? <button class="sw" onclick="showTab('reg')">S'inscrire</button></p>
+      <a href="#" class="forgot">Mot de passe oublié ?</a>
+      <button class="btn-main" id="btnL" onclick="doLogin()">Se connecter</button>
+      <p class="sw-text">Pas encore de compte ? <button class="sw-btn" onclick="showTab('reg')">S'inscrire</button></p>
     </div>
 
     <!-- REGISTER -->
-    <div id="regForm" class="fb hidden">
-      <div class="title">Créer un compte 🚀</div>
-      <div class="sub">Rejoignez Velero Energy et recevez 500 FCFA 🎁</div>
+    <div id="regForm" class="hidden">
       <div id="rErr" class="alert err"></div>
-      <div id="rSuc" class="alert suc"></div>
-      <div class="field"><label>Nom complet</label>
-        <input type="text" id="rName" placeholder="Jean Dupont"/>
-      </div>
-      <div class="field"><label>Email</label>
-        <input type="email" id="rEmail" placeholder="vous@exemple.com"/>
+      <div id="rOk" class="alert suc"></div>
+
+      <div class="field">
+        <span class="fi">👤</span>
+        <input type="text" id="rName" placeholder="Nom complet"/>
       </div>
       <div class="field">
-        <label>Téléphone</label>
+        <span class="fi">📧</span>
+        <input type="email" id="rEmail" placeholder="Adresse email" autocomplete="email"/>
+      </div>
+      <div class="field">
         <div class="phone-row">
-          <select id="rCC">
+          <select class="cc-sel" id="rCC">
             <option value="+229">🇧🇯 +229</option>
             <option value="+226">🇧🇫 +226</option>
             <option value="+237" selected>🇨🇲 +237</option>
@@ -128,21 +231,25 @@ body{background:#f0f7f9;font-family:'DM Sans',sans-serif;display:flex;flex-direc
             <option value="+221">🇸🇳 +221</option>
             <option value="+228">🇹🇬 +228</option>
           </select>
-          <input type="tel" id="rPhone" placeholder="6XX XXX XXX"/>
+          <input class="ph-inp" type="tel" id="rPhone" placeholder="Numéro de téléphone"/>
         </div>
       </div>
-      <div class="field"><label>Mot de passe</label>
-        <input type="password" id="rPass" placeholder="Minimum 6 caractères"/>
-      </div>
-      <div class="field"><label>Confirmer le mot de passe</label>
-        <input type="password" id="rConf" placeholder="••••••••"/>
+      <div class="field">
+        <span class="fi">🔒</span>
+        <input type="password" id="rPass" placeholder="Mot de passe" autocomplete="new-password"/>
       </div>
       <div class="field">
-        <label>Code parrainage <span id="refBadge" class="ref-badge hidden">✓ Détecté</span></label>
-        <input type="text" id="rRef" placeholder="Optionnel" style="text-transform:uppercase;"/>
+        <span class="fi">🔒</span>
+        <input type="password" id="rConf" placeholder="Confirmer le mot de passe"/>
       </div>
-      <button class="btn" id="btnR" onclick="doRegister()">Créer mon compte</button>
-      <p class="sw-text">Déjà un compte ? <button class="sw" onclick="showTab('login')">Se connecter</button></p>
+      <div class="field">
+        <span class="fi">🎁</span>
+        <input type="text" id="rRef" placeholder="Code d'invitation (optionnel)" style="text-transform:uppercase;"/>
+      </div>
+
+      <button class="btn-main" id="btnR" onclick="doRegister()">S'inscrire</button>
+      <p class="cgu">En vous inscrivant, vous acceptez nos <a href="reglement.html">conditions d'utilisation</a>.</p>
+      <p class="sw-text">Déjà un compte ? <button class="sw-btn" onclick="showTab('login')">Se connecter</button></p>
     </div>
   </div>
 </div>
@@ -151,13 +258,8 @@ body{background:#f0f7f9;font-family:'DM Sans',sans-serif;display:flex;flex-direc
 const SB="https://seegoklunovyuieorkvy.supabase.co";
 const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
 
-// Ref depuis URL
 const urlRef=new URLSearchParams(location.search).get("ref");
-if(urlRef){
-  document.getElementById("rRef").value=urlRef.toUpperCase();
-  document.getElementById("refBadge").classList.remove("hidden");
-  showTab("reg");
-}
+if(urlRef){document.getElementById("rRef").value=urlRef.toUpperCase();showTab("reg");}
 
 function showTab(t){
   document.getElementById("t1").classList.toggle("active",t==="login");
@@ -166,28 +268,17 @@ function showTab(t){
   document.getElementById("regForm").classList.toggle("hidden",t!=="reg");
 }
 
-function setErr(id,msg){
-  const e=document.getElementById(id);
-  e.textContent=msg;e.className="alert err show";
-}
-function setOk(id,msg){
-  const e=document.getElementById(id);
-  e.textContent=msg;e.className="alert suc show";
-}
+function setErr(id,msg){const e=document.getElementById(id);e.textContent=msg;e.className="alert err show";}
+function setOk(id,msg){const e=document.getElementById(id);e.textContent=msg;e.className="alert suc show";}
 
-function saveSession(tok,ref,uid,email){
-  localStorage.setItem("velero_token",tok);
-  localStorage.setItem("velero_refresh",ref||"");
-  localStorage.setItem("velero_uid",uid);
-  localStorage.setItem("velero_email",email);
-  localStorage.setItem("velero_saved_at",Date.now().toString());
-}
-
-function goToDashboard(msg){
-  document.getElementById("redirTxt").textContent=msg||"Chargement...";
+function saveAndGo(d,msg){
+  localStorage.setItem("velero_token",d.access_token);
+  localStorage.setItem("velero_refresh",d.refresh_token||"");
+  localStorage.setItem("velero_uid",d.user.id);
+  localStorage.setItem("velero_email",d.user.email);
+  document.getElementById("redirTxt").textContent=msg;
   document.getElementById("redir").classList.add("show");
-  // Double sécurité pour la redirection
-  setTimeout(()=>{window.location.href="dashboard.html";},800);
+  setTimeout(()=>window.location.href="dashboard.html",900);
 }
 
 async function doLogin(){
@@ -198,22 +289,13 @@ async function doLogin(){
   btn.disabled=true;btn.textContent="⏳ Connexion...";
   try{
     const r=await fetch(SB+"/auth/v1/token?grant_type=password",{
-      method:"POST",
-      headers:{"Content-Type":"application/json","apikey":AK},
+      method:"POST",headers:{"Content-Type":"application/json","apikey":AK},
       body:JSON.stringify({email,password:pass})
     });
     const d=await r.json();
-    if(d.error||!d.access_token){
-      setErr("lErr",d.error_description||d.msg||"Email ou mot de passe incorrect.");
-      btn.disabled=false;btn.textContent="Se connecter";
-      return;
-    }
-    saveSession(d.access_token,d.refresh_token,d.user.id,d.user.email);
-    goToDashboard("Connexion réussie !");
-  }catch(e){
-    setErr("lErr","Erreur réseau.");
-    btn.disabled=false;btn.textContent="Se connecter";
-  }
+    if(!d.access_token){setErr("lErr",d.error_description||"Email ou mot de passe incorrect.");btn.disabled=false;btn.textContent="Se connecter";return;}
+    saveAndGo(d,"Connexion réussie !");
+  }catch(e){setErr("lErr","Erreur réseau.");btn.disabled=false;btn.textContent="Se connecter";}
 }
 
 async function doRegister(){
@@ -224,58 +306,31 @@ async function doRegister(){
   const ref=document.getElementById("rRef").value.trim().toUpperCase();
   const cc=document.getElementById("rCC").value;
   const phone=cc+document.getElementById("rPhone").value.trim();
-
   if(!name||!email||!pass)return setErr("rErr","Tous les champs sont requis.");
   if(pass!==conf)return setErr("rErr","Les mots de passe ne correspondent pas.");
   if(pass.length<6)return setErr("rErr","Minimum 6 caractères.");
-
   const btn=document.getElementById("btnR");
-  btn.disabled=true;btn.textContent="⏳ Création du compte...";
-
+  btn.disabled=true;btn.textContent="⏳ Création...";
   try{
-    // ÉTAPE 1 : Créer le compte
-    const r1=await fetch(SB+"/auth/v1/signup",{
-      method:"POST",
-      headers:{"Content-Type":"application/json","apikey":AK},
-      body:JSON.stringify({
-        email,password:pass,
-        data:{full_name:name,phone,country_code:cc,referral_code:ref}
-      })
+    const r=await fetch(SB+"/auth/v1/signup",{
+      method:"POST",headers:{"Content-Type":"application/json","apikey":AK},
+      body:JSON.stringify({email,password:pass,data:{full_name:name,phone,country_code:cc,referral_code:ref}})
     });
-    const d1=await r1.json();
-
-    if(d1.error){
-      setErr("rErr",d1.error_description||d1.error);
-      btn.disabled=false;btn.textContent="Créer mon compte";
-      return;
-    }
-
-    // ÉTAPE 2 : Se connecter immédiatement après inscription
-    btn.textContent="⏳ Connexion automatique...";
-    await new Promise(res=>setTimeout(res,1000)); // Attendre le trigger
-
-    const r2=await fetch(SB+"/auth/v1/token?grant_type=password",{
-      method:"POST",
-      headers:{"Content-Type":"application/json","apikey":AK},
-      body:JSON.stringify({email,password:pass})
-    });
-    const d2=await r2.json();
-
-    if(d2.access_token&&d2.user){
-      saveSession(d2.access_token,d2.refresh_token,d2.user.id,d2.user.email);
-      goToDashboard("Bienvenue sur Velero Energy 🎉");
+    const d=await r.json();
+    if(d.error){setErr("rErr",d.error_description||d.error);btn.disabled=false;btn.textContent="S'inscrire";return;}
+    if(d.access_token&&d.user){
+      await new Promise(res=>setTimeout(res,1500));
+      saveAndGo(d,"Bienvenue sur Velero Energy 🎉");
     }else{
-      // Si connexion auto échoue → montrer message succès
-      setOk("rSuc","✅ Compte créé ! Connectez-vous maintenant.");
-      showTab("login");
-      document.getElementById("lEmail").value=email;
-      btn.disabled=false;btn.textContent="Créer mon compte";
+      const r2=await fetch(SB+"/auth/v1/token?grant_type=password",{
+        method:"POST",headers:{"Content-Type":"application/json","apikey":AK},
+        body:JSON.stringify({email,password:pass})
+      });
+      const d2=await r2.json();
+      if(d2.access_token){await new Promise(res=>setTimeout(res,1000));saveAndGo(d2,"Bienvenue 🎉");}
+      else{setOk("rOk","✅ Compte créé ! Connectez-vous.");showTab("login");document.getElementById("lEmail").value=email;btn.disabled=false;btn.textContent="S'inscrire";}
     }
-
-  }catch(e){
-    setErr("rErr","Erreur réseau: "+e.message);
-    btn.disabled=false;btn.textContent="Créer mon compte";
-  }
+  }catch(e){setErr("rErr","Erreur réseau.");btn.disabled=false;btn.textContent="S'inscrire";}
 }
 </script>
 </body>
