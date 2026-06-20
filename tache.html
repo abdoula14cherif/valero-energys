@@ -129,7 +129,13 @@ async function init(){
   invest=invs[0];
   document.getElementById("sbName").textContent="Plan "+invest.plan_nom;
   document.getElementById("sbJours").textContent=invest.jours_restants;
-  document.getElementById("gainPreview").textContent=parseFloat(invest.revenu_jour).toLocaleString()+" FCFA";
+  const typeGain=invest.type_gain||localStorage.getItem("invest_type")||"journalier";
+  if(typeGain==="final"){
+    document.getElementById("gainPreview").textContent="Gain à la fin : "+parseFloat(invest.gain_final||0).toLocaleString()+" FCFA";
+    document.getElementById("dayDate").textContent="Tâche de suivi — "+new Date().toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});
+  }else{
+    document.getElementById("gainPreview").textContent=parseFloat(invest.revenu_jour).toLocaleString()+" FCFA";
+  }
   // Vérifier tâche du jour
   const today=new Date().toISOString().split("T")[0];
   const taches=await VE.select("taches","?user_id=eq."+profil.id+"&investissement_id=eq."+invest.id+"&date_tache=eq."+today);
