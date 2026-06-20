@@ -3,16 +3,9 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-<link rel="manifest" href="/manifest.json"/>
-<meta name="theme-color" content="#00bcd4"/>
-<meta name="mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<meta name="apple-mobile-web-app-title" content="Velero Energy"/>
 <title>Recharge — Velero Energy</title>
+<script src="/pwa-install.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
-<!-- LeekPay SDK -->
-<script src="https://leekpay.fr/js/leekpay.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
@@ -25,7 +18,6 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 .bb-amount{font-size:34px;font-weight:900;font-family:'Playfair Display',serif;}
 .bb-min{font-size:11px;opacity:.7;margin-top:4px;}
 .rules-card{margin:0 14px 12px;background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.06);}
-.rules-title{font-size:13px;font-weight:700;margin-bottom:10px;}
 .rule-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f5f5f5;font-size:12px;}
 .rule-row:last-child{border-bottom:none;}
 .rule-label{color:#888;}
@@ -34,27 +26,43 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 .form-title{font-size:15px;font-weight:700;margin-bottom:14px;}
 .field{margin-bottom:14px;}
 .field label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;}
-.field input{width:100%;padding:11px 13px;font-size:14px;font-family:inherit;border:1.5px solid #e0e0e0;border-radius:11px;outline:none;background:#fafafa;color:#1a1a1a;}
-.field input:focus{border-color:#00bcd4;box-shadow:0 0 0 3px rgba(0,188,212,.12);}
+.field input,.field select{width:100%;padding:11px 13px;font-size:14px;font-family:inherit;border:1.5px solid #e0e0e0;border-radius:11px;outline:none;background:#fafafa;color:#1a1a1a;}
+.field input:focus,.field select:focus{border-color:#00bcd4;box-shadow:0 0 0 3px rgba(0,188,212,.12);}
 .amounts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px;}
 .amt-btn{padding:10px;border:1.5px solid #e0e0e0;border-radius:10px;background:#fafafa;cursor:pointer;font-size:13px;font-weight:700;color:#555;text-align:center;font-family:inherit;transition:all .2s;}
 .amt-btn.sel{border-color:#00bcd4;background:#e0f7fa;color:#00bcd4;}
+.network-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px;}
+.net-btn{padding:10px 4px;border:1.5px solid #e0e0e0;border-radius:11px;background:#fafafa;cursor:pointer;text-align:center;font-size:11px;font-weight:700;color:#555;transition:all .2s;font-family:inherit;}
+.net-btn.sel{border-color:#00bcd4;background:#e0f7fa;color:#00bcd4;}
+.net-icon{font-size:20px;display:block;margin-bottom:3px;}
 .total-row{display:flex;justify-content:space-between;align-items:center;background:#e0f7fa;border-radius:12px;padding:14px 16px;margin-bottom:16px;}
 .tr-label{font-size:13px;font-weight:600;color:#555;}
-.tr-val{font-size:22px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
-.btn-pay{width:100%;padding:15px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:16px;font-weight:800;border:none;border-radius:13px;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(0,188,212,.3);display:flex;align-items:center;justify-content:center;gap:10px;}
-.btn-pay:disabled{opacity:.6;}
+.tr-val{font-size:20px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
+.btn-pay{width:100%;padding:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:800;border:none;border-radius:13px;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(0,188,212,.3);}
+.btn-pay:disabled{opacity:.6;cursor:not-allowed;}
+.westpay-badge{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border:1px solid #bae6fd;border-radius:12px;padding:12px 14px;margin-bottom:14px;}
+.wp-logo{width:36px;height:36px;background:linear-gradient(135deg,#0ea5e9,#0284c7);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.wp-info{flex:1;}
+.wp-title{font-size:13px;font-weight:700;color:#0369a1;}
+.wp-sub{font-size:11px;color:#0284c7;margin-top:1px;}
 .alert{padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:14px;display:none;}
 .alert.show{display:block;}
 .err{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
 .suc{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
-.steps{margin:0 14px 12px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.08);}
-.steps-title{font-size:14px;font-weight:700;margin-bottom:14px;}
-.step{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
-.step:last-child{margin-bottom:0;}
-.step-num{width:28px;height:28px;border-radius:50%;background:#00bcd4;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.step-text{font-size:13px;color:#555;line-height:1.5;}
-.step-text strong{color:#1a1a1a;}
+.info{background:#e0f7fa;border:1px solid #b2ebf2;color:#00838f;}
+
+/* MODAL PAIEMENT EN COURS */
+.pay-modal{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;display:none;align-items:center;justify-content:center;}
+.pay-modal.show{display:flex;}
+.pay-box{background:#fff;border-radius:24px;padding:32px 24px;width:90%;max-width:380px;text-align:center;}
+.pay-spin{width:56px;height:56px;border:4px solid #e0f7fa;border-top:4px solid #00bcd4;border-radius:50%;animation:sp .8s linear infinite;margin:0 auto 16px;}
+@keyframes sp{to{transform:rotate(360deg)}}
+.pay-title{font-size:18px;font-weight:800;color:#0f2a3a;margin-bottom:8px;font-family:'Playfair Display',serif;}
+.pay-sub{font-size:13px;color:#888;line-height:1.6;margin-bottom:20px;}
+.pay-ref{background:#f0f7f9;border-radius:10px;padding:10px;font-size:12px;color:#555;margin-bottom:16px;word-break:break-all;}
+.btn-check{width:100%;padding:13px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:14px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;margin-bottom:10px;}
+.btn-cancel-pay{width:100%;padding:11px;background:#f5f5f5;border:none;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:#666;}
+
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
 .nav-item.active{color:#00bcd4;}
@@ -63,7 +71,6 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 </style>
 </head>
 <body>
-<script src="/pwa-install.js"></script>
 <div class="wrap">
   <div class="topbar">
     <button class="back-btn" onclick="history.back()">←</button>
@@ -77,40 +84,23 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
   </div>
 
   <div class="rules-card">
-    <div class="rules-title">📋 Règles de dépôt</div>
     <div class="rule-row"><span class="rule-label">Minimum</span><span class="rule-val">3 000 FCFA</span></div>
-    <div class="rule-row"><span class="rule-label">Traitement</span><span class="rule-val">Après validation admin</span></div>
-    <div class="rule-row"><span class="rule-label">Frais</span><span class="rule-val">Gratuit</span></div>
-    <div class="rule-row"><span class="rule-label">Délai</span><span class="rule-val">Quelques minutes</span></div>
-  </div>
-
-  <div class="steps">
-    <div class="steps-title">📝 Comment recharger</div>
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-text"><strong>Choisissez le montant</strong> que vous souhaitez déposer</div>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-text"><strong>Cliquez "Payer via LeekPay"</strong> — une fenêtre de paiement s'ouvre</div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-text"><strong>Effectuez le paiement</strong> Mobile Money directement dans la fenêtre</div>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <div class="step-text"><strong>Votre dépôt est enregistré</strong> automatiquement après paiement confirmé</div>
-    </div>
-    <div class="step">
-      <div class="step-num">5</div>
-      <div class="step-text"><strong>L'admin valide</strong> et votre solde est crédité automatiquement</div>
-    </div>
+    <div class="rule-row"><span class="rule-label">Traitement</span><span class="rule-val">⚡ Automatique</span></div>
+    <div class="rule-row"><span class="rule-label">Frais de dépôt</span><span class="rule-val">Gratuit</span></div>
+    <div class="rule-row"><span class="rule-label">Délai</span><span class="rule-val">Immédiat</span></div>
   </div>
 
   <div class="form-card">
     <div class="form-title">💰 Choisir le montant</div>
     <div id="alertBox" class="alert"></div>
+
+    <div class="westpay-badge">
+      <div class="wp-logo">💳</div>
+      <div class="wp-info">
+        <div class="wp-title">Paiement sécurisé WestPay</div>
+        <div class="wp-sub">Mobile Money — Instantané & Sécurisé</div>
+      </div>
+    </div>
 
     <div class="field">
       <label>Montant rapide (FCFA)</label>
@@ -129,14 +119,50 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
       <input type="number" id="montantInput" placeholder="Ex: 15000" min="3000" oninput="updateTotal(this.value)"/>
     </div>
 
+    <div class="field">
+      <label>Pays</label>
+      <select id="pays" onchange="updateNetworks()">
+        <option value="">-- Sélectionnez votre pays --</option>
+        <option value="BJ">🇧🇯 Bénin</option>
+        <option value="BF">🇧🇫 Burkina Faso</option>
+        <option value="CM">🇨🇲 Cameroun</option>
+        <option value="CI">🇨🇮 Côte d'Ivoire</option>
+        <option value="GA">🇬🇦 Gabon</option>
+        <option value="CG">🇨🇬 Congo Brazzaville</option>
+        <option value="CD">🇨🇩 Congo RDC</option>
+        <option value="ML">🇲🇱 Mali</option>
+        <option value="SN">🇸🇳 Sénégal</option>
+      </select>
+    </div>
+
+    <div class="field" id="networkField" style="display:none;">
+      <label>Opérateur Mobile Money</label>
+      <div class="network-grid" id="networkGrid"></div>
+    </div>
+
+    <div class="field" id="phoneField" style="display:none;">
+      <label>Numéro Mobile Money</label>
+      <input type="tel" id="mmPhone" placeholder="Ex: 6XX XXX XXX"/>
+    </div>
+
     <div class="total-row">
-      <span class="tr-label">Montant à payer</span>
+      <span class="tr-label">Total à payer</span>
       <span class="tr-val" id="totalAffiche">0 FCFA</span>
     </div>
 
-    <button class="btn-pay" id="btnPay" onclick="allerPayer()">
-      💳 Payer via LeekPay
-    </button>
+    <button class="btn-pay" id="btnPay" onclick="initierPaiement()">⚡ Payer maintenant</button>
+  </div>
+</div>
+
+<!-- MODAL TRAITEMENT -->
+<div class="pay-modal" id="payModal">
+  <div class="pay-box">
+    <div class="pay-spin"></div>
+    <div class="pay-title">Paiement en cours...</div>
+    <div class="pay-sub">Confirmez le paiement sur votre téléphone (notification push ou code USSD)</div>
+    <div class="pay-ref" id="payRef">Référence : —</div>
+    <button class="btn-check" onclick="verifierPaiement()">🔄 Vérifier le paiement</button>
+    <button class="btn-cancel-pay" onclick="annulerPaiement()">Annuler</button>
   </div>
 </div>
 
@@ -148,105 +174,263 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 </nav>
 
 <script>
-const SB  = "https://seegoklunovyuieorkvy.supabase.co";
-const AK  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
-const LEEKPAY_KEY = "pk_live_h0RQu365IhnhdXkW2YeWZiDmKQGo7Pn1";
+const SB="https://seegoklunovyuieorkvy.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
 
-function tok(){ return localStorage.getItem("velero_token") || ""; }
-function uid(){ return localStorage.getItem("velero_uid") || ""; }
-function H(){ return { "Content-Type":"application/json", "apikey":AK, "Authorization":"Bearer "+tok() }; }
+// WestPay config
+const WESTPAY_URL="https://westpay.cfd/api/v1";
+const WESTPAY_LINK="https://westpay.cfd/link/poxoejjgmqlh6td9";
 
-let montantChoisi = 0;
+const WESTPAY_KEYS={
+  BJ:"BEN-C081D6C495351711A4755DCBD51814E152C58309",
+  BF:"BFA-C3EA38AD3EE229DE9EAB89D70CF1C0CAD32D364D",
+  CM:"CMR-E63FAB4E969A45D3495E8C2F5F1D822D9EBC012F",
+  CI:"CIV-76AF33EDE7D3606BFDF26AC0BCA6AE6001407C52",
+  GA:"GAB-3570D5872BD0C5614E01F89BD8B2E2E0835F5C29",
+  CG:"COG-35173E2A043A62CC3C6EEAB32AE2D58C6E36A300",
+  CD:"COD-0E68F79290E2529327FEB560820E10978B4B630F",
+  ML:"MLI-DEC528C1647F1C353A239703AA78D4995032CA9A",
+  SN:"SEN-38AB13C4B280BA60FB9EAADBB04B5DD06A37DDEB"
+};
+
+const NETWORKS={
+  BJ:[{id:"mtn",icon:"🟡",name:"MTN MoMo"},{id:"moov",icon:"🔵",name:"Moov Money"}],
+  BF:[{id:"orange",icon:"🟠",name:"Orange Money"},{id:"moov",icon:"🔵",name:"Moov Money"}],
+  CM:[{id:"mtn",icon:"🟡",name:"MTN MoMo"},{id:"orange",icon:"🟠",name:"Orange Money"}],
+  CI:[{id:"orange",icon:"🟠",name:"Orange Money"},{id:"mtn",icon:"🟡",name:"MTN MoMo"},{id:"wave",icon:"🌊",name:"Wave"}],
+  GA:[{id:"airtel",icon:"🔴",name:"Airtel Money"},{id:"moov",icon:"🔵",name:"Moov Money"}],
+  CG:[{id:"airtel",icon:"🔴",name:"Airtel Money"},{id:"mtn",icon:"🟡",name:"MTN MoMo"}],
+  CD:[{id:"mpesa",icon:"🟢",name:"M-Pesa"},{id:"airtel",icon:"🔴",name:"Airtel Money"},{id:"orange",icon:"🟠",name:"Orange Money"}],
+  ML:[{id:"orange",icon:"🟠",name:"Orange Money"},{id:"moov",icon:"🔵",name:"Moov Money"}],
+  SN:[{id:"wave",icon:"🌊",name:"Wave"},{id:"orange",icon:"🟠",name:"Orange Money"},{id:"free",icon:"🔵",name:"Free Money"}]
+};
+
+function tok(){return localStorage.getItem("velero_token")||"";}
+function uid(){return localStorage.getItem("velero_uid")||"";}
+function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
+
+let montantChoisi=0,selectedNet=null,selectedNetName="",currentTxId=null,checkInterval=null;
 
 async function init(){
-  if(!tok()){ location.href = "index.html"; return; }
+  if(!tok()){location.href="index.html";return;}
   try{
-    const r = await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde", { headers: H() });
-    const d = await r.json();
-    document.getElementById("soldeActuel").textContent =
-      d && d[0] ? parseFloat(d[0].solde).toLocaleString()+" FCFA" : "0 FCFA";
+    const r=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()});
+    const d=await r.json();
+    document.getElementById("soldeActuel").textContent=d&&d[0]?parseFloat(d[0].solde).toLocaleString()+" FCFA":"0 FCFA";
   }catch(e){}
 }
 
-function setAmt(v, el){
-  montantChoisi = v;
-  document.getElementById("montantInput").value = v;
-  document.querySelectorAll(".amt-btn").forEach(b => b.classList.remove("sel"));
+function setAmt(v,el){
+  montantChoisi=v;
+  document.getElementById("montantInput").value=v;
+  document.querySelectorAll(".amt-btn").forEach(b=>b.classList.remove("sel"));
   el.classList.add("sel");
-  document.getElementById("totalAffiche").textContent = v.toLocaleString()+" FCFA";
+  document.getElementById("totalAffiche").textContent=v.toLocaleString()+" FCFA";
 }
 
 function updateTotal(v){
-  montantChoisi = parseInt(v) || 0;
-  document.querySelectorAll(".amt-btn").forEach(b => b.classList.remove("sel"));
-  document.getElementById("totalAffiche").textContent = montantChoisi.toLocaleString()+" FCFA";
+  montantChoisi=parseInt(v)||0;
+  document.getElementById("totalAffiche").textContent=montantChoisi.toLocaleString()+" FCFA";
 }
 
-function showAlert(msg, type){
-  const el = document.getElementById("alertBox");
-  el.textContent = msg;
-  el.className = "alert "+type+" show";
+function updateNetworks(){
+  const pays=document.getElementById("pays").value;
+  if(!pays)return;
+  const nets=NETWORKS[pays]||[];
+  const grid=document.getElementById("networkGrid");
+  grid.innerHTML=nets.map(n=>`
+    <button class="net-btn" onclick="selectNet('${n.id}','${n.name}')" id="net-${n.id}">
+      <span class="net-icon">${n.icon}</span>${n.name}
+    </button>`).join("");
+  document.getElementById("networkField").style.display="block";
+  document.getElementById("phoneField").style.display="block";
+  selectedNet=null;selectedNetName="";
 }
 
-function allerPayer(){
-  if(montantChoisi < 3000) return showAlert("❌ Minimum 3 000 FCFA", "err");
-
-  const btn = document.getElementById("btnPay");
-  btn.disabled = true;
-  btn.textContent = "⏳ Chargement...";
-
-  LeekPay.checkout({
-    amount: montantChoisi,
-    currency: "XOF",
-    apiKey: LEEKPAY_KEY,
-    description: "Recharge Velero Energy — "+montantChoisi.toLocaleString()+" FCFA",
-
-    onSuccess: async function(data){
-      // data.payment_id = référence LeekPay
-      await enregistrerDepot(montantChoisi, data.payment_id || "LP_"+Date.now());
-    },
-
-    onCancel: function(){
-      btn.disabled = false;
-      btn.innerHTML = "💳 Payer via LeekPay";
-      showAlert("⚠️ Paiement annulé. Réessayez quand vous voulez.", "err");
-    }
-  });
+function selectNet(id,name){
+  selectedNet=id;selectedNetName=name;
+  document.querySelectorAll(".net-btn").forEach(b=>b.classList.remove("sel"));
+  const el=document.getElementById("net-"+id);
+  if(el)el.classList.add("sel");
 }
 
-async function enregistrerDepot(montant, reference){
-  const btn = document.getElementById("btnPay");
-  btn.textContent = "⏳ Enregistrement...";
+function showAlert(msg,type){
+  const el=document.getElementById("alertBox");
+  el.textContent=msg;el.className="alert "+type+" show";
+}
+
+async function initierPaiement(){
+  const phone=document.getElementById("mmPhone").value.trim();
+  const pays=document.getElementById("pays").value;
+  if(montantChoisi<3000)return showAlert("❌ Minimum 3 000 FCFA","err");
+  if(!pays)return showAlert("⚠️ Sélectionnez votre pays","err");
+  if(!selectedNet)return showAlert("⚠️ Choisissez un opérateur Mobile Money","err");
+  if(!phone||phone.length<8)return showAlert("⚠️ Entrez votre numéro Mobile Money","err");
+
+  const btn=document.getElementById("btnPay");
+  btn.disabled=true;btn.textContent="⏳ Traitement...";
+  showAlert("⏳ Initialisation du paiement WestPay...","info");
+
+  const apiKey=WESTPAY_KEYS[pays];
+  const ref="VE"+uid().substring(0,6).toUpperCase()+Date.now().toString().slice(-6);
 
   try{
-    const r = await fetch(SB+"/rest/v1/transactions", {
-      method: "POST",
-      headers: { ...H(), "Prefer": "return=representation" },
-      body: JSON.stringify({
-        user_id:     uid(),
-        type:        "depot",
-        montant:     montant,
-        montant_net: montant,
-        statut:      "en_attente",
-        reference:   reference,
-        reseau:      "LeekPay",
-        note:        "Dépôt via LeekPay — Ref: "+reference+" — En attente validation admin"
+    // Appel API WestPay
+    const resp=await fetch(WESTPAY_URL+"/collect",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer "+apiKey,
+        "X-API-KEY":apiKey
+      },
+      body:JSON.stringify({
+        amount:montantChoisi,
+        currency:"XAF",
+        phone_number:phone,
+        operator:selectedNet,
+        country:pays,
+        reference:ref,
+        description:"Recharge Velero Energy",
+        callback_url:"https://valero-energys.vercel.app/callback.html"
       })
     });
-    const d = await r.json();
 
-    if(Array.isArray(d) && d.length > 0){
-      btn.textContent = "✅ Dépôt enregistré !";
-      showAlert("✅ Paiement confirmé ! L'admin va valider votre dépôt sous peu.", "suc");
-      setTimeout(() => { location.href = "historique.html"; }, 2500);
-    } else {
-      throw new Error("Réponse inattendue de Supabase");
+    let wpData={};
+    try{wpData=await resp.json();}catch(e){}
+
+    const txRef=wpData.reference||wpData.transaction_id||wpData.id||ref;
+
+    // Enregistrer dans Supabase (en attente)
+    const rTx=await fetch(SB+"/rest/v1/transactions",{
+      method:"POST",
+      headers:{...H(),"Prefer":"return=representation"},
+      body:JSON.stringify({
+        user_id:uid(),type:"depot",
+        montant:montantChoisi,montant_net:montantChoisi,
+        reseau:selectedNetName,numero_mobile:phone,pays,
+        statut:"en_attente",reference:txRef,
+        note:"WestPay - "+selectedNetName+" - "+phone
+      })
+    });
+    const txData=await rTx.json();
+    currentTxId=txData[0]?.id||null;
+
+    // Afficher modal en attente
+    document.getElementById("payRef").textContent="Référence : "+txRef;
+    document.getElementById("payModal").classList.add("show");
+    document.getElementById("alertBox").className="alert";
+
+    // Vérification automatique toutes les 8 secondes
+    let tries=0;
+    checkInterval=setInterval(async()=>{
+      tries++;
+      if(tries>15){clearInterval(checkInterval);return;}
+      await verifierPaiementAuto(txRef,pays,apiKey,montantChoisi);
+    },8000);
+
+  }catch(e){
+    // Si CORS ou erreur API → rediriger vers lien WestPay
+    showAlert("⚠️ Redirection vers WestPay...","info");
+    await new Promise(r=>setTimeout(r,1000));
+
+    // Enregistrer quand même la transaction
+    await fetch(SB+"/rest/v1/transactions",{
+      method:"POST",
+      headers:{...H(),"Prefer":"return=minimal"},
+      body:JSON.stringify({
+        user_id:uid(),type:"depot",
+        montant:montantChoisi,montant_net:montantChoisi,
+        reseau:selectedNetName,numero_mobile:phone,pays,
+        statut:"en_attente",reference:ref,
+        note:"WestPay lien direct - "+selectedNetName
+      })
+    });
+
+    // Ouvrir lien WestPay dans nouvel onglet
+    window.open(WESTPAY_LINK,"_blank");
+    document.getElementById("payRef").textContent="Référence : "+ref;
+    document.getElementById("payModal").classList.add("show");
+    showAlert("","info");
+  }
+
+  btn.disabled=false;btn.textContent="⚡ Payer maintenant";
+}
+
+async function verifierPaiementAuto(ref,pays,apiKey,montant){
+  try{
+    const r=await fetch(WESTPAY_URL+"/status/"+ref,{
+      headers:{"Authorization":"Bearer "+apiKey,"X-API-KEY":apiKey}
+    });
+    const d=await r.json();
+    if(d.status==="success"||d.status==="completed"||d.status==="paid"){
+      clearInterval(checkInterval);
+      await crediterCompte(montant,ref);
+    }
+  }catch(e){}
+}
+
+async function verifierPaiement(){
+  const ref=document.getElementById("payRef").textContent.replace("Référence : ","");
+  const pays=document.getElementById("pays").value;
+  const apiKey=WESTPAY_KEYS[pays];
+
+  document.querySelector(".btn-check").textContent="⏳ Vérification...";
+
+  try{
+    const r=await fetch(WESTPAY_URL+"/status/"+ref,{
+      headers:{"Authorization":"Bearer "+(apiKey||""),"X-API-KEY":(apiKey||"")}
+    });
+    const d=await r.json();
+
+    if(d.status==="success"||d.status==="completed"||d.status==="paid"){
+      clearInterval(checkInterval);
+      await crediterCompte(montantChoisi,ref);
+    }else{
+      document.querySelector(".btn-check").textContent="🔄 Vérifier le paiement";
+      // Informer l'admin si en attente trop longtemps
     }
   }catch(e){
-    btn.disabled = false;
-    btn.innerHTML = "💳 Payer via LeekPay";
-    showAlert("❌ Paiement effectué mais erreur d'enregistrement. Contactez le support avec la référence : "+reference, "err");
+    document.querySelector(".btn-check").textContent="🔄 Vérifier le paiement";
   }
+}
+
+async function crediterCompte(montant,ref){
+  try{
+    // Mettre à jour la transaction
+    if(currentTxId){
+      await fetch(SB+"/rest/v1/transactions?id=eq."+currentTxId,{
+        method:"PATCH",headers:H(),
+        body:JSON.stringify({statut:"valide"})
+      });
+    }else{
+      await fetch(SB+"/rest/v1/transactions?reference=eq."+ref+"&user_id=eq."+uid(),{
+        method:"PATCH",headers:H(),
+        body:JSON.stringify({statut:"valide"})
+      });
+    }
+
+    // Créditer le solde
+    const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()});
+    const p=await rp.json();
+    const nouveau=parseFloat(p[0]?.solde||0)+parseFloat(montant);
+    await fetch(SB+"/rest/v1/profiles?id=eq."+uid(),{
+      method:"PATCH",headers:H(),
+      body:JSON.stringify({solde:nouveau})
+    });
+
+    // Succès
+    clearInterval(checkInterval);
+    document.getElementById("payModal").classList.remove("show");
+    showAlert("✅ "+parseInt(montant).toLocaleString()+" FCFA crédités sur votre compte !","suc");
+    document.getElementById("soldeActuel").textContent=nouveau.toLocaleString()+" FCFA";
+    setTimeout(()=>location.href="dashboard.html",3000);
+  }catch(e){}
+}
+
+function annulerPaiement(){
+  clearInterval(checkInterval);
+  document.getElementById("payModal").classList.remove("show");
+  showAlert("⚠️ Paiement annulé. Votre demande reste en attente - contactez le support si vous avez été débité.","err");
 }
 
 init();
