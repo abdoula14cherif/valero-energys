@@ -59,10 +59,10 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
   <div class="balance-banner">
     <div class="bb-label">Solde disponible</div>
     <div class="bb-amount" id="soldeAffiche">...</div>
-    <div class="bb-sub">Minimum : 1 000 FCFA · Frais : 10%</div>
+    <div class="bb-sub">Minimum : 1 500 FCFA · Frais : 12%</div>
   </div>
   <div class="rules-card">
-    <div class="rule-row"><span class="rule-label">Horaires</span><span class="rule-val">09h00 – 17h00</span></div>
+    <div class="rule-row"><span class="rule-label">Horaires</span><span class="rule-val">09h00 – 17h00 · Lun–Ven (Lun–Ven)</span></div>
     <div class="rule-row"><span class="rule-label">Max / jour</span><span class="rule-val">2 retraits</span></div>
     <div class="rule-row"><span class="rule-label">Frais</span><span class="rule-val">10%</span></div>
     <div class="rule-row"><span class="rule-label">Traitement</span><span class="rule-val">⚡ Automatique</span></div>
@@ -83,11 +83,11 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
     </div>
     <div class="field">
       <label>Montant à retirer (FCFA)</label>
-      <input type="number" id="montant" placeholder="Minimum 1 000 FCFA" min="1000" oninput="calcFrais()"/>
+      <input type="number" id="montant" placeholder="Minimum 1 500 FCFA" min="1500" oninput="calcFrais()"/>
     </div>
     <div class="frais-row" id="fraisBox" style="display:none;">
       <div><span>Montant demandé</span><span id="fMontant">—</span></div>
-      <div><span>Frais (10%)</span><span id="fFrais" style="color:#e53935;">—</span></div>
+      <div><span>Frais (12%)</span><span id="fFrais" style="color:#e53935;">—</span></div>
       <div style="border-top:1px solid #e0e0e0;margin-top:4px;padding-top:4px;"><span>Vous recevrez</span><span class="net" id="fNet">—</span></div>
     </div>
     <button class="btn-retrait" onclick="effectuerRetrait()">Confirmer le retrait</button>
@@ -123,7 +123,7 @@ async function init(){
 function calcFrais(){
   const m=parseInt(document.getElementById("montant").value)||0;
   if(m>=1000){
-    const frais=Math.round(m*0.1);
+    const frais=Math.round(m*0.122);
     document.getElementById("fMontant").textContent=m.toLocaleString()+" FCFA";
     document.getElementById("fFrais").textContent="-"+frais.toLocaleString()+" FCFA";
     document.getElementById("fNet").textContent=(m-frais).toLocaleString()+" FCFA";
@@ -140,11 +140,11 @@ async function effectuerRetrait(){
   // legacy: const cards_old=await VE.select("moyens_paiement","?user_id=eq."+profil.id+"&actif=eq.true&limit=1");
   if(!cards||cards.length===0){showAlert("⚠️ Ajoutez un moyen de paiement d'abord.","error");setTimeout(()=>location.href="banque.html",1800);return;}
   const montant=parseInt(document.getElementById("montant").value);
-  if(!montant||montant<1000)return showAlert("❌ Minimum de retrait : 1 000 FCFA","error");
+  if(!montant||montant<1000)return showAlert("❌ Minimum de retrait : 1 500 FCFA","error");
   if(montant>parseFloat(profil.solde))return showAlert("❌ Solde insuffisant","error");
   const d=await VE.rpc("demander_retrait",{p_user_id:profil.id,p_montant:montant,p_reseau:cards[0].reseau,p_numero:cards[0].numero,p_pays:cards[0].pays});
   if(d.success){
-    showAlert("✅ Retrait de "+(montant-Math.round(montant*0.1)).toLocaleString()+" FCFA en cours ! (frais 10% déduits)","success");
+    showAlert("✅ Retrait de "+(montant-Math.round(montant*0.12)).toLocaleString()+" FCFA en cours ! (frais 10% déduits)","success");
     document.getElementById("soldeAffiche").textContent=(parseFloat(profil.solde)-montant).toLocaleString()+" FCFA";
   }else{showAlert("❌ "+d.error,"error");}
 }
