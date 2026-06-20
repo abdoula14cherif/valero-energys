@@ -48,6 +48,58 @@
       padding: 5px 12px;
       border-radius: 20px;
     }
+
+    /* ===== ONGLETS ===== */
+    .tabs-wrap {
+      display: flex;
+      gap: 10px;
+      padding: 14px 14px 6px;
+      margin: 0;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 12px 8px;
+      border: none;
+      border-radius: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      background: #fff;
+      color: #888;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .tab-btn .tab-icon {
+      font-size: 18px;
+    }
+    .tab-btn.active-jour {
+      background: linear-gradient(135deg, #00bcd4, #0097a7);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(0,188,212,.35);
+    }
+    .tab-btn.active-term {
+      background: linear-gradient(135deg, #ffd700, #ffa000);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(255,160,0,.35);
+    }
+    .tab-btn:active {
+      transform: scale(.96);
+    }
+
+    /* sections */
+    .section-wrap {
+      display: none;
+      padding: 0 0 12px 0;
+    }
+    .section-wrap.active {
+      display: block;
+    }
+
     .section-header {
       margin: 14px 14px 8px;
       display: flex;
@@ -76,6 +128,7 @@
       color: #888;
       margin-top: 2px;
     }
+
     .prod-card {
       margin: 0 14px 12px;
       border-radius: 20px;
@@ -115,9 +168,7 @@
       border-radius: 20px;
       width: fit-content;
     }
-    .prod-badge-icon {
-      font-size: 14px;
-    }
+    .prod-badge-icon { font-size: 14px; }
     .prod-gain-pill {
       align-self: flex-end;
       background: rgba(255,255,255,.2);
@@ -185,18 +236,10 @@
       color: #888;
       margin-top: 2px;
     }
-    .fs-box.gain .fs-val {
-      color: #4caf50;
-    }
-    .fs-box.invest .fs-val {
-      color: #00bcd4;
-    }
-    .fs-box.profit .fs-val {
-      color: #ffa000;
-    }
-    .profit-bar-wrap {
-      margin-bottom: 14px;
-    }
+    .fs-box.gain .fs-val { color: #4caf50; }
+    .fs-box.invest .fs-val { color: #00bcd4; }
+    .fs-box.profit .fs-val { color: #ffa000; }
+    .profit-bar-wrap { margin-bottom: 14px; }
     .profit-label {
       display: flex;
       justify-content: space-between;
@@ -230,9 +273,7 @@
       justify-content: center;
       gap: 8px;
     }
-    .btn-invest:active {
-      transform: scale(.98);
-    }
+    .btn-invest:active { transform: scale(.98); }
     .btn-invest.actif {
       background: linear-gradient(135deg, #4caf50, #388e3c) !important;
     }
@@ -248,11 +289,18 @@
       border-radius: 20px;
       z-index: 2;
     }
-    .separator {
-      margin: 6px 14px 14px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, #e0e0e0, transparent);
+    .empty-msg {
+      margin: 0 14px 14px;
+      color: #999;
+      font-size: 14px;
+      padding: 12px 16px;
+      background: #fff;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
     }
+
+    /* MODAL */
     .modal-bg {
       position: fixed;
       inset: 0;
@@ -262,9 +310,7 @@
       align-items: flex-end;
       justify-content: center;
     }
-    .modal-bg.show {
-      display: flex;
-    }
+    .modal-bg.show { display: flex; }
     .modal {
       background: #fff;
       border-radius: 24px 24px 0 0;
@@ -303,15 +349,9 @@
       border-bottom: 1px solid #f5f5f5;
       font-size: 13px;
     }
-    .mrow:last-of-type {
-      border-bottom: none;
-    }
-    .mlbl {
-      color: #888;
-    }
-    .mval {
-      font-weight: 700;
-    }
+    .mrow:last-of-type { border-bottom: none; }
+    .mlbl { color: #888; }
+    .mval { font-weight: 700; }
     .mval.teal { color: #00bcd4; }
     .mval.green { color: #4caf50; }
     .mval.red { color: #e53935; }
@@ -377,6 +417,7 @@
       display: none;
     }
     .insuff.show { display: block; }
+
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -403,12 +444,8 @@
       font-weight: 600;
       font-family: 'DM Sans', sans-serif;
     }
-    .nav-item.active {
-      color: #00bcd4;
-    }
-    .nav-item .ni {
-      font-size: 21px;
-    }
+    .nav-item.active { color: #00bcd4; }
+    .nav-item .ni { font-size: 21px; }
     .nav-dot {
       width: 5px;
       height: 5px;
@@ -430,7 +467,21 @@
     <span class="topbar-title">📦 Produits</span>
     <span class="solde-pill">💰 <span id="soldePill">...</span> FCFA</span>
   </div>
-  <div id="mainContent"><div class="loading">⏳ Chargement...</div></div>
+
+  <!-- ===== ONGLETS ===== -->
+  <div class="tabs-wrap" id="tabContainer">
+    <button class="tab-btn active-jour" id="tabJour" onclick="switchTab('jour')">
+      <span class="tab-icon">⚡</span> Gains Journaliers
+    </button>
+    <button class="tab-btn" id="tabTerm" onclick="switchTab('term')">
+      <span class="tab-icon">🏆</span> Gains à Terme
+    </button>
+  </div>
+
+  <!-- ===== CONTENU ===== -->
+  <div id="mainContent">
+    <div class="loading">⏳ Chargement...</div>
+  </div>
 </div>
 
 <!-- MODAL CONFIRMATION -->
@@ -471,13 +522,39 @@
   const VELERO_IMG = "https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg";
 
   let solde = 0, planChoisi = null, profil = null, mesInvests = [];
+  let plansJour = [];
+  let plansFinal = [];
+  let currentTab = 'jour'; // 'jour' ou 'term'
 
+  // ===== ONGLETS =====
+  function switchTab(tab) {
+    currentTab = tab;
+    // Mise à jour des boutons
+    const btnJ = document.getElementById('tabJour');
+    const btnT = document.getElementById('tabTerm');
+    btnJ.className = 'tab-btn' + (tab === 'jour' ? ' active-jour' : '');
+    btnT.className = 'tab-btn' + (tab === 'term' ? ' active-term' : '');
+
+    // Afficher/masquer les sections
+    const wrapJ = document.getElementById('sectionJour');
+    const wrapT = document.getElementById('sectionTerm');
+    if (wrapJ) wrapJ.className = 'section-wrap' + (tab === 'jour' ? ' active' : '');
+    if (wrapT) wrapT.className = 'section-wrap' + (tab === 'term' ? ' active' : '');
+  }
+
+  // ===== RENDER =====
   async function init() {
     if (!tok()) { location.href = "index.html"; return; }
     await loadUser();
     const plans = await fetch(SB + "/rest/v1/plans?actif=eq.true&order=investissement.asc", { headers: H() }).then(r => r.json());
     mesInvests = await fetch(SB + "/rest/v1/investissements?user_id=eq." + uid() + "&statut=eq.actif", { headers: H() }).then(r => r.json()) || [];
-    render(plans);
+
+    // Séparation stricte
+    plansJour = plans.filter(p => p.type_gain === 'journalier');
+    plansFinal = plans.filter(p => p.type_gain === 'final');
+
+    render();
+    switchTab('jour');
   }
 
   async function loadUser() {
@@ -494,14 +571,11 @@
     return mesInvests.filter(i => i.plan_nom === nomPlan).length;
   }
 
-  function render(plans) {
-    // Séparation stricte : type_gain === 'journalier' vs 'final'
-    const jour = plans.filter(p => p.type_gain === 'journalier');
-    const final = plans.filter(p => p.type_gain === 'final');
-
+  function render() {
     let html = '';
 
-    // SECTION GAINS JOURNALIERS
+    // SECTION JOUR
+    html += `<div class="section-wrap active" id="sectionJour">`;
     html += `<div class="section-header">
       <div class="sh-bar teal"></div>
       <div>
@@ -509,10 +583,10 @@
         <div class="sh-sub">Recevez vos gains chaque jour via une tâche</div>
       </div>
     </div>`;
-    if (jour.length === 0) {
-      html += `<div style="margin:0 14px 14px; color:#999; font-size:14px; padding:8px;">Aucun plan journalier disponible.</div>`;
+    if (plansJour.length === 0) {
+      html += `<div class="empty-msg">Aucun plan journalier disponible.</div>`;
     } else {
-      jour.forEach(p => {
+      plansJour.forEach(p => {
         const nb = countInvest(p.nom);
         const peutInvestir = nb < 2;
         const profit = p.total_gain - p.investissement;
@@ -520,10 +594,10 @@
         html += prodCard(p, 'journalier', nb, peutInvestir, profit, profitPct);
       });
     }
+    html += `</div>`;
 
-    html += `<div class="separator"></div>`;
-
-    // SECTION GAINS À TERME
+    // SECTION TERME
+    html += `<div class="section-wrap" id="sectionTerm">`;
     html += `<div class="section-header">
       <div class="sh-bar gold"></div>
       <div>
@@ -531,10 +605,10 @@
         <div class="sh-sub">Recevez votre gain total à la fin du contrat</div>
       </div>
     </div>`;
-    if (final.length === 0) {
-      html += `<div style="margin:0 14px 14px; color:#999; font-size:14px; padding:8px;">Aucun plan à terme disponible.</div>`;
+    if (plansFinal.length === 0) {
+      html += `<div class="empty-msg">Aucun plan à terme disponible.</div>`;
     } else {
-      final.forEach(p => {
+      plansFinal.forEach(p => {
         const nb = countInvest(p.nom);
         const peutInvestir = nb < 2;
         const profit = p.total_gain - p.investissement;
@@ -542,8 +616,12 @@
         html += prodCard(p, 'final', nb, peutInvestir, profit, profitPct);
       });
     }
+    html += `</div>`;
 
     document.getElementById("mainContent").innerHTML = html;
+
+    // Appliquer l'onglet actif
+    switchTab(currentTab);
   }
 
   function prodCard(p, type, nb, peutInvestir, profit, profitPct) {
@@ -588,6 +666,7 @@
     </div>`;
   }
 
+  // ===== MODAL =====
   function openModal(p) {
     planChoisi = p;
     const isJour = p.type_gain === 'journalier';
