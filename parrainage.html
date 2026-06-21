@@ -154,7 +154,7 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
         <div class="ref-label">Lien d'invitation</div>
         <div class="ref-value" id="refLink" style="font-size:12px;color:rgba(255,255,255,.6);">—</div>
         <button class="btn-copy" onclick="copyLink()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2v1"/></svg>
           COPIER
         </button>
       </div>
@@ -180,7 +180,7 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
     <div class="lv-badge">LV1</div>
     <div class="lv-stats">
       <div class="lv-stat">
-        <div class="lv-stat-val">25%</div>
+        <div class="lv-stat-val">18%</div>
         <div class="lv-stat-lbl">Commission</div>
       </div>
       <div class="lv-stat">
@@ -343,7 +343,6 @@ async function init(){
     document.getElementById("lv1Recomp").textContent="FCFA "+fmt(totalR);
 
   }catch(e){
-    // Afficher quand même
     const code=localStorage.getItem("velero_ref")||"—";
     document.getElementById("refCode").textContent=code;
     document.getElementById("refLink").textContent=(location.origin+"/index.html?ref="+code).replace("https://","");
