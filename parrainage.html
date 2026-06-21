@@ -2,280 +2,357 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initialimum-scale=1.0,maximum-scale=1.0"/>
-<title>Parrainage — Velero Energy</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Équipe — Velero Energy</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
-.wrap{width:100%;max-width:480px;padding-bottom:80px;}
-.topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
-.back-btn{background:none;border:none;font-size:22px;cursor:pointer;}
-.topbar-title{font-size:17px;font-weight:700;}
-.hero{margin:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);border-radius:20px;padding:22px;color:#fff;text-align:center;position:relative;overflow:hidden;}
-.hero::before{content:'🤝';font-size:80px;position:absolute;right:-10px;top:-10px;opacity:.15;}
-.h-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-bottom:6px;}
-.h-sub{font-size:13px;opacity:.85;margin-bottom:16px;}
-.code-label{font-size:11px;opacity:.75;margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px;}
-.code-box{background:rgba(255,255,255,.2);border:2px dashed rgba(255,255,255,.5);border-radius:14px;padding:14px;font-size:26px;font-weight:900;letter-spacing:4px;font-family:'Playfair Display',serif;margin-bottom:14px;}
-.btns-row{display:flex;gap:8px;}
-.btn-copy{flex:1;padding:11px;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.4);color:#fff;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
-.btn-share{flex:1;padding:11px;background:#fff;color:#00bcd4;border:none;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
-.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 14px 12px;}
-.sg-card{background:#fff;border-radius:14px;padding:14px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.06);}
-.sg-val{font-size:22px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
-.sg-lbl{font-size:10px;color:#888;font-weight:600;margin-top:3px;text-transform:uppercase;}
-.levels-card{margin:0 14px 12px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.08);}
-.lc-title{font-size:15px;font-weight:700;margin-bottom:14px;}
-.lv-item{display:flex;align-items:center;gap:14px;padding:12px;border-radius:12px;margin-bottom:8px;}
-.lv-item.l1{background:linear-gradient(135deg,#fff8e1,#fef3c7);}
-.lv-item.l2{background:#f5f5f5;}
-.lv-item.l3{background:#fff5f5;}
-.lv-medal{font-size:28px;}
-.lv-info{flex:1;}
-.lv-name{font-size:13px;font-weight:700;}
-.lv-desc{font-size:11px;color:#888;margin-top:2px;}
-.lv-pct{font-size:22px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
-.filleuls-card{margin:0 14px 12px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.08);}
-.fc-title{font-size:15px;font-weight:700;margin-bottom:14px;}
-.tabs-f{display:flex;gap:6px;margin-bottom:12px;}
-.tab-f{flex:1;padding:8px;background:#f5f5f5;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;color:#888;}
-.tab-f.active{background:#e0f7fa;color:#00bcd4;}
-.filleul-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f5f5f5;}
-.filleul-item:last-child{border-bottom:none;}
-.fi-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#00bcd4,#0097a7);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0;}
-.fi-info{flex:1;}
-.fi-name{font-size:13px;font-weight:700;}
-.fi-date{font-size:11px;color:#aaa;margin-top:1px;}
-.fi-gain{font-size:13px;font-weight:800;color:#00bcd4;}
-.empty-f{text-align:center;padding:24px;color:#aaa;font-size:13px;}
-.comm-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f5f5f5;}
-.comm-item:last-child{border-bottom:none;}
-.ci-name{font-size:13px;font-weight:600;}
-.ci-date{font-size:11px;color:#aaa;}
-.ci-gain{font-size:14px;font-weight:900;color:#15803d;}
-.link-card{margin:0 14px 12px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.08);}
-.link-wrap{display:flex;gap:8px;}
-.link-inp{flex:1;padding:10px 12px;font-size:11px;border:1.5px solid #e0e0e0;border-radius:10px;background:#fafafa;color:#555;outline:none;font-family:inherit;}
-.btn-lc{padding:10px 14px;background:#00bcd4;color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit;}
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
+body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
+.wrap{width:100%;max-width:480px;padding-bottom:90px;}
+
+/* LOADER */
+.loader{position:fixed;inset:0;background:linear-gradient(135deg,#00bcd4,#0097a7);z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+.loader-logo{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#fff;}
+.loader-spin{width:40px;height:40px;border:3px solid rgba(255,255,255,.3);border-top:3px solid #fff;border-radius:50%;animation:sp .7s linear infinite;}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* HEADER SLIDER */
+.slider{position:relative;width:100%;height:220px;overflow:hidden;}
+.slides{display:flex;height:100%;transition:transform .5s ease;}
+.slide{min-width:100%;height:100%;position:relative;flex-shrink:0;}
+.slide img{width:100%;height:100%;object-fit:cover;}
+.slide-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(0,60,80,.3),rgba(0,0,0,.7));}
+.header-title{position:absolute;bottom:18px;left:18px;z-index:10;}
+.header-title h1{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.5);}
+.header-title p{font-size:12px;color:rgba(255,255,255,.75);margin-top:2px;letter-spacing:1px;text-transform:uppercase;}
+.dots{position:absolute;bottom:14px;right:14px;display:flex;gap:5px;z-index:10;}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:all .3s;}
+.dot.active{background:#fff;width:16px;border-radius:4px;}
+
+/* REFERRAL CARD */
+.ref-card{margin:14px 14px 0;background:#1c2b30;border-radius:20px;padding:18px 16px;color:#fff;}
+.ref-row{display:flex;gap:12px;}
+.ref-block{flex:1;}
+.ref-label{font-size:11px;color:rgba(255,255,255,.55);margin-bottom:5px;}
+.ref-value{font-size:15px;font-weight:700;color:#fff;word-break:break-all;margin-bottom:10px;}
+.btn-copy{
+  width:100%;padding:11px 0;
+  background:rgba(255,255,255,.1);
+  border:1.5px solid rgba(255,255,255,.25);
+  color:#fff;font-size:13px;font-weight:700;
+  border-radius:50px;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  transition:background .2s;
+}
+.btn-copy:active{background:rgba(255,255,255,.2);}
+.btn-copy svg{width:15px;height:15px;flex-shrink:0;}
+
+/* STATS TOTALES */
+.stats-card{margin:12px 14px 0;background:#1c2b30;border-radius:20px;padding:18px 20px;display:flex;gap:0;}
+.stat-block{flex:1;text-align:left;}
+.stat-block+.stat-block{border-left:1px solid rgba(255,255,255,.1);padding-left:20px;margin-left:4px;}
+.stat-val{font-size:22px;font-weight:800;color:#fff;font-family:'Playfair Display',serif;}
+.stat-lbl{font-size:12px;color:rgba(255,255,255,.5);margin-top:3px;cursor:pointer;}
+.stat-lbl span{color:rgba(255,255,255,.5);}
+
+/* NIVEAUX */
+.section-title{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;padding:16px 14px 8px;}
+
+.lv-card{margin:0 14px 10px;background:#fff;border-radius:18px;padding:16px 18px;display:flex;align-items:center;gap:16px;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.lv-badge{
+  width:50px;height:50px;border-radius:50%;
+  background:linear-gradient(135deg,#00bcd4,#0097a7);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;color:#fff;
+  flex-shrink:0;font-family:'DM Sans',sans-serif;
+}
+.lv-stats{display:flex;flex:1;justify-content:space-between;}
+.lv-stat{text-align:center;}
+.lv-stat-val{font-size:16px;font-weight:800;color:#1a1a1a;}
+.lv-stat-lbl{font-size:11px;color:#aaa;margin-top:2px;}
+
+/* INFO BOX */
+.info-box{margin:4px 14px 14px;background:#e0f7fa;border-radius:14px;padding:14px 16px;}
+.info-box p{font-size:12px;color:#006064;line-height:1.6;}
+
+/* BOTTOM NAV */
+.bottom-nav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:480px;
+  background:#fff;border-top:1px solid #eee;
+  display:flex;padding:8px 0 14px;z-index:100;
+  box-shadow:0 -4px 20px rgba(0,0,0,.08);
+}
+.nav-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  text-decoration:none;color:#ccc;font-size:10px;font-weight:600;
+  font-family:'DM Sans',sans-serif;
+}
 .nav-item.active{color:#00bcd4;}
-.nav-item .ni{font-size:21px;}
+.nav-item svg{width:22px;height:22px;}
 .nav-dot{width:5px;height:5px;border-radius:50%;background:#00bcd4;margin:1px auto 0;}
-.toast{position:fixed;top:70px;left:50%;transform:translateX(-50%);background:#00bcd4;color:#fff;padding:10px 20px;border-radius:12px;font-size:13px;font-weight:700;z-index:99998;display:none;white-space:nowrap;}
-.toast.show{display:block;}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:90px;left:50%;transform:translateX(-50%);
+  background:#1c2b30;color:#fff;font-size:13px;font-weight:600;
+  padding:10px 22px;border-radius:50px;z-index:999;
+  opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;
+}
+.toast.show{opacity:1;}
 </style>
 </head>
 <body>
-<script src="/pwa-install.js"></script>
-<div class="toast" id="toast"></div>
-<div class="wrap">
-  <div class="topbar">
-    <button class="back-btn" onclick="history.back()">←</button>
-    <span class="topbar-title">🤝 Parrainage</span>
-  </div>
 
-  <div class="hero">
-    <div class="h-title">Invitez & Gagnez</div>
-    <div class="h-sub">Gagnez des commissions sur les investissements de vos filleuls</div>
-    <div class="code-label">Votre code de parrainage</div>
-    <div class="code-box" id="refCode">...</div>
-    <div class="btns-row">
-      <button class="btn-copy" onclick="copyCode()">📋 Copier</button>
-      <button class="btn-share" onclick="shareLink()">🚀 Partager</button>
-    </div>
-  </div>
-
-  <div class="stats-grid">
-    <div class="sg-card"><div class="sg-val" id="statN1">0</div><div class="sg-lbl">Niveau 1</div></div>
-    <div class="sg-card"><div class="sg-val" id="statN2">0</div><div class="sg-lbl">Niveau 2</div></div>
-    <div class="sg-card"><div class="sg-val" id="statComm">0</div><div class="sg-lbl">FCFA gagnés</div></div>
-  </div>
-
-  <div class="levels-card">
-    <div class="lc-title">💸 Commissions</div>
-    <div class="lv-item l1"><div class="lv-medal">🥇</div><div class="lv-info"><div class="lv-name">Niveau 1 — Filleuls directs</div><div class="lv-desc">Sur chaque investissement</div></div><div class="lv-pct">18%</div></div>
-    <div class="lv-item l2"><div class="lv-medal">🥈</div><div class="lv-info"><div class="lv-name">Niveau 2</div><div class="lv-desc">Filleuls indirects</div></div><div class="lv-pct">2%</div></div>
-    <div class="lv-item l3"><div class="lv-medal">🥉</div><div class="lv-info"><div class="lv-name">Niveau 3</div><div class="lv-desc">Réseau étendu</div></div><div class="lv-pct">1%</div></div>
-  </div>
-
-  <div class="filleuls-card">
-    <div class="fc-title">👥 Mon équipe</div>
-    <div class="tabs-f">
-      <button class="tab-f active" onclick="showTab(1,this)">Niveau 1</button>
-      <button class="tab-f" onclick="showTab(2,this)">Niveau 2</button>
-      <button class="tab-f" onclick="showTab(3,this)">Niveau 3</button>
-    </div>
-    <div id="filleulsList"><div class="empty-f">⏳ Chargement...</div></div>
-  </div>
-
-  <div class="filleuls-card">
-    <div class="fc-title">💰 Dernières commissions</div>
-    <div id="commList"><div class="empty-f">⏳ Chargement...</div></div>
-  </div>
-
-  <div class="link-card">
-    <div style="font-size:14px;font-weight:700;margin-bottom:10px;">🔗 Lien de parrainage</div>
-    <div class="link-wrap">
-      <input class="link-inp" id="refLink" readonly/>
-      <button class="btn-lc" onclick="copyLink()">Copier</button>
-    </div>
-  </div>
+<div class="loader" id="loader">
+  <div class="loader-logo">Velero Energy</div>
+  <div class="loader-spin"></div>
 </div>
 
+<div class="wrap" id="mainWrap" style="display:none;">
+
+  <!-- HEADER SLIDER -->
+  <div class="slider">
+    <div class="slides" id="slides">
+      <div class="slide">
+        <img src="https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg" alt="V1" onerror="this.src='https://images.unsplash.com/photo-1545459720-aac8509eb61d?w=800'"/>
+        <div class="slide-overlay"></div>
+      </div>
+      <div class="slide">
+        <img src="https://i.ibb.co/7Jq8g7pX/Screenshot-20260529-153024-Chrome.jpg" alt="V2" onerror="this.src='https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800'"/>
+        <div class="slide-overlay"></div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1545459720-aac8509eb61d?w=800&q=80" alt="V3"/>
+        <div class="slide-overlay"></div>
+      </div>
+    </div>
+    <div class="header-title">
+      <h1>Mon Équipe</h1>
+      <p>Programme de parrainage</p>
+    </div>
+    <div class="dots">
+      <div class="dot active" onclick="goTo(0)"></div>
+      <div class="dot" onclick="goTo(1)"></div>
+      <div class="dot" onclick="goTo(2)"></div>
+    </div>
+  </div>
+
+  <!-- REFERRAL CARD -->
+  <div class="ref-card">
+    <div class="ref-row">
+      <div class="ref-block">
+        <div class="ref-label">Code d'invitation</div>
+        <div class="ref-value" id="refCode">—</div>
+        <button class="btn-copy" onclick="copyCode()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          COPIER
+        </button>
+      </div>
+      <div class="ref-block">
+        <div class="ref-label">Lien d'invitation</div>
+        <div class="ref-value" id="refLink" style="font-size:12px;color:rgba(255,255,255,.6);">—</div>
+        <button class="btn-copy" onclick="copyLink()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          COPIER
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS TOTALES -->
+  <div class="stats-card">
+    <div class="stat-block">
+      <div class="stat-val" id="totalRecomp">FCFA 0</div>
+      <div class="stat-lbl">Récompenses totales &rsaquo;</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-val" id="totalUsers">0</div>
+      <div class="stat-lbl">Utilisateurs totaux &rsaquo;</div>
+    </div>
+  </div>
+
+  <!-- NIVEAUX -->
+  <div class="section-title">Niveaux de parrainage</div>
+
+  <div class="lv-card">
+    <div class="lv-badge">LV1</div>
+    <div class="lv-stats">
+      <div class="lv-stat">
+        <div class="lv-stat-val">25%</div>
+        <div class="lv-stat-lbl">Commission</div>
+      </div>
+      <div class="lv-stat">
+        <div class="lv-stat-val" id="lv1Users">0</div>
+        <div class="lv-stat-lbl">Utilisateurs</div>
+      </div>
+      <div class="lv-stat">
+        <div class="lv-stat-val" id="lv1Recomp">FCFA 0</div>
+        <div class="lv-stat-lbl">Récompenses</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lv-card">
+    <div class="lv-badge">LV2</div>
+    <div class="lv-stats">
+      <div class="lv-stat">
+        <div class="lv-stat-val">2%</div>
+        <div class="lv-stat-lbl">Commission</div>
+      </div>
+      <div class="lv-stat">
+        <div class="lv-stat-val" id="lv2Users">0</div>
+        <div class="lv-stat-lbl">Utilisateurs</div>
+      </div>
+      <div class="lv-stat">
+        <div class="lv-stat-val" id="lv2Recomp">FCFA 0</div>
+        <div class="lv-stat-lbl">Récompenses</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lv-card">
+    <div class="lv-badge">LV3</div>
+    <div class="lv-stats">
+      <div class="lv-stat">
+        <div class="lv-stat-val">1%</div>
+        <div class="lv-stat-lbl">Commission</div>
+      </div>
+      <div class="lv-stat">
+        <div class="lv-stat-val" id="lv3Users">0</div>
+        <div class="lv-stat-lbl">Utilisateurs</div>
+      </div>
+      <div class="lv-stat">
+        <div class="lv-stat-val" id="lv3Recomp">FCFA 0</div>
+        <div class="lv-stat-lbl">Récompenses</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO -->
+  <div class="info-box">
+    <p>Lorsqu'un ami que vous invitez s'inscrit et investit, vous recevez automatiquement une commission sur ses revenus. Plus votre réseau grandit, plus vos gains augmentent.</p>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">Copié !</div>
+
+<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
-  <a href="dashboard.html" class="nav-item"><span class="ni">🏠</span>Accueil</a>
-  <a href="produits.html" class="nav-item"><span class="ni">💲</span>Produit</a>
-  <a href="parrainage.html" class="nav-item active"><span class="ni">👥</span>Équipes<div class="nav-dot"></div></a>
-  <a href="compte.html" class="nav-item"><span class="ni">👤</span>Mon compte</a>
+  <a href="dashboard.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Accueil
+  </a>
+  <a href="produits.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+    Produits
+  </a>
+  <a href="parrainage.html" class="nav-item active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+    Équipe
+    <div class="nav-dot"></div>
+  </a>
+  <a href="compte.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Mon compte
+  </a>
 </nav>
 
 <script>
 const SB="https://seegoklunovyuieorkvy.supabase.co";
 const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
+
 function tok(){return localStorage.getItem("velero_token")||"";}
 function uid(){return localStorage.getItem("velero_uid")||"";}
 function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
 
-let myCode="", allParrainages=[], filleulsData={};
+// Slider
+let cur=0;
+function goTo(i){
+  cur=i;
+  document.getElementById("slides").style.transform="translateX(-"+i*100+"%)";
+  document.querySelectorAll(".dot").forEach((d,idx)=>d.classList.toggle("active",idx===i));
+}
+setInterval(()=>goTo((cur+1)%3),3500);
 
-function toast(msg){
-  const el=document.getElementById("toast");
-  el.textContent=msg;el.classList.add("show");
-  setTimeout(()=>el.classList.remove("show"),2500);
+// Toast
+function showToast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg;t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),2000);
 }
 
-async function init(){
-  if(!tok()){location.href="index.html";return;}
+let myCode="";
+let myLink="";
 
-  try {
-    // 1. Charger mon profil
-    const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=*",{headers:H()});
-    const dp=await rp.json();
-    if(!dp||!dp.length){location.href="index.html";return;}
-    const profil=dp[0];
-    myCode=profil.referral_code||profil.id?.substring(0,8).toUpperCase()||"VELERO";
-    document.getElementById("refCode").textContent=myCode;
-    const lien=window.location.origin+"/index.html?ref="+myCode;
-    document.getElementById("refLink").value=lien;
-
-    // 2. Charger les parrainages (où je suis le parrain)
-    const rr=await fetch(SB+"/rest/v1/parrainages?parrain_id=eq."+uid()+"&select=*",{headers:H()});
-    allParrainages=await rr.json()||[];
-    console.log("Parrainages chargés:", allParrainages);
-
-    // 3. Récupérer les infos des filleuls (tous les IDs uniques)
-    const filleulIds = [...new Set(allParrainages.map(p => p.filleul_id).filter(id => id))];
-    console.log("IDs des filleuls:", filleulIds);
-    
-    if(filleulIds.length > 0){
-      // Construction de la requête OR correcte
-      const orConditions = filleulIds.map(id => `id.eq.${id}`).join(',');
-      const rf = await fetch(SB+"/rest/v1/profiles?or=("+orConditions+")&select=id,full_name,email,created_at",{headers:H()});
-      const profiles = await rf.json() || [];
-      console.log("Profils trouvés:", profiles);
-      
-      // Créer un dictionnaire id -> profil
-      profiles.forEach(p => {
-        filleulsData[p.id] = p;
-      });
-    }
-
-    // Stats
-    const n1 = allParrainages.filter(p => p.niveau === 1).length;
-    const n2 = allParrainages.filter(p => p.niveau === 2).length;
-    const totalComm = allParrainages.reduce((s,p) => s + parseFloat(p.commission_gagnee || 0), 0);
-    document.getElementById("statN1").textContent = n1;
-    document.getElementById("statN2").textContent = n2;
-    document.getElementById("statComm").textContent = totalComm.toLocaleString();
-
-    // Afficher le niveau 1 par défaut
-    showTab(1, document.querySelector(".tab-f.active"));
-    loadCommissions();
-    
-  } catch(e) {
-    console.error("Erreur init:", e);
-    document.getElementById("filleulsList").innerHTML = '<div class="empty-f">❌ Erreur de chargement</div>';
-  }
+function copyCode(){
+  navigator.clipboard.writeText(myCode).then(()=>showToast("Code copié !")).catch(()=>{
+    const el=document.createElement("textarea");el.value=myCode;document.body.appendChild(el);el.select();document.execCommand("copy");document.body.removeChild(el);showToast("Code copié !");
+  });
 }
-
-function showTab(niveau, el){
-  document.querySelectorAll(".tab-f").forEach(b => b.classList.remove("active"));
-  if(el) el.classList.add("active");
-  
-  const list = document.getElementById("filleulsList");
-  const items = allParrainages.filter(p => p.niveau === niveau);
-  console.log(`Niveau ${niveau}, ${items.length} filleuls`);
-  
-  if(!items.length){
-    list.innerHTML = '<div class="empty-f">👥 Aucun filleul niveau '+niveau+'<br><small>Partagez votre code pour inviter !</small></div>';
-    return;
-  }
-  
-  list.innerHTML = items.map(p => {
-    const f = filleulsData[p.filleul_id] || {};
-    const name = f.full_name || f.email || "Utilisateur";
-    const displayName = name.split('@')[0];
-    const date = f.created_at ? new Date(f.created_at).toLocaleDateString("fr-FR") : new Date(p.created_at).toLocaleDateString("fr-FR");
-    const comm = parseFloat(p.commission_gagnee || 0);
-    return `<div class="filleul-item">
-      <div class="fi-avatar">${displayName[0]?.toUpperCase() || 'U'}</div>
-      <div class="fi-info">
-        <div class="fi-name">${escapeHtml(displayName)}</div>
-        <div class="fi-date">Inscrit le ${date}</div>
-      </div>
-      <div class="fi-gain">${comm > 0 ? "+"+comm.toLocaleString()+" FCFA" : "En attente"}</div>
-    </div>`;
-  }).join("");
-}
-
-async function loadCommissions(){
-  try {
-    const r = await fetch(SB+"/rest/v1/transactions?user_id=eq."+uid()+"&type=eq.commission&order=created_at.desc&limit=20",{headers:H()});
-    const txs = await r.json() || [];
-    const list = document.getElementById("commList");
-    if(!txs.length){
-      list.innerHTML = '<div class="empty-f">💰 Aucune commission reçue<br><small>Invitez des amis à investir !</small></div>';
-      return;
-    }
-    list.innerHTML = txs.map(t => `
-      <div class="comm-item">
-        <div><div class="ci-name">${escapeHtml(t.note || "Commission parrainage")}</div>
-        <div class="ci-date">${new Date(t.created_at).toLocaleDateString("fr-FR")}</div></div>
-        <div class="ci-gain">+${parseFloat(t.montant).toLocaleString()} FCFA</div>
-      </div>
-    `).join("");
-  } catch(e) {
-    console.error("Erreur chargement commissions:", e);
-  }
-}
-
-function escapeHtml(str) {
-  if(!str) return "";
-  return str.replace(/[&<>]/g, function(m) {
-    if(m === '&') return '&amp;';
-    if(m === '<') return '&lt;';
-    if(m === '>') return '&gt;';
-    return m;
+function copyLink(){
+  navigator.clipboard.writeText(myLink).then(()=>showToast("Lien copié !")).catch(()=>{
+    const el=document.createElement("textarea");el.value=myLink;document.body.appendChild(el);el.select();document.execCommand("copy");document.body.removeChild(el);showToast("Lien copié !");
   });
 }
 
-function copyCode(){
-  navigator.clipboard.writeText(myCode).then(()=>toast("✅ Code copié : "+myCode));
-}
+function fmt(n){return parseFloat(n||0).toLocaleString();}
 
-function copyLink(){
-  navigator.clipboard.writeText(document.getElementById("refLink").value).then(()=>toast("✅ Lien copié !"));
-}
+async function init(){
+  const t=tok();const u=uid();
+  if(!t||!u){location.href="index.html";return;}
 
-function shareLink(){
-  const lien = document.getElementById("refLink").value;
-  if(navigator.share){
-    navigator.share({title:"Velero Energy",text:"Rejoignez Velero Energy avec mon code "+myCode+" et recevez 500 FCFA de bonus !",url:lien});
-  } else {
-    copyLink();
+  try{
+    // Profil
+    const r=await fetch(SB+"/rest/v1/profiles?id=eq."+u+"&select=*",{headers:H()});
+    if(r.status===401){
+      const ref=localStorage.getItem("velero_refresh");
+      if(ref){
+        const rr=await fetch(SB+"/auth/v1/token?grant_type=refresh_token",{method:"POST",headers:{"Content-Type":"application/json","apikey":AK},body:JSON.stringify({refresh_token:ref})});
+        const rd=await rr.json();
+        if(rd.access_token){localStorage.setItem("velero_token",rd.access_token);if(rd.refresh_token)localStorage.setItem("velero_refresh",rd.refresh_token);location.reload();return;}
+      }
+      localStorage.clear();location.href="index.html";return;
+    }
+    const data=await r.json();
+    if(!data||data.length===0){localStorage.clear();location.href="index.html";return;}
+
+    const prof=data[0];
+    myCode=prof.referral_code||"—";
+    myLink=location.origin+"/index.html?ref="+myCode;
+
+    document.getElementById("refCode").textContent=myCode;
+    document.getElementById("refLink").textContent=myLink.replace("https://","");
+
+    // Stats parrainage : filleuls directs (niveau 1)
+    const r1=await fetch(SB+"/rest/v1/profiles?referred_by=eq."+myCode+"&select=id,solde",{headers:H()});
+    const lv1=await r1.json();
+    const lv1Count=Array.isArray(lv1)?lv1.length:0;
+
+    // Récompenses LV1 (depuis transactions de type 'parrainage' liées à l'user)
+    const rT=await fetch(SB+"/rest/v1/transactions?user_id=eq."+u+"&type=eq.parrainage&select=montant",{headers:H()});
+    const trs=await rT.json();
+    const totalR=Array.isArray(trs)?trs.reduce((s,x)=>s+parseFloat(x.montant||0),0):0;
+
+    document.getElementById("totalUsers").textContent=lv1Count;
+    document.getElementById("totalRecomp").textContent="FCFA "+fmt(totalR);
+    document.getElementById("lv1Users").textContent=lv1Count;
+    document.getElementById("lv1Recomp").textContent="FCFA "+fmt(totalR);
+
+  }catch(e){
+    // Afficher quand même
+    const code=localStorage.getItem("velero_ref")||"—";
+    document.getElementById("refCode").textContent=code;
+    document.getElementById("refLink").textContent=(location.origin+"/index.html?ref="+code).replace("https://","");
+    myCode=code;
+    myLink=location.origin+"/index.html?ref="+code;
   }
+
+  document.getElementById("loader").style.display="none";
+  document.getElementById("mainWrap").style.display="block";
 }
 
 init();
