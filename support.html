@@ -1,230 +1,438 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-<link rel="manifest" href="/manifest.json"/>
-<meta name="theme-color" content="#00bcd4"/>
-<meta name="mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<meta name="apple-mobile-web-app-title" content="Velero Energy"/>
-<title>Support — Velero Energy</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
-.wrap{width:100%;max-width:480px;padding-bottom:80px;}
-.topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
-.back-btn{background:none;border:none;font-size:22px;cursor:pointer;}
-.topbar-title{font-size:17px;font-weight:700;}
-.hero{margin:20px 16px;text-align:center;}
-.hero-icon{font-size:64px;margin-bottom:8px;}
-.hero h1{font-size:24px;font-weight:900;font-family:'Playfair Display',serif;color:#1a1a1a;margin-bottom:8px;}
-.hero p{font-size:14px;color:#777;}
-.support-card{margin:0 16px 16px;background:#fff;border-radius:20px;padding:20px;box-shadow:0 4px 20px rgba(0,0,0,.05);}
-.section-title{font-size:16px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:8px;color:#1a1a1a;}
-.section-title span{font-size:22px;}
-.faq-item{border-bottom:1px solid #f0ebe8;padding:14px 0;}
-.faq-question{font-size:14px;font-weight:700;color:#1a1a1a;display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
-.faq-question .arrow{font-size:18px;color:#00bcd4;transition:transform .3s;}
-.faq-answer{font-size:13px;color:#666;line-height:1.5;margin-top:8px;display:none;padding-right:20px;}
-.faq-item.open .faq-answer{display:block;}
-.faq-item.open .arrow{transform:rotate(180deg);}
-.contact-buttons{display:flex;flex-direction:column;gap:12px;margin-top:8px;}
-.contact-btn{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px;border-radius:14px;font-size:15px;font-weight:700;text-decoration:none;transition:all .2s;border:none;cursor:pointer;font-family:inherit;}
-.contact-btn.telegram{background:linear-gradient(135deg,#0088cc,#006699);color:#fff;}
-.contact-btn.telegram:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,136,204,.3);}
-.contact-btn.whatsapp{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;}
-.contact-btn.whatsapp:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,211,102,.3);}
-.contact-btn.support{background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;}
-.contact-btn.support:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,188,212,.3);}
-.info-box{background:#f0f7fa;border-radius:14px;padding:16px;margin-top:16px;text-align:center;}
-.info-box p{font-size:12px;color:#00838f;margin-bottom:8px;}
-.info-box small{font-size:11px;color:#666;}
-.alert-banner{background:linear-gradient(135deg,#ff9800,#f57c00);margin:0 16px 16px;border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:12px;color:#fff;}
-.alert-banner .emoji{font-size:24px;}
-.alert-banner .text{font-size:13px;font-weight:600;}
-.alert-banner .sub{font-size:11px;opacity:.9;margin-top:4px;}
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
-.nav-item.active{color:#00bcd4;}
-.nav-item .ni{font-size:21px;}
-.nav-dot{width:5px;height:5px;border-radius:50%;background:#00bcd4;margin:1px auto 0;}
-</style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+    <link rel="manifest" href="/manifest.json"/>
+    <meta name="theme-color" content="#00bcd4"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+    <meta name="apple-mobile-web-app-title" content="Velero Energy"/>
+    <title>Support — Velero Energy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            min-height: 100vh;
+            background: #f5f0ee;
+            font-family: 'DM Sans', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .wrap {
+            width: 100%;
+            max-width: 480px;
+            padding-bottom: 80px;
+        }
+        .topbar {
+            background: #fff;
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .07);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+        }
+        .topbar-title {
+            font-size: 17px;
+            font-weight: 700;
+        }
+        .hero {
+            margin: 20px 16px;
+            text-align: center;
+        }
+        .hero-icon {
+            font-size: 64px;
+            margin-bottom: 8px;
+        }
+        .hero h1 {
+            font-size: 24px;
+            font-weight: 900;
+            font-family: 'Playfair Display', serif;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+        .hero p {
+            font-size: 14px;
+            color: #777;
+        }
+        .support-card {
+            margin: 0 16px 16px;
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .05);
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #1a1a1a;
+        }
+        .section-title span {
+            font-size: 22px;
+        }
+        .faq-item {
+            border-bottom: 1px solid #f0ebe8;
+            padding: 14px 0;
+        }
+        .faq-question {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a1a1a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .faq-question .arrow {
+            font-size: 18px;
+            color: #00bcd4;
+            transition: transform .3s;
+        }
+        .faq-answer {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+            margin-top: 8px;
+            display: none;
+            padding-right: 20px;
+        }
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+        .faq-item.open .arrow {
+            transform: rotate(180deg);
+        }
+        .contact-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all .2s;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .contact-btn.telegram {
+            background: linear-gradient(135deg, #0088cc, #006699);
+            color: #fff;
+        }
+        .contact-btn.telegram:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 136, 204, .3);
+        }
+        .contact-btn.whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: #fff;
+        }
+        .contact-btn.whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, .3);
+        }
+        .contact-btn.support {
+            background: linear-gradient(135deg, #00bcd4, #0097a7);
+            color: #fff;
+        }
+        .contact-btn.support:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 188, 212, .3);
+        }
+        .info-box {
+            background: #f0f7fa;
+            border-radius: 14px;
+            padding: 16px;
+            margin-top: 16px;
+            text-align: center;
+        }
+        .info-box p {
+            font-size: 12px;
+            color: #00838f;
+            margin-bottom: 8px;
+        }
+        .info-box small {
+            font-size: 11px;
+            color: #666;
+        }
+        .alert-banner {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+            margin: 0 16px 16px;
+            border-radius: 14px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+        }
+        .alert-banner .emoji {
+            font-size: 24px;
+        }
+        .alert-banner .text {
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .alert-banner .sub {
+            font-size: 11px;
+            opacity: .9;
+            margin-top: 4px;
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: #fff;
+            border-top: 1px solid #f0ebe8;
+            display: flex;
+            padding: 8px 0 12px;
+            z-index: 100;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, .08);
+        }
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            text-decoration: none;
+            color: #ccc;
+            font-size: 10px;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .nav-item.active {
+            color: #00bcd4;
+        }
+        .nav-item .ni {
+            font-size: 21px;
+        }
+        .nav-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #00bcd4;
+            margin: 1px auto 0;
+        }
+        .divider {
+            margin: 8px 0 16px;
+            border: none;
+            border-top: 1px solid #f0ebe8;
+        }
+    </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="topbar">
-    <button class="back-btn" onclick="history.back()">←</button>
-    <span class="topbar-title">📞 Support client</span>
-  </div>
-
-  <div class="hero">
-    <div class="hero-icon">💬</div>
-    <h1>Comment pouvons-nous vous aider ?</h1>
-    <p>Notre équipe est là pour vous assister 24h/24 et 7j/7</p>
-  </div>
-
-  <div class="alert-banner">
-    <div class="emoji">⏰</div>
-    <div class="text">
-      Réponse sous 5 minutes en moyenne
-      <div class="sub">Assistance prioritaire sur Telegram</div>
-    </div>
-  </div>
-
-  <div class="support-card">
-    <div class="section-title">
-      <span>📱</span> Nous contacter
-    </div>
-    <div class="contact-buttons">
-      <a href="#" class="contact-btn telegram" id="telegramBtn1">
-        <span>💬</span> Service client Telegram
-      </a>
-      <a href="#" class="contact-btn telegram" id="telegramBtn2">
-        <span>👥</span> Groupe d'entraide
-      </a>
-    </div>
-    <div class="info-box">
-      <p>🕐 Disponible 7j/7 — 24h/24</p>
-      <small>Un problème avec votre compte, un dépôt ou un retrait ? Contactez-nous directement sur Telegram.</small>
-    </div>
-  </div>
-
-  <div class="support-card">
-    <div class="section-title">
-      <span>❓</span> Foire aux questions
+    <div class="topbar">
+        <button class="back-btn" onclick="history.back()">←</button>
+        <span class="topbar-title">📞 Support client</span>
     </div>
 
-    <div class="faq-item">
-      <div class="faq-question" onclick="toggleFaq(this)">
-        Comment recharger mon compte ?
-        <span class="arrow">▼</span>
-      </div>
-      <div class="faq-answer">
-        Rendez-vous sur la page "Recharge", choisissez votre montant et effectuez le paiement via LeekPay. Une fois le paiement validé par notre équipe, votre solde sera automatiquement crédité.
-      </div>
+    <div class="hero">
+        <div class="hero-icon">💬</div>
+        <h1>Comment pouvons-nous vous aider ?</h1>
+        <p>Notre équipe est là pour vous assister 24h/24 et 7j/7</p>
     </div>
 
-    <div class="faq-item">
-      <div class="faq-question" onclick="toggleFaq(this)">
-        Combien de temps dure la validation ?
-        <span class="arrow">▼</span>
-      </div>
-      <div class="faq-answer">
-        Les dépôts sont généralement validés sous 5 à 15 minutes après réception de votre preuve de paiement. Les retraits sont traités sous 24h ouvrées.
-      </div>
+    <div class="alert-banner">
+        <div class="emoji">⏰</div>
+        <div class="text">
+            Réponse sous 5 minutes en moyenne
+            <div class="sub">Assistance prioritaire sur Telegram & WhatsApp</div>
+        </div>
     </div>
 
-    <div class="faq-item">
-      <div class="faq-question" onclick="toggleFaq(this)">
-        Comment retirer mes gains ?
-        <span class="arrow">▼</span>
-      </div>
-      <div class="faq-answer">
-        Allez dans "Mon compte" → "Retrait", choisissez votre méthode (Orange Money, MTN Mobile Money ou Wave), entrez le montant et confirmez. Le traitement prend 24 à 48h.
-      </div>
+    <div class="support-card">
+        <div class="section-title">
+            <span>📱</span> Nous contacter
+        </div>
+        <div class="contact-buttons">
+            <a href="#" class="contact-btn telegram" id="telegramBtn1">
+                <span>💬</span> Service client Telegram
+            </a>
+            <a href="#" class="contact-btn whatsapp" id="whatsappGroupBtn">
+                <span>👥</span> Groupe d'entraide WhatsApp
+            </a>
+            <a href="#" class="contact-btn whatsapp" id="whatsappChannelBtn">
+                <span>📢</span> Chaîne WhatsApp officielle
+            </a>
+        </div>
+        <div class="info-box">
+            <p>🕐 Disponible 7j/7 — 24h/24</p>
+            <small>Un problème avec votre compte, un dépôt ou un retrait ? Contactez-nous directement sur Telegram ou rejoignez nos communautés WhatsApp.</small>
+        </div>
     </div>
 
-    <div class="faq-item">
-      <div class="faq-question" onclick="toggleFaq(this)">
-        Que faire en cas de problème de paiement ?
-        <span class="arrow">▼</span>
-      </div>
-      <div class="faq-answer">
-        Contactez immédiatement notre service client via Telegram. Ayez votre référence de transaction à portée de main pour un traitement plus rapide.
-      </div>
+    <div class="support-card">
+        <div class="section-title">
+            <span>❓</span> Foire aux questions
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Comment recharger mon compte ?
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Rendez-vous sur la page "Recharge", choisissez votre montant et effectuez le paiement via LeekPay. Une fois le paiement validé par notre équipe, votre solde sera automatiquement crédité.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Combien de temps dure la validation ?
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Les dépôts sont généralement validés sous 5 à 15 minutes après réception de votre preuve de paiement. Les retraits sont traités sous 24h ouvrées.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Comment retirer mes gains ?
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Allez dans "Mon compte" → "Retrait", choisissez votre méthode (Orange Money, MTN Mobile Money ou Wave), entrez le montant et confirmez. Le traitement prend 24 à 48h.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Que faire en cas de problème de paiement ?
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Contactez immédiatement notre service client via Telegram. Ayez votre référence de transaction à portée de main pour un traitement plus rapide.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Comment fonctionne le parrainage ?
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Partagez votre lien de parrainage à vos amis. Gagnez 5% sur chaque dépôt de vos filleuls. Les bonus sont crédités automatiquement après validation des dépôts.
+            </div>
+        </div>
     </div>
 
-    <div class="faq-item">
-      <div class="faq-question" onclick="toggleFaq(this)">
-        Comment fonctionne le parrainage ?
-        <span class="arrow">▼</span>
-      </div>
-      <div class="faq-answer">
-        Partagez votre lien de parrainage à vos amis. Gagnez 5% sur chaque dépôt de vos filleuls. Les bonus sont crédités automatiquement après validation des dépôts.
-      </div>
+    <div class="support-card">
+        <div class="section-title">
+            <span>⚠️</span> Avant de nous contacter
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:#555;">
+                <span style="background:#e0f7fa;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">1️⃣</span>
+                <span>Vérifiez votre historique de transactions</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:#555;">
+                <span style="background:#e0f7fa;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">2️⃣</span>
+                <span>Ayez votre référence de paiement prête</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:#555;">
+                <span style="background:#e0f7fa;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">3️⃣</span>
+                <span>Expliquez clairement votre problème</span>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <div class="support-card">
-    <div class="section-title">
-      <span>⚠️</span> Avant de nous contacter
-    </div>
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:#555;">
-        <span style="background:#e0f7fa;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">1️⃣</span>
-        <span>Vérifiez votre historique de transactions</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:#555;">
-        <span style="background:#e0f7fa;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">2️⃣</span>
-        <span>Ayez votre référence de paiement prête</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:#555;">
-        <span style="background:#e0f7fa;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">3️⃣</span>
-        <span>Expliquez clairement votre problème</span>
-      </div>
-    </div>
-  </div>
 </div>
 
 <nav class="bottom-nav">
-  <a href="dashboard.html" class="nav-item"><span class="ni">🏠</span>Accueil</a>
-  <a href="produits.html" class="nav-item"><span class="ni">💲</span>Produit</a>
-  <a href="parrainage.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
-  <a href="compte.html" class="nav-item"><span class="ni">👤</span>Mon compte</a>
-  <a href="support.html" class="nav-item active"><span class="ni">💬</span>Support<div class="nav-dot"></div></a>
+    <a href="dashboard.html" class="nav-item"><span class="ni">🏠</span>Accueil</a>
+    <a href="produits.html" class="nav-item"><span class="ni">💲</span>Produit</a>
+    <a href="parrainage.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
+    <a href="compte.html" class="nav-item"><span class="ni">👤</span>Mon compte</a>
+    <a href="support.html" class="nav-item active"><span class="ni">💬</span>Support<div class="nav-dot"></div></a>
 </nav>
 
 <script src="/pwa-install.js"></script>
 <script>
-// Liens Telegram (intégrés via JavaScript pour ne pas apparaître dans le HTML visible)
-// Aucun lien n'est affiché en clair sur la page
-const TELEGRAM_SUPPORT = "https://t.me/+2nOXBlsHwE1jNmU0";
-const TELEGRAM_GROUP = "https://t.me/+22891941650";
+    // Liens des services (masqués dans le code HTML)
+    const TELEGRAM_SUPPORT = "https://t.me/+2nOXBlsHwE1jNmU0"; // Lien du service client Telegram (inchangé selon votre demande)
+    const WHATSAPP_GROUP = "https://chat.whatsapp.com/Ix8Wv2XySQZIlH04VElByp?mode=gi_t";
+    const WHATSAPP_CHANNEL = "https://whatsapp.com/channel/0029VbD0BUi1SWt0QrRw5p0M";
 
-// Fonction d'ouverture sécurisée
-function ouvrirTelegram(url) {
-  window.open(url, "_blank");
-}
+    // Fonction d'ouverture sécurisée
+    function ouvrirLien(url) {
+        window.open(url, "_blank");
+    }
 
-// Attacher les événements après chargement
-document.addEventListener("DOMContentLoaded", function() {
-  const btn1 = document.getElementById("telegramBtn1");
-  const btn2 = document.getElementById("telegramBtn2");
-  
-  if (btn1) {
-    btn1.addEventListener("click", function(e) {
-      e.preventDefault();
-      ouvrirTelegram(TELEGRAM_SUPPORT);
+    // Attacher les événements après chargement
+    document.addEventListener("DOMContentLoaded", function() {
+        const btnTelegram = document.getElementById("telegramBtn1");
+        const btnWhatsAppGroup = document.getElementById("whatsappGroupBtn");
+        const btnWhatsAppChannel = document.getElementById("whatsappChannelBtn");
+
+        if (btnTelegram) {
+            btnTelegram.addEventListener("click", function(e) {
+                e.preventDefault();
+                ouvrirLien(TELEGRAM_SUPPORT);
+            });
+        }
+
+        if (btnWhatsAppGroup) {
+            btnWhatsAppGroup.addEventListener("click", function(e) {
+                e.preventDefault();
+                ouvrirLien(WHATSAPP_GROUP);
+            });
+        }
+
+        if (btnWhatsAppChannel) {
+            btnWhatsAppChannel.addEventListener("click", function(e) {
+                e.preventDefault();
+                ouvrirLien(WHATSAPP_CHANNEL);
+            });
+        }
     });
-  }
-  
-  if (btn2) {
-    btn2.addEventListener("click", function(e) {
-      e.preventDefault();
-      ouvrirTelegram(TELEGRAM_GROUP);
-    });
-  }
-});
 
-// Fonction pour les FAQs
-function toggleFaq(element) {
-  const faqItem = element.closest('.faq-item');
-  faqItem.classList.toggle('open');
-}
+    // Fonction pour les FAQs
+    function toggleFaq(element) {
+        const faqItem = element.closest('.faq-item');
+        faqItem.classList.toggle('open');
+    }
 
-// Vérification de l'authentification
-function checkAuth() {
-  const token = localStorage.getItem("velero_token");
-  if (!token) {
-    window.location.href = "index.html";
-  }
-}
+    // Vérification de l'authentification
+    function checkAuth() {
+        const token = localStorage.getItem("velero_token");
+        if (!token) {
+            window.location.href = "index.html";
+        }
+    }
 
-// Vérifier au chargement
-checkAuth();
+    // Vérifier au chargement
+    checkAuth();
 </script>
 </body>
 </html>
