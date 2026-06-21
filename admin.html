@@ -1,4 +1,3 @@
-cat > admin.html << 'ENDOFFILE'
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,8 +9,6 @@ cat > admin.html << 'ENDOFFILE'
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0d1117;--card:#161b22;--card2:#1c2230;--teal:#00bcd4;--gold:#ffa000;--green:#4caf50;--red:#e53935;--purple:#9c27b0;--text:#e6edf3;--muted:#8b949e;--border:#30363d;}
 body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);}
-
-/* LOGIN */
 .login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
 .login-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px 28px;width:100%;max-width:380px;}
 .login-logo{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;text-align:center;margin-bottom:4px;color:var(--text);}
@@ -24,10 +21,7 @@ body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;colo
 .btn-login{width:100%;padding:14px;background:linear-gradient(135deg,var(--teal),#0097a7);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;}
 .login-err{background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.4);color:#fc8181;padding:10px;border-radius:10px;font-size:13px;margin-bottom:13px;display:none;}
 .login-err.show{display:block;}
-
-/* LAYOUT */
 .admin-wrap{display:flex;min-height:100vh;}
-/* SIDEBAR */
 .sidebar{width:220px;background:var(--card);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .3s;}
 .sidebar.collapsed{transform:translateX(-220px);}
 .sb-header{padding:16px;border-bottom:1px solid var(--border);}
@@ -44,7 +38,6 @@ body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;colo
 .sb-group{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding:8px 16px 4px;}
 .badge-n{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px;margin-left:auto;}
 .badge-g{background:var(--gold);color:#1a1a1a;font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px;margin-left:auto;}
-/* MAIN */
 .main-content{margin-left:220px;flex:1;transition:margin .3s;}
 .main-content.full{margin-left:0;}
 .topbar{background:var(--card);border-bottom:1px solid var(--border);padding:12px 18px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50;}
@@ -54,8 +47,6 @@ body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;colo
 .tb-email{font-size:12px;color:var(--muted);}
 .btn-quit-tb{background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.3);color:#ef5350;font-size:12px;font-weight:700;padding:6px 12px;border-radius:8px;cursor:pointer;font-family:inherit;}
 .page-content{padding:16px;}
-
-/* STATS GRID */
 .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;}
 .stat-card{background:var(--card);border-radius:14px;padding:16px;border-top:3px solid var(--teal);position:relative;overflow:hidden;}
 .stat-card.gold{border-top-color:var(--gold);}
@@ -68,25 +59,17 @@ body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;colo
 .sc-val{font-size:24px;font-weight:900;font-family:'Playfair Display',serif;color:var(--text);margin-bottom:3px;}
 .sc-lbl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;}
 .sc-sub{font-size:11px;color:var(--muted);margin-top:4px;}
-
-/* SECTION */
 .sec-card{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:12px;overflow:hidden;}
 .sec-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .sec-title{font-size:14px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px;}
 .sec-body{padding:14px 16px;}
-
-/* TABS internes */
 .inner-tabs{display:flex;gap:6px;margin-bottom:12px;}
 .inner-tab{padding:7px 14px;background:var(--card2);border:1px solid var(--border);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;color:var(--muted);font-family:inherit;}
 .inner-tab.active{border-color:var(--teal);color:var(--teal);background:rgba(0,188,212,.08);}
-
-/* SEARCH */
 .search-row{display:flex;gap:8px;margin-bottom:12px;}
 .search-input{flex:1;padding:9px 13px;font-size:13px;font-family:inherit;border:1.5px solid var(--border);border-radius:10px;outline:none;background:var(--bg);color:var(--text);}
 .search-input:focus{border-color:var(--teal);}
 .btn-search{padding:9px 16px;background:var(--teal);border:none;border-radius:10px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
-
-/* TX ITEM */
 .tx-item{border-bottom:1px solid var(--border);padding:12px 0;}
 .tx-item:last-child{border-bottom:none;}
 .tx-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
@@ -103,8 +86,6 @@ body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;colo
 .s-attente{background:rgba(255,160,0,.15);color:var(--gold);}
 .s-valide{background:rgba(76,175,80,.15);color:var(--green);}
 .s-rejete{background:rgba(229,57,53,.15);color:var(--red);}
-
-/* USER ITEM */
 .user-item{display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);padding:12px 0;}
 .user-item:last-child{border-bottom:none;}
 .u-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--teal),#0097a7);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;flex-shrink:0;font-family:'Playfair Display',serif;}
@@ -121,58 +102,42 @@ body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;colo
 .u-actions{display:flex;gap:5px;flex-shrink:0;}
 .btn-u{padding:6px 10px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;border:none;background:rgba(255,255,255,.08);color:var(--text);}
 .btn-u:hover{background:rgba(255,255,255,.14);}
-
-/* FORMS */
 .form-group{margin-bottom:12px;}
 .form-group label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px;}
 .form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 12px;font-size:13px;font-family:inherit;border:1.5px solid var(--border);border-radius:10px;outline:none;background:var(--bg);color:var(--text);}
 .form-group input:focus,.form-group select:focus{border-color:var(--teal);}
 .form-row{display:flex;gap:8px;}
 .form-row .form-group{flex:1;}
-
-/* BUTTONS */
 .btn-primary{padding:11px 20px;background:linear-gradient(135deg,var(--teal),#0097a7);border:none;border-radius:10px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
 .btn-success{padding:11px 20px;background:rgba(76,175,80,.2);border:1px solid rgba(76,175,80,.4);border-radius:10px;color:#81c784;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
 .btn-danger{padding:11px 20px;background:rgba(229,57,53,.2);border:1px solid rgba(229,57,53,.4);border-radius:10px;color:#ef5350;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
 .btn-warning{padding:11px 20px;background:rgba(255,160,0,.15);border:1px solid rgba(255,160,0,.3);border-radius:10px;color:var(--gold);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
 .btn-full{width:100%;margin-top:8px;}
 .btn-sm{padding:6px 12px;font-size:11px;border-radius:7px;}
-
-/* PAGINATION */
 .pagination{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 0 0;}
 .pg-btn{padding:7px 12px;background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;}
 .pg-btn:disabled{opacity:.4;cursor:not-allowed;}
 .pg-btn.active{border-color:var(--teal);color:var(--teal);background:rgba(0,188,212,.08);}
 .pg-info{font-size:12px;color:var(--muted);}
-
-/* ALERTS */
 .alert{padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:12px;display:none;}
 .alert.show{display:block;}
 .a-err{background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.4);color:#fc8181;}
 .a-ok{background:rgba(76,175,80,.15);border:1px solid rgba(76,175,80,.4);color:#86efac;}
 .a-info{background:rgba(0,188,212,.1);border:1px solid rgba(0,188,212,.3);color:#4dd0e1;}
-
-/* TOAST */
 .toast{position:fixed;top:16px;right:16px;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:700;z-index:9999;display:none;max-width:320px;}
 .toast.show{display:block;}
 .toast.ok{background:var(--teal);color:#fff;}
 .toast.err{background:var(--red);color:#fff;}
 .toast.warn{background:var(--gold);color:#1a1a1a;}
-
-/* CODE CADEAU AUTO */
 .code-auto-box{background:linear-gradient(135deg,rgba(255,193,7,.1),rgba(255,160,0,.05));border:2px solid rgba(255,193,7,.3);border-radius:16px;padding:20px;text-align:center;}
 .code-display{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--gold);letter-spacing:4px;margin:12px 0;}
 .code-timer{font-size:24px;font-weight:900;color:var(--red);font-family:'Playfair Display',serif;}
 .code-expired{color:var(--muted);font-size:14px;}
-
-/* VIP0 */
 .vip0-status{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
 .v0-box{background:var(--card2);border-radius:12px;padding:14px;text-align:center;}
 .v0-val{font-size:22px;font-weight:900;font-family:'Playfair Display',serif;}
 .v0-lbl{font-size:10px;color:var(--muted);font-weight:600;margin-top:3px;text-transform:uppercase;}
 .action-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px;}
-
-/* USER DETAIL MODAL */
 .ud-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:16px;}
 .ud-modal.show{display:flex;}
 .ud-box{background:var(--card);border:1px solid var(--border);border-radius:20px;width:100%;max-width:480px;margin:auto;}
@@ -186,30 +151,22 @@ body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;colo
 .ud-val{font-weight:700;color:var(--text);}
 .ud-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .btn-close-ud{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;}
-
 .empty{text-align:center;padding:32px;color:var(--muted);}
 .empty-icon{font-size:36px;margin-bottom:10px;}
 .loading-skeleton{background:linear-gradient(90deg,var(--card2) 25%,var(--border) 50%,var(--card2) 75%);background-size:200%;animation:sk 1.5s infinite;border-radius:8px;height:60px;margin-bottom:8px;}
 @keyframes sk{0%{background-position:200%}100%{background-position:-200%}}
-
-/* MOBILE */
-@media(max-width:600px){
-  .sidebar{width:200px;}
-  .main-content{margin-left:200px;}
-  .stats-grid{grid-template-columns:1fr 1fr;}
-}
+@media(max-width:600px){.sidebar{width:200px;}.main-content{margin-left:200px;}.stats-grid{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
 
 <div class="toast" id="toast"></div>
 
-<!-- USER DETAIL MODAL -->
 <div class="ud-modal" id="udModal">
   <div class="ud-box">
     <div class="ud-header">
-      <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;" id="udTitle">Détails utilisateur</div>
-      <button class="btn-close-ud" onclick="closeUD()">✕</button>
+      <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;" id="udTitle">Details utilisateur</div>
+      <button class="btn-close-ud" onclick="closeUD()">&#x2715;</button>
     </div>
     <div class="ud-body" id="udBody">Chargement...</div>
   </div>
@@ -222,14 +179,13 @@ body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;colo
     <div class="login-badge">ADMIN PANEL</div>
     <div id="loginErr" class="login-err"></div>
     <div class="lf"><label>Email</label><input type="email" id="adminEmail" placeholder="admin@veleroenergy.com"/></div>
-    <div class="lf"><label>Mot de passe</label><input type="password" id="adminPass" placeholder="••••••••"/></div>
-    <button class="btn-login" onclick="doLogin()">🔐 Accéder</button>
+    <div class="lf"><label>Mot de passe</label><input type="password" id="adminPass" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"/></div>
+    <button class="btn-login" onclick="doLogin()">Acceder</button>
   </div>
 </div>
 
 <!-- ADMIN -->
 <div id="adminWrap" class="admin-wrap" style="display:none;">
-  <!-- SIDEBAR -->
   <div class="sidebar" id="sidebar">
     <div class="sb-header">
       <div class="sb-logo">VELERO <span>ENERGY</span></div>
@@ -237,37 +193,32 @@ body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;colo
     </div>
     <div class="sb-menu">
       <div class="sb-group">Vue d'ensemble</div>
-      <button class="sb-item active" onclick="goTo('dashboard',this)"><span class="si">📊</span>Dashboard<span class="badge-n" id="bage-att">0</span></button>
-
+      <button class="sb-item active" onclick="goTo('dashboard',this)"><span class="si">&#x1F4CA;</span>Dashboard<span class="badge-n" id="bage-att">0</span></button>
       <div class="sb-sep"></div>
       <div class="sb-group">Transactions</div>
-      <button class="sb-item" onclick="goTo('depots',this)"><span class="si">💳</span>Dépôts<span class="badge-n" id="badge-dep">0</span></button>
-      <button class="sb-item" onclick="goTo('retraits',this)"><span class="si">💸</span>Retraits<span class="badge-n" id="badge-ret">0</span></button>
-
+      <button class="sb-item" onclick="goTo('depots',this)"><span class="si">&#x1F4B3;</span>Depots<span class="badge-n" id="badge-dep">0</span></button>
+      <button class="sb-item" onclick="goTo('retraits',this)"><span class="si">&#x1F4B8;</span>Retraits<span class="badge-n" id="badge-ret">0</span></button>
       <div class="sb-sep"></div>
       <div class="sb-group">Membres</div>
-      <button class="sb-item" onclick="goTo('users',this)"><span class="si">👥</span>Utilisateurs</button>
-      <button class="sb-item" onclick="goTo('investissements',this)"><span class="si">📈</span>Investissements</button>
-      <button class="sb-item" onclick="goTo('roles',this)"><span class="si">👑</span>Rôles</button>
-
+      <button class="sb-item" onclick="goTo('users',this)"><span class="si">&#x1F465;</span>Utilisateurs</button>
+      <button class="sb-item" onclick="goTo('investissements',this)"><span class="si">&#x1F4C8;</span>Investissements</button>
+      <button class="sb-item" onclick="goTo('roles',this)"><span class="si">&#x1F451;</span>Roles</button>
       <div class="sb-sep"></div>
       <div class="sb-group">Produits</div>
-      <button class="sb-item" onclick="goTo('vip0',this)"><span class="si">⭐</span>VIP0 Gratuit</button>
-      <button class="sb-item" onclick="goTo('codes',this)"><span class="si">🎁</span>Codes Cadeaux<span class="badge-g" id="badge-code">15h</span></button>
-
+      <button class="sb-item" onclick="goTo('vip0',this)"><span class="si">&#x2B50;</span>VIP0 Gratuit</button>
+      <button class="sb-item" onclick="goTo('codes',this)"><span class="si">&#x1F381;</span>Codes Cadeaux<span class="badge-g" id="badge-code">15h</span></button>
       <div class="sb-sep"></div>
-      <button class="sb-item" onclick="doLogout()" style="color:#ef5350;"><span class="si">🚪</span>Déconnexion</button>
+      <button class="sb-item" onclick="doLogout()" style="color:#ef5350;"><span class="si">&#x1F6AA;</span>Deconnexion</button>
     </div>
   </div>
 
-  <!-- MAIN -->
   <div class="main-content" id="mainContent">
     <div class="topbar">
-      <button class="toggle-sb" onclick="toggleSidebar()">☰</button>
+      <button class="toggle-sb" onclick="toggleSidebar()">&#x2630;</button>
       <div class="tb-title" id="pageTitle">Dashboard</div>
       <div class="tb-actions">
         <span class="tb-email" id="adminEmailDisplay"></span>
-        <button class="btn-quit-tb" onclick="doLogout()">↩ Quitter</button>
+        <button class="btn-quit-tb" onclick="doLogout()">&#x21A9; Quitter</button>
       </div>
     </div>
     <div class="page-content" id="pageContent">
@@ -280,18 +231,18 @@ body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;colo
 <script>
 const SB="https://seegoklunovyuieorkvy.supabase.co";
 const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
-const ADMIN_EMAIL="abdoula12cherif@gmail.com";
-const PAGE_SIZE=20;
 
+// ✅ DEUX EMAILS ADMIN
+const ADMIN_EMAILS=["abdoula12cherif@gmail.com","aubinboffan@gmail.com"];
+
+const PAGE_SIZE=20;
 let AT=localStorage.getItem("admin_tok")||"";
 let adminRole="admin";
-let currentPage=1;
-let codeTimer=null;
+let autoCodeInterval=null;
 
 function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+AT};}
 function toast(msg,type="ok"){const el=document.getElementById("toast");el.textContent=msg;el.className="toast "+type+" show";setTimeout(()=>el.classList.remove("show"),3500);}
 function toggleSidebar(){document.getElementById("sidebar").classList.toggle("collapsed");document.getElementById("mainContent").classList.toggle("full");}
-
 async function G(url){const r=await fetch(SB+"/rest/v1/"+url,{headers:H()});if(!r.ok)return[];return r.json();}
 async function P(url,data){return fetch(SB+"/rest/v1/"+url,{method:"POST",headers:{...H(),"Prefer":"return=representation"},body:JSON.stringify(data)}).then(r=>r.json());}
 async function PATCH(url,data){return fetch(SB+"/rest/v1/"+url,{method:"PATCH",headers:H(),body:JSON.stringify(data)});}
@@ -309,16 +260,27 @@ async function doLogin(){
   });
   const d=await r.json();
   if(!d.access_token){errEl.textContent=d.error_description||"Identifiants incorrects";errEl.className="login-err show";return;}
+
   // Vérifier le rôle
-  const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+d.user.id+"&select=role,email",{headers:{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+d.access_token}});
+  const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+d.user.id+"&select=role,email",{
+    headers:{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+d.access_token}
+  });
   const dp=await rp.json();
   const role=dp[0]?.role||"user";
-  if(role!=="admin"&&role!=="manager"&&email!==ADMIN_EMAIL){
-    errEl.textContent="Accès refusé — rôle insuffisant";errEl.className="login-err show";return;
+
+  // ✅ Vérification avec le tableau ADMIN_EMAILS
+  if(role!=="admin"&&role!=="manager"&&!ADMIN_EMAILS.includes(email)){
+    errEl.textContent="Acces refuse — role insuffisant";errEl.className="login-err show";return;
   }
-  AT=d.access_token;adminRole=email===ADMIN_EMAIL?"admin":role;
+
+  AT=d.access_token;
+  // ✅ Attribution du rôle avec le tableau ADMIN_EMAILS
+  adminRole=ADMIN_EMAILS.includes(email)?"admin":role;
+
   localStorage.setItem("admin_tok",AT);
   localStorage.setItem("admin_role",adminRole);
+  localStorage.setItem("admin_email",email);
+
   document.getElementById("loginPage").style.display="none";
   document.getElementById("adminWrap").style.display="flex";
   document.getElementById("sbRole").textContent=adminRole==="admin"?"Super Admin":adminRole==="manager"?"Manager":"Promoteur";
@@ -326,13 +288,24 @@ async function doLogin(){
   loadBadges();
   goTo("dashboard",document.querySelector(".sb-item"));
 }
-function doLogout(){localStorage.removeItem("admin_tok");localStorage.removeItem("admin_role");AT="";document.getElementById("adminWrap").style.display="none";document.getElementById("loginPage").style.display="flex";}
 
+function doLogout(){
+  localStorage.removeItem("admin_tok");
+  localStorage.removeItem("admin_role");
+  localStorage.removeItem("admin_email");
+  AT="";
+  document.getElementById("adminWrap").style.display="none";
+  document.getElementById("loginPage").style.display="flex";
+}
+
+// Auto-login si token enregistré
 if(AT){
   adminRole=localStorage.getItem("admin_role")||"admin";
+  const savedEmail=localStorage.getItem("admin_email")||"";
   document.getElementById("loginPage").style.display="none";
   document.getElementById("adminWrap").style.display="flex";
   document.getElementById("sbRole").textContent=adminRole==="admin"?"Super Admin":adminRole==="manager"?"Manager":"Promoteur";
+  document.getElementById("adminEmailDisplay").textContent=savedEmail;
   loadBadges();
   goTo("dashboard",document.querySelector(".sb-item"));
 }
@@ -353,8 +326,7 @@ async function loadBadges(){
 function goTo(page,el){
   document.querySelectorAll(".sb-item").forEach(b=>b.classList.remove("active"));
   if(el)el.classList.add("active");
-  currentPage=1;
-  const titles={dashboard:"📊 Dashboard",depots:"💳 Dépôts",retraits:"💸 Retraits",users:"👥 Utilisateurs",investissements:"📈 Investissements",roles:"👑 Gestion des Rôles",vip0:"⭐ VIP0 Gratuit",codes:"🎁 Codes Cadeaux"};
+  const titles={dashboard:"Dashboard",depots:"Depots",retraits:"Retraits",users:"Utilisateurs",investissements:"Investissements",roles:"Roles",vip0:"VIP0 Gratuit",codes:"Codes Cadeaux"};
   document.getElementById("pageTitle").textContent=titles[page]||page;
   const fn={dashboard:renderDashboard,depots:renderDepots,retraits:renderRetraits,users:renderUsers,investissements:renderInvestissements,roles:renderRoles,vip0:renderVIP0,codes:renderCodes};
   if(fn[page])fn[page]();
@@ -376,26 +348,25 @@ async function renderDashboard(){
   const retAtt=rets.filter(r=>r.statut==="en_attente").length;
   const totalSolde=soldes.reduce((s,p)=>s+parseFloat(p.solde||0),0);
   const totalInvest=invests.reduce((s,i)=>s+parseFloat(i.montant_investi||0),0);
-
   setContent(`
     <div class="stats-grid">
-      <div class="stat-card"><div class="sc-icon">👥</div><div class="sc-val">${users.length.toLocaleString()}</div><div class="sc-lbl">Utilisateurs</div></div>
-      <div class="stat-card gold"><div class="sc-icon">💰</div><div class="sc-val">${Math.round(totalSolde).toLocaleString()}</div><div class="sc-lbl">Soldes Total (F)</div></div>
-      <div class="stat-card green"><div class="sc-icon">💳</div><div class="sc-val">${Math.round(depVal).toLocaleString()}</div><div class="sc-lbl">Dépôts Validés (F)</div><div class="sc-sub">${deps.filter(d=>d.statut==="valide").length} transactions</div></div>
-      <div class="stat-card orange"><div class="sc-icon">⏳</div><div class="sc-val">${depAtt}</div><div class="sc-lbl">Dépôts en attente</div></div>
-      <div class="stat-card red"><div class="sc-icon">💸</div><div class="sc-val">${Math.round(retVal).toLocaleString()}</div><div class="sc-lbl">Retraits Validés (F)</div><div class="sc-sub">${rets.filter(r=>r.statut==="valide").length} transactions</div></div>
-      <div class="stat-card purple"><div class="sc-icon">⌛</div><div class="sc-val">${retAtt}</div><div class="sc-lbl">Retraits en attente</div></div>
-      <div class="stat-card blue"><div class="sc-icon">📈</div><div class="sc-val">${invests.length}</div><div class="sc-lbl">Investissements actifs</div><div class="sc-sub">${Math.round(totalInvest).toLocaleString()} FCFA</div></div>
-      <div class="stat-card"><div class="sc-icon">🔥</div><div class="sc-val">${depAtt+retAtt}</div><div class="sc-lbl">Total en attente</div></div>
+      <div class="stat-card"><div class="sc-icon">&#x1F465;</div><div class="sc-val">${users.length.toLocaleString()}</div><div class="sc-lbl">Utilisateurs</div></div>
+      <div class="stat-card gold"><div class="sc-icon">&#x1F4B0;</div><div class="sc-val">${Math.round(totalSolde).toLocaleString()}</div><div class="sc-lbl">Soldes Total (F)</div></div>
+      <div class="stat-card green"><div class="sc-icon">&#x1F4B3;</div><div class="sc-val">${Math.round(depVal).toLocaleString()}</div><div class="sc-lbl">Depots Valides (F)</div><div class="sc-sub">${deps.filter(d=>d.statut==="valide").length} transactions</div></div>
+      <div class="stat-card orange"><div class="sc-icon">&#x23F3;</div><div class="sc-val">${depAtt}</div><div class="sc-lbl">Depots en attente</div></div>
+      <div class="stat-card red"><div class="sc-icon">&#x1F4B8;</div><div class="sc-val">${Math.round(retVal).toLocaleString()}</div><div class="sc-lbl">Retraits Valides (F)</div><div class="sc-sub">${rets.filter(r=>r.statut==="valide").length} transactions</div></div>
+      <div class="stat-card purple"><div class="sc-icon">&#x231B;</div><div class="sc-val">${retAtt}</div><div class="sc-lbl">Retraits en attente</div></div>
+      <div class="stat-card blue"><div class="sc-icon">&#x1F4C8;</div><div class="sc-val">${invests.length}</div><div class="sc-lbl">Investissements actifs</div><div class="sc-sub">${Math.round(totalInvest).toLocaleString()} FCFA</div></div>
+      <div class="stat-card"><div class="sc-icon">&#x1F525;</div><div class="sc-val">${depAtt+retAtt}</div><div class="sc-lbl">Total en attente</div></div>
     </div>
     <div class="sec-card">
-      <div class="sec-header"><div class="sec-title">⚡ Actions rapides</div></div>
+      <div class="sec-header"><div class="sec-title">Actions rapides</div></div>
       <div class="sec-body">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <button class="btn-primary" onclick="goTo('depots',null)">💳 Valider dépôts (${depAtt})</button>
-          <button class="btn-warning" onclick="goTo('retraits',null)">💸 Traiter retraits (${retAtt})</button>
-          <button class="btn-success" onclick="goTo('users',null)">👥 Gérer membres</button>
-          <button class="btn-primary btn-sm" style="background:rgba(156,39,176,.2);border:1px solid rgba(156,39,176,.4);color:#ce93d8;" onclick="goTo('roles',null)">👑 Gérer rôles</button>
+          <button class="btn-primary" onclick="goTo('depots',null)">Valider depots (${depAtt})</button>
+          <button class="btn-warning" onclick="goTo('retraits',null)">Traiter retraits (${retAtt})</button>
+          <button class="btn-success" onclick="goTo('users',null)">Gerer membres</button>
+          <button class="btn-primary btn-sm" style="background:rgba(156,39,176,.2);border:1px solid rgba(156,39,176,.4);color:#ce93d8;" onclick="goTo('roles',null)">Gerer roles</button>
         </div>
       </div>
     </div>
@@ -411,21 +382,17 @@ async function renderDepots(tab="attente",pg=1){
     G(`transactions?type=eq.depot&${filter}&order=created_at.desc&limit=${PAGE_SIZE}&offset=${offset}&select=*,profiles(full_name,email)`),
     G(`transactions?type=eq.depot&${filter}&select=id`)
   ]);
-  const total=count.length;
-  const pages=Math.ceil(total/PAGE_SIZE);
-
+  const pages=Math.ceil(count.length/PAGE_SIZE);
   setContent(`
     <div class="sec-card">
-      <div class="sec-header">
-        <div class="sec-title">💳 Dépôts — <span style="color:var(--muted);font-weight:400;font-size:13px;">${total} au total</span></div>
-      </div>
+      <div class="sec-header"><div class="sec-title">Depots — <span style="color:var(--muted);font-weight:400;font-size:13px;">${count.length} au total</span></div></div>
       <div class="sec-body">
         <div class="inner-tabs">
-          <button class="inner-tab ${tab==="attente"?"active":""}" onclick="renderDepots('attente',1)">⏳ En attente</button>
-          <button class="inner-tab ${tab==="valide"?"active":""}" onclick="renderDepots('valide',1)">✅ Validés</button>
-          <button class="inner-tab ${tab==="rejete"?"active":""}" onclick="renderDepots('rejete',1)">❌ Rejetés</button>
+          <button class="inner-tab ${tab==="attente"?"active":""}" onclick="renderDepots('attente',1)">En attente</button>
+          <button class="inner-tab ${tab==="valide"?"active":""}" onclick="renderDepots('valide',1)">Valides</button>
+          <button class="inner-tab ${tab==="rejete"?"active":""}" onclick="renderDepots('rejete',1)">Rejetes</button>
         </div>
-        ${txs.length===0?`<div class="empty"><div class="empty-icon">📭</div>Aucun dépôt ${tab}</div>`:""}
+        ${txs.length===0?`<div class="empty"><div class="empty-icon">&#x1F4ED;</div>Aucun depot ${tab}</div>`:""}
         ${txs.map(tx=>txHTML(tx,"depot")).join("")}
         ${pagHTML(pages,pg,(p)=>`renderDepots('${tab}',${p})`)}
       </div>
@@ -442,19 +409,17 @@ async function renderRetraits(tab="attente",pg=1){
     G(`transactions?type=eq.retrait&${filter}&order=created_at.desc&limit=${PAGE_SIZE}&offset=${offset}&select=*,profiles(full_name,email)`),
     G(`transactions?type=eq.retrait&${filter}&select=id`)
   ]);
-  const total=count.length;
-  const pages=Math.ceil(total/PAGE_SIZE);
-
+  const pages=Math.ceil(count.length/PAGE_SIZE);
   setContent(`
     <div class="sec-card">
-      <div class="sec-header"><div class="sec-title">💸 Retraits — <span style="color:var(--muted);font-weight:400;font-size:13px;">${total} au total</span></div></div>
+      <div class="sec-header"><div class="sec-title">Retraits — <span style="color:var(--muted);font-weight:400;font-size:13px;">${count.length} au total</span></div></div>
       <div class="sec-body">
         <div class="inner-tabs">
-          <button class="inner-tab ${tab==="attente"?"active":""}" onclick="renderRetraits('attente',1)">⏳ En attente</button>
-          <button class="inner-tab ${tab==="valide"?"active":""}" onclick="renderRetraits('valide',1)">✅ Validés</button>
-          <button class="inner-tab ${tab==="rejete"?"active":""}" onclick="renderRetraits('rejete',1)">❌ Rejetés</button>
+          <button class="inner-tab ${tab==="attente"?"active":""}" onclick="renderRetraits('attente',1)">En attente</button>
+          <button class="inner-tab ${tab==="valide"?"active":""}" onclick="renderRetraits('valide',1)">Valides</button>
+          <button class="inner-tab ${tab==="rejete"?"active":""}" onclick="renderRetraits('rejete',1)">Rejetes</button>
         </div>
-        ${txs.length===0?`<div class="empty"><div class="empty-icon">📭</div>Aucun retrait ${tab}</div>`:""}
+        ${txs.length===0?`<div class="empty"><div class="empty-icon">&#x1F4ED;</div>Aucun retrait ${tab}</div>`:""}
         ${txs.map(tx=>txHTML(tx,"retrait")).join("")}
         ${pagHTML(pages,pg,(p)=>`renderRetraits('${tab}',${p})`)}
       </div>
@@ -467,19 +432,19 @@ function txHTML(tx,type){
   const date=new Date(tx.created_at).toLocaleDateString("fr-FR",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
   const actions=tx.statut==="en_attente"?`
     <div class="tx-actions">
-      <button class="btn-v" onclick="validerTx('${tx.id}','${tx.user_id}',${tx.montant},'${type}')">✅ Valider</button>
-      <button class="btn-r" onclick="rejeterTx('${tx.id}','${tx.user_id}',${tx.montant},'${type}')">❌ Rejeter</button>
+      <button class="btn-v" onclick="validerTx('${tx.id}','${tx.user_id}',${tx.montant},'${type}')">Valider</button>
+      <button class="btn-r" onclick="rejeterTx('${tx.id}','${tx.user_id}',${tx.montant},'${type}')">Rejeter</button>
     </div>`:"";
   return `<div class="tx-item" id="tx-${tx.id}">
     <div class="tx-top">
       <div>
-        <div class="tx-user">👤 ${p.full_name||p.email||"—"}</div>
-        <div class="tx-details">📱 ${tx.reseau||"—"} · ${tx.numero_mobile||"—"}<br>📅 ${date}<br>📝 ${tx.note||"—"}</div>
-        ${tx.reference?`<div class="tx-ref">🔑 ${tx.reference}</div>`:""}
+        <div class="tx-user">${p.full_name||p.email||"—"}</div>
+        <div class="tx-details">${tx.reseau||"—"} · ${tx.numero_mobile||"—"}<br>${date}<br>${tx.note||"—"}</div>
+        ${tx.reference?`<div class="tx-ref">${tx.reference}</div>`:""}
       </div>
       <div style="text-align:right;">
         <div class="tx-amount ${type==="depot"?"plus":"minus"}">${parseFloat(tx.montant).toLocaleString()} F</div>
-        <span class="statut-b ${tx.statut==="en_attente"?"s-attente":tx.statut==="valide"?"s-valide":"s-rejete"}">${tx.statut==="en_attente"?"⏳ Attente":tx.statut==="valide"?"✅ Validé":"❌ Rejeté"}</span>
+        <span class="statut-b ${tx.statut==="en_attente"?"s-attente":tx.statut==="valide"?"s-valide":"s-rejete"}">${tx.statut==="en_attente"?"Attente":tx.statut==="valide"?"Valide":"Rejete"}</span>
       </div>
     </div>
     ${actions}
@@ -493,7 +458,7 @@ async function validerTx(id,userId,montant,type){
     const p=await G("profiles?id=eq."+userId+"&select=solde");
     await PATCH("profiles?id=eq."+userId,{solde:parseFloat(p[0]?.solde||0)+parseFloat(montant)});
   }
-  toast("✅ Validé ! Solde crédité.");
+  toast("Valide ! Solde credite.");
   document.getElementById("tx-"+id)?.remove();
   loadBadges();
 }
@@ -505,7 +470,7 @@ async function rejeterTx(id,userId,montant,type){
     const p=await G("profiles?id=eq."+userId+"&select=solde");
     await PATCH("profiles?id=eq."+userId,{solde:parseFloat(p[0]?.solde||0)+parseFloat(montant)});
   }
-  toast("❌ Rejeté.","err");
+  toast("Rejete.","err");
   document.getElementById("tx-"+id)?.remove();
   loadBadges();
 }
@@ -514,25 +479,21 @@ async function rejeterTx(id,userId,montant,type){
 async function renderUsers(pg=1,q=""){
   setContent(`<div class="loading-skeleton"></div><div class="loading-skeleton"></div><div class="loading-skeleton"></div>`);
   const offset=(pg-1)*PAGE_SIZE;
-  const qFilter=q?`&or=(full_name.ilike.*${q}*,email.ilike.*${q}*)` :"";
+  const qFilter=q?`&or=(full_name.ilike.*${q}*,email.ilike.*${q}*)`:"";
   const [users,count]=await Promise.all([
     G(`profiles?order=created_at.desc&limit=${PAGE_SIZE}&offset=${offset}&select=*${qFilter}`),
     G(`profiles?select=id${qFilter}`)
   ]);
-  const total=count.length;
-  const pages=Math.ceil(total/PAGE_SIZE);
-
+  const pages=Math.ceil(count.length/PAGE_SIZE);
   setContent(`
     <div class="sec-card">
-      <div class="sec-header">
-        <div class="sec-title">👥 Membres — <span style="color:var(--muted);font-weight:400;font-size:13px;">${total.toLocaleString()} inscrits</span></div>
-      </div>
+      <div class="sec-header"><div class="sec-title">Membres — <span style="color:var(--muted);font-weight:400;font-size:13px;">${count.length.toLocaleString()} inscrits</span></div></div>
       <div class="sec-body">
         <div class="search-row">
           <input class="search-input" id="userSearch" placeholder="Rechercher nom ou email..." value="${q}" onkeydown="if(event.key==='Enter')renderUsers(1,this.value)"/>
-          <button class="btn-search" onclick="renderUsers(1,document.getElementById('userSearch').value)">🔍</button>
+          <button class="btn-search" onclick="renderUsers(1,document.getElementById('userSearch').value)">Rechercher</button>
         </div>
-        ${users.length===0?`<div class="empty"><div class="empty-icon">👥</div>Aucun utilisateur trouvé</div>`:""}
+        ${users.length===0?`<div class="empty"><div class="empty-icon">&#x1F465;</div>Aucun utilisateur trouve</div>`:""}
         ${users.map(u=>userHTML(u)).join("")}
         ${pagHTML(pages,pg,(p)=>`renderUsers(${p},'${q}')`)}
       </div>
@@ -542,90 +503,82 @@ async function renderUsers(pg=1,q=""){
 
 function userHTML(u){
   const badges=[];
-  if(u.role==="promoteur")badges.push(`<span class="u-badge ub-promo">👑 Promoteur</span>`);
-  if(u.role==="manager")badges.push(`<span class="u-badge ub-mgr">⭐ Manager</span>`);
-  if(u.bloque)badges.push(`<span class="u-badge ub-bloque">🚫 Banni</span>`);
-  if(u.retrait_bloque)badges.push(`<span class="u-badge ub-bloque">💸 Retrait bloqué</span>`);
+  if(u.role==="promoteur")badges.push(`<span class="u-badge ub-promo">Promoteur</span>`);
+  if(u.role==="manager")badges.push(`<span class="u-badge ub-mgr">Manager</span>`);
+  if(u.bloque)badges.push(`<span class="u-badge ub-bloque">Banni</span>`);
+  if(u.retrait_bloque)badges.push(`<span class="u-badge ub-bloque">Retrait bloque</span>`);
   return `<div class="user-item">
     <div class="u-avatar">${(u.full_name||u.email||"U")[0].toUpperCase()}</div>
     <div class="u-info">
       <div class="u-name">${u.full_name||"—"}</div>
       <div class="u-email">${u.email}</div>
       <div class="u-meta">
-        <span class="u-badge ub-solde">💰 ${parseFloat(u.solde||0).toLocaleString()} F</span>
+        <span class="u-badge ub-solde">${parseFloat(u.solde||0).toLocaleString()} F</span>
         ${badges.join("")}
       </div>
     </div>
     <div class="u-actions">
-      <button class="btn-u" onclick='showUserDetail(${JSON.stringify(u).replace(/'/g,"&#39;")})'>👁️</button>
+      <button class="btn-u" onclick='showUserDetail(${JSON.stringify(u).replace(/'/g,"&#39;")})'>Voir</button>
     </div>
   </div>`;
 }
 
-// ── USER DETAIL
 async function showUserDetail(u){
-  document.getElementById("udTitle").textContent="👤 "+( u.full_name||u.email);
+  document.getElementById("udTitle").textContent=(u.full_name||u.email);
   document.getElementById("udModal").classList.add("show");
-
-  // Charger stats complètes
   const [invests,txs,filleuls]=await Promise.all([
     G("investissements?user_id=eq."+u.id+"&select=*"),
     G("transactions?user_id=eq."+u.id+"&order=created_at.desc&limit=5&select=*"),
-    G("parrainages?parrain_id=eq."+u.id+"&select=id,niveau")
+    G("profiles?referred_by=eq."+(u.referral_code||"NONE")+"&select=id")
   ]);
-  const n1=filleuls.filter(f=>f.niveau===1).length;
   const depTotal=txs.filter(t=>t.type==="depot"&&t.statut==="valide").reduce((s,t)=>s+parseFloat(t.montant||0),0);
-
   document.getElementById("udBody").innerHTML=`
     <div class="ud-section">
       <div class="ud-sec-title">Informations</div>
       <div class="ud-row"><span class="ud-label">Email</span><span class="ud-val">${u.email}</span></div>
-      <div class="ud-row"><span class="ud-label">Téléphone</span><span class="ud-val">${u.phone||"—"}</span></div>
+      <div class="ud-row"><span class="ud-label">Telephone</span><span class="ud-val">${u.phone||"—"}</span></div>
       <div class="ud-row"><span class="ud-label">Pays</span><span class="ud-val">${u.country||u.country_code||"—"}</span></div>
-      <div class="ud-row"><span class="ud-label">Rôle</span><span class="ud-val">${u.role||"user"}</span></div>
+      <div class="ud-row"><span class="ud-label">Role</span><span class="ud-val">${u.role||"user"}</span></div>
       <div class="ud-row"><span class="ud-label">Inscrit le</span><span class="ud-val">${new Date(u.created_at).toLocaleDateString("fr-FR")}</span></div>
       <div class="ud-row"><span class="ud-label">Code parrainage</span><span class="ud-val" style="color:var(--teal);">${u.referral_code||"—"}</span></div>
     </div>
     <div class="ud-section">
       <div class="ud-sec-title">Finances</div>
       <div class="ud-row"><span class="ud-label">Solde actuel</span><span class="ud-val" style="color:var(--teal);">${parseFloat(u.solde||0).toLocaleString()} FCFA</span></div>
-      <div class="ud-row"><span class="ud-label">Revenus cumulés</span><span class="ud-val" style="color:var(--green);">${parseFloat(u.revenus_cumules||0).toLocaleString()} FCFA</span></div>
-      <div class="ud-row"><span class="ud-label">Total déposé</span><span class="ud-val">${depTotal.toLocaleString()} FCFA</span></div>
+      <div class="ud-row"><span class="ud-label">Revenus cumules</span><span class="ud-val" style="color:var(--green);">${parseFloat(u.revenus_cumules||0).toLocaleString()} FCFA</span></div>
+      <div class="ud-row"><span class="ud-label">Total depose</span><span class="ud-val">${depTotal.toLocaleString()} FCFA</span></div>
       <div class="ud-row"><span class="ud-label">Investissements actifs</span><span class="ud-val">${invests.filter(i=>i.statut==="actif").length}</span></div>
-      <div class="ud-row"><span class="ud-label">Filleuls directs</span><span class="ud-val">${n1}</span></div>
+      <div class="ud-row"><span class="ud-label">Filleuls directs</span><span class="ud-val">${filleuls.length}</span></div>
     </div>
     <div class="ud-section">
       <div class="ud-sec-title">Statut</div>
-      <div class="ud-row"><span class="ud-label">Compte</span><span class="ud-val ${u.bloque?"" :""}">${u.bloque?"🚫 Banni":"✅ Actif"}</span></div>
-      <div class="ud-row"><span class="ud-label">Retraits</span><span class="ud-val">${u.retrait_bloque?"🔴 Bloqué":"✅ Autorisé"}</span></div>
+      <div class="ud-row"><span class="ud-label">Compte</span><span class="ud-val">${u.bloque?"Banni":"Actif"}</span></div>
+      <div class="ud-row"><span class="ud-label">Retraits</span><span class="ud-val">${u.retrait_bloque?"Bloque":"Autorise"}</span></div>
     </div>
     <div class="ud-section">
       <div class="ud-sec-title">Actions</div>
       <div id="udAlert" class="alert"></div>
       <div class="ud-actions">
-        <button class="btn-success btn-sm" onclick="crediterUser('${u.id}','${u.full_name||u.email}')">💰 Créditer</button>
-        <button class="btn-danger btn-sm" onclick="debiterUser('${u.id}','${u.full_name||u.email}')">💸 Débiter</button>
-        <button class="btn-warning btn-sm" onclick="changerMDP('${u.id}')">🔑 Changer MDP</button>
-        <button class="btn-primary btn-sm" onclick="attribuerPlan('${u.id}')">📦 Attribuer plan</button>
+        <button class="btn-success btn-sm" onclick="crediterUser('${u.id}','${u.full_name||u.email}')">Crediter</button>
+        <button class="btn-danger btn-sm" onclick="debiterUser('${u.id}','${u.full_name||u.email}')">Debiter</button>
+        <button class="btn-warning btn-sm" onclick="changerMDP('${u.id}')">Changer MDP</button>
+        <button class="btn-primary btn-sm" onclick="attribuerPlan('${u.id}')">Attribuer plan</button>
         <button class="${u.retrait_bloque?"btn-success":"btn-danger"} btn-sm" onclick="toggleRetrait('${u.id}',${u.retrait_bloque})">
-          ${u.retrait_bloque?"✅ Débloquer retraits":"🔴 Bloquer retraits"}
+          ${u.retrait_bloque?"Debloquer retraits":"Bloquer retraits"}
         </button>
         <button class="${u.bloque?"btn-success":"btn-danger"} btn-sm" onclick="toggleBan('${u.id}',${u.bloque})">
-          ${u.bloque?"✅ Débannir":"🚫 Bannir compte"}
+          ${u.bloque?"Debannir":"Bannir compte"}
         </button>
       </div>
     </div>
     <div class="ud-section">
-      <div class="ud-sec-title">Dernières transactions</div>
+      <div class="ud-sec-title">Dernieres transactions</div>
       ${txs.length===0?`<div style="color:var(--muted);font-size:13px;">Aucune transaction</div>`:""}
       ${txs.map(t=>`
         <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;">
-          <div>
-            <div style="font-weight:600;">${t.type}</div>
-            <div style="color:var(--muted);">${new Date(t.created_at).toLocaleDateString("fr-FR")}</div>
-          </div>
-          <div style="font-weight:700;color:${["depot","bonus","commission","gain_tache"].includes(t.type)?"var(--green)":"var(--red)"}">
-            ${["depot","bonus","commission","gain_tache"].includes(t.type)?"+":"-"}${parseFloat(t.montant).toLocaleString()} F
+          <div><div style="font-weight:600;">${t.type}</div><div style="color:var(--muted);">${new Date(t.created_at).toLocaleDateString("fr-FR")}</div></div>
+          <div style="font-weight:700;color:${["depot","bonus","commission","gain_tache","pointage","mission"].includes(t.type)?"var(--green)":"var(--red)"}">
+            ${["depot","bonus","commission","gain_tache","pointage","mission"].includes(t.type)?"+":"-"}${parseFloat(t.montant).toLocaleString()} F
           </div>
         </div>`).join("")}
     </div>
@@ -635,59 +588,53 @@ async function showUserDetail(u){
 function closeUD(){document.getElementById("udModal").classList.remove("show");}
 
 async function crediterUser(id,nom){
-  const m=prompt("Montant à CRÉDITER pour "+nom+" (FCFA) :");
+  const m=prompt("Montant a CREDITER pour "+nom+" (FCFA) :");
   if(!m||isNaN(m)||parseInt(m)<=0)return;
-  const raison=prompt("Raison :")||"Crédit admin";
+  const raison=prompt("Raison :")||"Credit admin";
   const p=await G("profiles?id=eq."+id+"&select=solde");
   await PATCH("profiles?id=eq."+id,{solde:parseFloat(p[0]?.solde||0)+parseInt(m)});
-  await P("transactions",{user_id:id,type:"bonus",montant:parseInt(m),montant_net:parseInt(m),statut:"valide",note:"Crédit admin: "+raison});
-  toast("✅ "+parseInt(m).toLocaleString()+" F crédités à "+nom);
+  await P("transactions",{user_id:id,type:"bonus",montant:parseInt(m),montant_net:parseInt(m),statut:"valide",note:"Credit admin: "+raison});
+  toast(parseInt(m).toLocaleString()+" F credites a "+nom);
   closeUD();renderUsers();
 }
 
 async function debiterUser(id,nom){
-  const m=prompt("Montant à DÉBITER pour "+nom+" (FCFA) :");
+  const m=prompt("Montant a DEBITER pour "+nom+" (FCFA) :");
   if(!m||isNaN(m)||parseInt(m)<=0)return;
   const p=await G("profiles?id=eq."+id+"&select=solde");
   const nouveau=Math.max(0,parseFloat(p[0]?.solde||0)-parseInt(m));
   await PATCH("profiles?id=eq."+id,{solde:nouveau});
-  toast("💸 "+parseInt(m).toLocaleString()+" F débités de "+nom);
+  toast(parseInt(m).toLocaleString()+" F debites de "+nom);
   closeUD();renderUsers();
 }
 
 async function changerMDP(id){
-  const mdp=prompt("Nouveau mot de passe pour cet utilisateur :");
-  if(!mdp||mdp.length<6){alert("Minimum 6 caractères");return;}
-  const r=await fetch(SB+"/auth/v1/admin/users/"+id,{
-    method:"PUT",headers:{...H(),"Authorization":"Bearer "+AT},
-    body:JSON.stringify({password:mdp})
-  });
-  if(r.ok){toast("✅ Mot de passe modifié !");}
-  else{toast("❌ Erreur — utilisez le dashboard Supabase","err");}
+  const mdp=prompt("Nouveau mot de passe :");
+  if(!mdp||mdp.length<6){alert("Minimum 6 caracteres");return;}
+  const r=await fetch(SB+"/auth/v1/admin/users/"+id,{method:"PUT",headers:H(),body:JSON.stringify({password:mdp})});
+  if(r.ok){toast("Mot de passe modifie !");}
+  else{toast("Erreur — utilisez le dashboard Supabase","err");}
 }
 
 async function attribuerPlan(id){
-  const plan=prompt("Nom du plan à attribuer (VIP 1, VIP 2, Pack 10J...) :");
+  const plan=prompt("Nom du plan (VIP 1, VIP 2, Pack 10J...) :");
   if(!plan)return;
   const plans=await G("plans?nom=eq."+encodeURIComponent(plan)+"&select=*");
-  if(!plans.length){toast("❌ Plan introuvable","err");return;}
+  if(!plans.length){toast("Plan introuvable","err");return;}
   const p=plans[0];
   await P("investissements",{user_id:id,plan_id:p.id,plan_nom:p.nom,montant_investi:0,revenu_jour:p.revenu_jour,jours_total:p.duree_jours,jours_restants:p.duree_jours,statut:"actif",type_gain:p.type_gain||"journalier"});
-  await P("transactions",{user_id:id,type:"bonus",montant:0,montant_net:0,statut:"valide",note:"Plan "+p.nom+" attribué par admin"});
-  toast("✅ Plan "+p.nom+" attribué !");closeUD();
+  toast("Plan "+p.nom+" attribue !");closeUD();
 }
 
 async function toggleRetrait(id,bloque){
   await PATCH("profiles?id=eq."+id,{retrait_bloque:!bloque});
-  toast(bloque?"✅ Retraits débloqués":"🔴 Retraits bloqués");closeUD();renderUsers();
+  toast(bloque?"Retraits debloques":"Retraits bloques");closeUD();renderUsers();
 }
 
 async function toggleBan(id,bloque){
-  if(!bloque&&!confirm("Bannir ce compte ? L'utilisateur ne pourra plus se connecter."))return;
+  if(!bloque&&!confirm("Bannir ce compte ?"))return;
   await PATCH("profiles?id=eq."+id,{bloque:!bloque});
-  // Révoquer les sessions si on bannit
-  if(!bloque){await fetch(SB+"/auth/v1/admin/users/"+id,{method:"PUT",headers:H(),body:JSON.stringify({ban_duration:"87600h"})}).catch(()=>{});}
-  toast(bloque?"✅ Compte débanni":"🚫 Compte banni");closeUD();renderUsers();
+  toast(bloque?"Compte debanni":"Compte banni");closeUD();renderUsers();
 }
 
 // ── INVESTISSEMENTS
@@ -701,25 +648,24 @@ async function renderInvestissements(pg=1){
   const pages=Math.ceil(count.length/PAGE_SIZE);
   setContent(`
     <div class="sec-card">
-      <div class="sec-header"><div class="sec-title">📈 Investissements — <span style="color:var(--muted);font-weight:400;font-size:13px;">${count.length} total</span></div></div>
+      <div class="sec-header"><div class="sec-title">Investissements — <span style="color:var(--muted);font-weight:400;font-size:13px;">${count.length} total</span></div></div>
       <div class="sec-body">
         ${invs.map(inv=>{
           const p=inv.profiles||{};
-          const pct=Math.round(((inv.jours_total-inv.jours_restants)/inv.jours_total)*100);
+          const pct=inv.jours_total>0?Math.round(((inv.jours_total-inv.jours_restants)/inv.jours_total)*100):0;
           return `<div class="tx-item">
             <div class="tx-top">
               <div>
-                <div class="tx-user">📦 Plan ${inv.plan_nom}</div>
-                <div class="tx-details">👤 ${p.full_name||p.email||"—"}<br>💰 ${parseFloat(inv.montant_investi||0).toLocaleString()} F · +${parseFloat(inv.revenu_jour||0).toLocaleString()} F/j<br>⏳ ${inv.jours_restants}/${inv.jours_total} jours restants</div>
+                <div class="tx-user">Plan ${inv.plan_nom}</div>
+                <div class="tx-details">${p.full_name||p.email||"—"}<br>${parseFloat(inv.montant_investi||0).toLocaleString()} F · +${parseFloat(inv.revenu_jour||0).toLocaleString()} F/j<br>${inv.jours_restants}/${inv.jours_total} jours restants</div>
               </div>
               <div>
-                <span class="statut-b ${inv.statut==="actif"?"s-valide":"s-rejete"}">${inv.statut==="actif"?"⚡ Actif":"✅ Terminé"}</span>
+                <span class="statut-b ${inv.statut==="actif"?"s-valide":"s-rejete"}">${inv.statut==="actif"?"Actif":"Termine"}</span>
                 <div style="background:var(--border);border-radius:20px;height:5px;margin-top:8px;width:80px;"><div style="background:var(--teal);border-radius:20px;height:100%;width:${pct}%;"></div></div>
-                <div style="font-size:10px;color:var(--muted);text-align:right;margin-top:2px;">${pct}%</div>
               </div>
             </div>
             <div class="tx-actions">
-              <button class="btn-r" onclick="terminerInvest('${inv.id}')">🔴 Terminer</button>
+              <button class="btn-r" onclick="terminerInvest('${inv.id}')">Terminer</button>
             </div>
           </div>`;
         }).join("")}
@@ -732,7 +678,7 @@ async function renderInvestissements(pg=1){
 async function terminerInvest(id){
   if(!confirm("Terminer cet investissement ?"))return;
   await PATCH("investissements?id=eq."+id,{statut:"termine",jours_restants:0});
-  toast("✅ Investissement terminé");renderInvestissements();
+  toast("Investissement termine");renderInvestissements();
 }
 
 // ── RÔLES
@@ -740,43 +686,36 @@ async function renderRoles(){
   const users=await G("profiles?or=(role.eq.promoteur,role.eq.manager)&select=*");
   setContent(`
     <div class="sec-card">
-      <div class="sec-header"><div class="sec-title">👑 Gestion des Rôles</div></div>
+      <div class="sec-header"><div class="sec-title">Gestion des Roles</div></div>
       <div class="sec-body">
         <div class="alert a-info show" style="margin-bottom:14px;">
-          📋 <strong>Manager</strong> : Peut voir dépôts/retraits en attente et valider. 
-          <strong>Promoteur</strong> : Accès aux statistiques et comptes des membres.
+          <strong>Manager</strong> : Peut voir et valider depots/retraits.
+          <strong>Promoteur</strong> : Acces aux statistiques et comptes membres.
         </div>
+        <div class="form-group"><label>Email de l'utilisateur</label><input type="email" id="roleEmail" placeholder="utilisateur@email.com"/></div>
         <div class="form-group">
-          <label>Email de l'utilisateur</label>
-          <input type="email" id="roleEmail" placeholder="utilisateur@email.com"/>
-        </div>
-        <div class="form-group">
-          <label>Rôle à attribuer</label>
+          <label>Role a attribuer</label>
           <select id="roleSelect">
-            <option value="manager">⭐ Manager</option>
-            <option value="promoteur">👑 Promoteur</option>
-            <option value="user">👤 Utilisateur (retirer le rôle)</option>
+            <option value="manager">Manager</option>
+            <option value="promoteur">Promoteur</option>
+            <option value="user">Utilisateur (retirer le role)</option>
           </select>
         </div>
-        <div style="display:flex;gap:8px;">
-          <button class="btn-primary" onclick="attribuerRole()">✅ Attribuer le rôle</button>
-        </div>
+        <button class="btn-primary" onclick="attribuerRole()">Attribuer le role</button>
       </div>
     </div>
     <div class="sec-card" style="margin-top:12px;">
-      <div class="sec-header"><div class="sec-title">👥 Membres avec rôle spécial</div></div>
+      <div class="sec-header"><div class="sec-title">Membres avec role special</div></div>
       <div class="sec-body">
-        ${users.length===0?`<div class="empty"><div class="empty-icon">👑</div>Aucun membre avec rôle spécial</div>`:""}
+        ${users.length===0?`<div class="empty"><div class="empty-icon">&#x1F451;</div>Aucun membre avec role special</div>`:""}
         ${users.map(u=>`<div class="user-item">
           <div class="u-avatar">${(u.full_name||u.email||"U")[0].toUpperCase()}</div>
           <div class="u-info">
             <div class="u-name">${u.full_name||"—"}</div>
             <div class="u-email">${u.email}</div>
-            <div class="u-meta">
-              <span class="u-badge ${u.role==="manager"?"ub-mgr":"ub-promo"}">${u.role==="manager"?"⭐ Manager":"👑 Promoteur"}</span>
-            </div>
+            <div class="u-meta"><span class="u-badge ${u.role==="manager"?"ub-mgr":"ub-promo"}">${u.role==="manager"?"Manager":"Promoteur"}</span></div>
           </div>
-          <button class="btn-danger btn-sm" onclick="retirerRole('${u.id}','${u.full_name||u.email}')">❌ Retirer</button>
+          <button class="btn-danger btn-sm" onclick="retirerRole('${u.id}','${u.full_name||u.email}')">Retirer</button>
         </div>`).join("")}
       </div>
     </div>
@@ -786,18 +725,18 @@ async function renderRoles(){
 async function attribuerRole(){
   const email=document.getElementById("roleEmail").value.trim();
   const role=document.getElementById("roleSelect").value;
-  if(!email)return toast("⚠️ Entrez un email","warn");
+  if(!email)return toast("Entrez un email","warn");
   const users=await G("profiles?email=eq."+email+"&select=id,full_name");
-  if(!users.length)return toast("❌ Utilisateur introuvable","err");
+  if(!users.length)return toast("Utilisateur introuvable","err");
   await PATCH("profiles?id=eq."+users[0].id,{role});
-  toast("✅ Rôle "+role+" attribué à "+(users[0].full_name||email));
+  toast("Role "+role+" attribue a "+(users[0].full_name||email));
   renderRoles();
 }
 
 async function retirerRole(id,nom){
-  if(!confirm("Retirer le rôle de "+nom+" ?"))return;
+  if(!confirm("Retirer le role de "+nom+" ?"))return;
   await PATCH("profiles?id=eq."+id,{role:"user"});
-  toast("✅ Rôle retiré de "+nom);renderRoles();
+  toast("Role retire de "+nom);renderRoles();
 }
 
 // ── VIP0
@@ -806,144 +745,115 @@ async function renderVIP0(){
   const d=await r.json();
   const offre=d[0];
   const users=await G("offre_gratuite_users?select=*,profiles(full_name,email)&order=created_at.desc");
-
   setContent(`
     <div class="sec-card">
-      <div class="sec-header"><div class="sec-title">⭐ VIP0 — Offre Gratuite</div></div>
+      <div class="sec-header"><div class="sec-title">VIP0 — Offre Gratuite</div></div>
       <div class="sec-body">
         ${offre?`
           <div class="vip0-status">
-            <div class="v0-box"><div class="v0-val" style="color:${offre.actif?"var(--green)":"var(--red)"};">${offre.actif?"✅ ACTIF":"🔴 INACTIF"}</div><div class="v0-lbl">Statut</div></div>
+            <div class="v0-box"><div class="v0-val" style="color:${offre.actif?"var(--green)":"var(--red)"};">${offre.actif?"ACTIF":"INACTIF"}</div><div class="v0-lbl">Statut</div></div>
             <div class="v0-box"><div class="v0-val" style="color:var(--gold);">${offre.places_restantes}/${offre.places_total}</div><div class="v0-lbl">Places</div></div>
             <div class="v0-box"><div class="v0-val" style="color:var(--teal);">${offre.gain_jour} F</div><div class="v0-lbl">Gain/jour</div></div>
-            <div class="v0-box"><div class="v0-val" style="color:var(--teal);">${offre.duree_jours} j</div><div class="v0-lbl">Durée</div></div>
+            <div class="v0-box"><div class="v0-val" style="color:var(--teal);">${offre.duree_jours} j</div><div class="v0-lbl">Duree</div></div>
           </div>
           <div class="action-grid">
-            <button class="btn-success" onclick="activerVIP0('${offre.id}')">✅ Activer maintenant</button>
-            <button class="btn-danger" onclick="desactiverVIP0('${offre.id}')">🔴 Désactiver</button>
-            <button class="btn-warning" onclick="reinitVIP0('${offre.id}')">🔄 Réinitialiser places</button>
-            <button class="btn-primary" onclick="renderVIP0()">↻ Rafraîchir</button>
-          </div>`:`<div class="empty"><div class="empty-icon">⭐</div>Aucune offre configurée</div>`}
+            <button class="btn-success" onclick="activerVIP0('${offre.id}')">Activer</button>
+            <button class="btn-danger" onclick="desactiverVIP0('${offre.id}')">Desactiver</button>
+            <button class="btn-warning" onclick="reinitVIP0('${offre.id}')">Reinitialiser places</button>
+            <button class="btn-primary" onclick="renderVIP0()">Rafraichir</button>
+          </div>`:`<div class="empty"><div class="empty-icon">&#x2B50;</div>Aucune offre configuree</div>`}
       </div>
     </div>
     <div class="sec-card" style="margin-top:12px;">
-      <div class="sec-header"><div class="sec-title">👥 Réclamations (${users.length})</div></div>
+      <div class="sec-header"><div class="sec-title">Reclamations (${users.length})</div></div>
       <div class="sec-body">
-        ${users.length===0?`<div class="empty"><div class="empty-icon">📭</div>Personne n'a encore réclamé</div>`:""}
+        ${users.length===0?`<div class="empty"><div class="empty-icon">&#x1F4ED;</div>Personne n'a encore reclame</div>`:""}
         ${users.map(u=>`<div class="user-item">
           <div class="u-avatar">${(u.profiles?.full_name||u.profiles?.email||"U")[0].toUpperCase()}</div>
           <div class="u-info"><div class="u-name">${u.profiles?.full_name||"—"}</div><div class="u-email">${u.profiles?.email||"—"}</div></div>
-          <div style="font-size:11px;color:var(--muted);">${new Date(u.created_at).toLocaleDateString("fr-FR",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})}</div>
+          <div style="font-size:11px;color:var(--muted);">${new Date(u.created_at).toLocaleDateString("fr-FR",{day:"2-digit",month:"short"})}</div>
         </div>`).join("")}
       </div>
     </div>
   `);
 }
 
-async function activerVIP0(id){await PATCH("offre_gratuite?id=eq."+id,{actif:true,date_activation:new Date().toISOString()});toast("✅ VIP0 activé !");renderVIP0();}
-async function desactiverVIP0(id){await PATCH("offre_gratuite?id=eq."+id,{actif:false});toast("🔴 VIP0 désactivé","warn");renderVIP0();}
+async function activerVIP0(id){await PATCH("offre_gratuite?id=eq."+id,{actif:true,date_activation:new Date().toISOString()});toast("VIP0 active !");renderVIP0();}
+async function desactiverVIP0(id){await PATCH("offre_gratuite?id=eq."+id,{actif:false});toast("VIP0 desactive","warn");renderVIP0();}
 async function reinitVIP0(id){
-  if(!confirm("Réinitialiser les 100 places ?"))return;
+  if(!confirm("Reinitialiser les 100 places ?"))return;
   await PATCH("offre_gratuite?id=eq."+id,{places_restantes:100,actif:false});
   await DEL("offre_gratuite_users");
-  toast("🔄 Réinitialisé");renderVIP0();
+  toast("Reinitialise");renderVIP0();
 }
 
 // ── CODES CADEAUX
-let autoCodeInterval=null;
 async function renderCodes(){
   const codes=await G("codes_cadeaux?order=created_at.desc&limit=50&select=*");
-
-  // Vérifier heure auto (15h)
-  const now=new Date();
-  const isAutoTime=now.getHours()===15;
-
   setContent(`
     <div class="sec-card">
-      <div class="sec-header"><div class="sec-title">🎁 Code Auto (15h00)</div></div>
+      <div class="sec-header"><div class="sec-title">Code Auto (15h00)</div></div>
       <div class="sec-body">
         <div class="code-auto-box">
-          <div style="font-size:13px;color:rgba(255,193,7,.7);margin-bottom:8px;">Code valide 3 minutes • Généré à 15h00</div>
-          <div id="autoCodeDisplay"></div>
+          <div style="font-size:13px;color:rgba(255,193,7,.7);margin-bottom:8px;">Code valide 3 minutes · Genere a 15h00</div>
+          <div id="autoCodeDisplay"><div class="code-expired">En attente de generation</div></div>
           <div style="margin-top:12px;">
-            <button class="btn-warning" onclick="genererCodeAuto()">⚡ Générer code maintenant</button>
+            <button class="btn-warning" onclick="genererCodeAuto()">Generer code maintenant</button>
           </div>
         </div>
       </div>
     </div>
     <div class="sec-card" style="margin-top:12px;">
-      <div class="sec-header"><div class="sec-title">➕ Créer un code</div></div>
+      <div class="sec-header"><div class="sec-title">Creer un code</div></div>
       <div class="sec-body">
         <div id="codeFormAlert" class="alert"></div>
         <div class="form-row">
           <div class="form-group"><label>Code</label><input type="text" id="newCode" placeholder="VELERO500" style="text-transform:uppercase;" oninput="this.value=this.value.toUpperCase()"/></div>
-          <button class="btn-warning" style="align-self:flex-end;padding:10px 14px;border-radius:10px;" onclick="genCode()">🎲</button>
+          <button class="btn-warning" style="align-self:flex-end;padding:10px 14px;border-radius:10px;" onclick="genCode()">Aleatoire</button>
         </div>
-        <div class="form-row">
-          <div class="form-group"><label>Description</label><input type="text" id="newDesc" placeholder="Promo..."/></div>
-        </div>
+        <div class="form-group"><label>Description</label><input type="text" id="newDesc" placeholder="Promo..."/></div>
         <div class="form-row">
           <div class="form-group"><label>Montant (F)</label><input type="number" id="newMontant" placeholder="500"/></div>
           <div class="form-group"><label>Max utilisations</label><input type="number" id="newUtil" placeholder="100"/></div>
         </div>
         <div class="form-group"><label>Expiration (optionnel)</label><input type="date" id="newExpire"/></div>
-        <button class="btn-primary btn-full" onclick="creerCode()">🎁 Créer le code</button>
+        <button class="btn-primary btn-full" onclick="creerCode()">Creer le code</button>
       </div>
     </div>
     <div class="sec-card" style="margin-top:12px;">
-      <div class="sec-header"><div class="sec-title">📋 Codes existants (${codes.length})</div></div>
+      <div class="sec-header"><div class="sec-title">Codes existants (${codes.length})</div></div>
       <div class="sec-body">
         ${codes.map(c=>{
-          const pct=Math.round((c.utilisations_actuelles/c.utilisations_max)*100);
-          const exp=c.expire_le?new Date(c.expire_le).toLocaleDateString("fr-FR"):c.expire_at?new Date(c.expire_at).toLocaleString("fr-FR"):"Illimité";
+          const pct=c.utilisations_max>0?Math.round((c.utilisations_actuelles/c.utilisations_max)*100):0;
+          const exp=c.expire_le?new Date(c.expire_le).toLocaleDateString("fr-FR"):c.expire_at?new Date(c.expire_at).toLocaleString("fr-FR"):"Illimite";
           return `<div class="tx-item">
             <div class="tx-top">
               <div>
                 <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--gold);letter-spacing:2px;">${c.code}</div>
-                <div class="tx-details">💰 +${parseFloat(c.montant).toLocaleString()} F · ${c.description||"—"}<br>👥 ${c.utilisations_actuelles}/${c.utilisations_max} utilisations · ⏰ ${exp}</div>
+                <div class="tx-details">+${parseFloat(c.montant).toLocaleString()} F · ${c.description||"—"}<br>${c.utilisations_actuelles}/${c.utilisations_max} utilisations · ${exp}</div>
                 <div style="background:var(--border);border-radius:20px;height:4px;margin-top:6px;"><div style="background:var(--teal);border-radius:20px;height:100%;width:${pct}%;"></div></div>
               </div>
-              <span class="statut-b ${c.actif?"s-valide":"s-rejete"}">${c.actif?"✅":"❌"}</span>
+              <span class="statut-b ${c.actif?"s-valide":"s-rejete"}">${c.actif?"Actif":"Inactif"}</span>
             </div>
             <div class="tx-actions">
-              <button class="btn-v" onclick="navigator.clipboard.writeText('${c.code}').then(()=>toast('✅ Copié !'))">📋</button>
-              <button class="${c.actif?"btn-r":"btn-v"}" onclick="toggleCode('${c.id}',${c.actif})">${c.actif?"🔴 Désact.":"🟢 Activer"}</button>
+              <button class="btn-v" onclick="navigator.clipboard.writeText('${c.code}').then(()=>toast('Copie !'))">Copier</button>
+              <button class="${c.actif?"btn-r":"btn-v"}" onclick="toggleCode('${c.id}',${c.actif})">${c.actif?"Desactiver":"Activer"}</button>
             </div>
           </div>`;
         }).join("")}
       </div>
     </div>
   `);
-
-  // Auto-afficher code si heure est 15h
-  checkAutoCode();
-}
-
-function checkAutoCode(){
-  const now=new Date();
-  if(now.getHours()===15&&now.getMinutes()===0){genererCodeAuto();}
 }
 
 async function genererCodeAuto(){
   const code="VE"+Math.random().toString(36).substring(2,8).toUpperCase();
-  const expireAt=new Date(Date.now()+3*60*1000).toISOString(); // 3 minutes
-
-  // Désactiver l'ancien code auto
+  const expireAt=new Date(Date.now()+3*60*1000).toISOString();
   await PATCH("codes_cadeaux?auto_genere=eq.true",{actif:false});
-
-  // Créer nouveau
-  await P("codes_cadeaux",{
-    code,description:"Code automatique 15h",
-    montant:100,utilisations_max:1000,
-    utilisations_actuelles:0,actif:true,
-    auto_genere:true,expire_at:expireAt,expire_le:null
-  });
-
-  // Afficher avec compte à rebours
+  await P("codes_cadeaux",{code,description:"Code automatique 15h",montant:100,utilisations_max:1000,utilisations_actuelles:0,actif:true,auto_genere:true,expire_at:expireAt,expire_le:null});
   const el=document.getElementById("autoCodeDisplay");
   if(!el)return;
   el.innerHTML=`<div class="code-display">${code}</div><div class="code-timer" id="codeCountdown">3:00</div>`;
-
   let seconds=180;
   if(autoCodeInterval)clearInterval(autoCodeInterval);
   autoCodeInterval=setInterval(async()=>{
@@ -954,11 +864,10 @@ async function genererCodeAuto(){
       clearInterval(autoCodeInterval);
       await PATCH("codes_cadeaux?code=eq."+code,{actif:false});
       const el3=document.getElementById("autoCodeDisplay");
-      if(el3)el3.innerHTML=`<div class="code-expired">Code expiré — Prochain code à 15h00</div>`;
+      if(el3)el3.innerHTML=`<div class="code-expired">Code expire — Prochain code a 15h00</div>`;
     }
   },1000);
-
-  toast("🎁 Code auto généré : "+code+" (valide 3 min)");
+  toast("Code auto genere : "+code+" (valide 3 min)");
 }
 
 function genCode(){
@@ -974,42 +883,36 @@ async function creerCode(){
   const util=parseInt(document.getElementById("newUtil").value);
   const expire=document.getElementById("newExpire").value||null;
   const al=document.getElementById("codeFormAlert");
-  if(!code||!montant||!util){al.textContent="⚠️ Code, montant et utilisations requis";al.className="alert a-err show";return;}
+  if(!code||!montant||!util){al.textContent="Code, montant et utilisations requis";al.className="alert a-err show";return;}
   const r=await P("codes_cadeaux",{code,description:desc||"Code cadeau",montant,utilisations_max:util,utilisations_actuelles:0,expire_le:expire,actif:true,auto_genere:false});
-  if(Array.isArray(r)&&r.length>0){al.textContent="✅ Code créé : "+code;al.className="alert a-ok show";renderCodes();}
-  else{al.textContent="❌ "+(r?.message||"Erreur");al.className="alert a-err show";}
+  if(Array.isArray(r)&&r.length>0){al.textContent="Code cree : "+code;al.className="alert a-ok show";renderCodes();}
+  else{al.textContent="Erreur creation";al.className="alert a-err show";}
 }
 
 async function toggleCode(id,actif){
   await PATCH("codes_cadeaux?id=eq."+id,{actif:!actif});
-  toast(actif?"Code désactivé":"Code activé");renderCodes();
+  toast(actif?"Code desactive":"Code active");renderCodes();
 }
 
 // ── PAGINATION
 function pagHTML(pages,current,fn){
   if(pages<=1)return"";
   let html=`<div class="pagination">`;
-  html+=`<button class="pg-btn" onclick="${fn(Math.max(1,current-1))}" ${current===1?"disabled":""}>‹ Préc</button>`;
-  let start=Math.max(1,current-2),end=Math.min(pages,current+2);
-  if(start>1)html+=`<button class="pg-btn" onclick="${fn(1)}">1</button>${start>2?'<span style="color:var(--muted);padding:0 4px;">…</span>':""}`;
-  for(let i=start;i<=end;i++)html+=`<button class="pg-btn ${i===current?"active":""}" onclick="${fn(i)}">${i}</button>`;
-  if(end<pages)html+=`${end<pages-1?'<span style="color:var(--muted);padding:0 4px;">…</span>':""}<button class="pg-btn" onclick="${fn(pages)}">${pages}</button>`;
-  html+=`<button class="pg-btn" onclick="${fn(Math.min(pages,current+1))}" ${current===pages?"disabled":""}>Suiv ›</button>`;
+  html+=`<button class="pg-btn" onclick="${fn(Math.max(1,current-1))}" ${current===1?"disabled":""}>Prec</button>`;
+  for(let i=Math.max(1,current-2);i<=Math.min(pages,current+2);i++)
+    html+=`<button class="pg-btn ${i===current?"active":""}" onclick="${fn(i)}">${i}</button>`;
+  html+=`<button class="pg-btn" onclick="${fn(Math.min(pages,current+1))}" ${current===pages?"disabled":""}>Suiv</button>`;
   html+=`<span class="pg-info">${current}/${pages}</span></div>`;
   return html;
 }
 
-// ── UTILS
 function setContent(html){document.getElementById("pageContent").innerHTML=html;}
 
-// Auto-check 15h pour code
+// Auto-check 15h
 setInterval(()=>{
   const now=new Date();
-  if(now.getHours()===15&&now.getMinutes()===0&&now.getSeconds()<5){
-    genererCodeAuto();
-  }
+  if(now.getHours()===15&&now.getMinutes()===0&&now.getSeconds()<5)genererCodeAuto();
 },5000);
 </script>
 </body>
 </html>
-ENDOFFILE
