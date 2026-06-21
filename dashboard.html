@@ -316,12 +316,12 @@ async function creerProfilSiManquant(userId, email){
   await fetch(SB+"/rest/v1/profiles",{
     method:"POST",
     headers:{...H(),"Prefer":"return=minimal,resolution=ignore-duplicates"},
-    body:JSON.stringify({id:userId,email,full_name:localStorage.getItem("velero_name")||nom,solde:500,revenus_cumules:0,level:1,referral_code:refCode})
+    body:JSON.stringify({id:userId,email,full_name:localStorage.getItem("velero_name")||nom,solde:1000,revenus_cumules:0,level:1,referral_code:refCode})
   });
   await fetch(SB+"/rest/v1/transactions",{
     method:"POST",
     headers:{...H(),"Prefer":"return=minimal"},
-    body:JSON.stringify({user_id:userId,type:"bonus",montant:500,montant_net:500,statut:"valide",note:"Bonus de bienvenue Velero Energy"})
+    body:JSON.stringify({user_id:userId,type:"bonus",montant:1000,montant_net:1000,statut:"valide",note:"Bonus de bienvenue Velero Energy"})
   });
 }
 
