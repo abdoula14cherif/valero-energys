@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Pointage — Velero Energy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
+.wrap{width:100%;max-width:480px;padding-bottom:90px;}
+
+/* LOADER */
+.loader{position:fixed;inset:0;background:linear-gradient(135deg,#00bcd4,#0097a7);z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+.loader-logo{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#fff;}
+.loader-spin{width:40px;height:40px;border:3px solid rgba(255,255,255,.3);border-top:3px solid #fff;border-radius:50%;animation:sp .7s linear infinite;}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* TOPBAR */
+.topbar{background:#fff;padding:14px 18px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+.back-btn{background:none;border:none;cursor:pointer;color:#00bcd4;font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:4px;}
+.back-btn svg{width:18px;height:18px;}
+
+/* HERO */
+.hero{position:relative;width:100%;height:200px;overflow:hidden;}
+.hero img{width:100%;height:100%;object-fit:cover;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(0,0,0,.25),rgba(0,0,0,.6));}
+.hero-title{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.5);}
+
+/* BONUS BANNER */
+.bonus-banner{background:linear-gradient(135deg,#00bcd4,#0097a7);padding:22px 20px;text-align:center;}
+.bb-label{font-size:14px;color:rgba(255,255,255,.85);margin-bottom:6px;}
+.bb-val{font-size:38px;font-weight:900;font-family:'Playfair Display',serif;color:#fff;}
+
+/* SECTION */
+.section{padding:20px 14px 0;}
+.section-title{font-size:18px;font-weight:900;color:#1a1a1a;margin-bottom:12px;}
+
+/* STATS GRID */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.stat-card{background:#fff;border-radius:18px;padding:16px 16px 14px;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.stat-card-label{font-size:12px;color:#90a4ae;margin-bottom:6px;}
+.stat-card-val{font-size:24px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;margin-bottom:4px;}
+.stat-card-sub{font-size:11px;color:#b0bec5;}
+
+/* BTN POINTER */
+.btn-pointer{
+  width:100%;padding:18px;
+  background:linear-gradient(135deg,#00bcd4,#0097a7);
+  color:#fff;font-size:17px;font-weight:800;
+  border:none;border-radius:50px;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  box-shadow:0 6px 20px rgba(0,188,212,.4);
+  margin-bottom:14px;
+  transition:opacity .2s,transform .15s;
+}
+.btn-pointer:active{transform:scale(.98);}
+.btn-pointer:disabled{opacity:.6;cursor:not-allowed;}
+.btn-pointer.done{background:linear-gradient(135deg,#4caf50,#388e3c);box-shadow:0 6px 20px rgba(76,175,80,.3);}
+
+/* COMPTE A REBOURS */
+.countdown-box{
+  background:#fff;border-radius:16px;padding:14px 18px;
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.06);
+}
+.cd-label{font-size:13px;color:#90a4ae;font-weight:600;}
+.cd-val{font-size:18px;font-weight:800;color:#00bcd4;font-family:'Playfair Display',serif;}
+
+/* NOTES */
+.notes-card{background:#fff;border-radius:18px;padding:16px 18px;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.note-item{display:flex;gap:10px;font-size:13px;color:#555;line-height:1.55;margin-bottom:8px;}
+.note-item:last-child{margin-bottom:0;}
+.note-num{color:#00bcd4;font-weight:800;flex-shrink:0;}
+
+/* HISTORIQUE MINI */
+.hist-title{font-size:13px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.8px;margin:18px 0 10px;}
+.hist-item{background:#fff;border-radius:14px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;box-shadow:0 1px 6px rgba(0,0,0,.05);}
+.hist-date{font-size:12px;color:#90a4ae;}
+.hist-amt{font-size:14px;font-weight:800;color:#00bcd4;}
+
+/* ALERT */
+.alert{padding:12px 16px;border-radius:14px;font-size:13px;font-weight:600;margin-bottom:14px;display:none;line-height:1.5;}
+.alert.show{display:block;}
+.suc{background:#f0fdf4;border-left:4px solid #4caf50;color:#15803d;}
+.err{background:#fff5f5;border-left:4px solid #e53935;color:#c53030;}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0 14px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
+.nav-item.active{color:#00bcd4;}
+.nav-item svg{width:22px;height:22px;}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:#00bcd4;margin:1px auto 0;}
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader">
+  <div class="loader-logo">Velero Energy</div>
+  <div class="loader-spin"></div>
+</div>
+
+<div class="wrap" id="mainWrap" style="display:none;">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <button class="back-btn" onclick="history.back()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Pointage
+    </button>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <img src="https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg" alt="Pointage" onerror="this.src='https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800'"/>
+    <div class="hero-overlay"></div>
+    <div class="hero-title">Pointage</div>
+  </div>
+
+  <!-- BONUS BANNER -->
+  <div class="bonus-banner">
+    <div class="bb-label">Bonus cumule</div>
+    <div class="bb-val">FCFA <span id="bonusCumule">0</span></div>
+  </div>
+
+  <!-- SECTION PRINCIPALE -->
+  <div class="section">
+    <div class="section-title">Pointage quotidien</div>
+
+    <div id="alertBox" class="alert"></div>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-card-label">Prime quotidienne</div>
+        <div class="stat-card-val">FCFA 50</div>
+        <div class="stat-card-sub">Recompense chaque jour</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Jours de pointage</div>
+        <div class="stat-card-val" id="joursTotal">0 jours</div>
+        <div class="stat-card-sub">Total de jours pointes</div>
+      </div>
+    </div>
+
+    <!-- COMPTE A REBOURS si deja pointer aujourd'hui -->
+    <div class="countdown-box" id="countdownBox" style="display:none;">
+      <span class="cd-label">Prochain pointage dans</span>
+      <span class="cd-val" id="countdown">--:--:--</span>
+    </div>
+
+    <!-- BTN -->
+    <button class="btn-pointer" id="btnPointer" onclick="pointer()">Pointer</button>
+
+    <!-- NOTES -->
+    <div class="notes-card">
+      <div class="note-item"><span class="note-num">1.</span><span>Recompense de connexion quotidienne : 50 FCFA.</span></div>
+      <div class="note-item"><span class="note-num">2.</span><span>Connectez-vous une fois par jour.</span></div>
+      <div class="note-item"><span class="note-num">3.</span><span>Connectez-vous a nouveau apres minuit chaque jour.</span></div>
+    </div>
+
+    <!-- HISTORIQUE -->
+    <div class="hist-title">Historique recent</div>
+    <div id="histList"></div>
+
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a href="dashboard.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Accueil
+  </a>
+  <a href="produits.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+    Produits
+  </a>
+  <a href="parrainage.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+    Equipe
+  </a>
+  <a href="compte.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Mon compte
+  </a>
+</nav>
+
+<script>
+const SB="https://seegoklunovyuieorkvy.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
+const PRIME=50;
+
+function tok(){return localStorage.getItem("velero_token")||"";}
+function uid(){return localStorage.getItem("velero_uid")||"";}
+function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
+
+function showAlert(msg,type){
+  const el=document.getElementById("alertBox");
+  el.textContent=msg;el.className="alert "+type+" show";
+}
+
+// Compte à rebours jusqu'à minuit
+let cdInterval=null;
+function startCountdown(){
+  document.getElementById("countdownBox").style.display="flex";
+  function tick(){
+    const now=new Date();
+    const midnight=new Date();
+    midnight.setHours(24,0,0,0);
+    const diff=midnight-now;
+    const h=String(Math.floor(diff/3600000)).padStart(2,"0");
+    const m=String(Math.floor((diff%3600000)/60000)).padStart(2,"0");
+    const s=String(Math.floor((diff%60000)/1000)).padStart(2,"0");
+    document.getElementById("countdown").textContent=h+":"+m+":"+s;
+  }
+  tick();
+  cdInterval=setInterval(tick,1000);
+}
+
+function todayStr(){
+  return new Date().toISOString().slice(0,10);
+}
+
+async function pointer(){
+  const btn=document.getElementById("btnPointer");
+  btn.disabled=true;btn.textContent="Traitement...";
+
+  try{
+    // Vérifier si déjà pointé aujourd'hui
+    const today=todayStr();
+    const rCheck=await fetch(
+      SB+"/rest/v1/pointages?user_id=eq."+uid()+"&date_pointage=eq."+today+"&select=id",
+      {headers:H()}
+    );
+    const existing=await rCheck.json();
+    if(existing&&existing.length>0){
+      showAlert("Vous avez deja pointe aujourd'hui. Revenez demain !","err");
+      btn.className="btn-pointer done";btn.textContent="Deja pointe aujourd'hui ✓";
+      startCountdown();
+      return;
+    }
+
+    // Enregistrer le pointage
+    await fetch(SB+"/rest/v1/pointages",{
+      method:"POST",
+      headers:{...H(),"Prefer":"return=minimal"},
+      body:JSON.stringify({user_id:uid(),date_pointage:today,montant:PRIME})
+    });
+
+    // Créditer le solde
+    const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()});
+    const p=await rp.json();
+    const nouveau=parseFloat(p[0]?.solde||0)+PRIME;
+    await fetch(SB+"/rest/v1/profiles?id=eq."+uid(),{
+      method:"PATCH",headers:H(),
+      body:JSON.stringify({solde:nouveau})
+    });
+
+    // Enregistrer la transaction
+    await fetch(SB+"/rest/v1/transactions",{
+      method:"POST",
+      headers:{...H(),"Prefer":"return=minimal"},
+      body:JSON.stringify({
+        user_id:uid(),type:"pointage",
+        montant:PRIME,montant_net:PRIME,
+        statut:"valide",
+        reference:"PT-"+uid().slice(0,6).toUpperCase()+"-"+today.replace(/-/g,""),
+        note:"Pointage quotidien "+today
+      })
+    });
+
+    showAlert("Bravo ! +"+PRIME+" FCFA credites sur votre compte !","suc");
+    btn.className="btn-pointer done";btn.textContent="Pointe aujourd'hui ✓";
+    startCountdown();
+
+    // Rafraîchir les stats
+    await loadStats();
+
+  }catch(e){
+    showAlert("Erreur reseau. Reessayez.","err");
+    btn.disabled=false;btn.textContent="Pointer";
+  }
+}
+
+async function loadStats(){
+  try{
+    // Total pointages
+    const r=await fetch(
+      SB+"/rest/v1/pointages?user_id=eq."+uid()+"&select=date_pointage,montant&order=date_pointage.desc",
+      {headers:H()}
+    );
+    const pts=await r.json();
+
+    const total=Array.isArray(pts)?pts.length:0;
+    const cumul=Array.isArray(pts)?pts.reduce((s,x)=>s+parseFloat(x.montant||0),0):0;
+
+    document.getElementById("joursTotal").textContent=total+" jour"+(total>1?"s":"");
+    document.getElementById("bonusCumule").textContent=cumul.toLocaleString();
+
+    // Vérifier si déjà pointé aujourd'hui
+    const today=todayStr();
+    const dejaPointe=Array.isArray(pts)&&pts.some(p=>p.date_pointage===today);
+    if(dejaPointe){
+      const btn=document.getElementById("btnPointer");
+      btn.className="btn-pointer done";btn.textContent="Pointe aujourd'hui ✓";btn.disabled=true;
+      startCountdown();
+    }
+
+    // Historique (5 derniers)
+    const hist=document.getElementById("histList");
+    if(Array.isArray(pts)&&pts.length>0){
+      hist.innerHTML=pts.slice(0,5).map(p=>{
+        const d=new Date(p.date_pointage);
+        const label=d.toLocaleDateString("fr-FR",{weekday:"short",day:"numeric",month:"short"});
+        return `<div class="hist-item"><span class="hist-date">${label}</span><span class="hist-amt">+${parseFloat(p.montant||0).toLocaleString()} FCFA</span></div>`;
+      }).join("");
+    }else{
+      hist.innerHTML=`<div class="hist-item"><span class="hist-date">Aucun pointage encore</span><span class="hist-amt">—</span></div>`;
+    }
+  }catch(e){}
+}
+
+async function init(){
+  if(!tok()||!uid()){location.href="index.html";return;}
+
+  // Refresh token si besoin
+  try{
+    const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=id",{headers:H()});
+    if(rp.status===401){
+      const ref=localStorage.getItem("velero_refresh");
+      if(ref){
+        const rr=await fetch(SB+"/auth/v1/token?grant_type=refresh_token",{method:"POST",headers:{"Content-Type":"application/json","apikey":AK},body:JSON.stringify({refresh_token:ref})});
+        const rd=await rr.json();
+        if(rd.access_token){localStorage.setItem("velero_token",rd.access_token);if(rd.refresh_token)localStorage.setItem("velero_refresh",rd.refresh_token);location.reload();return;}
+      }
+      localStorage.clear();location.href="index.html";return;
+    }
+  }catch(e){}
+
+  await loadStats();
+
+  document.getElementById("loader").style.display="none";
+  document.getElementById("mainWrap").style.display="block";
+}
+
+init();
+</script>
+</body>
+</html>
