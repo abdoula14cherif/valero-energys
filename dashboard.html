@@ -51,10 +51,22 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
 .mi{width:34px;height:34px;border-radius:10px;background:#e0f7fa;display:flex;align-items:center;justify-content:center;font-size:17px;margin:0 auto;}
 .logout-wrap{padding:12px 14px;}
 .btn-out{width:100%;padding:13px;background:#fff;border:1.5px solid #00bcd4;border-radius:13px;color:#00bcd4;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;}
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
+
+/* BOTTOM NAV — icônes SVG */
+.bottom-nav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:480px;
+  background:#fff;border-top:1px solid #f0ebe8;
+  display:flex;padding:8px 0 12px;z-index:100;
+  box-shadow:0 -4px 20px rgba(0,0,0,.08);
+}
+.nav-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  text-decoration:none;color:#ccc;font-size:10px;font-weight:600;
+  font-family:'DM Sans',sans-serif;
+}
 .nav-item.active{color:#00bcd4;}
-.nav-item .ni{font-size:21px;}
+.nav-item svg{width:22px;height:22px;}
 .nav-dot{width:5px;height:5px;border-radius:50%;background:#00bcd4;margin:1px auto 0;}
 </style>
 </head>
@@ -162,11 +174,25 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
   </div>
 </div>
 
+<!-- BOTTOM NAV SVG -->
 <nav class="bottom-nav">
-  <a href="dashboard.html" class="nav-item active"><span class="ni">🏠</span>Accueil<div class="nav-dot"></div></a>
-  <a href="produits.html" class="nav-item"><span class="ni">💲</span>Produit</a>
-  <a href="parrainage.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
-  <a href="compte.html" class="nav-item"><span class="ni">👤</span>Mon compte</a>
+  <a href="dashboard.html" class="nav-item active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Accueil
+    <div class="nav-dot"></div>
+  </a>
+  <a href="produits.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+    Produits
+  </a>
+  <a href="parrainage.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+    Équipe
+  </a>
+  <a href="compte.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Mon compte
+  </a>
 </nav>
 
 <script>
@@ -177,7 +203,6 @@ function tok(){return localStorage.getItem("velero_token")||"";}
 function uid(){return localStorage.getItem("velero_uid")||"";}
 function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
 
-// Slider
 let cur=0;
 function goTo(i){
   cur=i;
@@ -198,66 +223,36 @@ function logout(){
 }
 
 async function creerProfilSiManquant(userId, email){
-  // Créer le profil directement via REST si manquant
   const nom=email.split("@")[0];
   const refCode="VE"+nom.substring(0,4).toUpperCase().replace(/[^A-Z]/g,"X")+Math.floor(1000+Math.random()*9000);
   await fetch(SB+"/rest/v1/profiles",{
     method:"POST",
     headers:{...H(),"Prefer":"return=minimal,resolution=ignore-duplicates"},
-    body:JSON.stringify({
-      id:userId,email,
-      full_name:localStorage.getItem("velero_name")||nom,
-      solde:500,revenus_cumules:0,level:1,
-      referral_code:refCode
-    })
+    body:JSON.stringify({id:userId,email,full_name:localStorage.getItem("velero_name")||nom,solde:500,revenus_cumules:0,level:1,referral_code:refCode})
   });
-  // Transaction bonus
   await fetch(SB+"/rest/v1/transactions",{
     method:"POST",
     headers:{...H(),"Prefer":"return=minimal"},
-    body:JSON.stringify({
-      user_id:userId,type:"bonus",montant:500,
-      montant_net:500,statut:"valide",
-      note:"Bonus de bienvenue Velero Energy"
-    })
+    body:JSON.stringify({user_id:userId,type:"bonus",montant:500,montant_net:500,statut:"valide",note:"Bonus de bienvenue Velero Energy"})
   });
 }
 
 async function init(){
-  const t=tok();
-  const u=uid();
-  if(!t||!u){
-    location.href="index.html";
-    return;
-  }
-
+  const t=tok();const u=uid();
+  if(!t||!u){location.href="index.html";return;}
   document.getElementById("loaderTxt").textContent="Chargement de votre profil...";
-
   try{
-    // Charger profil
     let r=await fetch(SB+"/rest/v1/profiles?id=eq."+u+"&select=*",{headers:H()});
-
-    // Si token expiré
     if(r.status===401){
-    // Tenter refresh avant de déconnecter
-    const ref=localStorage.getItem("velero_refresh");
-    if(ref){
-      const rr=await fetch(SB+"/auth/v1/token?grant_type=refresh_token",{method:"POST",headers:{"Content-Type":"application/json","apikey":AK},body:JSON.stringify({refresh_token:ref})});
-      const rd=await rr.json();
-      if(rd.access_token){
-        localStorage.setItem("velero_token",rd.access_token);
-        if(rd.refresh_token)localStorage.setItem("velero_refresh",rd.refresh_token);
-        location.reload();return;
+      const ref=localStorage.getItem("velero_refresh");
+      if(ref){
+        const rr=await fetch(SB+"/auth/v1/token?grant_type=refresh_token",{method:"POST",headers:{"Content-Type":"application/json","apikey":AK},body:JSON.stringify({refresh_token:ref})});
+        const rd=await rr.json();
+        if(rd.access_token){localStorage.setItem("velero_token",rd.access_token);if(rd.refresh_token)localStorage.setItem("velero_refresh",rd.refresh_token);location.reload();return;}
       }
+      localStorage.clear();location.href="index.html";return;
     }
-      localStorage.clear();
-      location.href="index.html";
-      return;
-    }
-
     let data=await r.json();
-
-    // Si profil pas encore créé → le créer maintenant
     if(!data||data.length===0){
       document.getElementById("loaderTxt").textContent="Création de votre profil...";
       const email=localStorage.getItem("velero_email")||"";
@@ -266,35 +261,21 @@ async function init(){
       r=await fetch(SB+"/rest/v1/profiles?id=eq."+u+"&select=*",{headers:H()});
       data=await r.json();
     }
-
-    if(!data||data.length===0){
-      // Toujours pas de profil → déconnecter
-      localStorage.clear();
-      location.href="index.html";
-      return;
-    }
-
+    if(!data||data.length===0){localStorage.clear();location.href="index.html";return;}
     const prof=data[0];
-
-    // Afficher les données
     const name=(prof.full_name||prof.email||"U").split("@")[0].trim();
     document.getElementById("av").textContent=name[0].toUpperCase();
     document.getElementById("uname").textContent=name.charAt(0).toUpperCase()+name.slice(1);
     document.getElementById("ulevel").textContent="LV"+(prof.level||1);
     document.getElementById("solde").textContent=parseFloat(prof.solde||0).toLocaleString()+" FCFA";
     document.getElementById("revenus").textContent=parseFloat(prof.revenus_cumules||0).toLocaleString()+" FCFA";
-
-    // Bonus bienvenue
     const bk="bv_"+prof.id;
     if(!localStorage.getItem(bk)){
       document.getElementById("bonusBanner").style.display="flex";
       localStorage.setItem(bk,"1");
       setTimeout(()=>document.getElementById("bonusBanner").style.display="none",6000);
     }
-
     showDash();
-
-    // Plan actif (en arrière-plan)
     fetch(SB+"/rest/v1/investissements?user_id=eq."+u+"&statut=eq.actif&order=created_at.desc&limit=1",{headers:H()})
       .then(r=>r.json())
       .then(inv=>{
@@ -306,9 +287,7 @@ async function init(){
           localStorage.setItem("invest_revenu",inv[0].revenu_jour);
         }
       }).catch(()=>{});
-
   }catch(e){
-    // Erreur réseau → afficher dashboard quand même avec données locales
     const email=localStorage.getItem("velero_email")||"";
     const name=email.split("@")[0]||"Utilisateur";
     document.getElementById("av").textContent=name[0].toUpperCase();
@@ -316,7 +295,6 @@ async function init(){
     showDash();
   }
 }
-
 init();
 </script>
 </body>
