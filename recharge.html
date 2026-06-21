@@ -320,6 +320,8 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
       <div class="pays-selector">
         <button class="pays-btn" onclick="showComptes('TD', this)">Tchad</button>
         <button class="pays-btn" onclick="showComptes('GA', this)">Gabon</button>
+        <button class="pays-btn" onclick="showComptes('NE', this)">Niger</button>
+        <button class="pays-btn" onclick="showComptes('CM', this)">Cameroun</button>
       </div>
 
       <!-- COMPTES TCHAD -->
@@ -395,6 +397,63 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
           </div>
         </div>
       </div>
+
+      <!-- COMPTES NIGER -->
+      <div id="comptes-NE" class="comptes-section hidden">
+        <div class="compte-card">
+          <div class="compte-operateur">
+            <div class="op-badge moov">&#128244;</div>
+            <div>
+              <div class="op-name">Amana</div>
+              <div class="op-country">Niger</div>
+            </div>
+          </div>
+          <div class="compte-detail">
+            <div><div class="cd-label">Numero</div><div class="cd-val">76514265</div></div>
+            <button class="btn-copy-num" onclick="copyInfo('76514265')">Copier</button>
+          </div>
+          <div class="compte-detail">
+            <div><div class="cd-label">Nom</div><div class="cd-val">Velero Energy</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPTES CAMEROUN -->
+      <div id="comptes-CM" class="comptes-section hidden">
+        <div class="compte-card">
+          <div class="compte-operateur">
+            <div class="op-badge moov">&#128244;</div>
+            <div>
+              <div class="op-name">Orange Money</div>
+              <div class="op-country">Cameroun</div>
+            </div>
+          </div>
+          <div class="compte-detail">
+            <div><div class="cd-label">Numero</div><div class="cd-val">+237 690 553 438</div></div>
+            <button class="btn-copy-num" onclick="copyInfo('+237690553438')">Copier</button>
+          </div>
+          <div class="compte-detail">
+            <div><div class="cd-label">Nom</div><div class="cd-val">Sosso Noe</div></div>
+          </div>
+        </div>
+
+        <div class="compte-card">
+          <div class="compte-operateur">
+            <div class="op-badge airtel">&#128244;</div>
+            <div>
+              <div class="op-name">MTN Money</div>
+              <div class="op-country">Cameroun</div>
+            </div>
+          </div>
+          <div class="compte-detail">
+            <div><div class="cd-label">Numero</div><div class="cd-val">+237 650 976 659</div></div>
+            <button class="btn-copy-num" onclick="copyInfo('+237650976659')">Copier</button>
+          </div>
+          <div class="compte-detail">
+            <div><div class="cd-label">Nom</div><div class="cd-val">Lionella Pascaline</div></div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- FORMULAIRE CONFIRMATION -->
@@ -420,6 +479,9 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
           <option value="Airtel Money Tchad">Airtel Money - Tchad</option>
           <option value="Airtel Money Gabon">Airtel Money - Gabon</option>
           <option value="Moov Money Gabon">Moov Money - Gabon</option>
+          <option value="Amana Niger">Amana - Niger</option>
+          <option value="Orange Money Cameroun">Orange Money - Cameroun</option>
+          <option value="MTN Money Cameroun">MTN Money - Cameroun</option>
         </select>
       </div>
       <div class="field">
