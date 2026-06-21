@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Missions — Velero Energy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
+.wrap{width:100%;max-width:480px;padding-bottom:90px;}
+
+/* LOADER */
+.loader{position:fixed;inset:0;background:linear-gradient(135deg,#00bcd4,#0097a7);z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+.loader-logo{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#fff;}
+.loader-spin{width:40px;height:40px;border:3px solid rgba(255,255,255,.3);border-top:3px solid #fff;border-radius:50%;animation:sp .7s linear infinite;}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* TOPBAR */
+.topbar{background:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+.back-btn{background:none;border:none;cursor:pointer;color:#00bcd4;font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:4px;}
+.back-btn svg{width:18px;height:18px;}
+.topbar-title{font-size:17px;font-weight:700;color:#1a1a1a;}
+
+/* HEADER STATS */
+.stats-header{margin:14px 14px 0;background:#1c2b30;border-radius:20px;padding:20px 18px;display:flex;gap:0;}
+.sh-block{flex:1;text-align:center;}
+.sh-block+.sh-block{border-left:1px solid rgba(255,255,255,.1);}
+.sh-val{font-size:18px;font-weight:900;color:#fff;font-family:'Playfair Display',serif;}
+.sh-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-top:3px;}
+
+/* TABS */
+.tabs{display:flex;background:#e8f4f5;border-radius:50px;padding:5px;margin:12px 14px 0;}
+.tab{flex:1;padding:12px 0;font-size:13px;font-weight:700;background:none;border:none;cursor:pointer;color:#90a4ae;border-radius:50px;transition:all .25s;font-family:'DM Sans',sans-serif;}
+.tab.active{background:#00bcd4;color:#fff;box-shadow:0 4px 14px rgba(0,188,212,.3);}
+
+/* SECTION TITLE */
+.sec-title{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;padding:14px 14px 6px;}
+
+/* MISSION CARD */
+.mission-item{
+  margin:0 14px 10px;background:#fff;border-radius:18px;
+  padding:16px 16px;box-shadow:0 2px 10px rgba(0,0,0,.06);
+}
+.mi-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
+.mi-icon{
+  width:46px;height:46px;border-radius:14px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+}
+.mi-icon.parrainage{background:#e0f7fa;}
+.mi-icon.equipe{background:#fff3e0;}
+.mi-body{flex:1;}
+.mi-title{font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:3px;}
+.mi-desc{font-size:12px;color:#90a4ae;line-height:1.45;}
+.mi-reward{
+  background:linear-gradient(135deg,#00bcd4,#0097a7);
+  border-radius:50px;padding:5px 14px;
+  font-size:13px;font-weight:800;color:#fff;
+  white-space:nowrap;flex-shrink:0;align-self:center;
+}
+
+/* PROGRESS BAR */
+.mi-progress-wrap{margin-bottom:10px;}
+.mi-progress-row{display:flex;justify-content:space-between;font-size:11px;color:#90a4ae;margin-bottom:5px;}
+.mi-bar-bg{height:6px;background:#f0f0f0;border-radius:10px;overflow:hidden;}
+.mi-bar-fill{height:100%;background:linear-gradient(90deg,#00bcd4,#0097a7);border-radius:10px;transition:width .5s;}
+
+/* BTN RECLAMER */
+.btn-reclamer{
+  width:100%;padding:12px;border:none;border-radius:50px;
+  font-size:13px;font-weight:700;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all .2s;
+}
+.btn-reclamer.active{background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;box-shadow:0 4px 14px rgba(0,188,212,.3);}
+.btn-reclamer.done{background:#f0fdf4;color:#4caf50;cursor:not-allowed;}
+.btn-reclamer.locked{background:#f5f5f5;color:#ccc;cursor:not-allowed;}
+
+/* STATUS BADGE */
+.status-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;font-weight:700;padding:4px 10px;border-radius:50px;
+}
+.status-badge.done{background:#f0fdf4;color:#4caf50;}
+.status-badge.inprogress{background:#e0f7fa;color:#00838f;}
+.status-badge.locked{background:#f5f5f5;color:#bbb;}
+
+/* TOAST */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#1c2b30;color:#fff;font-size:13px;font-weight:600;padding:10px 22px;border-radius:50px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0 14px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
+.nav-item.active{color:#00bcd4;}
+.nav-item svg{width:22px;height:22px;}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:#00bcd4;margin:1px auto 0;}
+.hidden{display:none;}
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader">
+  <div class="loader-logo">Velero Energy</div>
+  <div class="loader-spin"></div>
+</div>
+
+<div class="wrap" id="mainWrap" style="display:none;">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <button class="back-btn" onclick="history.back()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Missions
+    </button>
+  </div>
+
+  <!-- STATS HEADER -->
+  <div class="stats-header">
+    <div class="sh-block">
+      <div class="sh-val" id="totalGagne">FCFA 0</div>
+      <div class="sh-lbl">Total gagne</div>
+    </div>
+    <div class="sh-block">
+      <div class="sh-val" id="missionsOk">0</div>
+      <div class="sh-lbl">Completees</div>
+    </div>
+    <div class="sh-block">
+      <div class="sh-val" id="missionsTotal">8</div>
+      <div class="sh-lbl">Missions</div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" id="tabParr" onclick="showTab('parrainage')">Parrainage</button>
+    <button class="tab" id="tabEquipe" onclick="showTab('equipe')">Equipe</button>
+  </div>
+
+  <!-- === MISSIONS PARRAINAGE === -->
+  <div id="sectionParrainage">
+    <div class="sec-title">Invitez des amis qui investissent</div>
+
+    <!-- M1 -->
+    <div class="mission-item" id="card-p1">
+      <div class="mi-top">
+        <div class="mi-icon parrainage">&#x1F91D;</div>
+        <div class="mi-body">
+          <div class="mi-title">5 filleuls actifs</div>
+          <div class="mi-desc">Invitez 5 personnes qui investissent sur la plateforme</div>
+        </div>
+        <div class="mi-reward">+300 FCFA</div>
+      </div>
+      <div class="mi-progress-wrap">
+        <div class="mi-progress-row"><span id="p1-prog">0 / 5</span><span id="p1-status" class="status-badge inprogress">En cours</span></div>
+        <div class="mi-bar-bg"><div class="mi-bar-fill" id="p1-bar" style="width:0%"></div></div>
+      </div>
+      <button class="btn-reclamer locked" id="btn-p1" onclick="reclamer('p1',300)">Reclamer 300 FCFA</button>
+    </div>
+
+    <!-- M2 -->
+    <div class="mission-item" id="card-p2">
+      <div class="mi-top">
+        <div class="mi-icon parrainage">&#x1F91D;</div>
+        <div class="mi-body">
+          <div class="mi-title">15 filleuls actifs</div>
+          <div class="mi-desc">Invitez 15 personnes qui investissent sur la plateforme</div>
+        </div>
+        <div class="mi-reward">+1 000 FCFA</div>
+      </div>
+      <div class="mi-progress-wrap">
+        <div class="mi-progress-row"><span id="p2-prog">0 / 15</span><span id="p2-status" class="status-badge locked">Verrouille</span></div>
+        <div class="mi-bar-bg"><div class="mi-bar-fill" id="p2-bar" style="width:0%"></div></div>
+      </div>
+      <button class="btn-reclamer locked" id="btn-p2" onclick="reclamer('p2',1000)">Reclamer 1 000 FCFA</button>
+    </div>
+
+    <!-- M3 -->
+    <div class="mission-item" id="card-p3">
+      <div class="mi-top">
+        <div class="mi-icon parrainage">&#x1F91D;</div>
+        <div class="mi-body">
+          <div class="mi-title">30 filleuls actifs</div>
+          <div class="mi-desc">Invitez 30 personnes qui investissent sur la plateforme</div>
+        </div>
+        <div class="mi-reward">+3 000 FCFA</div>
+      </div>
+      <div class="mi-progress-wrap">
+        <div class="mi-progress-row"><span id="p3-prog">0 / 30</span><span id="p3-status" class="status-badge locked">Verrouille</span></div>
+        <div class="mi-bar-bg"><div class="mi-bar-fill" id="p3-bar" style="width:0%"></div></div>
+      </div>
+      <button class="btn-reclamer locked" id="btn-p3" onclick="reclamer('p3',3000)">Reclamer 3 000 FCFA</button>
+    </div>
+
+    <!-- M4 -->
+    <div class="mission-item" id="card-p4">
+      <div class="mi-top">
+        <div class="mi-icon parrainage">&#x1F91D;</div>
+        <div class="mi-body">
+          <div class="mi-title">50 filleuls actifs</div>
+          <div class="mi-desc">Invitez 50 personnes qui investissent sur la plateforme</div>
+        </div>
+        <div class="mi-reward">+10 000 FCFA</div>
+      </div>
+      <div class="mi-progress-wrap">
+        <div class="mi-progress-row"><span id="p4-prog">0 / 50</span><span id="p4-status" class="status-badge locked">Verrouille</span></div>
+        <div class="mi-bar-bg"><div class="mi-bar-fill" id="p4-bar" style="width:0%"></div></div>
+      </div>
+      <button class="btn-reclamer locked" id="btn-p4" onclick="reclamer('p4',10000)">Reclamer 10 000 FCFA</button>
+    </div>
+  </div>
+
+  <!-- === MISSIONS EQUIPE === -->
+  <div id="sectionEquipe" class="hidden">
+    <div class="sec-title">Investissement total de votre equipe</div>
+
+    <!-- E1 -->
+    <div class="mission-item">
+      <div class="mi-top">
+        <div class="mi-icon equipe">&#x1F4B0;</div>
+        <div class="mi-body">
+          <div class="mi-title">Equipe : 50 000 FCFA</div>
+          <div class="mi-desc">Votre equipe atteint 50 000 FCFA d'investissements cumules</div>
+        </div>
+        <div class="mi-reward">+5 000 FCFA</div>
+      </div>
+      <div class="mi-progress-wrap">
+        <div class="mi-progress-row"><span id="e1-prog">0 / 50 000</span><span id="e1-status" class="status-badge inprogress">En cours</span></div>
+        <div class="mi-bar-bg"><div class="mi-bar-fill" id="e1-bar" style="width:0%"></div></div>
+      </div>
+      <button class="btn-reclamer locked" id="btn-e1" onclick="reclamer('e1',5000)">Reclamer 5 000 FCFA</button>
+    </div>
+
+    <!-- E2 -->
+    <div class="mission-item">
+      <div class="mi-top">
+        <div class="mi-icon equipe">&#x1F4B0;</div>
+        <div class="mi-body">
+          <div class="mi-title">Equipe : 100 000 FCFA</div>
+          <div class="mi-desc">Votre equipe atteint 100 000 FCFA d'investissements cumules</div>
+        </div>
+        <div class="mi-reward">+10 000 FCFA</div>
+      </div>
+      <div class="mi-progress-wrap">
+        <div class="mi-progress-row"><span id="e2-prog">0 / 100 000</span><span id="e2-status" class="status-badge locked">Verrouille</span></div>
+        <div class="mi-bar-bg"><div class="mi-bar-fill" id="e2-bar" style="width:0%"></div></div>
+      </div>
+      <button class="btn-reclamer locked" id="btn-e2" onclick="reclamer('e2',10000)">Reclamer 10 000 FCFA</button>
+    </div>
+
+    <!-- E3 -->
+    <div class="mission-item">
+      <div class="mi-top">
+        <div class="mi-icon equipe">&#x1F4B0;</div>
+        <div class="mi-body">
+          <div class="mi-title">Equipe : 200 000 FCFA</div>
+          <div class="mi-desc">Votre equipe atteint 200 000 FCFA d'investissements cumules</div>
+        </div>
+        <div class="mi-reward">+20 000 FCFA</div>
+      </div>
+      <div class="mi-progress-wrap">
+        <div class="mi-progress-row"><span id="e3-prog">0 / 200 000</span><span id="e3-status" class="status-badge locked">Verrouille</span></div>
+        <div class="mi-bar-bg"><div class="mi-bar-fill" id="e3-bar" style="width:0%"></div></div>
+      </div>
+      <button class="btn-reclamer locked" id="btn-e3" onclick="reclamer('e3',20000)">Reclamer 20 000 FCFA</button>
+    </div>
+
+    <!-- E4 -->
+    <div class="mission-item">
+      <div class="mi-top">
+        <div class="mi-icon equipe">&#x1F4B0;</div>
+        <div class="mi-body">
+          <div class="mi-title">Equipe : 500 000 FCFA</div>
+          <div class="mi-desc">Votre equipe atteint 500 000 FCFA d'investissements cumules</div>
+        </div>
+        <div class="mi-reward">+50 000 FCFA</div>
+      </div>
+      <div class="mi-progress-wrap">
+        <div class="mi-progress-row"><span id="e4-prog">0 / 500 000</span><span id="e4-status" class="status-badge locked">Verrouille</span></div>
+        <div class="mi-bar-bg"><div class="mi-bar-fill" id="e4-bar" style="width:0%"></div></div>
+      </div>
+      <button class="btn-reclamer locked" id="btn-e4" onclick="reclamer('e4',50000)">Reclamer 50 000 FCFA</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a href="dashboard.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Accueil
+  </a>
+  <a href="produits.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+    Produits
+  </a>
+  <a href="parrainage.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+    Equipe
+  </a>
+  <a href="compte.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Mon compte
+  </a>
+</nav>
+
+<script>
+const SB="https://seegoklunovyuieorkvy.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
+
+function tok(){return localStorage.getItem("velero_token")||"";}
+function uid(){return localStorage.getItem("velero_uid")||"";}
+function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
+
+// Définition des missions
+const MISSIONS_PARR=[
+  {id:"p1",cible:5, reward:300},
+  {id:"p2",cible:15,reward:1000},
+  {id:"p3",cible:30,reward:3000},
+  {id:"p4",cible:50,reward:10000},
+];
+const MISSIONS_EQUIPE=[
+  {id:"e1",cible:50000, reward:5000},
+  {id:"e2",cible:100000,reward:10000},
+  {id:"e3",cible:200000,reward:20000},
+  {id:"e4",cible:500000,reward:50000},
+];
+
+let myCode="";
+let totalGagne=0;
+let missionsCompleted=0;
+
+function showTab(t){
+  document.getElementById("tabParr").classList.toggle("active",t==="parrainage");
+  document.getElementById("tabEquipe").classList.toggle("active",t==="equipe");
+  document.getElementById("sectionParrainage").classList.toggle("hidden",t!=="parrainage");
+  document.getElementById("sectionEquipe").classList.toggle("hidden",t!=="equipe");
+}
+
+function toast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg;t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),2500);
+}
+
+// Barre de progression
+function setProgress(id, current, cible){
+  const pct=Math.min(100,Math.round((current/cible)*100));
+  const bar=document.getElementById(id+"-bar");
+  const prog=document.getElementById(id+"-prog");
+  const status=document.getElementById(id+"-status");
+  const btn=document.getElementById("btn-"+id);
+  if(bar)bar.style.width=pct+"%";
+  if(prog)prog.textContent=(current>cible?cible:current).toLocaleString()+" / "+cible.toLocaleString();
+
+  const reclaimed=localStorage.getItem("mission_done_"+id);
+
+  if(reclaimed){
+    if(status){status.textContent="Reclamee";status.className="status-badge done";}
+    if(btn){btn.textContent="Deja reclamee ✓";btn.className="btn-reclamer done";}
+  }else if(current>=cible){
+    if(status){status.textContent="A reclamer !";status.className="status-badge inprogress";}
+    if(btn){btn.className="btn-reclamer active";}
+  }else{
+    if(status){status.textContent=pct>0?"En cours":"Verrouille";status.className="status-badge "+(pct>0?"inprogress":"locked");}
+    if(btn){btn.className="btn-reclamer locked";}
+  }
+}
+
+async function reclamer(id, montant){
+  const btn=document.getElementById("btn-"+id);
+  if(!btn||btn.classList.contains("locked")||btn.classList.contains("done"))return;
+  if(localStorage.getItem("mission_done_"+id)){toast("Deja reclamee !");return;}
+
+  btn.disabled=true;btn.textContent="Traitement...";
+
+  try{
+    // Créditer le solde
+    const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()});
+    const p=await rp.json();
+    const nouveau=parseFloat(p[0]?.solde||0)+montant;
+    await fetch(SB+"/rest/v1/profiles?id=eq."+uid(),{
+      method:"PATCH",headers:H(),
+      body:JSON.stringify({solde:nouveau})
+    });
+    // Enregistrer la transaction
+    await fetch(SB+"/rest/v1/transactions",{
+      method:"POST",
+      headers:{...H(),"Prefer":"return=minimal"},
+      body:JSON.stringify({
+        user_id:uid(),type:"mission",
+        montant,montant_net:montant,
+        statut:"valide",
+        reference:"MISS-"+id.toUpperCase()+"-"+Date.now(),
+        note:"Recompense mission "+id
+      })
+    });
+    // Marquer localement
+    localStorage.setItem("mission_done_"+id,"1");
+    toast(montant.toLocaleString()+" FCFA credites sur votre compte !");
+    // Refresh UI
+    setProgress(id,999999,1);
+    totalGagne+=montant;
+    missionsCompleted++;
+    document.getElementById("totalGagne").textContent="FCFA "+totalGagne.toLocaleString();
+    document.getElementById("missionsOk").textContent=missionsCompleted;
+  }catch(e){
+    toast("Erreur reseau. Reessayez.");
+  }
+  btn.disabled=false;
+}
+
+async function init(){
+  if(!tok()||!uid()){location.href="index.html";return;}
+
+  try{
+    // Profil + token refresh si besoin
+    let rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=*",{headers:H()});
+    if(rp.status===401){
+      const ref=localStorage.getItem("velero_refresh");
+      if(ref){
+        const rr=await fetch(SB+"/auth/v1/token?grant_type=refresh_token",{method:"POST",headers:{"Content-Type":"application/json","apikey":AK},body:JSON.stringify({refresh_token:ref})});
+        const rd=await rr.json();
+        if(rd.access_token){localStorage.setItem("velero_token",rd.access_token);if(rd.refresh_token)localStorage.setItem("velero_refresh",rd.refresh_token);location.reload();return;}
+      }
+      localStorage.clear();location.href="index.html";return;
+    }
+    const pd=await rp.json();
+    if(!pd||pd.length===0){localStorage.clear();location.href="index.html";return;}
+    const prof=pd[0];
+    myCode=prof.referral_code||"";
+
+    // Compter les filleuls actifs (qui ont au moins un investissement)
+    let filleulsActifs=0;
+    let investTotal=0;
+
+    if(myCode){
+      // Filleuls directs
+      const rf=await fetch(SB+"/rest/v1/profiles?referred_by=eq."+myCode+"&select=id",{headers:H()});
+      const filleuls=await rf.json();
+      const filleulIds=Array.isArray(filleuls)?filleuls.map(f=>f.id):[];
+
+      if(filleulIds.length>0){
+        // Filleuls ayant investi
+        const ri=await fetch(SB+"/rest/v1/investissements?user_id=in.("+filleulIds.join(",")+")"+"&select=user_id,montant&statut=eq.actif",{headers:H()});
+        const invs=await ri.json();
+        const uniq=new Set(Array.isArray(invs)?invs.map(i=>i.user_id):[]);
+        filleulsActifs=uniq.size;
+        investTotal=Array.isArray(invs)?invs.reduce((s,x)=>s+parseFloat(x.montant||0),0):0;
+      }
+    }
+
+    // Missions transactions pour calcul total gagné
+    const rt=await fetch(SB+"/rest/v1/transactions?user_id=eq."+uid()+"&type=eq.mission&statut=eq.valide&select=montant",{headers:H()});
+    const mt=await rt.json();
+    totalGagne=Array.isArray(mt)?mt.reduce((s,x)=>s+parseFloat(x.montant||0),0):0;
+    missionsCompleted=Array.isArray(mt)?mt.length:0;
+
+    // Compter aussi depuis localStorage (missions reclamées offline)
+    [...MISSIONS_PARR,...MISSIONS_EQUIPE].forEach(m=>{
+      if(localStorage.getItem("mission_done_"+m.id))missionsCompleted=Math.max(missionsCompleted,1);
+    });
+
+    document.getElementById("totalGagne").textContent="FCFA "+totalGagne.toLocaleString();
+    document.getElementById("missionsOk").textContent=missionsCompleted;
+    document.getElementById("missionsTotal").textContent=MISSIONS_PARR.length+MISSIONS_EQUIPE.length;
+
+    // Mettre à jour barres parrainage
+    MISSIONS_PARR.forEach(m=>setProgress(m.id,filleulsActifs,m.cible));
+
+    // Mettre à jour barres equipe
+    MISSIONS_EQUIPE.forEach(m=>setProgress(m.id,investTotal,m.cible));
+
+  }catch(e){
+    // Mode dégradé
+    MISSIONS_PARR.forEach(m=>setProgress(m.id,0,m.cible));
+    MISSIONS_EQUIPE.forEach(m=>setProgress(m.id,0,m.cible));
+  }
+
+  document.getElementById("loader").style.display="none";
+  document.getElementById("mainWrap").style.display="block";
+}
+
+init();
+</script>
+</body>
+</html>
