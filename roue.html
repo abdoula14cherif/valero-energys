@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Roue de Chance — Velero Energy</title>
+<script src="/pwa-install.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:linear-gradient(160deg,#0a0f1a,#0d1829,#0a1628);font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;color:#fff;}
+.wrap{width:100%;max-width:480px;padding-bottom:80px;}
+.topbar{background:rgba(255,255,255,.05);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08);padding:16px 18px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50;}
+.back-btn{background:none;border:none;font-size:22px;cursor:pointer;color:#fff;}
+.topbar-title{font-size:17px;font-weight:700;color:#fff;}
+
+/* HEADER */
+.hero-section{text-align:center;padding:28px 20px 20px;}
+.hero-icon{font-size:48px;margin-bottom:12px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;margin-bottom:6px;}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;}
+
+/* TICKETS */
+.tickets-row{display:flex;justify-content:center;gap:12px;padding:0 20px 20px;}
+.ticket-card{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:14px;text-align:center;}
+.tc-count{font-size:28px;font-weight:900;color:#ffd700;font-family:'Playfair Display',serif;}
+.tc-label{font-size:11px;color:rgba(255,255,255,.5);margin-top:3px;text-transform:uppercase;letter-spacing:.5px;}
+
+/* ROUE */
+.wheel-section{display:flex;flex-direction:column;align-items:center;padding:0 20px 24px;position:relative;}
+.wheel-container{position:relative;width:280px;height:280px;margin:0 auto 20px;}
+.wheel-pointer{position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:32px;z-index:10;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));}
+canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 40px rgba(0,188,212,.3),0 0 80px rgba(0,188,212,.1);display:block;}
+.wheel-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;background:linear-gradient(135deg,#0a1628,#1e3a5f);border-radius:50%;border:4px solid #fff;display:flex;align-items:center;justify-content:center;z-index:5;box-shadow:0 4px 12px rgba(0,0,0,.5);}
+.wheel-center-icon{font-size:22px;}
+.btn-spin{padding:16px 48px;background:linear-gradient(135deg,#ffd700,#ffa000);color:#1a1a1a;font-size:17px;font-weight:900;border:none;border-radius:50px;cursor:pointer;font-family:inherit;box-shadow:0 6px 24px rgba(255,215,0,.4);transition:all .2s;letter-spacing:.3px;}
+.btn-spin:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.btn-spin:not(:disabled):active{transform:scale(.96);}
+.no-ticket-msg{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;text-align:center;margin-top:10px;width:100%;}
+.nt-icon{font-size:40px;margin-bottom:10px;}
+.nt-title{font-size:15px;font-weight:700;margin-bottom:6px;}
+.nt-sub{font-size:12px;color:rgba(255,255,255,.5);line-height:1.6;}
+
+/* RÉSULTAT */
+.result-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:999;display:none;align-items:center;justify-content:center;}
+.result-overlay.show{display:flex;}
+.result-box{background:linear-gradient(135deg,#0d1829,#1a2640);border:2px solid rgba(255,215,0,.4);border-radius:28px;padding:36px 28px;text-align:center;width:90%;max-width:360px;animation:popIn .4s cubic-bezier(.175,.885,.32,1.275);}
+@keyframes popIn{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.res-icon{font-size:72px;margin-bottom:16px;}
+.res-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;margin-bottom:8px;}
+.res-amount{font-size:48px;font-weight:900;color:#ffd700;font-family:'Playfair Display',serif;margin:12px 0;}
+.res-sub{font-size:14px;color:rgba(255,255,255,.6);margin-bottom:24px;}
+.btn-res-close{padding:14px 40px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:14px;cursor:pointer;font-family:inherit;}
+
+/* HISTORIQUE */
+.hist-section{padding:0 14px;}
+.hist-title{font-size:13px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.hist-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;}
+.hi-left{display:flex;align-items:center;gap:10px;}
+.hi-icon{font-size:20px;}
+.hi-raison{font-size:13px;font-weight:600;}
+.hi-date{font-size:11px;color:rgba(255,255,255,.4);margin-top:1px;}
+.hi-gain{font-size:15px;font-weight:900;color:#ffd700;font-family:'Playfair Display',serif;}
+
+/* COMMENT GAGNER */
+.how-card{margin:0 14px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;}
+.how-title{font-size:13px;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:12px;}
+.how-item{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:13px;color:rgba(255,255,255,.6);}
+.how-item:last-child{margin-bottom:0;}
+.how-icon{font-size:18px;}
+
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(13,24,41,.95);border-top:1px solid rgba(255,255,255,.08);display:flex;padding:8px 0 12px;z-index:100;}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.3);font-size:10px;font-weight:600;}
+.nav-item.active{color:#00bcd4;}
+.nav-item .ni{font-size:21px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <button class="back-btn" onclick="history.back()">←</button>
+    <span class="topbar-title">🎡 Roue de Chance</span>
+  </div>
+
+  <div class="hero-section">
+    <div class="hero-icon">🎡</div>
+    <div class="hero-title">Roue de Fortune</div>
+    <div class="hero-sub">Tournez la roue pour gagner jusqu'à <strong style="color:#ffd700;">50 FCFA</strong> supplémentaires !</div>
+  </div>
+
+  <div class="tickets-row">
+    <div class="ticket-card">
+      <div class="tc-count" id="ticketRecharge">0</div>
+      <div class="tc-label">💳 Recharge</div>
+    </div>
+    <div class="ticket-card">
+      <div class="tc-count" id="ticketParrain">0</div>
+      <div class="tc-label">🤝 Parrainage</div>
+    </div>
+    <div class="ticket-card">
+      <div class="tc-count" id="ticketTotal">0</div>
+      <div class="tc-label">🎫 Total</div>
+    </div>
+  </div>
+
+  <div class="wheel-section">
+    <div class="wheel-container">
+      <div class="wheel-pointer">▼</div>
+      <canvas id="wheelCanvas" width="280" height="280"></canvas>
+      <div class="wheel-center"><span class="wheel-center-icon">⚡</span></div>
+    </div>
+    <button class="btn-spin" id="btnSpin" onclick="tournerRoue()" disabled>
+      🎡 Tourner la roue
+    </button>
+    <div class="no-ticket-msg" id="noTicketMsg" style="display:none;">
+      <div class="nt-icon">🎫</div>
+      <div class="nt-title">Pas de ticket disponible</div>
+      <div class="nt-sub">Rechargez votre compte ou parrainez un ami pour obtenir un ticket de roue !</div>
+    </div>
+  </div>
+
+  <div class="how-card">
+    <div class="how-title">🎫 Comment obtenir des tickets ?</div>
+    <div class="how-item"><span class="how-icon">💳</span>Effectuez une recharge → 1 ticket</div>
+    <div class="how-item"><span class="how-icon">🤝</span>Parrainez quelqu'un qui s'inscrit → 1 ticket</div>
+    <div class="how-item"><span class="how-icon">🎡</span>Tournez et gagnez entre 5 et 50 FCFA</div>
+    <div class="how-item"><span class="how-icon">💰</span>Gain crédité automatiquement sur votre solde</div>
+  </div>
+
+  <div class="hist-section">
+    <div class="hist-title">Historique des tours</div>
+    <div id="histList"></div>
+  </div>
+</div>
+
+<!-- RÉSULTAT -->
+<div class="result-overlay" id="resultOverlay">
+  <div class="result-box">
+    <div class="res-icon" id="resIcon">🎉</div>
+    <div class="res-title" id="resTitle">Félicitations !</div>
+    <div class="res-amount" id="resAmount">+0 FCFA</div>
+    <div class="res-sub" id="resSub">Crédité sur votre compte</div>
+    <button class="btn-res-close" onclick="fermerResultat()">Super ! 🎉</button>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html" class="nav-item"><span class="ni">🏠</span>Accueil</a>
+  <a href="produits.html" class="nav-item"><span class="ni">💲</span>Produit</a>
+  <a href="parrainage.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
+  <a href="compte.html" class="nav-item active"><span class="ni">👤</span>Mon compte</a>
+</nav>
+
+<script>
+const SB="https://seegoklunovyuieorkvy.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
+function tok(){return localStorage.getItem("velero_token")||"";}
+function uid(){return localStorage.getItem("velero_uid")||"";}
+function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
+
+// Segments roue — max 50 FCFA
+const SEGMENTS=[
+  {label:"5 F",val:5,color:"#00bcd4"},{label:"10 F",val:10,color:"#0097a7"},
+  {label:"15 F",val:15,color:"#00838f"},{label:"20 F",val:20,color:"#ffd700"},
+  {label:"10 F",val:10,color:"#00bcd4"},{label:"25 F",val:25,color:"#ff7043"},
+  {label:"5 F",val:5,color:"#0097a7"},{label:"30 F",val:30,color:"#ab47bc"},
+  {label:"10 F",val:10,color:"#00bcd4"},{label:"50 F",val:50,color:"#ffd700"},
+  {label:"5 F",val:5,color:"#0097a7"},{label:"20 F",val:20,color:"#26c6da"},
+];
+const N=SEGMENTS.length;
+const ARC=2*Math.PI/N;
+
+let droits=[],spinning=false,currentAngle=0;
+
+function drawWheel(angle=0){
+  const canvas=document.getElementById("wheelCanvas");
+  const ctx=canvas.getContext("2d");
+  const cx=140,cy=140,r=130;
+  ctx.clearRect(0,0,280,280);
+  SEGMENTS.forEach((seg,i)=>{
+    const start=angle+i*ARC-Math.PI/2;
+    const end=start+ARC;
+    ctx.beginPath();ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,r,start,end);
+    ctx.closePath();
+    ctx.fillStyle=seg.color;ctx.fill();
+    ctx.strokeStyle="#0a0f1a";ctx.lineWidth=2;ctx.stroke();
+    ctx.save();
+    ctx.translate(cx,cy);
+    ctx.rotate(start+ARC/2);
+    ctx.textAlign="right";
+    ctx.fillStyle="#fff";
+    ctx.font="bold 13px 'DM Sans',sans-serif";
+    ctx.fillText(seg.label,r-10,5);
+    ctx.restore();
+  });
+  // Bord extérieur
+  ctx.beginPath();ctx.arc(cx,cy,r,0,2*Math.PI);
+  ctx.strokeStyle="rgba(255,215,0,.6)";ctx.lineWidth=4;ctx.stroke();
+}
+
+async function init(){
+  if(!tok()){location.href="index.html";return;}
+  drawWheel(0);
+  await chargerDroits();
+  await chargerHistorique();
+}
+
+async function chargerDroits(){
+  const r=await fetch(SB+"/rest/v1/roue_droits?user_id=eq."+uid()+"&utilise=eq.false&select=*",{headers:H()});
+  droits=await r.json()||[];
+  const recharge=droits.filter(d=>d.raison==="recharge").length;
+  const parrain=droits.filter(d=>d.raison==="parrainage").length;
+  const total=droits.length;
+  document.getElementById("ticketRecharge").textContent=recharge;
+  document.getElementById("ticketParrain").textContent=parrain;
+  document.getElementById("ticketTotal").textContent=total;
+  const btn=document.getElementById("btnSpin");
+  const msg=document.getElementById("noTicketMsg");
+  if(total>0){btn.disabled=false;msg.style.display="none";}
+  else{btn.disabled=true;msg.style.display="block";}
+}
+
+async function chargerHistorique(){
+  const r=await fetch(SB+"/rest/v1/roue_chance?user_id=eq."+uid()+"&order=created_at.desc&limit=10",{headers:H()});
+  const hist=await r.json()||[];
+  const el=document.getElementById("histList");
+  if(!hist.length){el.innerHTML='<div style="text-align:center;padding:20px;color:rgba(255,255,255,.3);font-size:13px;">Aucun tour effectué</div>';return;}
+  el.innerHTML=hist.map(h=>`
+    <div class="hist-item">
+      <div class="hi-left">
+        <span class="hi-icon">${h.raison==="recharge"?"💳":"🤝"}</span>
+        <div>
+          <div class="hi-raison">${h.raison==="recharge"?"Ticket recharge":"Ticket parrainage"}</div>
+          <div class="hi-date">${new Date(h.created_at).toLocaleDateString("fr-FR",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})}</div>
+        </div>
+      </div>
+      <div class="hi-gain">+${h.montant_gagne} FCFA</div>
+    </div>`).join("");
+}
+
+// Gain pondéré — max 50 FCFA, valeurs faibles plus fréquentes
+function tirerGain(){
+  const poids=[30,25,20,10,25,8,30,5,25,2,30,10]; // Plus de chances sur les petits gains
+  const total=poids.reduce((a,b)=>a+b,0);
+  let rand=Math.random()*total,cumul=0;
+  for(let i=0;i<N;i++){
+    cumul+=poids[i];
+    if(rand<=cumul)return{index:i,val:SEGMENTS[i].val};
+  }
+  return{index:0,val:5};
+}
+
+async function tournerRoue(){
+  if(spinning||droits.length===0)return;
+  spinning=true;
+  document.getElementById("btnSpin").disabled=true;
+
+  const droit=droits[0];
+  const {index,val}=tirerGain();
+
+  // Angle cible : centrer le segment gagné sous le pointeur
+  const targetSegAngle=-(index*ARC+ARC/2)+Math.PI/2;
+  const tours=5+Math.floor(Math.random()*3); // 5-7 tours
+  const finalAngle=tours*2*Math.PI+targetSegAngle;
+
+  // Animation
+  const duration=4000;
+  const start=performance.now();
+  const startAngle=currentAngle;
+
+  function animate(now){
+    const elapsed=now-start;
+    const progress=Math.min(elapsed/duration,1);
+    // Ease out cubic
+    const ease=1-Math.pow(1-progress,3);
+    const angle=startAngle+finalAngle*ease;
+    drawWheel(angle);
+    if(progress<1){requestAnimationFrame(animate);}
+    else{
+      currentAngle=angle%(2*Math.PI);
+      finirTour(droit,val);
+    }
+  }
+  requestAnimationFrame(animate);
+}
+
+async function finirTour(droit,val){
+  try{
+    // Marquer le droit comme utilisé
+    await fetch(SB+"/rest/v1/roue_droits?id=eq."+droit.id,{
+      method:"PATCH",headers:H(),
+      body:JSON.stringify({utilise:true})
+    });
+
+    // Enregistrer le gain
+    await fetch(SB+"/rest/v1/roue_chance",{
+      method:"POST",headers:{...H(),"Prefer":"return=minimal"},
+      body:JSON.stringify({user_id:uid(),raison:droit.raison,montant_gagne:val})
+    });
+
+    // Créditer le solde
+    const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()});
+    const p=await rp.json();
+    const nouveau=parseFloat(p[0]?.solde||0)+val;
+    await fetch(SB+"/rest/v1/profiles?id=eq."+uid(),{
+      method:"PATCH",headers:H(),
+      body:JSON.stringify({solde:nouveau})
+    });
+
+    // Afficher résultat
+    afficherResultat(val);
+    await chargerDroits();
+    await chargerHistorique();
+  }catch(e){
+    afficherResultat(val);
+  }
+  spinning=false;
+}
+
+function afficherResultat(val){
+  const icons=["🎉","🎊","✨","💫","🌟"];
+  document.getElementById("resIcon").textContent=val>=30?"🏆":val>=20?"🎊":"🎉";
+  document.getElementById("resTitle").textContent=val>=30?"Excellent !":val>=20?"Bien joué !":"Bonne chance !";
+  document.getElementById("resAmount").textContent="+"+val+" FCFA";
+  document.getElementById("resSub").textContent=val+" FCFA crédités sur votre compte !";
+  document.getElementById("resultOverlay").classList.add("show");
+}
+
+function fermerResultat(){
+  document.getElementById("resultOverlay").classList.remove("show");
+}
+
+init();
+</script>
+</body>
+</html>

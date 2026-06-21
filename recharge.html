@@ -423,7 +423,13 @@ async function crediterCompte(montant,ref){
     document.getElementById("payModal").classList.remove("show");
     showAlert("✅ "+parseInt(montant).toLocaleString()+" FCFA crédités sur votre compte !","suc");
     document.getElementById("soldeActuel").textContent=nouveau.toLocaleString()+" FCFA";
-    setTimeout(()=>location.href="dashboard.html",3000);
+    // Donner 1 ticket de roue
+    await fetch(SB+"/rest/v1/roue_droits",{
+      method:"POST",headers:{...H(),"Prefer":"return=minimal"},
+      body:JSON.stringify({user_id:uid(),raison:"recharge",utilise:false})
+    });
+    showAlert("✅ "+parseInt(montant).toLocaleString()+" FCFA crédités ! 🎡 +1 ticket de roue de chance !","suc");
+    setTimeout(()=>location.href="roue.html",3000);
   }catch(e){}
 }
 

@@ -226,6 +226,10 @@ body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;colo
     <button class="nav-tab" onclick="showTab('invest',this)"><span class="ti">📈</span>Invest.</button>
     <button class="nav-tab" onclick="showTab('recharges',this)"><span class="ti">💳</span>Recharges</button>
     <button class="nav-tab" onclick="showTab('retraits',this)"><span class="ti">💸</span>Retraits</button>
+    
+    <button class="nav-tab" onclick="showTab('vip0',this)">
+      <span class="ti">⭐</span>VIP0
+    </button>
     <button class="nav-tab" onclick="showTab('codes',this)"><span class="ti">🎁</span>Codes</button>
   </div>
 
@@ -369,6 +373,75 @@ async function Gcheck(url){
     return null;
   }
   return r;
+}
+
+
+async function loadVIP0(){
+  const r=await fetch(SB+"/rest/v1/offre_gratuite?limit=1&select=*",{headers:H()});
+  const d=await r.json();
+  const offre=d[0];
+  if(!offre){document.getElementById("vip0Status").textContent="Aucune offre configurée";return;}
+  document.getElementById("vip0Status").innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div style="background:#0d1117;border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:20px;font-weight:900;color:${offre.actif?"#4caf50":"#e53935"};">${offre.actif?"✅ ACTIF":"🔴 INACTIF"}</div>
+        <div style="font-size:11px;color:#8b949e;margin-top:3px;">Statut</div>
+      </div>
+      <div style="background:#0d1117;border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:20px;font-weight:900;color:#ffd700;">${offre.places_restantes}/${offre.places_total}</div>
+        <div style="font-size:11px;color:#8b949e;margin-top:3px;">Places restantes</div>
+      </div>
+      <div style="background:#0d1117;border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:20px;font-weight:900;color:#00bcd4;">${offre.gain_jour} FCFA</div>
+        <div style="font-size:11px;color:#8b949e;margin-top:3px;">Gain/jour</div>
+      </div>
+      <div style="background:#0d1117;border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:20px;font-weight:900;color:#00bcd4;">${offre.duree_jours} jours</div>
+        <div style="font-size:11px;color:#8b949e;margin-top:3px;">Durée</div>
+      </div>
+    </div>
+  `;
+
+  // Utilisateurs ayant réclamé
+  const r2=await fetch(SB+"/rest/v1/offre_gratuite_users?select=*,profiles(full_name,email)&order=created_at.desc",{headers:H()});
+  const users=await r2.json()||[];
+  const el=document.getElementById("vip0Users");
+  if(!users.length){el.innerHTML='<div style="color:#8b949e;font-size:13px;">Personne n\'a encore réclamé</div>';return;}
+  el.innerHTML=users.map(u=>`
+    <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1e3a5f;font-size:13px;">
+      <span style="color:#e6edf3;">👤 ${u.profiles?.full_name||u.profiles?.email||"—"}</span>
+      <span style="color:#8b949e;">${new Date(u.created_at).toLocaleDateString("fr-FR",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})}</span>
+    </div>`).join("");
+}
+
+async function activerVIP0(){
+  const r=await fetch(SB+"/rest/v1/offre_gratuite?limit=1",{headers:H()});
+  const d=await r.json();
+  if(!d.length){toast("❌ Aucune offre configurée","err");return;}
+  await fetch(SB+"/rest/v1/offre_gratuite?id=eq."+d[0].id,{method:"PATCH",headers:H(),body:JSON.stringify({actif:true,date_activation:new Date().toISOString()})});
+  toast("✅ VIP0 activé ! Les utilisateurs peuvent maintenant le réclamer.");
+  loadVIP0();
+}
+
+async function desactiverVIP0(){
+  const r=await fetch(SB+"/rest/v1/offre_gratuite?limit=1",{headers:H()});
+  const d=await r.json();
+  if(!d.length)return;
+  await fetch(SB+"/rest/v1/offre_gratuite?id=eq."+d[0].id,{method:"PATCH",headers:H(),body:JSON.stringify({actif:false})});
+  toast("🔴 VIP0 désactivé.");
+  loadVIP0();
+}
+
+async function reinitVIP0(){
+  if(!confirm("Réinitialiser les 100 places ? (Les utilisateurs qui ont déjà réclamé ne pourront pas le reprendre)"))return;
+  const r=await fetch(SB+"/rest/v1/offre_gratuite?limit=1",{headers:H()});
+  const d=await r.json();
+  if(!d.length)return;
+  await fetch(SB+"/rest/v1/offre_gratuite?id=eq."+d[0].id,{method:"PATCH",headers:H(),body:JSON.stringify({places_restantes:100,actif:false})});
+  // Supprimer les anciennes réclamations
+  await fetch(SB+"/rest/v1/offre_gratuite_users",{method:"DELETE",headers:H()});
+  toast("🔄 Réinitialisé — 100 places disponibles.");
+  loadVIP0();
 }
 
 async function G(url){

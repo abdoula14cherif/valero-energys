@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>VIP0 Gratuit — Velero Energy</title>
+<script src="/pwa-install.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:linear-gradient(160deg,#0a0f1a,#0d1829);font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;color:#fff;}
+.wrap{width:100%;max-width:480px;padding-bottom:80px;}
+.topbar{background:rgba(255,255,255,.05);padding:16px 18px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50;border-bottom:1px solid rgba(255,255,255,.08);}
+.back-btn{background:none;border:none;font-size:22px;cursor:pointer;color:#fff;}
+.topbar-title{font-size:17px;font-weight:700;}
+
+.hero{text-align:center;padding:32px 20px 24px;position:relative;}
+.hero::before{content:'🆓';font-size:80px;position:absolute;right:20px;top:20px;opacity:.1;}
+.tag{display:inline-block;background:linear-gradient(135deg,#ffd700,#ffa000);color:#1a1a1a;font-size:11px;font-weight:800;padding:4px 14px;border-radius:20px;margin-bottom:12px;letter-spacing:.5px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;margin-bottom:6px;}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.6);line-height:1.6;}
+
+/* COMPTEUR */
+.counter-card{margin:0 14px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:20px;text-align:center;}
+.counter-label{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;}
+.counter-val{font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:#ffd700;line-height:1;}
+.counter-sub{font-size:12px;color:rgba(255,255,255,.4);margin-top:6px;}
+.progress-bar{background:rgba(255,255,255,.1);border-radius:20px;height:8px;margin-top:14px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#ffd700,#ff6d00);border-radius:20px;transition:width .5s;}
+
+/* STATUS */
+.status-card{margin:0 14px 14px;border-radius:20px;padding:24px;text-align:center;}
+.status-card.inactive{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);}
+.status-card.active{background:linear-gradient(135deg,rgba(76,175,80,.2),rgba(0,188,212,.15));border:2px solid rgba(76,175,80,.4);}
+.status-card.exhausted{background:rgba(229,57,53,.1);border:1px solid rgba(229,57,53,.3);}
+.status-card.mine{background:linear-gradient(135deg,rgba(0,188,212,.2),rgba(0,150,136,.15));border:2px solid rgba(0,188,212,.4);}
+
+.status-icon{font-size:52px;margin-bottom:12px;}
+.status-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-bottom:6px;}
+.status-sub{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:16px;}
+.btn-claim{width:100%;padding:16px;background:linear-gradient(135deg,#ffd700,#ffa000);color:#1a1a1a;font-size:16px;font-weight:800;border:none;border-radius:14px;cursor:pointer;font-family:inherit;box-shadow:0 6px 24px rgba(255,215,0,.3);}
+.btn-claim:disabled{opacity:.5;cursor:not-allowed;}
+
+/* DÉTAILS PLAN */
+.plan-details{margin:0 14px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;overflow:hidden;}
+.pd-img{width:100%;height:120px;object-fit:cover;object-position:center 60%;}
+.pd-body{padding:18px;}
+.pd-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-bottom:14px;}
+.pd-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.pd-stat{background:rgba(255,255,255,.06);border-radius:12px;padding:12px;text-align:center;}
+.pd-val{font-size:16px;font-weight:800;color:#ffd700;font-family:'Playfair Display',serif;}
+.pd-lbl{font-size:10px;color:rgba(255,255,255,.4);margin-top:3px;}
+.pd-note{background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.2);border-radius:12px;padding:12px;font-size:12px;color:rgba(255,215,0,.8);line-height:1.6;}
+
+.alert{padding:10px 14px;border-radius:12px;font-size:13px;margin:0 14px 14px;display:none;}
+.alert.show{display:block;}
+.err{background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.3);color:#fc8181;}
+.suc{background:rgba(76,175,80,.15);border:1px solid rgba(76,175,80,.3);color:#86efac;}
+
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(13,24,41,.95);border-top:1px solid rgba(255,255,255,.08);display:flex;padding:8px 0 12px;z-index:100;}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.3);font-size:10px;font-weight:600;}
+.nav-item.active{color:#ffd700;}
+.nav-item .ni{font-size:21px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <button class="back-btn" onclick="history.back()">←</button>
+    <span class="topbar-title">⭐ VIP0 Gratuit</span>
+  </div>
+
+  <div class="hero">
+    <div class="tag">🆓 OFFRE GRATUITE</div>
+    <div class="hero-title">Plan VIP0</div>
+    <div class="hero-sub">100 FCFA/jour pendant 5 jours — <strong style="color:#ffd700;">totalement gratuit</strong> pour les 100 premiers !</div>
+  </div>
+
+  <!-- Compteur places -->
+  <div class="counter-card" id="counterCard">
+    <div class="counter-label">Places restantes</div>
+    <div class="counter-val" id="placesVal">—</div>
+    <div class="counter-sub">/100 places disponibles</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+
+  <!-- Détails du plan -->
+  <div class="plan-details">
+    <img class="pd-img" src="https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg" alt="VIP0"/>
+    <div class="pd-body">
+      <div class="pd-name">⭐ Plan VIP0</div>
+      <div class="pd-stats">
+        <div class="pd-stat"><div class="pd-val">0 FCFA</div><div class="pd-lbl">Coût</div></div>
+        <div class="pd-stat"><div class="pd-val">100 F</div><div class="pd-lbl">Gain/jour</div></div>
+        <div class="pd-stat"><div class="pd-val">5 jours</div><div class="pd-lbl">Durée</div></div>
+      </div>
+      <div class="pd-note">⚠️ Cette offre est activée chaque jour à 10h00 par l'administrateur. Soyez parmi les 100 premiers à la réclamer !</div>
+    </div>
+  </div>
+
+  <div id="alertBox" class="alert"></div>
+
+  <!-- Status principal -->
+  <div id="statusCard"></div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html" class="nav-item"><span class="ni">🏠</span>Accueil</a>
+  <a href="produits.html" class="nav-item"><span class="ni">💲</span>Produit</a>
+  <a href="vip0.html" class="nav-item active"><span class="ni">⭐</span>VIP0</a>
+  <a href="compte.html" class="nav-item"><span class="ni">👤</span>Mon compte</a>
+</nav>
+
+<script>
+const SB="https://seegoklunovyuieorkvy.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
+function tok(){return localStorage.getItem("velero_token")||"";}
+function uid(){return localStorage.getItem("velero_uid")||"";}
+function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
+
+let offre=null;
+
+function showAlert(msg,type){const el=document.getElementById("alertBox");el.textContent=msg;el.className="alert "+type+" show";}
+
+async function init(){
+  if(!tok()){location.href="index.html";return;}
+
+  // Charger offre
+  const r=await fetch(SB+"/rest/v1/offre_gratuite?limit=1&select=*",{headers:H()});
+  const d=await r.json();
+  offre=d[0]||null;
+
+  if(!offre){
+    document.getElementById("statusCard").innerHTML=`<div class="status-card inactive" style="margin:0 14px 14px;"><div class="status-icon">⏰</div><div class="status-title">Pas encore disponible</div><div class="status-sub">L'administrateur activera cette offre chaque jour à 10h00.</div></div>`;
+    return;
+  }
+
+  // Afficher compteur
+  const restant=offre.places_restantes;
+  const pct=Math.round(((100-restant)/100)*100);
+  document.getElementById("placesVal").textContent=restant;
+  document.getElementById("progressFill").style.width=pct+"%";
+
+  // Vérifier si déjà pris
+  const r2=await fetch(SB+"/rest/v1/offre_gratuite_users?user_id=eq."+uid()+"&select=*",{headers:H()});
+  const d2=await r2.json();
+  const dejaReclamé=d2&&d2.length>0;
+
+  const statusEl=document.getElementById("statusCard");
+
+  if(dejaReclamé){
+    statusEl.innerHTML=`<div class="status-card mine" style="margin:0 14px 14px;">
+      <div class="status-icon">✅</div>
+      <div class="status-title">VIP0 Activé !</div>
+      <div class="status-sub">Vous avez réclamé cette offre. Effectuez votre tâche quotidienne pour recevoir 100 FCFA/jour pendant 5 jours.</div>
+      <button class="btn-claim" onclick="location.href='tache.html'" style="background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;">⛽ Faire ma tâche du jour</button>
+    </div>`;
+    return;
+  }
+
+  if(!offre.actif){
+    statusEl.innerHTML=`<div class="status-card inactive" style="margin:0 14px 14px;">
+      <div class="status-icon">⏰</div>
+      <div class="status-title">Offre non activée</div>
+      <div class="status-sub">L'administrateur activera cette offre aujourd'hui à <strong style="color:#ffd700;">10h00</strong>. Revenez à cette heure pour être parmi les premiers !</div>
+    </div>`;
+    return;
+  }
+
+  if(restant<=0){
+    statusEl.innerHTML=`<div class="status-card exhausted" style="margin:0 14px 14px;">
+      <div class="status-icon">😢</div>
+      <div class="status-title">Offre épuisée</div>
+      <div class="status-sub">Les 100 places ont été prises. Revenez demain à 10h00 pour la prochaine activation !</div>
+    </div>`;
+    return;
+  }
+
+  // DISPONIBLE → bouton réclamer
+  statusEl.innerHTML=`<div class="status-card active" style="margin:0 14px 14px;">
+    <div class="status-icon">🎁</div>
+    <div class="status-title">Offre disponible !</div>
+    <div class="status-sub">Il reste <strong style="color:#ffd700;">${restant} places</strong> sur 100. Réclamez maintenant avant qu'il ne soit trop tard !</div>
+    <button class="btn-claim" id="btnClaim" onclick="reclamer()">🆓 Réclamer gratuitement</button>
+  </div>`;
+}
+
+async function reclamer(){
+  const btn=document.getElementById("btnClaim");
+  if(btn)btn.disabled=true;
+  if(btn)btn.textContent="⏳ Activation...";
+
+  try{
+    // Vérifier encore les places
+    const r=await fetch(SB+"/rest/v1/offre_gratuite?id=eq."+offre.id+"&select=places_restantes,actif",{headers:H()});
+    const d=await r.json();
+    if(!d[0]||!d[0].actif||d[0].places_restantes<=0){
+      showAlert("❌ Offre épuisée ou désactivée !","err");
+      if(btn){btn.disabled=false;btn.textContent="🆓 Réclamer gratuitement";}
+      return;
+    }
+
+    // Décrémenter places
+    await fetch(SB+"/rest/v1/offre_gratuite?id=eq."+offre.id,{
+      method:"PATCH",headers:H(),
+      body:JSON.stringify({places_restantes:d[0].places_restantes-1})
+    });
+
+    // Créer investissement gratuit
+    const rInv=await fetch(SB+"/rest/v1/investissements",{
+      method:"POST",
+      headers:{...H(),"Prefer":"return=representation"},
+      body:JSON.stringify({
+        user_id:uid(),plan_nom:"VIP0",
+        montant_investi:0,revenu_jour:100,
+        jours_total:5,jours_restants:5,
+        statut:"actif",type_gain:"journalier"
+      })
+    });
+    const invData=await rInv.json();
+    const invId=invData[0]?.id;
+
+    // Enregistrer utilisation
+    await fetch(SB+"/rest/v1/offre_gratuite_users",{
+      method:"POST",
+      headers:{...H(),"Prefer":"return=minimal"},
+      body:JSON.stringify({user_id:uid(),offre_id:offre.id,invest_id:invId})
+    });
+
+    showAlert("✅ VIP0 activé ! Vous recevrez 100 FCFA/jour pendant 5 jours.","suc");
+    setTimeout(()=>init(),2000);
+  }catch(e){
+    showAlert("❌ Erreur. Réessayez.","err");
+    if(btn){btn.disabled=false;btn.textContent="🆓 Réclamer gratuitement";}
+  }
+}
+
+// Rafraîchir toutes les 30 secondes si offre inactive
+setInterval(()=>{if(!offre||!offre.actif)init();},30000);
+init();
+</script>
+</body>
+</html>
