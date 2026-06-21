@@ -142,14 +142,6 @@
             cursor: pointer;
             font-family: inherit;
         }
-        .contact-btn.telegram {
-            background: linear-gradient(135deg, #0088cc, #006699);
-            color: #fff;
-        }
-        .contact-btn.telegram:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 136, 204, .3);
-        }
         .contact-btn.whatsapp {
             background: linear-gradient(135deg, #25D366, #128C7E);
             color: #fff;
@@ -157,6 +149,14 @@
         .contact-btn.whatsapp:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(37, 211, 102, .3);
+        }
+        .contact-btn.telegram {
+            background: linear-gradient(135deg, #0088cc, #006699);
+            color: #fff;
+        }
+        .contact-btn.telegram:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 136, 204, .3);
         }
         .contact-btn.support {
             background: linear-gradient(135deg, #00bcd4, #0097a7);
@@ -262,7 +262,7 @@
         <div class="emoji">⏰</div>
         <div class="text">
             Réponse sous 5 minutes en moyenne
-            <div class="sub">Assistance prioritaire sur Telegram & WhatsApp</div>
+            <div class="sub">Assistance prioritaire sur WhatsApp & Telegram</div>
         </div>
     </div>
 
@@ -271,8 +271,8 @@
             <span>📱</span> Nous contacter
         </div>
         <div class="contact-buttons">
-            <a href="#" class="contact-btn telegram" id="telegramBtn1">
-                <span>💬</span> Service client Telegram
+            <a href="#" class="contact-btn whatsapp" id="whatsappSupportBtn">
+                <span>💬</span> Service client WhatsApp
             </a>
             <a href="#" class="contact-btn whatsapp" id="whatsappGroupBtn">
                 <span>👥</span> Groupe d'entraide WhatsApp
@@ -280,10 +280,13 @@
             <a href="#" class="contact-btn whatsapp" id="whatsappChannelBtn">
                 <span>📢</span> Chaîne WhatsApp officielle
             </a>
+            <a href="#" class="contact-btn telegram" id="telegramChannelBtn">
+                <span>✈️</span> Canal Telegram officiel
+            </a>
         </div>
         <div class="info-box">
             <p>🕐 Disponible 7j/7 — 24h/24</p>
-            <small>Un problème avec votre compte, un dépôt ou un retrait ? Contactez-nous directement sur Telegram ou rejoignez nos communautés WhatsApp.</small>
+            <small>Un problème avec votre compte, un dépôt ou un retrait ? Contactez-nous directement sur WhatsApp ou rejoignez nos communautés.</small>
         </div>
     </div>
 
@@ -328,7 +331,7 @@
                 <span class="arrow">▼</span>
             </div>
             <div class="faq-answer">
-                Contactez immédiatement notre service client via Telegram. Ayez votre référence de transaction à portée de main pour un traitement plus rapide.
+                Contactez immédiatement notre service client via WhatsApp. Ayez votre référence de transaction à portée de main pour un traitement plus rapide.
             </div>
         </div>
 
@@ -375,16 +378,19 @@
 <script src="/pwa-install.js"></script>
 <script>
     // ============================================================
-    // LIENS ET NUMÉROS DE CONTACT (masqués dans le code HTML)
+    // LIENS DE CONTACT (masqués dans le code HTML)
     // ============================================================
-    // Service client Telegram avec le numéro +228 97 16 42 70
-    const TELEGRAM_SUPPORT = "https://t.me/+22897164270";
+    // Service client WhatsApp (numéro +228 97 16 42 70)
+    const WHATSAPP_SUPPORT = "https://wa.me/22897164270";
     
     // Groupe d'entraide WhatsApp
     const WHATSAPP_GROUP = "https://chat.whatsapp.com/Ix8Wv2XySQZIlH04VElByp?mode=gi_t";
     
     // Chaîne WhatsApp officielle
     const WHATSAPP_CHANNEL = "https://whatsapp.com/channel/0029VbD0BUi1SWt0QrRw5p0M";
+    
+    // Canal Telegram officiel
+    const TELEGRAM_CHANNEL = "https://t.me/+WSAncOLVn1EzN2Vk";
 
     // ============================================================
     // FONCTIONS
@@ -395,14 +401,15 @@
 
     // Attacher les événements après chargement
     document.addEventListener("DOMContentLoaded", function() {
-        const btnTelegram = document.getElementById("telegramBtn1");
+        const btnWhatsAppSupport = document.getElementById("whatsappSupportBtn");
         const btnWhatsAppGroup = document.getElementById("whatsappGroupBtn");
         const btnWhatsAppChannel = document.getElementById("whatsappChannelBtn");
+        const btnTelegramChannel = document.getElementById("telegramChannelBtn");
 
-        if (btnTelegram) {
-            btnTelegram.addEventListener("click", function(e) {
+        if (btnWhatsAppSupport) {
+            btnWhatsAppSupport.addEventListener("click", function(e) {
                 e.preventDefault();
-                ouvrirLien(TELEGRAM_SUPPORT);
+                ouvrirLien(WHATSAPP_SUPPORT);
             });
         }
 
@@ -417,6 +424,13 @@
             btnWhatsAppChannel.addEventListener("click", function(e) {
                 e.preventDefault();
                 ouvrirLien(WHATSAPP_CHANNEL);
+            });
+        }
+
+        if (btnTelegramChannel) {
+            btnTelegramChannel.addEventListener("click", function(e) {
+                e.preventDefault();
+                ouvrirLien(TELEGRAM_CHANNEL);
             });
         }
     });
