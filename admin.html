@@ -1,3 +1,4 @@
+cat > admin.html << 'ENDOFFILE'
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,783 +9,1007 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0d1117;--card:#161b22;--card2:#1c2230;--teal:#00bcd4;--gold:#ffa000;--green:#4caf50;--red:#e53935;--purple:#9c27b0;--text:#e6edf3;--muted:#8b949e;--border:#30363d;}
-body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);display:flex;flex-direction:column;align-items:center;}
-.wrap{width:100%;max-width:520px;padding-bottom:40px;}
+body{min-height:100vh;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);}
 
 /* LOGIN */
 .login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
 .login-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px 28px;width:100%;max-width:380px;}
-.login-logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;text-align:center;margin-bottom:4px;}
+.login-logo{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;text-align:center;margin-bottom:4px;color:var(--text);}
 .login-logo span{color:var(--teal);}
-.login-badge{display:inline-block;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;margin:0 auto 24px;display:block;width:fit-content;}
-.lf-field{margin-bottom:14px;}
-.lf-field label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px;}
-.lf-field input{width:100%;padding:12px 14px;font-size:14px;font-family:inherit;border:1.5px solid var(--border);border-radius:11px;outline:none;background:#0d1117;color:var(--text);}
-.lf-field input:focus{border-color:var(--teal);}
-.btn-login{width:100%;padding:14px;background:linear-gradient(135deg,var(--teal),#0097a7);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;margin-top:6px;}
-.login-err{background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.4);color:#fc8181;padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:14px;display:none;}
+.login-badge{display:block;width:fit-content;margin:0 auto 24px;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;}
+.lf{margin-bottom:13px;}
+.lf label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px;}
+.lf input{width:100%;padding:12px 14px;font-size:14px;font-family:inherit;border:1.5px solid var(--border);border-radius:11px;outline:none;background:#0d1117;color:var(--text);}
+.lf input:focus{border-color:var(--teal);}
+.btn-login{width:100%;padding:14px;background:linear-gradient(135deg,var(--teal),#0097a7);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;}
+.login-err{background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.4);color:#fc8181;padding:10px;border-radius:10px;font-size:13px;margin-bottom:13px;display:none;}
 .login-err.show{display:block;}
 
-/* HEADER */
-.header{background:var(--card);border-bottom:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
-.h-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;}
-.h-logo span{color:var(--teal);}
-.h-badge{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;margin-left:8px;}
-.h-right{display:flex;align-items:center;gap:10px;}
-.btn-quit{background:rgba(255,255,255,.08);border:1px solid var(--border);color:var(--muted);font-size:13px;font-weight:600;padding:7px 14px;border-radius:10px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;}
-
-/* NAV TABS */
-.nav-tabs{display:flex;background:var(--card);border-bottom:1px solid var(--border);overflow-x:auto;}
-.nav-tab{flex:1;min-width:80px;padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;border:none;background:none;font-family:inherit;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;}
-.nav-tab.active{color:var(--teal);border-bottom-color:var(--teal);}
-.nav-tab .ti{font-size:22px;}
+/* LAYOUT */
+.admin-wrap{display:flex;min-height:100vh;}
+/* SIDEBAR */
+.sidebar{width:220px;background:var(--card);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .3s;}
+.sidebar.collapsed{transform:translateX(-220px);}
+.sb-header{padding:16px;border-bottom:1px solid var(--border);}
+.sb-logo{font-family:'Playfair Display',serif;font-size:16px;font-weight:900;color:var(--text);}
+.sb-logo span{color:var(--teal);}
+.sb-badge{display:inline-block;background:var(--red);color:#fff;font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:6px;}
+.sb-role{font-size:11px;color:var(--muted);margin-top:3px;}
+.sb-menu{flex:1;overflow-y:auto;padding:8px 0;}
+.sb-item{display:flex;align-items:center;gap:10px;padding:11px 16px;cursor:pointer;color:var(--muted);font-size:13px;font-weight:600;border:none;background:none;width:100%;text-align:left;font-family:inherit;transition:all .2s;border-left:3px solid transparent;}
+.sb-item:hover{background:rgba(255,255,255,.04);color:var(--text);}
+.sb-item.active{color:var(--teal);background:rgba(0,188,212,.08);border-left-color:var(--teal);}
+.sb-item .si{font-size:18px;flex-shrink:0;}
+.sb-sep{height:1px;background:var(--border);margin:8px 16px;}
+.sb-group{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding:8px 16px 4px;}
+.badge-n{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px;margin-left:auto;}
+.badge-g{background:var(--gold);color:#1a1a1a;font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px;margin-left:auto;}
+/* MAIN */
+.main-content{margin-left:220px;flex:1;transition:margin .3s;}
+.main-content.full{margin-left:0;}
+.topbar{background:var(--card);border-bottom:1px solid var(--border);padding:12px 18px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50;}
+.toggle-sb{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px;}
+.tb-title{font-size:15px;font-weight:700;flex:1;}
+.tb-actions{display:flex;align-items:center;gap:10px;}
+.tb-email{font-size:12px;color:var(--muted);}
+.btn-quit-tb{background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.3);color:#ef5350;font-size:12px;font-weight:700;padding:6px 12px;border-radius:8px;cursor:pointer;font-family:inherit;}
+.page-content{padding:16px;}
 
 /* STATS GRID */
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px;}
-.stat-card{background:var(--card);border-radius:16px;padding:18px;border-top:3px solid var(--teal);position:relative;overflow:hidden;}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;}
+.stat-card{background:var(--card);border-radius:14px;padding:16px;border-top:3px solid var(--teal);position:relative;overflow:hidden;}
 .stat-card.gold{border-top-color:var(--gold);}
-.stat-card.orange{border-top-color:#ff6d00;}
 .stat-card.green{border-top-color:var(--green);}
 .stat-card.red{border-top-color:var(--red);}
 .stat-card.purple{border-top-color:var(--purple);}
-.sc-icon{font-size:32px;margin-bottom:10px;opacity:.8;}
-.sc-val{font-size:28px;font-weight:900;font-family:'Playfair Display',serif;color:var(--text);margin-bottom:4px;}
-.sc-lbl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.stat-card.orange{border-top-color:#ff6d00;}
+.stat-card.blue{border-top-color:#1565c0;}
+.sc-icon{font-size:26px;margin-bottom:8px;opacity:.8;}
+.sc-val{font-size:24px;font-weight:900;font-family:'Playfair Display',serif;color:var(--text);margin-bottom:3px;}
+.sc-lbl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;}
+.sc-sub{font-size:11px;color:var(--muted);margin-top:4px;}
 
-/* ACTIONS RAPIDES */
-.quick-section{padding:0 14px 14px;}
-.qs-title{font-size:13px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
-.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.quick-btn{background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:14px;cursor:pointer;font-family:inherit;color:var(--text);font-size:12px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .2s;}
-.quick-btn:hover{border-color:var(--teal);background:rgba(0,188,212,.08);}
-.quick-btn .qi{font-size:24px;}
+/* SECTION */
+.sec-card{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:12px;overflow:hidden;}
+.sec-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.sec-title{font-size:14px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px;}
+.sec-body{padding:14px 16px;}
 
-/* SECTION CONTENT */
-.section{padding:0 14px;}
-.sec-title{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;}
-.badge-n{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+/* TABS internes */
+.inner-tabs{display:flex;gap:6px;margin-bottom:12px;}
+.inner-tab{padding:7px 14px;background:var(--card2);border:1px solid var(--border);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;color:var(--muted);font-family:inherit;}
+.inner-tab.active{border-color:var(--teal);color:var(--teal);background:rgba(0,188,212,.08);}
 
-/* CARDS TX */
-.tx-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--teal);}
-.tx-card.attente{border-left-color:var(--gold);}
-.tx-card.valide{border-left-color:var(--green);}
-.tx-card.rejete{border-left-color:var(--red);}
-.tc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:8px;}
-.tc-user{font-size:13px;font-weight:700;}
-.tc-amount{font-size:17px;font-weight:900;font-family:'Playfair Display',serif;color:var(--teal);}
-.tc-details{font-size:11px;color:var(--muted);line-height:1.8;margin-bottom:8px;}
-.tc-ref{font-size:11px;color:#4dd0e1;margin-bottom:8px;word-break:break-all;}
-.tc-actions{display:flex;gap:8px;}
-.btn-v{flex:1;padding:9px;background:rgba(76,175,80,.15);border:1px solid rgba(76,175,80,.4);color:#81c784;font-size:12px;font-weight:700;border-radius:9px;cursor:pointer;font-family:inherit;}
-.btn-r{flex:1;padding:9px;background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.4);color:#ef5350;font-size:12px;font-weight:700;border-radius:9px;cursor:pointer;font-family:inherit;}
-.statut-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;}
-.sb-attente{background:rgba(255,160,0,.15);color:var(--gold);}
-.sb-valide{background:rgba(76,175,80,.15);color:var(--green);}
-.sb-rejete{background:rgba(229,57,53,.15);color:var(--red);}
+/* SEARCH */
+.search-row{display:flex;gap:8px;margin-bottom:12px;}
+.search-input{flex:1;padding:9px 13px;font-size:13px;font-family:inherit;border:1.5px solid var(--border);border-radius:10px;outline:none;background:var(--bg);color:var(--text);}
+.search-input:focus{border-color:var(--teal);}
+.btn-search{padding:9px 16px;background:var(--teal);border:none;border-radius:10px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
 
-/* USER CARDS */
-.user-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:border-color .2s;}
-.user-card:hover{border-color:var(--teal);}
-.ua-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--teal),#0097a7);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#fff;flex-shrink:0;font-family:'Playfair Display',serif;}
-.ua-info{flex:1;min-width:0;}
-.ua-name{font-size:14px;font-weight:700;}
-.ua-email{font-size:11px;color:var(--muted);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.ua-solde{font-size:13px;font-weight:800;color:var(--teal);margin-top:3px;}
-.ua-arrow{color:var(--muted);font-size:18px;flex-shrink:0;}
+/* TX ITEM */
+.tx-item{border-bottom:1px solid var(--border);padding:12px 0;}
+.tx-item:last-child{border-bottom:none;}
+.tx-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+.tx-user{font-size:13px;font-weight:700;color:var(--text);}
+.tx-amount{font-size:15px;font-weight:900;font-family:'Playfair Display',serif;}
+.tx-amount.plus{color:var(--green);}
+.tx-amount.minus{color:var(--red);}
+.tx-details{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.6;}
+.tx-ref{font-size:11px;color:#4dd0e1;word-break:break-all;}
+.tx-actions{display:flex;gap:6px;margin-top:8px;}
+.btn-v{padding:7px 14px;background:rgba(76,175,80,.15);border:1px solid rgba(76,175,80,.4);color:#81c784;font-size:11px;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
+.btn-r{padding:7px 14px;background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.4);color:#ef5350;font-size:11px;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
+.statut-b{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;}
+.s-attente{background:rgba(255,160,0,.15);color:var(--gold);}
+.s-valide{background:rgba(76,175,80,.15);color:var(--green);}
+.s-rejete{background:rgba(229,57,53,.15);color:var(--red);}
 
-/* CODES CADEAUX */
-.create-form{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:14px;}
-.cf-title{font-size:14px;font-weight:700;color:var(--teal);margin-bottom:14px;}
-.cf-row{display:flex;gap:8px;margin-bottom:12px;}
-.cf-field{flex:1;}
-.cf-field label{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-bottom:4px;}
-.cf-field input{width:100%;padding:10px 12px;font-size:13px;font-family:inherit;border:1.5px solid var(--border);border-radius:10px;outline:none;background:var(--bg);color:var(--text);}
-.cf-field input:focus{border-color:var(--teal);}
-.btn-gen{padding:10px 14px;background:rgba(0,188,212,.15);border:1px solid rgba(0,188,212,.3);color:var(--teal);font-size:12px;font-weight:700;border-radius:9px;cursor:pointer;font-family:inherit;white-space:nowrap;align-self:flex-end;}
-.btn-create-c{width:100%;padding:13px;background:linear-gradient(135deg,var(--teal),#0097a7);color:#fff;font-size:14px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;}
-.form-alert{padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:12px;display:none;}
-.form-alert.show{display:block;}
-.fa-err{background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.4);color:#fc8181;}
-.fa-ok{background:rgba(76,175,80,.15);border:1px solid rgba(76,175,80,.4);color:#86efac;}
+/* USER ITEM */
+.user-item{display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);padding:12px 0;}
+.user-item:last-child{border-bottom:none;}
+.u-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--teal),#0097a7);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;flex-shrink:0;font-family:'Playfair Display',serif;}
+.u-info{flex:1;min-width:0;}
+.u-name{font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.u-email{font-size:11px;color:var(--muted);margin-top:1px;}
+.u-meta{display:flex;gap:6px;margin-top:3px;flex-wrap:wrap;}
+.u-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;}
+.ub-solde{background:rgba(0,188,212,.15);color:var(--teal);}
+.ub-role{background:rgba(156,39,176,.15);color:#ce93d8;}
+.ub-bloque{background:rgba(229,57,53,.15);color:#ef5350;}
+.ub-promo{background:rgba(255,160,0,.15);color:var(--gold);}
+.ub-mgr{background:rgba(76,175,80,.15);color:var(--green);}
+.u-actions{display:flex;gap:5px;flex-shrink:0;}
+.btn-u{padding:6px 10px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;border:none;background:rgba(255,255,255,.08);color:var(--text);}
+.btn-u:hover{background:rgba(255,255,255,.14);}
 
-.code-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:10px;}
-.cc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
-.cc-code{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--teal);letter-spacing:2px;}
-.cc-montant{font-size:15px;font-weight:900;color:var(--green);}
-.cc-details{font-size:11px;color:var(--muted);line-height:1.8;margin-bottom:8px;}
-.progress-bar{background:var(--border);border-radius:20px;height:5px;margin-bottom:8px;}
-.progress-fill{background:linear-gradient(90deg,var(--teal),#0097a7);border-radius:20px;height:100%;}
-.cc-actions{display:flex;gap:8px;}
-.btn-tog{padding:7px 12px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;}
-.btn-tog.on{background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.3);color:var(--red);}
-.btn-tog.off{background:rgba(76,175,80,.15);border:1px solid rgba(76,175,80,.3);color:var(--green);}
-.btn-cpyc{padding:7px 12px;background:rgba(0,188,212,.12);border:1px solid rgba(0,188,212,.3);color:var(--teal);font-size:11px;font-weight:700;border-radius:8px;cursor:pointer;font-family:inherit;}
-.badge-actif{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(76,175,80,.15);color:var(--green);}
-.badge-inactif{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(229,57,53,.15);color:var(--red);}
+/* FORMS */
+.form-group{margin-bottom:12px;}
+.form-group label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 12px;font-size:13px;font-family:inherit;border:1.5px solid var(--border);border-radius:10px;outline:none;background:var(--bg);color:var(--text);}
+.form-group input:focus,.form-group select:focus{border-color:var(--teal);}
+.form-row{display:flex;gap:8px;}
+.form-row .form-group{flex:1;}
 
-/* INVEST */
-.invest-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:10px;}
-.ic-top{display:flex;justify-content:space-between;margin-bottom:8px;}
-.ic-plan{font-size:15px;font-weight:700;}
-.ic-user{font-size:12px;color:var(--muted);}
-.ic-progress{margin-bottom:8px;}
-.ic-stats{display:flex;gap:10px;font-size:11px;color:var(--muted);flex-wrap:wrap;}
-.ic-stat span{color:var(--text);font-weight:700;}
+/* BUTTONS */
+.btn-primary{padding:11px 20px;background:linear-gradient(135deg,var(--teal),#0097a7);border:none;border-radius:10px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn-success{padding:11px 20px;background:rgba(76,175,80,.2);border:1px solid rgba(76,175,80,.4);border-radius:10px;color:#81c784;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn-danger{padding:11px 20px;background:rgba(229,57,53,.2);border:1px solid rgba(229,57,53,.4);border-radius:10px;color:#ef5350;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn-warning{padding:11px 20px;background:rgba(255,160,0,.15);border:1px solid rgba(255,160,0,.3);border-radius:10px;color:var(--gold);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn-full{width:100%;margin-top:8px;}
+.btn-sm{padding:6px 12px;font-size:11px;border-radius:7px;}
 
-.empty{text-align:center;padding:30px;color:var(--muted);}
-.empty-icon{font-size:36px;margin-bottom:8px;}
-.loading{text-align:center;padding:20px;color:var(--muted);font-size:13px;}
+/* PAGINATION */
+.pagination{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 0 0;}
+.pg-btn{padding:7px 12px;background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;}
+.pg-btn:disabled{opacity:.4;cursor:not-allowed;}
+.pg-btn.active{border-color:var(--teal);color:var(--teal);background:rgba(0,188,212,.08);}
+.pg-info{font-size:12px;color:var(--muted);}
+
+/* ALERTS */
+.alert{padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:12px;display:none;}
+.alert.show{display:block;}
+.a-err{background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.4);color:#fc8181;}
+.a-ok{background:rgba(76,175,80,.15);border:1px solid rgba(76,175,80,.4);color:#86efac;}
+.a-info{background:rgba(0,188,212,.1);border:1px solid rgba(0,188,212,.3);color:#4dd0e1;}
 
 /* TOAST */
-.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:12px;font-size:13px;font-weight:700;z-index:999;display:none;white-space:nowrap;}
+.toast{position:fixed;top:16px;right:16px;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:700;z-index:9999;display:none;max-width:320px;}
 .toast.show{display:block;}
 .toast.ok{background:var(--teal);color:#fff;}
 .toast.err{background:var(--red);color:#fff;}
+.toast.warn{background:var(--gold);color:#1a1a1a;}
 
-/* MODAL UTILISATEUR */
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:none;align-items:flex-end;justify-content:center;}
-.modal-bg.show{display:flex;}
-.modal{background:var(--card);border-radius:24px 24px 0 0;padding:0;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;animation:slideUp .3s ease;}
-@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+/* CODE CADEAU AUTO */
+.code-auto-box{background:linear-gradient(135deg,rgba(255,193,7,.1),rgba(255,160,0,.05));border:2px solid rgba(255,193,7,.3);border-radius:16px;padding:20px;text-align:center;}
+.code-display{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--gold);letter-spacing:4px;margin:12px 0;}
+.code-timer{font-size:24px;font-weight:900;color:var(--red);font-family:'Playfair Display',serif;}
+.code-expired{color:var(--muted);font-size:14px;}
 
-.modal-header{background:linear-gradient(135deg,#0097a7,#00bcd4);padding:24px 20px 20px;position:relative;}
-.modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.2);border:none;color:#fff;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit;}
-.modal-avatar{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;color:#fff;font-family:'Playfair Display',serif;margin-bottom:12px;border:3px solid rgba(255,255,255,.4);}
-.modal-name{font-size:20px;font-weight:900;color:#fff;margin-bottom:2px;}
-.modal-email{font-size:13px;color:rgba(255,255,255,.75);}
+/* VIP0 */
+.vip0-status{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.v0-box{background:var(--card2);border-radius:12px;padding:14px;text-align:center;}
+.v0-val{font-size:22px;font-weight:900;font-family:'Playfair Display',serif;}
+.v0-lbl{font-size:10px;color:var(--muted);font-weight:600;margin-top:3px;text-transform:uppercase;}
+.action-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px;}
 
-.modal-body{padding:16px 18px 24px;}
+/* USER DETAIL MODAL */
+.ud-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:16px;}
+.ud-modal.show{display:flex;}
+.ud-box{background:var(--card);border:1px solid var(--border);border-radius:20px;width:100%;max-width:480px;margin:auto;}
+.ud-header{padding:18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.ud-body{padding:18px;}
+.ud-section{margin-bottom:16px;}
+.ud-sec-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.ud-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.ud-row:last-child{border-bottom:none;}
+.ud-label{color:var(--muted);}
+.ud-val{font-weight:700;color:var(--text);}
+.ud-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.btn-close-ud{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;}
 
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
-.info-tile{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:12px;}
-.it-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;}
-.it-val{font-size:16px;font-weight:800;color:var(--text);}
-.it-val.teal{color:var(--teal);}
-.it-val.green{color:var(--green);}
-.it-val.gold{color:var(--gold);}
+.empty{text-align:center;padding:32px;color:var(--muted);}
+.empty-icon{font-size:36px;margin-bottom:10px;}
+.loading-skeleton{background:linear-gradient(90deg,var(--card2) 25%,var(--border) 50%,var(--card2) 75%);background-size:200%;animation:sk 1.5s infinite;border-radius:8px;height:60px;margin-bottom:8px;}
+@keyframes sk{0%{background-position:200%}100%{background-position:-200%}}
 
-.info-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;}
-.info-row:last-child{border-bottom:none;}
-.ir-label{color:var(--muted);}
-.ir-val{font-weight:700;}
-
-.modal-section-title{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin:16px 0 10px;}
-
-.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px;}
-.btn-ma{padding:12px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;border:none;display:flex;align-items:center;justify-content:center;gap:6px;}
-.btn-ma.credit{background:rgba(76,175,80,.15);border:1px solid rgba(76,175,80,.3);color:var(--green);}
-.btn-ma.debit{background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.3);color:var(--red);}
-.btn-ma.msg{background:rgba(0,188,212,.12);border:1px solid rgba(0,188,212,.3);color:var(--teal);}
-.btn-ma.block{background:rgba(255,160,0,.1);border:1px solid rgba(255,160,0,.3);color:var(--gold);}
-
-.tx-mini{background:var(--bg);border-radius:10px;padding:10px 12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
-.tm-left{font-size:12px;}
-.tm-type{font-weight:700;margin-bottom:2px;}
-.tm-date{font-size:10px;color:var(--muted);}
-.tm-amount{font-size:14px;font-weight:900;font-family:'Playfair Display',serif;}
-.tm-amount.dep{color:var(--green);}
-.tm-amount.ret{color:var(--red);}
-.tm-amount.bon{color:var(--teal);}
+/* MOBILE */
+@media(max-width:600px){
+  .sidebar{width:200px;}
+  .main-content{margin-left:200px;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+}
 </style>
 </head>
 <body>
 
 <div class="toast" id="toast"></div>
 
+<!-- USER DETAIL MODAL -->
+<div class="ud-modal" id="udModal">
+  <div class="ud-box">
+    <div class="ud-header">
+      <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;" id="udTitle">Détails utilisateur</div>
+      <button class="btn-close-ud" onclick="closeUD()">✕</button>
+    </div>
+    <div class="ud-body" id="udBody">Chargement...</div>
+  </div>
+</div>
+
 <!-- LOGIN -->
-<div id="loginPage" class="login-page" style="width:100%;">
+<div id="loginPage" class="login-page">
   <div class="login-box">
     <div class="login-logo">VELERO <span>ENERGY</span></div>
-    <div class="login-badge">ADMIN</div>
+    <div class="login-badge">ADMIN PANEL</div>
     <div id="loginErr" class="login-err"></div>
-    <div class="lf-field"><label>Email administrateur</label>
-      <input type="email" id="adminEmail" placeholder="admin@veleroenergy.com"/>
-    </div>
-    <div class="lf-field"><label>Mot de passe</label>
-      <input type="password" id="adminPass" placeholder="••••••••"/>
-    </div>
-    <button class="btn-login" onclick="doLogin()">🔐 Accéder au panneau admin</button>
+    <div class="lf"><label>Email</label><input type="email" id="adminEmail" placeholder="admin@veleroenergy.com"/></div>
+    <div class="lf"><label>Mot de passe</label><input type="password" id="adminPass" placeholder="••••••••"/></div>
+    <button class="btn-login" onclick="doLogin()">🔐 Accéder</button>
   </div>
 </div>
 
-<!-- ADMIN PANEL -->
-<div id="adminPanel" class="wrap" style="display:none;">
-
-  <div class="header">
-    <div>
-      <span class="h-logo">VELERO <span>ENERGY</span></span>
-      <span class="h-badge">ADMIN</span>
+<!-- ADMIN -->
+<div id="adminWrap" class="admin-wrap" style="display:none;">
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sb-header">
+      <div class="sb-logo">VELERO <span>ENERGY</span></div>
+      <div class="sb-role" id="sbRole">Admin</div>
     </div>
-    <div class="h-right">
-      <button class="btn-quit" onclick="doLogout()">↩ Quitter</button>
-    </div>
-  </div>
+    <div class="sb-menu">
+      <div class="sb-group">Vue d'ensemble</div>
+      <button class="sb-item active" onclick="goTo('dashboard',this)"><span class="si">📊</span>Dashboard<span class="badge-n" id="bage-att">0</span></button>
 
-  <div class="nav-tabs">
-    <button class="nav-tab active" onclick="showTab('dashboard',this)"><span class="ti">📊</span>Dashboard</button>
-    <button class="nav-tab" onclick="showTab('users',this)"><span class="ti">👥</span>Utilisateurs</button>
-    <button class="nav-tab" onclick="showTab('invest',this)"><span class="ti">📈</span>Invest.</button>
-    <button class="nav-tab" onclick="showTab('recharges',this)"><span class="ti">💳</span>Recharges</button>
-    <button class="nav-tab" onclick="showTab('retraits',this)"><span class="ti">💸</span>Retraits</button>
-    
-    <button class="nav-tab" onclick="showTab('vip0',this)">
-      <span class="ti">⭐</span>VIP0
-    </button>
-    <button class="nav-tab" onclick="showTab('codes',this)"><span class="ti">🎁</span>Codes</button>
-  </div>
+      <div class="sb-sep"></div>
+      <div class="sb-group">Transactions</div>
+      <button class="sb-item" onclick="goTo('depots',this)"><span class="si">💳</span>Dépôts<span class="badge-n" id="badge-dep">0</span></button>
+      <button class="sb-item" onclick="goTo('retraits',this)"><span class="si">💸</span>Retraits<span class="badge-n" id="badge-ret">0</span></button>
 
-  <!-- DASHBOARD -->
-  <div id="tab-dashboard">
-    <div class="stats-grid">
-      <div class="stat-card"><div class="sc-icon">👥</div><div class="sc-val" id="s-users">—</div><div class="sc-lbl">Utilisateurs</div></div>
-      <div class="stat-card gold"><div class="sc-icon">💰</div><div class="sc-val" id="s-soldes">—</div><div class="sc-lbl">Soldes Total (F)</div></div>
-      <div class="stat-card orange"><div class="sc-icon">📈</div><div class="sc-val" id="s-invests">—</div><div class="sc-lbl">Investissements</div></div>
-      <div class="stat-card green"><div class="sc-icon">💳</div><div class="sc-val" id="s-recharges">—</div><div class="sc-lbl">Recharges</div></div>
-      <div class="stat-card red"><div class="sc-icon">⏳</div><div class="sc-val" id="s-attente">—</div><div class="sc-lbl">En attente</div></div>
-      <div class="stat-card purple"><div class="sc-icon">👑</div><div class="sc-val" id="s-commissions">—</div><div class="sc-lbl">Gains Parrain (F)</div></div>
-    </div>
-    <div class="quick-section">
-      <div class="qs-title">⚡ ACTIONS RAPIDES</div>
-      <div class="quick-grid">
-        <button class="quick-btn" onclick="showTab('recharges',document.querySelectorAll('.nav-tab')[3])"><span class="qi">💳</span>Valider dépôts</button>
-        <button class="quick-btn" onclick="showTab('retraits',document.querySelectorAll('.nav-tab')[4])"><span class="qi">💸</span>Traiter retraits</button>
-        <button class="quick-btn" onclick="showTab('users',document.querySelectorAll('.nav-tab')[1])"><span class="qi">👥</span>Voir membres</button>
-        <button class="quick-btn" onclick="showTab('codes',document.querySelectorAll('.nav-tab')[5])"><span class="qi">🎁</span>Créer code</button>
-      </div>
+      <div class="sb-sep"></div>
+      <div class="sb-group">Membres</div>
+      <button class="sb-item" onclick="goTo('users',this)"><span class="si">👥</span>Utilisateurs</button>
+      <button class="sb-item" onclick="goTo('investissements',this)"><span class="si">📈</span>Investissements</button>
+      <button class="sb-item" onclick="goTo('roles',this)"><span class="si">👑</span>Rôles</button>
+
+      <div class="sb-sep"></div>
+      <div class="sb-group">Produits</div>
+      <button class="sb-item" onclick="goTo('vip0',this)"><span class="si">⭐</span>VIP0 Gratuit</button>
+      <button class="sb-item" onclick="goTo('codes',this)"><span class="si">🎁</span>Codes Cadeaux<span class="badge-g" id="badge-code">15h</span></button>
+
+      <div class="sb-sep"></div>
+      <button class="sb-item" onclick="doLogout()" style="color:#ef5350;"><span class="si">🚪</span>Déconnexion</button>
     </div>
   </div>
 
-  <!-- USERS -->
-  <div id="tab-users" style="display:none;" class="section">
-    <br/>
-    <div class="sec-title">👥 Membres <span id="badge-users" class="badge-n">0</span></div>
-    <div id="list-users"><div class="loading">⏳ Chargement...</div></div>
-  </div>
-
-  <!-- INVEST -->
-  <div id="tab-invest" style="display:none;" class="section">
-    <br/>
-    <div class="sec-title">📈 Investissements actifs <span id="badge-invest" class="badge-n">0</span></div>
-    <div id="list-invest"><div class="loading">⏳ Chargement...</div></div>
-  </div>
-
-  <!-- RECHARGES -->
-  <div id="tab-recharges" style="display:none;" class="section">
-    <br/>
-    <div class="sec-title">💳 Dépôts <span id="badge-recharges" class="badge-n">0</span></div>
-    <div id="list-recharges"><div class="loading">⏳ Chargement...</div></div>
-  </div>
-
-  <!-- RETRAITS -->
-  <div id="tab-retraits" style="display:none;" class="section">
-    <br/>
-    <div class="sec-title">💸 Retraits <span id="badge-retraits" class="badge-n">0</span></div>
-    <div id="list-retraits"><div class="loading">⏳ Chargement...</div></div>
-  </div>
-
-  <!-- CODES -->
-  <div id="tab-codes" style="display:none;" class="section">
-    <br/>
-    <div class="create-form">
-      <div class="cf-title">➕ Créer un code cadeau</div>
-      <div id="cf-alert" class="form-alert"></div>
-      <div class="cf-row">
-        <div class="cf-field"><label>Code</label>
-          <input type="text" id="newCode" placeholder="VELERO500" style="text-transform:uppercase;" oninput="this.value=this.value.toUpperCase()"/>
-        </div>
-        <button class="btn-gen" onclick="genCode()">🎲 Auto</button>
+  <!-- MAIN -->
+  <div class="main-content" id="mainContent">
+    <div class="topbar">
+      <button class="toggle-sb" onclick="toggleSidebar()">☰</button>
+      <div class="tb-title" id="pageTitle">Dashboard</div>
+      <div class="tb-actions">
+        <span class="tb-email" id="adminEmailDisplay"></span>
+        <button class="btn-quit-tb" onclick="doLogout()">↩ Quitter</button>
       </div>
-      <div class="cf-row">
-        <div class="cf-field"><label>Description</label>
-          <input type="text" id="newDesc" placeholder="Promo lancement..."/>
-        </div>
-      </div>
-      <div class="cf-row">
-        <div class="cf-field"><label>Montant (FCFA)</label><input type="number" id="newMontant" placeholder="500"/></div>
-        <div class="cf-field"><label>Max utilisations</label><input type="number" id="newUtil" placeholder="100"/></div>
-      </div>
-      <div class="cf-row">
-        <div class="cf-field"><label>Expiration (optionnel)</label><input type="date" id="newExpire"/></div>
-      </div>
-      <button class="btn-create-c" onclick="creerCode()">🎁 Créer le code</button>
     </div>
-    <div class="sec-title">📋 Codes existants</div>
-    <div id="list-codes"><div class="loading">⏳ Chargement...</div></div>
-  </div>
-
-</div>
-
-<!-- MODAL UTILISATEUR -->
-<div class="modal-bg" id="userModal" onclick="closeUserModal(event)">
-  <div class="modal" id="userModalBox">
-    <div class="modal-header">
-      <button class="modal-close" onclick="closeModal()">✕</button>
-      <div class="modal-avatar" id="mu-avatar">U</div>
-      <div class="modal-name" id="mu-name">—</div>
-      <div class="modal-email" id="mu-email">—</div>
-    </div>
-    <div class="modal-body">
-      <div class="info-grid">
-        <div class="info-tile"><div class="it-label">💰 Solde</div><div class="it-val teal" id="mu-solde">—</div></div>
-        <div class="info-tile"><div class="it-label">📊 Niveau</div><div class="it-val gold" id="mu-level">—</div></div>
-        <div class="info-tile"><div class="it-label">📈 Revenus cumulés</div><div class="it-val green" id="mu-revenus">—</div></div>
-        <div class="info-tile"><div class="it-label">📱 Téléphone</div><div class="it-val" id="mu-phone" style="font-size:13px;">—</div></div>
-      </div>
-      <div class="modal-section-title">📋 INFORMATIONS</div>
-      <div class="info-row"><span class="ir-label">🌍 Pays</span><span class="ir-val" id="mu-pays">—</span></div>
-      <div class="info-row"><span class="ir-label">🔑 Code parrainage</span><span class="ir-val" id="mu-refcode">—</span></div>
-      <div class="info-row"><span class="ir-label">👥 Parrainé par</span><span class="ir-val" id="mu-refby">—</span></div>
-      <div class="info-row"><span class="ir-label">🎁 Bonus bienvenue</span><span class="ir-val" id="mu-bonus">—</span></div>
-      <div class="info-row"><span class="ir-label">📅 Inscrit le</span><span class="ir-val" id="mu-date">—</span></div>
-      <div class="modal-section-title">🕓 DERNIÈRES TRANSACTIONS</div>
-      <div id="mu-txs"><div class="loading" style="padding:12px 0;">⏳ Chargement...</div></div>
-      <div class="modal-section-title">⚡ ACTIONS</div>
-      <div class="modal-actions">
-        <button class="btn-ma credit" id="mu-btn-credit">💰 Créditer</button>
-        <button class="btn-ma debit" id="mu-btn-debit">💸 Débiter</button>
-      </div>
+    <div class="page-content" id="pageContent">
+      <div class="loading-skeleton"></div>
+      <div class="loading-skeleton"></div>
     </div>
   </div>
 </div>
 
 <script>
-const SB  = "https://seegoklunovyuieorkvy.supabase.co";
-const AK  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
+const SB="https://seegoklunovyuieorkvy.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
+const ADMIN_EMAIL="abdoula12cherif@gmail.com";
+const PAGE_SIZE=20;
 
-const ADMINS = ["abdoula12cherif@gmail.com", "elom50106@gmail.com"];
+let AT=localStorage.getItem("admin_tok")||"";
+let adminRole="admin";
+let currentPage=1;
+let codeTimer=null;
 
-let AT = localStorage.getItem("admin_tok") || "";
+function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+AT};}
+function toast(msg,type="ok"){const el=document.getElementById("toast");el.textContent=msg;el.className="toast "+type+" show";setTimeout(()=>el.classList.remove("show"),3500);}
+function toggleSidebar(){document.getElementById("sidebar").classList.toggle("collapsed");document.getElementById("mainContent").classList.toggle("full");}
 
-function H(){
-  return {
-    "Content-Type":"application/json",
-    "apikey":AK,
-    "Authorization":"Bearer "+AT
-  };
-}
+async function G(url){const r=await fetch(SB+"/rest/v1/"+url,{headers:H()});if(!r.ok)return[];return r.json();}
+async function P(url,data){return fetch(SB+"/rest/v1/"+url,{method:"POST",headers:{...H(),"Prefer":"return=representation"},body:JSON.stringify(data)}).then(r=>r.json());}
+async function PATCH(url,data){return fetch(SB+"/rest/v1/"+url,{method:"PATCH",headers:H(),body:JSON.stringify(data)});}
+async function DEL(url){return fetch(SB+"/rest/v1/"+url,{method:"DELETE",headers:H()});}
 
-async function Gcheck(url){
-  const r = await fetch(SB+"/rest/v1/"+url, {headers:H()});
-  if(r.status===401||r.status===403){
-    localStorage.removeItem("admin_tok"); AT="";
-    document.getElementById("adminPanel").style.display="none";
-    document.getElementById("loginPage").style.display="flex";
-    toast("Session expirée, reconnectez-vous","err");
-    return null;
-  }
-  return r;
-}
-
-
-async function loadVIP0(){
-  const r=await fetch(SB+"/rest/v1/offre_gratuite?limit=1&select=*",{headers:H()});
-  const d=await r.json();
-  const offre=d[0];
-  if(!offre){document.getElementById("vip0Status").textContent="Aucune offre configurée";return;}
-  document.getElementById("vip0Status").innerHTML=`
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-      <div style="background:#0d1117;border-radius:10px;padding:12px;text-align:center;">
-        <div style="font-size:20px;font-weight:900;color:${offre.actif?"#4caf50":"#e53935"};">${offre.actif?"✅ ACTIF":"🔴 INACTIF"}</div>
-        <div style="font-size:11px;color:#8b949e;margin-top:3px;">Statut</div>
-      </div>
-      <div style="background:#0d1117;border-radius:10px;padding:12px;text-align:center;">
-        <div style="font-size:20px;font-weight:900;color:#ffd700;">${offre.places_restantes}/${offre.places_total}</div>
-        <div style="font-size:11px;color:#8b949e;margin-top:3px;">Places restantes</div>
-      </div>
-      <div style="background:#0d1117;border-radius:10px;padding:12px;text-align:center;">
-        <div style="font-size:20px;font-weight:900;color:#00bcd4;">${offre.gain_jour} FCFA</div>
-        <div style="font-size:11px;color:#8b949e;margin-top:3px;">Gain/jour</div>
-      </div>
-      <div style="background:#0d1117;border-radius:10px;padding:12px;text-align:center;">
-        <div style="font-size:20px;font-weight:900;color:#00bcd4;">${offre.duree_jours} jours</div>
-        <div style="font-size:11px;color:#8b949e;margin-top:3px;">Durée</div>
-      </div>
-    </div>
-  `;
-
-  // Utilisateurs ayant réclamé
-  const r2=await fetch(SB+"/rest/v1/offre_gratuite_users?select=*,profiles(full_name,email)&order=created_at.desc",{headers:H()});
-  const users=await r2.json()||[];
-  const el=document.getElementById("vip0Users");
-  if(!users.length){el.innerHTML='<div style="color:#8b949e;font-size:13px;">Personne n\'a encore réclamé</div>';return;}
-  el.innerHTML=users.map(u=>`
-    <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1e3a5f;font-size:13px;">
-      <span style="color:#e6edf3;">👤 ${u.profiles?.full_name||u.profiles?.email||"—"}</span>
-      <span style="color:#8b949e;">${new Date(u.created_at).toLocaleDateString("fr-FR",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})}</span>
-    </div>`).join("");
-}
-
-async function activerVIP0(){
-  const r=await fetch(SB+"/rest/v1/offre_gratuite?limit=1",{headers:H()});
-  const d=await r.json();
-  if(!d.length){toast("❌ Aucune offre configurée","err");return;}
-  await fetch(SB+"/rest/v1/offre_gratuite?id=eq."+d[0].id,{method:"PATCH",headers:H(),body:JSON.stringify({actif:true,date_activation:new Date().toISOString()})});
-  toast("✅ VIP0 activé ! Les utilisateurs peuvent maintenant le réclamer.");
-  loadVIP0();
-}
-
-async function desactiverVIP0(){
-  const r=await fetch(SB+"/rest/v1/offre_gratuite?limit=1",{headers:H()});
-  const d=await r.json();
-  if(!d.length)return;
-  await fetch(SB+"/rest/v1/offre_gratuite?id=eq."+d[0].id,{method:"PATCH",headers:H(),body:JSON.stringify({actif:false})});
-  toast("🔴 VIP0 désactivé.");
-  loadVIP0();
-}
-
-async function reinitVIP0(){
-  if(!confirm("Réinitialiser les 100 places ? (Les utilisateurs qui ont déjà réclamé ne pourront pas le reprendre)"))return;
-  const r=await fetch(SB+"/rest/v1/offre_gratuite?limit=1",{headers:H()});
-  const d=await r.json();
-  if(!d.length)return;
-  await fetch(SB+"/rest/v1/offre_gratuite?id=eq."+d[0].id,{method:"PATCH",headers:H(),body:JSON.stringify({places_restantes:100,actif:false})});
-  // Supprimer les anciennes réclamations
-  await fetch(SB+"/rest/v1/offre_gratuite_users",{method:"DELETE",headers:H()});
-  toast("🔄 Réinitialisé — 100 places disponibles.");
-  loadVIP0();
-}
-
-async function G(url){
-  try{
-    const r = await Gcheck(url);
-    if(!r) return [];
-    const d = await r.json();
-    if(!Array.isArray(d)){ console.warn("G non-array:", url, d); return []; }
-    return d;
-  }catch(e){ console.error("G error:", url, e); return []; }
-}
-
-function toast(msg, type="ok"){
-  const el = document.getElementById("toast");
-  el.textContent = msg; el.className = "toast "+type+" show";
-  setTimeout(() => el.classList.remove("show"), 3000);
-}
-
+// ── AUTH
 async function doLogin(){
-  const email = document.getElementById("adminEmail").value.trim();
-  const pass  = document.getElementById("adminPass").value;
-  const errEl = document.getElementById("loginErr");
-  if(!email||!pass){ errEl.textContent="Remplissez tous les champs"; errEl.className="login-err show"; return; }
-  const r = await fetch(SB+"/auth/v1/token?grant_type=password",{
-    method:"POST", headers:{"Content-Type":"application/json","apikey":AK},
-    body: JSON.stringify({email, password:pass})
+  const email=document.getElementById("adminEmail").value.trim();
+  const pass=document.getElementById("adminPass").value;
+  const errEl=document.getElementById("loginErr");
+  if(!email||!pass){errEl.textContent="Remplissez tous les champs";errEl.className="login-err show";return;}
+  const r=await fetch(SB+"/auth/v1/token?grant_type=password",{
+    method:"POST",headers:{"Content-Type":"application/json","apikey":AK},
+    body:JSON.stringify({email,password:pass})
   });
-  const d = await r.json();
-  if(!d.access_token){ errEl.textContent = d.error_description||"Identifiants incorrects"; errEl.className="login-err show"; return; }
-  if(!ADMINS.includes(d.user.email)){ errEl.textContent="Accès refusé — compte non autorisé"; errEl.className="login-err show"; return; }
-  AT = d.access_token;
-  localStorage.setItem("admin_tok", AT);
-  document.getElementById("loginPage").style.display = "none";
-  document.getElementById("adminPanel").style.display = "block";
-  loadAll();
-  showTab('dashboard', document.querySelector('.nav-tab.active'));
-}
-
-function doLogout(){
-  localStorage.removeItem("admin_tok"); AT="";
-  document.getElementById("adminPanel").style.display = "none";
-  document.getElementById("loginPage").style.display = "flex";
-}
-
-document.addEventListener("DOMContentLoaded", function(){
-  if(AT){
-    document.getElementById("loginPage").style.display = "none";
-    document.getElementById("adminPanel").style.display = "block";
-    loadAll();
-    showTab('dashboard', document.querySelector('.nav-tab.active'));
+  const d=await r.json();
+  if(!d.access_token){errEl.textContent=d.error_description||"Identifiants incorrects";errEl.className="login-err show";return;}
+  // Vérifier le rôle
+  const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+d.user.id+"&select=role,email",{headers:{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+d.access_token}});
+  const dp=await rp.json();
+  const role=dp[0]?.role||"user";
+  if(role!=="admin"&&role!=="manager"&&email!==ADMIN_EMAIL){
+    errEl.textContent="Accès refusé — rôle insuffisant";errEl.className="login-err show";return;
   }
-});
+  AT=d.access_token;adminRole=email===ADMIN_EMAIL?"admin":role;
+  localStorage.setItem("admin_tok",AT);
+  localStorage.setItem("admin_role",adminRole);
+  document.getElementById("loginPage").style.display="none";
+  document.getElementById("adminWrap").style.display="flex";
+  document.getElementById("sbRole").textContent=adminRole==="admin"?"Super Admin":adminRole==="manager"?"Manager":"Promoteur";
+  document.getElementById("adminEmailDisplay").textContent=email;
+  loadBadges();
+  goTo("dashboard",document.querySelector(".sb-item"));
+}
+function doLogout(){localStorage.removeItem("admin_tok");localStorage.removeItem("admin_role");AT="";document.getElementById("adminWrap").style.display="none";document.getElementById("loginPage").style.display="flex";}
 
-const TABS = ["dashboard","users","invest","recharges","retraits","codes"];
-function showTab(name, el){
-  document.querySelectorAll(".nav-tab").forEach(b => b.classList.remove("active"));
-  if(el) el.classList.add("active");
-  TABS.forEach(t => document.getElementById("tab-"+t).style.display = t===name?"block":"none");
-  if(name==="users")     loadUsers();
-  if(name==="invest")    loadInvest();
-  if(name==="recharges") loadRecharges();
-  if(name==="retraits")  loadRetraits();
-  if(name==="codes")     loadCodes();
+if(AT){
+  adminRole=localStorage.getItem("admin_role")||"admin";
+  document.getElementById("loginPage").style.display="none";
+  document.getElementById("adminWrap").style.display="flex";
+  document.getElementById("sbRole").textContent=adminRole==="admin"?"Super Admin":adminRole==="manager"?"Manager":"Promoteur";
+  loadBadges();
+  goTo("dashboard",document.querySelector(".sb-item"));
 }
 
-async function loadAll(){
+async function loadBadges(){
   try{
-    const [users, invests, deps, rets, comms] = await Promise.all([
-      G("profiles?select=id,solde"),
-      G("investissements?statut=eq.actif&select=id"),
-      G("transactions?type=eq.depot&select=id,statut,montant"),
-      G("transactions?type=eq.retrait&statut=eq.en_attente&select=id"),
-      G("transactions?type=eq.commission&select=montant")
+    const [dep,ret]=await Promise.all([
+      G("transactions?type=eq.depot&statut=eq.en_attente&select=id"),
+      G("transactions?type=eq.retrait&statut=eq.en_attente&select=id")
     ]);
-    document.getElementById("s-users").textContent = users.length||0;
-    const totalSolde = users.reduce((s,u) => s+parseFloat(u.solde||0), 0);
-    document.getElementById("s-soldes").textContent = totalSolde.toLocaleString();
-    document.getElementById("s-invests").textContent = invests.length||0;
-    document.getElementById("s-recharges").textContent = deps.filter(d=>d.statut==="valide").length||0;
-    const attente = deps.filter(d=>d.statut==="en_attente").length + rets.length;
-    document.getElementById("s-attente").textContent = attente||0;
-    const totalComm = comms.reduce((s,c) => s+parseFloat(c.montant||0), 0);
-    document.getElementById("s-commissions").textContent = totalComm.toLocaleString();
-    document.getElementById("badge-recharges").textContent = deps.filter(d=>d.statut==="en_attente").length||0;
-    document.getElementById("badge-retraits").textContent = rets.length||0;
+    document.getElementById("badge-dep").textContent=dep.length||0;
+    document.getElementById("badge-ret").textContent=ret.length||0;
+    document.getElementById("bage-att").textContent=(dep.length+ret.length)||0;
   }catch(e){}
 }
 
-async function loadUsers(){
-  const el = document.getElementById("list-users");
-  const d  = await G("profiles?order=created_at.desc&limit=100&select=*");
-  if(!d.length){ el.innerHTML='<div class="empty"><div class="empty-icon">👥</div>Aucun membre</div>'; return; }
-  document.getElementById("badge-users").textContent = d.length;
-  el.innerHTML = d.map(u => `
-    <div class="user-card" onclick='openUserModal(${JSON.stringify(u)})'>
-      <div class="ua-avatar">${(u.full_name||u.email||"U")[0].toUpperCase()}</div>
-      <div class="ua-info">
-        <div class="ua-name">${escapeHtml(u.full_name||"—")}</div>
-        <div class="ua-email">${escapeHtml(u.email)}</div>
-        <div class="ua-solde">${parseFloat(u.solde||0).toLocaleString()} FCFA · LV${u.level||1}</div>
-      </div>
-      <div class="ua-arrow">›</div>
-    </div>`).join("");
+// ── NAVIGATION
+function goTo(page,el){
+  document.querySelectorAll(".sb-item").forEach(b=>b.classList.remove("active"));
+  if(el)el.classList.add("active");
+  currentPage=1;
+  const titles={dashboard:"📊 Dashboard",depots:"💳 Dépôts",retraits:"💸 Retraits",users:"👥 Utilisateurs",investissements:"📈 Investissements",roles:"👑 Gestion des Rôles",vip0:"⭐ VIP0 Gratuit",codes:"🎁 Codes Cadeaux"};
+  document.getElementById("pageTitle").textContent=titles[page]||page;
+  const fn={dashboard:renderDashboard,depots:renderDepots,retraits:renderRetraits,users:renderUsers,investissements:renderInvestissements,roles:renderRoles,vip0:renderVIP0,codes:renderCodes};
+  if(fn[page])fn[page]();
 }
 
-function escapeHtml(str){ if(!str) return ""; return str.replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+// ── DASHBOARD
+async function renderDashboard(){
+  setContent(`<div class="loading-skeleton"></div><div class="loading-skeleton"></div><div class="loading-skeleton"></div>`);
+  const [users,deps,rets,invests,soldes]=await Promise.all([
+    G("profiles?select=id"),
+    G("transactions?type=eq.depot&select=id,statut,montant"),
+    G("transactions?type=eq.retrait&select=id,statut,montant"),
+    G("investissements?statut=eq.actif&select=id,montant_investi"),
+    G("profiles?select=solde")
+  ]);
+  const depVal=deps.filter(d=>d.statut==="valide").reduce((s,d)=>s+parseFloat(d.montant||0),0);
+  const depAtt=deps.filter(d=>d.statut==="en_attente").length;
+  const retVal=rets.filter(r=>r.statut==="valide").reduce((s,r)=>s+parseFloat(r.montant||0),0);
+  const retAtt=rets.filter(r=>r.statut==="en_attente").length;
+  const totalSolde=soldes.reduce((s,p)=>s+parseFloat(p.solde||0),0);
+  const totalInvest=invests.reduce((s,i)=>s+parseFloat(i.montant_investi||0),0);
 
-async function openUserModal(u){
-  document.getElementById("mu-avatar").textContent = (u.full_name||u.email||"U")[0].toUpperCase();
-  document.getElementById("mu-name").textContent   = u.full_name || "Sans nom";
-  document.getElementById("mu-email").textContent  = u.email || "—";
-  document.getElementById("mu-solde").textContent  = parseFloat(u.solde||0).toLocaleString()+" FCFA";
-  document.getElementById("mu-level").textContent  = "Niveau "+( u.level||1);
-  document.getElementById("mu-revenus").textContent= parseFloat(u.revenus_cumules||0).toLocaleString()+" FCFA";
-  document.getElementById("mu-phone").textContent  = u.phone || "Non renseigné";
-  document.getElementById("mu-pays").textContent   = (u.country||u.country_code||"—");
-  document.getElementById("mu-refcode").textContent= u.referral_code || "—";
-  document.getElementById("mu-refby").textContent  = u.referred_by || "Aucun";
-  document.getElementById("mu-bonus").textContent  = u.bonus_bienvenue_recu ? "✅ Reçu" : "❌ Non reçu";
-  document.getElementById("mu-date").textContent   = u.created_at ? new Date(u.created_at).toLocaleDateString("fr-FR",{day:"2-digit",month:"long",year:"numeric"}) : "—";
-
-  document.getElementById("mu-btn-credit").onclick = () => crediter(u.id, u.full_name||u.email);
-  document.getElementById("mu-btn-debit").onclick  = () => debiter(u.id, u.full_name||u.email);
-
-  document.getElementById("userModal").classList.add("show");
-
-  const txEl = document.getElementById("mu-txs");
-  txEl.innerHTML = '<div class="loading" style="padding:12px 0;">⏳ Chargement...</div>';
-  try{
-    const txs = await G("transactions?user_id=eq."+u.id+"&order=created_at.desc&limit=5");
-    if(!txs.length){
-      txEl.innerHTML = '<div style="font-size:12px;color:var(--muted);padding:8px 0;">Aucune transaction</div>';
-    } else {
-      txEl.innerHTML = txs.map(tx => {
-        const typeMap = {depot:"💳 Dépôt", retrait:"💸 Retrait", commission:"👑 Commission", bonus:"🎁 Bonus", investissement:"📈 Investissement"};
-        const colorMap = {depot:"dep", retrait:"ret", commission:"bon", bonus:"bon", investissement:"dep"};
-        const sign = tx.type==="retrait" ? "-" : "+";
-        const date = new Date(tx.created_at).toLocaleDateString("fr-FR",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
-        return `<div class="tx-mini">
-          <div class="tm-left">
-            <div class="tm-type">${typeMap[tx.type]||tx.type}</div>
-            <div class="tm-date">${date} · <span style="color:${tx.statut==='valide'?'var(--green)':tx.statut==='en_attente'?'var(--gold)':'var(--red)'}">${tx.statut}</span></div>
-          </div>
-          <div class="tm-amount ${colorMap[tx.type]||'dep'}">${sign}${parseFloat(tx.montant).toLocaleString()} F</div>
-        </div>`;
-      }).join("");
-    }
-  }catch(e){
-    txEl.innerHTML = '<div style="font-size:12px;color:var(--red);">Erreur chargement</div>';
-  }
-}
-
-function closeModal(){
-  document.getElementById("userModal").classList.remove("show");
-}
-function closeUserModal(e){
-  if(e.target === document.getElementById("userModal")) closeModal();
-}
-
-async function loadInvest(){
-  const el = document.getElementById("list-invest");
-  const d  = await G("investissements?order=created_at.desc&limit=50&select=*,profiles(full_name,email)");
-  if(!d.length){ el.innerHTML='<div class="empty"><div class="empty-icon">📈</div>Aucun investissement</div>'; return; }
-  document.getElementById("badge-invest").textContent = d.length;
-  el.innerHTML = d.map(inv => {
-    const p   = inv.profiles||{};
-    const pct = Math.round(((inv.jours_total-inv.jours_restants)/inv.jours_total)*100);
-    return `<div class="invest-card">
-      <div class="ic-top">
-        <div class="ic-plan">Plan ${inv.plan_nom}</div>
-        <span class="badge-actif">⚡ Actif</span>
-      </div>
-      <div class="ic-user">👤 ${escapeHtml(p.full_name||p.email||"—")}</div>
-      <div class="ic-progress" style="margin:8px 0;">
-        <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
-      </div>
-      <div class="ic-stats">
-        <span>💰 ${parseFloat(inv.montant_investi).toLocaleString()} FCFA</span>
-        <span>📈 +${parseFloat(inv.revenu_jour).toLocaleString()}/j</span>
-        <span>⏳ ${inv.jours_restants}j restants</span>
-      </div>
-    </div>`;
-  }).join("");
-}
-
-async function loadRecharges(){
-  const el = document.getElementById("list-recharges");
-  const d  = await G("transactions?type=eq.depot&order=created_at.desc&limit=50&select=*,profiles(full_name,email)");
-  if(!d.length){ el.innerHTML='<div class="empty"><div class="empty-icon">💳</div>Aucun dépôt</div>'; return; }
-  el.innerHTML = d.map(tx => txCard(tx,"depot")).join("");
-}
-
-async function loadRetraits(){
-  const el = document.getElementById("list-retraits");
-  const d  = await G("transactions?type=eq.retrait&order=created_at.desc&limit=50&select=*,profiles(full_name,email)");
-  if(!d.length){ el.innerHTML='<div class="empty"><div class="empty-icon">💸</div>Aucun retrait</div>'; return; }
-  el.innerHTML = d.map(tx => txCard(tx,"retrait")).join("");
-}
-
-function txCard(tx, type){
-  const p    = tx.profiles||{};
-  const date = new Date(tx.created_at).toLocaleDateString("fr-FR",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
-  const actions = tx.statut==="en_attente" ? `
-    <div class="tc-actions">
-      <button class="btn-v" onclick="valider('${tx.id}','${tx.user_id}',${tx.montant},'${type}')">✅ Valider</button>
-      <button class="btn-r" onclick="rejeter('${tx.id}','${tx.user_id}',${tx.montant},'${type}')">❌ Rejeter</button>
-    </div>` : "";
-  return `<div class="tx-card ${tx.statut}" id="tx-${tx.id}">
-    <div class="tc-top">
-      <div>
-        <div class="tc-user">👤 ${escapeHtml(p.full_name||p.email||"—")}</div>
-        <div class="tc-amount">${parseFloat(tx.montant).toLocaleString()} FCFA</div>
-      </div>
-      <span class="statut-badge sb-${tx.statut}">${tx.statut==="en_attente"?"⏳ Attente":tx.statut==="valide"?"✅ Validé":"❌ Rejeté"}</span>
+  setContent(`
+    <div class="stats-grid">
+      <div class="stat-card"><div class="sc-icon">👥</div><div class="sc-val">${users.length.toLocaleString()}</div><div class="sc-lbl">Utilisateurs</div></div>
+      <div class="stat-card gold"><div class="sc-icon">💰</div><div class="sc-val">${Math.round(totalSolde).toLocaleString()}</div><div class="sc-lbl">Soldes Total (F)</div></div>
+      <div class="stat-card green"><div class="sc-icon">💳</div><div class="sc-val">${Math.round(depVal).toLocaleString()}</div><div class="sc-lbl">Dépôts Validés (F)</div><div class="sc-sub">${deps.filter(d=>d.statut==="valide").length} transactions</div></div>
+      <div class="stat-card orange"><div class="sc-icon">⏳</div><div class="sc-val">${depAtt}</div><div class="sc-lbl">Dépôts en attente</div></div>
+      <div class="stat-card red"><div class="sc-icon">💸</div><div class="sc-val">${Math.round(retVal).toLocaleString()}</div><div class="sc-lbl">Retraits Validés (F)</div><div class="sc-sub">${rets.filter(r=>r.statut==="valide").length} transactions</div></div>
+      <div class="stat-card purple"><div class="sc-icon">⌛</div><div class="sc-val">${retAtt}</div><div class="sc-lbl">Retraits en attente</div></div>
+      <div class="stat-card blue"><div class="sc-icon">📈</div><div class="sc-val">${invests.length}</div><div class="sc-lbl">Investissements actifs</div><div class="sc-sub">${Math.round(totalInvest).toLocaleString()} FCFA</div></div>
+      <div class="stat-card"><div class="sc-icon">🔥</div><div class="sc-val">${depAtt+retAtt}</div><div class="sc-lbl">Total en attente</div></div>
     </div>
-    <div class="tc-details">📱 ${escapeHtml(tx.reseau||"—")} · ${escapeHtml(tx.numero_mobile||"—")}<br>📅 ${date}<br>📝 ${escapeHtml(tx.note||"—")}</div>
-    ${tx.reference?`<div class="tc-ref">🔑 ${escapeHtml(tx.reference)}</div>`:""}
+    <div class="sec-card">
+      <div class="sec-header"><div class="sec-title">⚡ Actions rapides</div></div>
+      <div class="sec-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <button class="btn-primary" onclick="goTo('depots',null)">💳 Valider dépôts (${depAtt})</button>
+          <button class="btn-warning" onclick="goTo('retraits',null)">💸 Traiter retraits (${retAtt})</button>
+          <button class="btn-success" onclick="goTo('users',null)">👥 Gérer membres</button>
+          <button class="btn-primary btn-sm" style="background:rgba(156,39,176,.2);border:1px solid rgba(156,39,176,.4);color:#ce93d8;" onclick="goTo('roles',null)">👑 Gérer rôles</button>
+        </div>
+      </div>
+    </div>
+  `);
+}
+
+// ── DÉPÔTS
+async function renderDepots(tab="attente",pg=1){
+  setContent(`<div class="loading-skeleton"></div><div class="loading-skeleton"></div>`);
+  const offset=(pg-1)*PAGE_SIZE;
+  const filter=tab==="attente"?"statut=eq.en_attente":tab==="valide"?"statut=eq.valide":"statut=eq.rejete";
+  const [txs,count]=await Promise.all([
+    G(`transactions?type=eq.depot&${filter}&order=created_at.desc&limit=${PAGE_SIZE}&offset=${offset}&select=*,profiles(full_name,email)`),
+    G(`transactions?type=eq.depot&${filter}&select=id`)
+  ]);
+  const total=count.length;
+  const pages=Math.ceil(total/PAGE_SIZE);
+
+  setContent(`
+    <div class="sec-card">
+      <div class="sec-header">
+        <div class="sec-title">💳 Dépôts — <span style="color:var(--muted);font-weight:400;font-size:13px;">${total} au total</span></div>
+      </div>
+      <div class="sec-body">
+        <div class="inner-tabs">
+          <button class="inner-tab ${tab==="attente"?"active":""}" onclick="renderDepots('attente',1)">⏳ En attente</button>
+          <button class="inner-tab ${tab==="valide"?"active":""}" onclick="renderDepots('valide',1)">✅ Validés</button>
+          <button class="inner-tab ${tab==="rejete"?"active":""}" onclick="renderDepots('rejete',1)">❌ Rejetés</button>
+        </div>
+        ${txs.length===0?`<div class="empty"><div class="empty-icon">📭</div>Aucun dépôt ${tab}</div>`:""}
+        ${txs.map(tx=>txHTML(tx,"depot")).join("")}
+        ${pagHTML(pages,pg,(p)=>`renderDepots('${tab}',${p})`)}
+      </div>
+    </div>
+  `);
+}
+
+// ── RETRAITS
+async function renderRetraits(tab="attente",pg=1){
+  setContent(`<div class="loading-skeleton"></div><div class="loading-skeleton"></div>`);
+  const offset=(pg-1)*PAGE_SIZE;
+  const filter=tab==="attente"?"statut=eq.en_attente":tab==="valide"?"statut=eq.valide":"statut=eq.rejete";
+  const [txs,count]=await Promise.all([
+    G(`transactions?type=eq.retrait&${filter}&order=created_at.desc&limit=${PAGE_SIZE}&offset=${offset}&select=*,profiles(full_name,email)`),
+    G(`transactions?type=eq.retrait&${filter}&select=id`)
+  ]);
+  const total=count.length;
+  const pages=Math.ceil(total/PAGE_SIZE);
+
+  setContent(`
+    <div class="sec-card">
+      <div class="sec-header"><div class="sec-title">💸 Retraits — <span style="color:var(--muted);font-weight:400;font-size:13px;">${total} au total</span></div></div>
+      <div class="sec-body">
+        <div class="inner-tabs">
+          <button class="inner-tab ${tab==="attente"?"active":""}" onclick="renderRetraits('attente',1)">⏳ En attente</button>
+          <button class="inner-tab ${tab==="valide"?"active":""}" onclick="renderRetraits('valide',1)">✅ Validés</button>
+          <button class="inner-tab ${tab==="rejete"?"active":""}" onclick="renderRetraits('rejete',1)">❌ Rejetés</button>
+        </div>
+        ${txs.length===0?`<div class="empty"><div class="empty-icon">📭</div>Aucun retrait ${tab}</div>`:""}
+        ${txs.map(tx=>txHTML(tx,"retrait")).join("")}
+        ${pagHTML(pages,pg,(p)=>`renderRetraits('${tab}',${p})`)}
+      </div>
+    </div>
+  `);
+}
+
+function txHTML(tx,type){
+  const p=tx.profiles||{};
+  const date=new Date(tx.created_at).toLocaleDateString("fr-FR",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
+  const actions=tx.statut==="en_attente"?`
+    <div class="tx-actions">
+      <button class="btn-v" onclick="validerTx('${tx.id}','${tx.user_id}',${tx.montant},'${type}')">✅ Valider</button>
+      <button class="btn-r" onclick="rejeterTx('${tx.id}','${tx.user_id}',${tx.montant},'${type}')">❌ Rejeter</button>
+    </div>`:"";
+  return `<div class="tx-item" id="tx-${tx.id}">
+    <div class="tx-top">
+      <div>
+        <div class="tx-user">👤 ${p.full_name||p.email||"—"}</div>
+        <div class="tx-details">📱 ${tx.reseau||"—"} · ${tx.numero_mobile||"—"}<br>📅 ${date}<br>📝 ${tx.note||"—"}</div>
+        ${tx.reference?`<div class="tx-ref">🔑 ${tx.reference}</div>`:""}
+      </div>
+      <div style="text-align:right;">
+        <div class="tx-amount ${type==="depot"?"plus":"minus"}">${parseFloat(tx.montant).toLocaleString()} F</div>
+        <span class="statut-b ${tx.statut==="en_attente"?"s-attente":tx.statut==="valide"?"s-valide":"s-rejete"}">${tx.statut==="en_attente"?"⏳ Attente":tx.statut==="valide"?"✅ Validé":"❌ Rejeté"}</span>
+      </div>
+    </div>
     ${actions}
   </div>`;
 }
 
-async function valider(txId, userId, montant, type){
-  if(!confirm("Valider "+parseInt(montant).toLocaleString()+" FCFA ?")) return;
-  await fetch(SB+"/rest/v1/transactions?id=eq."+txId,{method:"PATCH",headers:H(),body:JSON.stringify({statut:"valide"})});
+async function validerTx(id,userId,montant,type){
+  if(!confirm("Valider "+parseInt(montant).toLocaleString()+" F ?"))return;
+  await PATCH("transactions?id=eq."+id,{statut:"valide"});
   if(type==="depot"){
-    const rp = await fetch(SB+"/rest/v1/profiles?id=eq."+userId+"&select=solde",{headers:H()});
-    const p  = await rp.json();
-    await fetch(SB+"/rest/v1/profiles?id=eq."+userId,{method:"PATCH",headers:H(),body:JSON.stringify({solde:parseFloat(p[0]?.solde||0)+parseFloat(montant)})});
-  } else if(type==="retrait"){
-    // Pour un retrait, on ne fait rien au niveau du solde car déjà déduit à la demande
+    const p=await G("profiles?id=eq."+userId+"&select=solde");
+    await PATCH("profiles?id=eq."+userId,{solde:parseFloat(p[0]?.solde||0)+parseFloat(montant)});
   }
-  toast("✅ Validé !", "ok");
-  const txDiv = document.getElementById("tx-"+txId);
-  if(txDiv) txDiv.remove();
-  loadAll();
-  loadRecharges();
-  loadRetraits();
+  toast("✅ Validé ! Solde crédité.");
+  document.getElementById("tx-"+id)?.remove();
+  loadBadges();
 }
 
-async function rejeter(txId, userId, montant, type){
-  if(!confirm("Rejeter ?")) return;
-  await fetch(SB+"/rest/v1/transactions?id=eq."+txId,{method:"PATCH",headers:H(),body:JSON.stringify({statut:"rejete"})});
+async function rejeterTx(id,userId,montant,type){
+  if(!confirm("Rejeter cette transaction ?"))return;
+  await PATCH("transactions?id=eq."+id,{statut:"rejete"});
   if(type==="retrait"){
-    const rp = await fetch(SB+"/rest/v1/profiles?id=eq."+userId+"&select=solde",{headers:H()});
-    const p  = await rp.json();
-    await fetch(SB+"/rest/v1/profiles?id=eq."+userId,{method:"PATCH",headers:H(),body:JSON.stringify({solde:parseFloat(p[0]?.solde||0)+parseFloat(montant)})});
+    const p=await G("profiles?id=eq."+userId+"&select=solde");
+    await PATCH("profiles?id=eq."+userId,{solde:parseFloat(p[0]?.solde||0)+parseFloat(montant)});
   }
   toast("❌ Rejeté.","err");
-  const txDiv = document.getElementById("tx-"+txId);
-  if(txDiv) txDiv.remove();
-  loadAll();
-  loadRecharges();
-  loadRetraits();
+  document.getElementById("tx-"+id)?.remove();
+  loadBadges();
 }
 
-async function crediter(uid, nom){
-  const m = prompt("Montant à CRÉDITER pour "+nom+" (FCFA) :");
-  if(!m||isNaN(m)||parseInt(m)<=0) return;
-  const raison = prompt("Raison :")||"Crédit admin";
-  const rp = await fetch(SB+"/rest/v1/profiles?id=eq."+uid+"&select=solde",{headers:H()});
-  const p  = await rp.json();
-  await fetch(SB+"/rest/v1/profiles?id=eq."+uid,{method:"PATCH",headers:H(),body:JSON.stringify({solde:parseFloat(p[0]?.solde||0)+parseInt(m)})});
-  await fetch(SB+"/rest/v1/transactions",{method:"POST",headers:{...H(),"Prefer":"return=minimal"},body:JSON.stringify({user_id:uid,type:"bonus",montant:parseInt(m),montant_net:parseInt(m),statut:"valide",note:"Crédit admin: "+raison})});
-  toast("✅ "+parseInt(m).toLocaleString()+" FCFA crédités à "+nom);
-  closeModal();
-  loadUsers();
-  loadAll();
+// ── UTILISATEURS
+async function renderUsers(pg=1,q=""){
+  setContent(`<div class="loading-skeleton"></div><div class="loading-skeleton"></div><div class="loading-skeleton"></div>`);
+  const offset=(pg-1)*PAGE_SIZE;
+  const qFilter=q?`&or=(full_name.ilike.*${q}*,email.ilike.*${q}*)` :"";
+  const [users,count]=await Promise.all([
+    G(`profiles?order=created_at.desc&limit=${PAGE_SIZE}&offset=${offset}&select=*${qFilter}`),
+    G(`profiles?select=id${qFilter}`)
+  ]);
+  const total=count.length;
+  const pages=Math.ceil(total/PAGE_SIZE);
+
+  setContent(`
+    <div class="sec-card">
+      <div class="sec-header">
+        <div class="sec-title">👥 Membres — <span style="color:var(--muted);font-weight:400;font-size:13px;">${total.toLocaleString()} inscrits</span></div>
+      </div>
+      <div class="sec-body">
+        <div class="search-row">
+          <input class="search-input" id="userSearch" placeholder="Rechercher nom ou email..." value="${q}" onkeydown="if(event.key==='Enter')renderUsers(1,this.value)"/>
+          <button class="btn-search" onclick="renderUsers(1,document.getElementById('userSearch').value)">🔍</button>
+        </div>
+        ${users.length===0?`<div class="empty"><div class="empty-icon">👥</div>Aucun utilisateur trouvé</div>`:""}
+        ${users.map(u=>userHTML(u)).join("")}
+        ${pagHTML(pages,pg,(p)=>`renderUsers(${p},'${q}')`)}
+      </div>
+    </div>
+  `);
 }
 
-async function debiter(uid, nom){
-  const m = prompt("Montant à DÉBITER pour "+nom+" (FCFA) :");
-  if(!m||isNaN(m)||parseInt(m)<=0) return;
-  const rp = await fetch(SB+"/rest/v1/profiles?id=eq."+uid+"&select=solde",{headers:H()});
-  const p  = await rp.json();
-  const nouveau = Math.max(0, parseFloat(p[0]?.solde||0)-parseInt(m));
-  await fetch(SB+"/rest/v1/profiles?id=eq."+uid,{method:"PATCH",headers:H(),body:JSON.stringify({solde:nouveau})});
-  toast("💸 "+parseInt(m).toLocaleString()+" FCFA débités");
-  closeModal();
-  loadUsers();
-  loadAll();
+function userHTML(u){
+  const badges=[];
+  if(u.role==="promoteur")badges.push(`<span class="u-badge ub-promo">👑 Promoteur</span>`);
+  if(u.role==="manager")badges.push(`<span class="u-badge ub-mgr">⭐ Manager</span>`);
+  if(u.bloque)badges.push(`<span class="u-badge ub-bloque">🚫 Banni</span>`);
+  if(u.retrait_bloque)badges.push(`<span class="u-badge ub-bloque">💸 Retrait bloqué</span>`);
+  return `<div class="user-item">
+    <div class="u-avatar">${(u.full_name||u.email||"U")[0].toUpperCase()}</div>
+    <div class="u-info">
+      <div class="u-name">${u.full_name||"—"}</div>
+      <div class="u-email">${u.email}</div>
+      <div class="u-meta">
+        <span class="u-badge ub-solde">💰 ${parseFloat(u.solde||0).toLocaleString()} F</span>
+        ${badges.join("")}
+      </div>
+    </div>
+    <div class="u-actions">
+      <button class="btn-u" onclick='showUserDetail(${JSON.stringify(u).replace(/'/g,"&#39;")})'>👁️</button>
+    </div>
+  </div>`;
+}
+
+// ── USER DETAIL
+async function showUserDetail(u){
+  document.getElementById("udTitle").textContent="👤 "+( u.full_name||u.email);
+  document.getElementById("udModal").classList.add("show");
+
+  // Charger stats complètes
+  const [invests,txs,filleuls]=await Promise.all([
+    G("investissements?user_id=eq."+u.id+"&select=*"),
+    G("transactions?user_id=eq."+u.id+"&order=created_at.desc&limit=5&select=*"),
+    G("parrainages?parrain_id=eq."+u.id+"&select=id,niveau")
+  ]);
+  const n1=filleuls.filter(f=>f.niveau===1).length;
+  const depTotal=txs.filter(t=>t.type==="depot"&&t.statut==="valide").reduce((s,t)=>s+parseFloat(t.montant||0),0);
+
+  document.getElementById("udBody").innerHTML=`
+    <div class="ud-section">
+      <div class="ud-sec-title">Informations</div>
+      <div class="ud-row"><span class="ud-label">Email</span><span class="ud-val">${u.email}</span></div>
+      <div class="ud-row"><span class="ud-label">Téléphone</span><span class="ud-val">${u.phone||"—"}</span></div>
+      <div class="ud-row"><span class="ud-label">Pays</span><span class="ud-val">${u.country||u.country_code||"—"}</span></div>
+      <div class="ud-row"><span class="ud-label">Rôle</span><span class="ud-val">${u.role||"user"}</span></div>
+      <div class="ud-row"><span class="ud-label">Inscrit le</span><span class="ud-val">${new Date(u.created_at).toLocaleDateString("fr-FR")}</span></div>
+      <div class="ud-row"><span class="ud-label">Code parrainage</span><span class="ud-val" style="color:var(--teal);">${u.referral_code||"—"}</span></div>
+    </div>
+    <div class="ud-section">
+      <div class="ud-sec-title">Finances</div>
+      <div class="ud-row"><span class="ud-label">Solde actuel</span><span class="ud-val" style="color:var(--teal);">${parseFloat(u.solde||0).toLocaleString()} FCFA</span></div>
+      <div class="ud-row"><span class="ud-label">Revenus cumulés</span><span class="ud-val" style="color:var(--green);">${parseFloat(u.revenus_cumules||0).toLocaleString()} FCFA</span></div>
+      <div class="ud-row"><span class="ud-label">Total déposé</span><span class="ud-val">${depTotal.toLocaleString()} FCFA</span></div>
+      <div class="ud-row"><span class="ud-label">Investissements actifs</span><span class="ud-val">${invests.filter(i=>i.statut==="actif").length}</span></div>
+      <div class="ud-row"><span class="ud-label">Filleuls directs</span><span class="ud-val">${n1}</span></div>
+    </div>
+    <div class="ud-section">
+      <div class="ud-sec-title">Statut</div>
+      <div class="ud-row"><span class="ud-label">Compte</span><span class="ud-val ${u.bloque?"" :""}">${u.bloque?"🚫 Banni":"✅ Actif"}</span></div>
+      <div class="ud-row"><span class="ud-label">Retraits</span><span class="ud-val">${u.retrait_bloque?"🔴 Bloqué":"✅ Autorisé"}</span></div>
+    </div>
+    <div class="ud-section">
+      <div class="ud-sec-title">Actions</div>
+      <div id="udAlert" class="alert"></div>
+      <div class="ud-actions">
+        <button class="btn-success btn-sm" onclick="crediterUser('${u.id}','${u.full_name||u.email}')">💰 Créditer</button>
+        <button class="btn-danger btn-sm" onclick="debiterUser('${u.id}','${u.full_name||u.email}')">💸 Débiter</button>
+        <button class="btn-warning btn-sm" onclick="changerMDP('${u.id}')">🔑 Changer MDP</button>
+        <button class="btn-primary btn-sm" onclick="attribuerPlan('${u.id}')">📦 Attribuer plan</button>
+        <button class="${u.retrait_bloque?"btn-success":"btn-danger"} btn-sm" onclick="toggleRetrait('${u.id}',${u.retrait_bloque})">
+          ${u.retrait_bloque?"✅ Débloquer retraits":"🔴 Bloquer retraits"}
+        </button>
+        <button class="${u.bloque?"btn-success":"btn-danger"} btn-sm" onclick="toggleBan('${u.id}',${u.bloque})">
+          ${u.bloque?"✅ Débannir":"🚫 Bannir compte"}
+        </button>
+      </div>
+    </div>
+    <div class="ud-section">
+      <div class="ud-sec-title">Dernières transactions</div>
+      ${txs.length===0?`<div style="color:var(--muted);font-size:13px;">Aucune transaction</div>`:""}
+      ${txs.map(t=>`
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;">
+          <div>
+            <div style="font-weight:600;">${t.type}</div>
+            <div style="color:var(--muted);">${new Date(t.created_at).toLocaleDateString("fr-FR")}</div>
+          </div>
+          <div style="font-weight:700;color:${["depot","bonus","commission","gain_tache"].includes(t.type)?"var(--green)":"var(--red)"}">
+            ${["depot","bonus","commission","gain_tache"].includes(t.type)?"+":"-"}${parseFloat(t.montant).toLocaleString()} F
+          </div>
+        </div>`).join("")}
+    </div>
+  `;
+}
+
+function closeUD(){document.getElementById("udModal").classList.remove("show");}
+
+async function crediterUser(id,nom){
+  const m=prompt("Montant à CRÉDITER pour "+nom+" (FCFA) :");
+  if(!m||isNaN(m)||parseInt(m)<=0)return;
+  const raison=prompt("Raison :")||"Crédit admin";
+  const p=await G("profiles?id=eq."+id+"&select=solde");
+  await PATCH("profiles?id=eq."+id,{solde:parseFloat(p[0]?.solde||0)+parseInt(m)});
+  await P("transactions",{user_id:id,type:"bonus",montant:parseInt(m),montant_net:parseInt(m),statut:"valide",note:"Crédit admin: "+raison});
+  toast("✅ "+parseInt(m).toLocaleString()+" F crédités à "+nom);
+  closeUD();renderUsers();
+}
+
+async function debiterUser(id,nom){
+  const m=prompt("Montant à DÉBITER pour "+nom+" (FCFA) :");
+  if(!m||isNaN(m)||parseInt(m)<=0)return;
+  const p=await G("profiles?id=eq."+id+"&select=solde");
+  const nouveau=Math.max(0,parseFloat(p[0]?.solde||0)-parseInt(m));
+  await PATCH("profiles?id=eq."+id,{solde:nouveau});
+  toast("💸 "+parseInt(m).toLocaleString()+" F débités de "+nom);
+  closeUD();renderUsers();
+}
+
+async function changerMDP(id){
+  const mdp=prompt("Nouveau mot de passe pour cet utilisateur :");
+  if(!mdp||mdp.length<6){alert("Minimum 6 caractères");return;}
+  const r=await fetch(SB+"/auth/v1/admin/users/"+id,{
+    method:"PUT",headers:{...H(),"Authorization":"Bearer "+AT},
+    body:JSON.stringify({password:mdp})
+  });
+  if(r.ok){toast("✅ Mot de passe modifié !");}
+  else{toast("❌ Erreur — utilisez le dashboard Supabase","err");}
+}
+
+async function attribuerPlan(id){
+  const plan=prompt("Nom du plan à attribuer (VIP 1, VIP 2, Pack 10J...) :");
+  if(!plan)return;
+  const plans=await G("plans?nom=eq."+encodeURIComponent(plan)+"&select=*");
+  if(!plans.length){toast("❌ Plan introuvable","err");return;}
+  const p=plans[0];
+  await P("investissements",{user_id:id,plan_id:p.id,plan_nom:p.nom,montant_investi:0,revenu_jour:p.revenu_jour,jours_total:p.duree_jours,jours_restants:p.duree_jours,statut:"actif",type_gain:p.type_gain||"journalier"});
+  await P("transactions",{user_id:id,type:"bonus",montant:0,montant_net:0,statut:"valide",note:"Plan "+p.nom+" attribué par admin"});
+  toast("✅ Plan "+p.nom+" attribué !");closeUD();
+}
+
+async function toggleRetrait(id,bloque){
+  await PATCH("profiles?id=eq."+id,{retrait_bloque:!bloque});
+  toast(bloque?"✅ Retraits débloqués":"🔴 Retraits bloqués");closeUD();renderUsers();
+}
+
+async function toggleBan(id,bloque){
+  if(!bloque&&!confirm("Bannir ce compte ? L'utilisateur ne pourra plus se connecter."))return;
+  await PATCH("profiles?id=eq."+id,{bloque:!bloque});
+  // Révoquer les sessions si on bannit
+  if(!bloque){await fetch(SB+"/auth/v1/admin/users/"+id,{method:"PUT",headers:H(),body:JSON.stringify({ban_duration:"87600h"})}).catch(()=>{});}
+  toast(bloque?"✅ Compte débanni":"🚫 Compte banni");closeUD();renderUsers();
+}
+
+// ── INVESTISSEMENTS
+async function renderInvestissements(pg=1){
+  setContent(`<div class="loading-skeleton"></div><div class="loading-skeleton"></div>`);
+  const offset=(pg-1)*PAGE_SIZE;
+  const [invs,count]=await Promise.all([
+    G(`investissements?order=created_at.desc&limit=${PAGE_SIZE}&offset=${offset}&select=*,profiles(full_name,email)`),
+    G("investissements?select=id")
+  ]);
+  const pages=Math.ceil(count.length/PAGE_SIZE);
+  setContent(`
+    <div class="sec-card">
+      <div class="sec-header"><div class="sec-title">📈 Investissements — <span style="color:var(--muted);font-weight:400;font-size:13px;">${count.length} total</span></div></div>
+      <div class="sec-body">
+        ${invs.map(inv=>{
+          const p=inv.profiles||{};
+          const pct=Math.round(((inv.jours_total-inv.jours_restants)/inv.jours_total)*100);
+          return `<div class="tx-item">
+            <div class="tx-top">
+              <div>
+                <div class="tx-user">📦 Plan ${inv.plan_nom}</div>
+                <div class="tx-details">👤 ${p.full_name||p.email||"—"}<br>💰 ${parseFloat(inv.montant_investi||0).toLocaleString()} F · +${parseFloat(inv.revenu_jour||0).toLocaleString()} F/j<br>⏳ ${inv.jours_restants}/${inv.jours_total} jours restants</div>
+              </div>
+              <div>
+                <span class="statut-b ${inv.statut==="actif"?"s-valide":"s-rejete"}">${inv.statut==="actif"?"⚡ Actif":"✅ Terminé"}</span>
+                <div style="background:var(--border);border-radius:20px;height:5px;margin-top:8px;width:80px;"><div style="background:var(--teal);border-radius:20px;height:100%;width:${pct}%;"></div></div>
+                <div style="font-size:10px;color:var(--muted);text-align:right;margin-top:2px;">${pct}%</div>
+              </div>
+            </div>
+            <div class="tx-actions">
+              <button class="btn-r" onclick="terminerInvest('${inv.id}')">🔴 Terminer</button>
+            </div>
+          </div>`;
+        }).join("")}
+        ${pagHTML(pages,pg,(p)=>`renderInvestissements(${p})`)}
+      </div>
+    </div>
+  `);
+}
+
+async function terminerInvest(id){
+  if(!confirm("Terminer cet investissement ?"))return;
+  await PATCH("investissements?id=eq."+id,{statut:"termine",jours_restants:0});
+  toast("✅ Investissement terminé");renderInvestissements();
+}
+
+// ── RÔLES
+async function renderRoles(){
+  const users=await G("profiles?or=(role.eq.promoteur,role.eq.manager)&select=*");
+  setContent(`
+    <div class="sec-card">
+      <div class="sec-header"><div class="sec-title">👑 Gestion des Rôles</div></div>
+      <div class="sec-body">
+        <div class="alert a-info show" style="margin-bottom:14px;">
+          📋 <strong>Manager</strong> : Peut voir dépôts/retraits en attente et valider. 
+          <strong>Promoteur</strong> : Accès aux statistiques et comptes des membres.
+        </div>
+        <div class="form-group">
+          <label>Email de l'utilisateur</label>
+          <input type="email" id="roleEmail" placeholder="utilisateur@email.com"/>
+        </div>
+        <div class="form-group">
+          <label>Rôle à attribuer</label>
+          <select id="roleSelect">
+            <option value="manager">⭐ Manager</option>
+            <option value="promoteur">👑 Promoteur</option>
+            <option value="user">👤 Utilisateur (retirer le rôle)</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn-primary" onclick="attribuerRole()">✅ Attribuer le rôle</button>
+        </div>
+      </div>
+    </div>
+    <div class="sec-card" style="margin-top:12px;">
+      <div class="sec-header"><div class="sec-title">👥 Membres avec rôle spécial</div></div>
+      <div class="sec-body">
+        ${users.length===0?`<div class="empty"><div class="empty-icon">👑</div>Aucun membre avec rôle spécial</div>`:""}
+        ${users.map(u=>`<div class="user-item">
+          <div class="u-avatar">${(u.full_name||u.email||"U")[0].toUpperCase()}</div>
+          <div class="u-info">
+            <div class="u-name">${u.full_name||"—"}</div>
+            <div class="u-email">${u.email}</div>
+            <div class="u-meta">
+              <span class="u-badge ${u.role==="manager"?"ub-mgr":"ub-promo"}">${u.role==="manager"?"⭐ Manager":"👑 Promoteur"}</span>
+            </div>
+          </div>
+          <button class="btn-danger btn-sm" onclick="retirerRole('${u.id}','${u.full_name||u.email}')">❌ Retirer</button>
+        </div>`).join("")}
+      </div>
+    </div>
+  `);
+}
+
+async function attribuerRole(){
+  const email=document.getElementById("roleEmail").value.trim();
+  const role=document.getElementById("roleSelect").value;
+  if(!email)return toast("⚠️ Entrez un email","warn");
+  const users=await G("profiles?email=eq."+email+"&select=id,full_name");
+  if(!users.length)return toast("❌ Utilisateur introuvable","err");
+  await PATCH("profiles?id=eq."+users[0].id,{role});
+  toast("✅ Rôle "+role+" attribué à "+(users[0].full_name||email));
+  renderRoles();
+}
+
+async function retirerRole(id,nom){
+  if(!confirm("Retirer le rôle de "+nom+" ?"))return;
+  await PATCH("profiles?id=eq."+id,{role:"user"});
+  toast("✅ Rôle retiré de "+nom);renderRoles();
+}
+
+// ── VIP0
+async function renderVIP0(){
+  const r=await fetch(SB+"/rest/v1/offre_gratuite?limit=1&select=*",{headers:H()});
+  const d=await r.json();
+  const offre=d[0];
+  const users=await G("offre_gratuite_users?select=*,profiles(full_name,email)&order=created_at.desc");
+
+  setContent(`
+    <div class="sec-card">
+      <div class="sec-header"><div class="sec-title">⭐ VIP0 — Offre Gratuite</div></div>
+      <div class="sec-body">
+        ${offre?`
+          <div class="vip0-status">
+            <div class="v0-box"><div class="v0-val" style="color:${offre.actif?"var(--green)":"var(--red)"};">${offre.actif?"✅ ACTIF":"🔴 INACTIF"}</div><div class="v0-lbl">Statut</div></div>
+            <div class="v0-box"><div class="v0-val" style="color:var(--gold);">${offre.places_restantes}/${offre.places_total}</div><div class="v0-lbl">Places</div></div>
+            <div class="v0-box"><div class="v0-val" style="color:var(--teal);">${offre.gain_jour} F</div><div class="v0-lbl">Gain/jour</div></div>
+            <div class="v0-box"><div class="v0-val" style="color:var(--teal);">${offre.duree_jours} j</div><div class="v0-lbl">Durée</div></div>
+          </div>
+          <div class="action-grid">
+            <button class="btn-success" onclick="activerVIP0('${offre.id}')">✅ Activer maintenant</button>
+            <button class="btn-danger" onclick="desactiverVIP0('${offre.id}')">🔴 Désactiver</button>
+            <button class="btn-warning" onclick="reinitVIP0('${offre.id}')">🔄 Réinitialiser places</button>
+            <button class="btn-primary" onclick="renderVIP0()">↻ Rafraîchir</button>
+          </div>`:`<div class="empty"><div class="empty-icon">⭐</div>Aucune offre configurée</div>`}
+      </div>
+    </div>
+    <div class="sec-card" style="margin-top:12px;">
+      <div class="sec-header"><div class="sec-title">👥 Réclamations (${users.length})</div></div>
+      <div class="sec-body">
+        ${users.length===0?`<div class="empty"><div class="empty-icon">📭</div>Personne n'a encore réclamé</div>`:""}
+        ${users.map(u=>`<div class="user-item">
+          <div class="u-avatar">${(u.profiles?.full_name||u.profiles?.email||"U")[0].toUpperCase()}</div>
+          <div class="u-info"><div class="u-name">${u.profiles?.full_name||"—"}</div><div class="u-email">${u.profiles?.email||"—"}</div></div>
+          <div style="font-size:11px;color:var(--muted);">${new Date(u.created_at).toLocaleDateString("fr-FR",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})}</div>
+        </div>`).join("")}
+      </div>
+    </div>
+  `);
+}
+
+async function activerVIP0(id){await PATCH("offre_gratuite?id=eq."+id,{actif:true,date_activation:new Date().toISOString()});toast("✅ VIP0 activé !");renderVIP0();}
+async function desactiverVIP0(id){await PATCH("offre_gratuite?id=eq."+id,{actif:false});toast("🔴 VIP0 désactivé","warn");renderVIP0();}
+async function reinitVIP0(id){
+  if(!confirm("Réinitialiser les 100 places ?"))return;
+  await PATCH("offre_gratuite?id=eq."+id,{places_restantes:100,actif:false});
+  await DEL("offre_gratuite_users");
+  toast("🔄 Réinitialisé");renderVIP0();
+}
+
+// ── CODES CADEAUX
+let autoCodeInterval=null;
+async function renderCodes(){
+  const codes=await G("codes_cadeaux?order=created_at.desc&limit=50&select=*");
+
+  // Vérifier heure auto (15h)
+  const now=new Date();
+  const isAutoTime=now.getHours()===15;
+
+  setContent(`
+    <div class="sec-card">
+      <div class="sec-header"><div class="sec-title">🎁 Code Auto (15h00)</div></div>
+      <div class="sec-body">
+        <div class="code-auto-box">
+          <div style="font-size:13px;color:rgba(255,193,7,.7);margin-bottom:8px;">Code valide 3 minutes • Généré à 15h00</div>
+          <div id="autoCodeDisplay"></div>
+          <div style="margin-top:12px;">
+            <button class="btn-warning" onclick="genererCodeAuto()">⚡ Générer code maintenant</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sec-card" style="margin-top:12px;">
+      <div class="sec-header"><div class="sec-title">➕ Créer un code</div></div>
+      <div class="sec-body">
+        <div id="codeFormAlert" class="alert"></div>
+        <div class="form-row">
+          <div class="form-group"><label>Code</label><input type="text" id="newCode" placeholder="VELERO500" style="text-transform:uppercase;" oninput="this.value=this.value.toUpperCase()"/></div>
+          <button class="btn-warning" style="align-self:flex-end;padding:10px 14px;border-radius:10px;" onclick="genCode()">🎲</button>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Description</label><input type="text" id="newDesc" placeholder="Promo..."/></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Montant (F)</label><input type="number" id="newMontant" placeholder="500"/></div>
+          <div class="form-group"><label>Max utilisations</label><input type="number" id="newUtil" placeholder="100"/></div>
+        </div>
+        <div class="form-group"><label>Expiration (optionnel)</label><input type="date" id="newExpire"/></div>
+        <button class="btn-primary btn-full" onclick="creerCode()">🎁 Créer le code</button>
+      </div>
+    </div>
+    <div class="sec-card" style="margin-top:12px;">
+      <div class="sec-header"><div class="sec-title">📋 Codes existants (${codes.length})</div></div>
+      <div class="sec-body">
+        ${codes.map(c=>{
+          const pct=Math.round((c.utilisations_actuelles/c.utilisations_max)*100);
+          const exp=c.expire_le?new Date(c.expire_le).toLocaleDateString("fr-FR"):c.expire_at?new Date(c.expire_at).toLocaleString("fr-FR"):"Illimité";
+          return `<div class="tx-item">
+            <div class="tx-top">
+              <div>
+                <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--gold);letter-spacing:2px;">${c.code}</div>
+                <div class="tx-details">💰 +${parseFloat(c.montant).toLocaleString()} F · ${c.description||"—"}<br>👥 ${c.utilisations_actuelles}/${c.utilisations_max} utilisations · ⏰ ${exp}</div>
+                <div style="background:var(--border);border-radius:20px;height:4px;margin-top:6px;"><div style="background:var(--teal);border-radius:20px;height:100%;width:${pct}%;"></div></div>
+              </div>
+              <span class="statut-b ${c.actif?"s-valide":"s-rejete"}">${c.actif?"✅":"❌"}</span>
+            </div>
+            <div class="tx-actions">
+              <button class="btn-v" onclick="navigator.clipboard.writeText('${c.code}').then(()=>toast('✅ Copié !'))">📋</button>
+              <button class="${c.actif?"btn-r":"btn-v"}" onclick="toggleCode('${c.id}',${c.actif})">${c.actif?"🔴 Désact.":"🟢 Activer"}</button>
+            </div>
+          </div>`;
+        }).join("")}
+      </div>
+    </div>
+  `);
+
+  // Auto-afficher code si heure est 15h
+  checkAutoCode();
+}
+
+function checkAutoCode(){
+  const now=new Date();
+  if(now.getHours()===15&&now.getMinutes()===0){genererCodeAuto();}
+}
+
+async function genererCodeAuto(){
+  const code="VE"+Math.random().toString(36).substring(2,8).toUpperCase();
+  const expireAt=new Date(Date.now()+3*60*1000).toISOString(); // 3 minutes
+
+  // Désactiver l'ancien code auto
+  await PATCH("codes_cadeaux?auto_genere=eq.true",{actif:false});
+
+  // Créer nouveau
+  await P("codes_cadeaux",{
+    code,description:"Code automatique 15h",
+    montant:100,utilisations_max:1000,
+    utilisations_actuelles:0,actif:true,
+    auto_genere:true,expire_at:expireAt,expire_le:null
+  });
+
+  // Afficher avec compte à rebours
+  const el=document.getElementById("autoCodeDisplay");
+  if(!el)return;
+  el.innerHTML=`<div class="code-display">${code}</div><div class="code-timer" id="codeCountdown">3:00</div>`;
+
+  let seconds=180;
+  if(autoCodeInterval)clearInterval(autoCodeInterval);
+  autoCodeInterval=setInterval(async()=>{
+    seconds--;
+    const el2=document.getElementById("codeCountdown");
+    if(el2)el2.textContent=Math.floor(seconds/60)+":"+(seconds%60).toString().padStart(2,"0");
+    if(seconds<=0){
+      clearInterval(autoCodeInterval);
+      await PATCH("codes_cadeaux?code=eq."+code,{actif:false});
+      const el3=document.getElementById("autoCodeDisplay");
+      if(el3)el3.innerHTML=`<div class="code-expired">Code expiré — Prochain code à 15h00</div>`;
+    }
+  },1000);
+
+  toast("🎁 Code auto généré : "+code+" (valide 3 min)");
 }
 
 function genCode(){
-  const c = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let code = "VE";
-  for(let i=0;i<6;i++) code += c[Math.floor(Math.random()*c.length)];
-  document.getElementById("newCode").value = code;
+  const c="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let code="VE";for(let i=0;i<6;i++)code+=c[Math.floor(Math.random()*c.length)];
+  document.getElementById("newCode").value=code;
 }
 
 async function creerCode(){
-  const code    = document.getElementById("newCode").value.trim().toUpperCase();
-  const desc    = document.getElementById("newDesc").value.trim();
-  const montant = parseInt(document.getElementById("newMontant").value);
-  const util    = parseInt(document.getElementById("newUtil").value);
-  const expire  = document.getElementById("newExpire").value||null;
-  const al      = document.getElementById("cf-alert");
-  if(!code||!montant||!util){ al.textContent="⚠️ Code, montant et utilisations requis"; al.className="form-alert fa-err show"; return; }
-  const r = await fetch(SB+"/rest/v1/codes_cadeaux",{
-    method:"POST", headers:{...H(),"Prefer":"return=representation"},
-    body: JSON.stringify({code, description:desc||"Code cadeau Velero", montant, utilisations_max:util, utilisations_actuelles:0, expire_le:expire, actif:true})
-  });
-  const d = await r.json();
-  if(Array.isArray(d)&&d.length>0){
-    al.textContent="✅ Code créé : "+code; al.className="form-alert fa-ok show";
-    document.getElementById("newCode").value="";
-    document.getElementById("newDesc").value="";
-    document.getElementById("newMontant").value="";
-    document.getElementById("newUtil").value="";
-    loadCodes();
-    loadAll();
-  }else{
-    al.textContent="❌ "+(d.message||JSON.stringify(d)); al.className="form-alert fa-err show";
+  const code=document.getElementById("newCode").value.trim().toUpperCase();
+  const desc=document.getElementById("newDesc").value.trim();
+  const montant=parseInt(document.getElementById("newMontant").value);
+  const util=parseInt(document.getElementById("newUtil").value);
+  const expire=document.getElementById("newExpire").value||null;
+  const al=document.getElementById("codeFormAlert");
+  if(!code||!montant||!util){al.textContent="⚠️ Code, montant et utilisations requis";al.className="alert a-err show";return;}
+  const r=await P("codes_cadeaux",{code,description:desc||"Code cadeau",montant,utilisations_max:util,utilisations_actuelles:0,expire_le:expire,actif:true,auto_genere:false});
+  if(Array.isArray(r)&&r.length>0){al.textContent="✅ Code créé : "+code;al.className="alert a-ok show";renderCodes();}
+  else{al.textContent="❌ "+(r?.message||"Erreur");al.className="alert a-err show";}
+}
+
+async function toggleCode(id,actif){
+  await PATCH("codes_cadeaux?id=eq."+id,{actif:!actif});
+  toast(actif?"Code désactivé":"Code activé");renderCodes();
+}
+
+// ── PAGINATION
+function pagHTML(pages,current,fn){
+  if(pages<=1)return"";
+  let html=`<div class="pagination">`;
+  html+=`<button class="pg-btn" onclick="${fn(Math.max(1,current-1))}" ${current===1?"disabled":""}>‹ Préc</button>`;
+  let start=Math.max(1,current-2),end=Math.min(pages,current+2);
+  if(start>1)html+=`<button class="pg-btn" onclick="${fn(1)}">1</button>${start>2?'<span style="color:var(--muted);padding:0 4px;">…</span>':""}`;
+  for(let i=start;i<=end;i++)html+=`<button class="pg-btn ${i===current?"active":""}" onclick="${fn(i)}">${i}</button>`;
+  if(end<pages)html+=`${end<pages-1?'<span style="color:var(--muted);padding:0 4px;">…</span>':""}<button class="pg-btn" onclick="${fn(pages)}">${pages}</button>`;
+  html+=`<button class="pg-btn" onclick="${fn(Math.min(pages,current+1))}" ${current===pages?"disabled":""}>Suiv ›</button>`;
+  html+=`<span class="pg-info">${current}/${pages}</span></div>`;
+  return html;
+}
+
+// ── UTILS
+function setContent(html){document.getElementById("pageContent").innerHTML=html;}
+
+// Auto-check 15h pour code
+setInterval(()=>{
+  const now=new Date();
+  if(now.getHours()===15&&now.getMinutes()===0&&now.getSeconds()<5){
+    genererCodeAuto();
   }
-}
-
-async function loadCodes(){
-  const el = document.getElementById("list-codes");
-  const d  = await G("codes_cadeaux?order=created_at.desc&limit=50");
-  if(!d.length){ el.innerHTML='<div class="empty"><div class="empty-icon">🎁</div>Aucun code</div>'; return; }
-  el.innerHTML = d.map(c => {
-    const pct = Math.round((c.utilisations_actuelles/c.utilisations_max)*100);
-    const exp = c.expire_le ? new Date(c.expire_le).toLocaleDateString("fr-FR") : "Illimité";
-    return `<div class="code-card">
-      <div class="cc-top">
-        <div class="cc-code">${escapeHtml(c.code)}</div>
-        <span class="${c.actif?"badge-actif":"badge-inactif"}">${c.actif?"✅ Actif":"❌ Inactif"}</span>
-      </div>
-      <div class="cc-montant">+${parseFloat(c.montant).toLocaleString()} FCFA</div>
-      <div class="cc-details">📝 ${escapeHtml(c.description||"—")}<br>👥 ${c.utilisations_actuelles}/${c.utilisations_max} · ⏰ ${exp}</div>
-      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
-      <div class="cc-actions">
-        <button class="btn-cpyc" onclick="navigator.clipboard.writeText('${c.code.replace(/'/g, "\\'")}').then(()=>toast('✅ Copié !'))">📋 Copier</button>
-        <button class="btn-tog ${c.actif?"on":"off"}" onclick="toggleCode('${c.id}',${c.actif})">${c.actif?"🔴 Désactiver":"🟢 Activer"}</button>
-      </div>
-    </div>`;
-  }).join("");
-}
-
-async function toggleCode(id, actif){
-  await fetch(SB+"/rest/v1/codes_cadeaux?id=eq."+id,{method:"PATCH",headers:H(),body:JSON.stringify({actif:!actif})});
-  toast(actif?"Code désactivé":"Code activé");
-  loadCodes();
-}
+},5000);
 </script>
 </body>
 </html>
+ENDOFFILE
