@@ -14,37 +14,60 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
-.wrap{width:100%;max-width:480px;padding-bottom:80px;}
+.wrap{width:100%;max-width:480px;padding-bottom:90px;}
+
+/* TOPBAR */
 .topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
 .back-btn{background:none;border:none;font-size:20px;cursor:pointer;}
 .topbar-title{font-size:17px;font-weight:700;}
+
+/* STATUS BAR */
 .status-bar{margin:14px;border-radius:18px;padding:18px 20px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;display:flex;justify-content:space-between;align-items:center;}
 .sb-plan{font-size:12px;opacity:.8;margin-bottom:3px;}
 .sb-name{font-size:18px;font-weight:800;font-family:'Playfair Display',serif;}
 .sb-jours-label{font-size:10px;opacity:.75;}
 .sb-jours{font-size:24px;font-weight:900;font-family:'Playfair Display',serif;text-align:right;}
-.day-card{margin:0 14px 12px;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.08);}
-.day-header{background:linear-gradient(135deg,#e0f7fa,#b2ebf2);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;}
-.day-title{font-size:15px;font-weight:700;}
-.day-date{font-size:11px;color:#00838f;font-weight:600;}
-.day-body{padding:16px 18px;}
-.task-choice{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
-.tc-item{border:2px solid #e0e0e0;border-radius:14px;padding:13px 16px;cursor:pointer;display:flex;align-items:center;gap:14px;background:#fafafa;transition:all .2s;}
-.tc-item.selected{border-color:#00bcd4;background:#e0f7fa;}
-.tc-emoji{font-size:26px;flex-shrink:0;}
-.tc-name{font-size:14px;font-weight:700;}
-.tc-desc{font-size:11px;color:#aaa;margin-top:1px;}
-.tc-check{margin-left:auto;width:22px;height:22px;border-radius:50%;border:2px solid #ddd;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
-.tc-item.selected .tc-check{background:#00bcd4;border-color:#00bcd4;color:#fff;}
-.gain-preview{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:13px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+
+/* ALERT */
+.alert{padding:10px 13px;border-radius:10px;font-size:13px;margin:0 14px 12px;display:none;}
+.alert.show{display:block;}
+.alert-error{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
+.alert-success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
+
+/* WHEEL CARD */
+.wheel-card{margin:0 14px 14px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.09);}
+.wc-header{background:linear-gradient(135deg,#e0f7fa,#b2ebf2);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;}
+.wc-title{font-size:15px;font-weight:700;}
+.wc-date{font-size:11px;color:#00838f;font-weight:600;}
+.wc-body{padding:22px 18px;display:flex;flex-direction:column;align-items:center;gap:18px;}
+.wc-sub{font-size:13px;color:#666;text-align:center;line-height:1.5;}
+
+/* ROUE */
+.wheel-wrapper{position:relative;width:230px;height:230px;display:flex;align-items:center;justify-content:center;}
+.wheel-pointer{position:absolute;top:-10px;left:50%;transform:translateX(-50%);z-index:10;font-size:26px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));}
+canvas#wheel{border-radius:50%;box-shadow:0 6px 30px rgba(0,188,212,.25);}
+.wheel-center{position:absolute;width:44px;height:44px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-size:20px;}
+
+/* GAIN PREVIEW */
+.gain-preview{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;width:100%;}
+.gp-label{font-size:13px;font-weight:600;color:#555;}
 .gp-val{font-size:20px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
-.btn-valider{width:100%;padding:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:800;border:none;border-radius:13px;cursor:pointer;font-family:inherit;}
-.btn-valider:disabled{opacity:.5;cursor:not-allowed;}
-.done-card{margin:0 14px 12px;background:#fff;border-radius:18px;padding:28px;box-shadow:0 3px 14px rgba(0,0,0,.08);text-align:center;display:none;}
-.done-icon{font-size:56px;margin-bottom:10px;}
-.done-title{font-size:20px;font-weight:800;color:#00bcd4;font-family:'Playfair Display',serif;margin-bottom:6px;}
-.done-gain{font-size:30px;font-weight:900;color:#15803d;font-family:'Playfair Display',serif;margin:14px 0 4px;}
-.done-next{margin-top:14px;background:#f0f7f9;border-radius:12px;padding:12px;font-size:12px;color:#607d8b;}
+
+/* BTN */
+.btn-spin{width:100%;padding:15px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:800;border:none;border-radius:13px;cursor:pointer;font-family:inherit;letter-spacing:.3px;transition:opacity .2s;}
+.btn-spin:disabled{opacity:.45;cursor:not-allowed;}
+
+/* COOLDOWN CARD */
+.cooldown-card{margin:0 14px 14px;background:#fff;border-radius:20px;padding:28px 20px;box-shadow:0 4px 18px rgba(0,0,0,.09);text-align:center;}
+.cd-icon{font-size:52px;margin-bottom:10px;}
+.cd-title{font-size:19px;font-weight:800;color:#00bcd4;font-family:'Playfair Display',serif;margin-bottom:6px;}
+.cd-gain{font-size:32px;font-weight:900;color:#15803d;font-family:'Playfair Display',serif;margin:14px 0 4px;}
+.cd-sub{font-size:11px;color:#aaa;margin-bottom:16px;}
+.cd-timer-box{background:#f0f7f9;border-radius:14px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.cd-timer-label{font-size:11px;color:#90a4ae;font-weight:600;text-transform:uppercase;letter-spacing:.8px;}
+.cd-timer{font-size:26px;font-weight:900;font-family:'Playfair Display',serif;color:#0097a7;letter-spacing:2px;}
+
+/* HISTORIQUE */
 .hist-section{margin:0 14px 12px;}
 .hist-title{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
 .hist-item{background:#fff;border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.05);}
@@ -52,10 +75,20 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 .hi-date{font-size:12px;font-weight:600;}
 .hi-type{font-size:11px;color:#aaa;margin-top:1px;}
 .hi-gain{font-size:14px;font-weight:800;color:#00bcd4;}
-.alert{padding:10px 13px;border-radius:10px;font-size:13px;margin:0 14px 12px;display:none;}
-.alert.show{display:block;}
-.alert-error{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
-.alert-success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
+
+/* SPIN OVERLAY */
+.spin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;}
+.spin-overlay.show{display:flex;}
+.spin-overlay canvas{border-radius:50%;box-shadow:0 8px 40px rgba(0,188,212,.4);}
+.spin-overlay .so-pointer{font-size:36px;margin-bottom:-10px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3));}
+.spin-result{background:#fff;border-radius:18px;padding:22px 30px;text-align:center;display:none;flex-direction:column;align-items:center;gap:8px;}
+.spin-result.show{display:flex;}
+.sr-emoji{font-size:52px;}
+.sr-msg{font-size:16px;font-weight:700;color:#333;}
+.sr-gain{font-size:34px;font-weight:900;color:#15803d;font-family:'Playfair Display',serif;}
+.sr-btn{margin-top:10px;padding:12px 32px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:14px;font-weight:800;border:none;border-radius:11px;cursor:pointer;font-family:inherit;}
+
+/* NAV */
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;}
 .nav-item.active{color:#00bcd4;}
@@ -74,115 +107,236 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
     <div><div class="sb-jours-label">Jours restants</div><div class="sb-jours" id="sbJours">...</div></div>
   </div>
   <div id="alertBox" class="alert"></div>
-  <div class="day-card" id="dayCard">
-    <div class="day-header">
-      <div class="day-title">⛽ Tâche du jour</div>
-      <div class="day-date" id="dayDate"></div>
+
+  <!-- CARTE ROUE -->
+  <div class="wheel-card" id="wheelCard">
+    <div class="wc-header">
+      <div class="wc-title">⛽ Tâche du jour</div>
+      <div class="wc-date" id="dayDate"></div>
     </div>
-    <div class="day-body">
-      <p style="font-size:13px;color:#666;margin-bottom:14px;">Choisissez le véhicule ravitaillé à la station <strong>Velero Energy</strong> :</p>
-      <div class="task-choice">
-        <div class="tc-item" onclick="sel(this,'🚗','Voiture')"><span class="tc-emoji">🚗</span><div><div class="tc-name">Voiture</div><div class="tc-desc">Ravitaillement voiture</div></div><div class="tc-check"></div></div>
-        <div class="tc-item" onclick="sel(this,'🏍️','Moto')"><span class="tc-emoji">🏍️</span><div><div class="tc-name">Moto / Tricycle</div><div class="tc-desc">Ravitaillement moto ou tricycle</div></div><div class="tc-check"></div></div>
-        <div class="tc-item" onclick="sel(this,'🚛','Camion')"><span class="tc-emoji">🚛</span><div><div class="tc-name">Camion / Bus</div><div class="tc-desc">Ravitaillement gros véhicule</div></div><div class="tc-check"></div></div>
-        <div class="tc-item" onclick="sel(this,'🛺','Taxi')"><span class="tc-emoji">🛺</span><div><div class="tc-name">Taxi / Mototaxi</div><div class="tc-desc">Ravitaillement taxi</div></div><div class="tc-check"></div></div>
+    <div class="wc-body">
+      <p class="wc-sub">Tournez la roue pour récupérer votre gain du jour sur <strong>Velero Energy</strong> !</p>
+      <div class="wheel-wrapper">
+        <div class="wheel-pointer">▼</div>
+        <canvas id="wheelMini" width="220" height="220"></canvas>
+        <div class="wheel-center">⛽</div>
       </div>
       <div class="gain-preview">
-        <span style="font-size:13px;font-weight:600;color:#555;">💰 Gain après validation</span>
+        <span class="gp-label">💰 Gain du jour</span>
         <span class="gp-val" id="gainPreview">0 FCFA</span>
       </div>
-      <button class="btn-valider" id="btnValider" onclick="valider()" disabled>✅ Valider ma tâche</button>
+      <button class="btn-spin" id="btnSpin" onclick="lancerRoue()">🎰 Récupérer mon gain</button>
     </div>
   </div>
-  <div class="done-card" id="doneCard">
-    <div class="done-icon">🎉</div>
-    <div class="done-title">Tâche accomplie !</div>
-    <p style="font-size:13px;color:#aaa;">Vous avez effectué votre tâche aujourd'hui.</p>
-    <div class="done-gain" id="doneGain">+0 FCFA</div>
-    <p style="font-size:11px;color:#aaa;">Crédités sur votre compte</p>
-    <div class="done-next">⏰ Prochaine tâche disponible demain à 00h00</div>
+
+  <!-- COOLDOWN CARD -->
+  <div class="cooldown-card" id="cooldownCard" style="display:none;">
+    <div class="cd-icon">✅</div>
+    <div class="cd-title">Tâche du jour effectuée !</div>
+    <p style="font-size:13px;color:#aaa;">Votre gain a été crédité.</p>
+    <div class="cd-gain" id="cdGain">+0 FCFA</div>
+    <p class="cd-sub">Crédités sur votre compte</p>
+    <div class="cd-timer-box">
+      <div class="cd-timer-label">⏰ Prochaine tâche dans</div>
+      <div class="cd-timer" id="cdTimer">--:--:--</div>
+    </div>
   </div>
+
+  <!-- HISTORIQUE -->
   <div class="hist-section" id="histSection" style="display:none;">
     <div class="hist-title">Dernières tâches</div>
     <div id="histList"></div>
   </div>
 </div>
+
+<!-- OVERLAY SPIN -->
+<div class="spin-overlay" id="spinOverlay">
+  <div class="so-pointer">▼</div>
+  <canvas id="wheelBig" width="290" height="290"></canvas>
+  <div class="spin-result" id="spinResult">
+    <div class="sr-emoji">🎉</div>
+    <div class="sr-msg">Félicitations !</div>
+    <div class="sr-gain" id="srGain">+0 FCFA</div>
+    <button class="sr-btn" onclick="fermerOverlay()">Continuer</button>
+  </div>
+</div>
+
 <nav class="bottom-nav">
   <a href="dashboard.html" class="nav-item"><span class="ni">🏠</span>Accueil</a>
   <a href="produits.html" class="nav-item active"><span class="ni">💲</span>Produit</a>
   <a href="parrainage.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
   <a href="compte.html" class="nav-item"><span class="ni">👤</span>Mon compte</a>
 </nav>
+
 <script src="api.js"></script>
 <script>
 if(!VE.checkAuth())window.location.href="index.html";
-let invest=null,profil=null,selEmoji="",selType="";
 
+let invest=null, profil=null, gainJour=0, timerInterval=null;
+
+/* ---- DATE ---- */
 document.getElementById("dayDate").textContent=new Date().toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});
 
+/* ---- ROUE CONFIG ---- */
+const SEGMENTS=["⚡","💧","🔥","⛽","💡","🌊","🛢️","⚙️"];
+const COLORS=["#00bcd4","#0097a7","#26c6da","#00838f","#4dd0e1","#006064","#80deea","#00acc1"];
+
+function drawWheel(canvas,segments,colors,angle=0){
+  const ctx=canvas.getContext("2d");
+  const cx=canvas.width/2, cy=canvas.height/2, r=cx-6;
+  const arc=2*Math.PI/segments.length;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  segments.forEach((seg,i)=>{
+    const start=angle+i*arc, end=start+arc;
+    ctx.beginPath();ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,r,start,end);ctx.closePath();
+    ctx.fillStyle=colors[i%colors.length];ctx.fill();
+    ctx.strokeStyle="#fff";ctx.lineWidth=2;ctx.stroke();
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(start+arc/2);
+    ctx.textAlign="right";ctx.font=`bold ${canvas.width<250?"15":"19"}px sans-serif`;
+    ctx.fillText(seg,r-10,6);ctx.restore();
+  });
+  // centre
+  ctx.beginPath();ctx.arc(cx,cy,canvas.width<250?18:24,0,2*Math.PI);
+  ctx.fillStyle="#fff";ctx.fill();
+  ctx.strokeStyle="#00bcd4";ctx.lineWidth=3;ctx.stroke();
+}
+
+// dessiner les deux roues statiques
+drawWheel(document.getElementById("wheelMini"),SEGMENTS,COLORS);
+drawWheel(document.getElementById("wheelBig"),SEGMENTS,COLORS);
+
+/* ---- INIT ---- */
 async function init(){
   profil=await VE.getProfile();
   if(!profil){location.href="index.html";return;}
-  // Charger investissement actif
   const invs=await VE.select("investissements","?user_id=eq."+profil.id+"&statut=eq.actif&order=created_at.desc&limit=1");
   if(!invs||invs.length===0){location.href="produits.html";return;}
   invest=invs[0];
+  gainJour=parseFloat(invest.revenu_jour)||0;
   document.getElementById("sbName").textContent="Plan "+invest.plan_nom;
   document.getElementById("sbJours").textContent=invest.jours_restants;
-  const typeGain=invest.type_gain||localStorage.getItem("invest_type")||"journalier";
-  if(typeGain==="final"){
-    document.getElementById("gainPreview").textContent="Gain à la fin : "+parseFloat(invest.gain_final||0).toLocaleString()+" FCFA";
-    document.getElementById("dayDate").textContent="Tâche de suivi — "+new Date().toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});
-  }else{
-    document.getElementById("gainPreview").textContent=parseFloat(invest.revenu_jour).toLocaleString()+" FCFA";
-  }
+  document.getElementById("gainPreview").textContent=gainJour.toLocaleString()+" FCFA";
+
   // Vérifier tâche du jour
   const today=new Date().toISOString().split("T")[0];
-  const taches=await VE.select("taches","?user_id=eq."+profil.id+"&investissement_id=eq."+invest.id+"&date_tache=eq."+today);
+  const taches=await VE.select("taches","?user_id=eq."+profil.id+"&investissement_id=eq."+invest.id+"&date_tache=eq."+today+"&order=created_at.desc&limit=1");
   if(taches&&taches.length>0){
-    document.getElementById("dayCard").style.display="none";
-    document.getElementById("doneCard").style.display="block";
-    document.getElementById("doneGain").textContent="+"+parseFloat(invest.revenu_jour).toLocaleString()+" FCFA";
+    afficherCooldown(taches[0]);
   }
-  // Historique 5 dernières tâches
+
+  // Historique
   const hist=await VE.select("taches","?user_id=eq."+profil.id+"&order=created_at.desc&limit=5");
   if(hist&&hist.length>0){
     document.getElementById("histSection").style.display="block";
     document.getElementById("histList").innerHTML=hist.map(h=>`
       <div class="hist-item">
-        <div class="hi-left"><span style="font-size:20px;">${h.emoji}</span>
-        <div><div class="hi-date">${new Date(h.created_at).toLocaleDateString("fr-FR")}</div>
-        <div class="hi-type">${h.type_vehicule}</div></div></div>
+        <div class="hi-left">
+          <span style="font-size:20px;">⛽</span>
+          <div>
+            <div class="hi-date">${new Date(h.created_at).toLocaleDateString("fr-FR")}</div>
+            <div class="hi-type">Gain quotidien</div>
+          </div>
+        </div>
         <span class="hi-gain">+${parseFloat(h.gain).toLocaleString()} FCFA</span>
       </div>`).join("");
   }
 }
 
-function sel(el,emoji,type){
-  selEmoji=emoji;selType=type;
-  document.querySelectorAll(".tc-item").forEach(i=>{i.classList.remove("selected");i.querySelector(".tc-check").textContent="";});
-  el.classList.add("selected");
-  el.querySelector(".tc-check").textContent="✓";
-  document.getElementById("btnValider").disabled=false;
+/* ---- COOLDOWN ---- */
+function afficherCooldown(tache){
+  document.getElementById("wheelCard").style.display="none";
+  document.getElementById("cooldownCard").style.display="block";
+  const g=parseFloat(tache.gain||gainJour);
+  document.getElementById("cdGain").textContent="+"+g.toLocaleString()+" FCFA";
+
+  // Calcul prochain déblocage : created_at + 24h
+  const createdAt=new Date(tache.created_at);
+  const nextAvailable=new Date(createdAt.getTime()+24*60*60*1000);
+  lancerTimer(nextAvailable);
 }
 
-function showAlert(msg,type){const el=document.getElementById("alertBox");el.textContent=msg;el.className="alert alert-"+type+" show";}
+function lancerTimer(nextTime){
+  if(timerInterval)clearInterval(timerInterval);
+  function tick(){
+    const diff=nextTime-Date.now();
+    if(diff<=0){
+      document.getElementById("cdTimer").textContent="Disponible !";
+      clearInterval(timerInterval);
+      return;
+    }
+    const h=Math.floor(diff/3600000);
+    const m=Math.floor((diff%3600000)/60000);
+    const s=Math.floor((diff%60000)/1000);
+    document.getElementById("cdTimer").textContent=
+      String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+  }
+  tick();
+  timerInterval=setInterval(tick,1000);
+}
+
+/* ---- ANIMATION ROUE ---- */
+let spinning=false;
+function lancerRoue(){
+  if(spinning)return;
+  spinning=true;
+  document.getElementById("btnSpin").disabled=true;
+  document.getElementById("spinOverlay").classList.add("show");
+  document.getElementById("spinResult").classList.remove("show");
+
+  const bigCanvas=document.getElementById("wheelBig");
+  const totalRotation=(5+Math.random()*4)*2*Math.PI; // 5-9 tours
+  const duration=3200; // ms
+  const start=performance.now();
+  const baseAngle=0;
+
+  function animate(now){
+    const elapsed=now-start;
+    const progress=Math.min(elapsed/duration,1);
+    // easing out cubic
+    const ease=1-Math.pow(1-progress,3);
+    const currentAngle=baseAngle+totalRotation*ease;
+    drawWheel(bigCanvas,SEGMENTS,COLORS,currentAngle);
+    if(progress<1){
+      requestAnimationFrame(animate);
+    }else{
+      // Animation terminée → valider côté serveur
+      valider();
+    }
+  }
+  requestAnimationFrame(animate);
+}
+
+function showAlert(msg,type){
+  const el=document.getElementById("alertBox");
+  el.textContent=msg;el.className="alert alert-"+type+" show";
+}
 
 async function valider(){
-  if(!selType||!invest)return;
-  const btn=document.getElementById("btnValider");
-  btn.disabled=true;btn.textContent="⏳ Validation...";
-  const d=await VE.rpc("valider_tache",{p_user_id:profil.id,p_invest_id:invest.id,p_vehicule:selType,p_emoji:selEmoji});
-  if(d.success){
-    document.getElementById("dayCard").style.display="none";
-    document.getElementById("doneCard").style.display="block";
-    document.getElementById("doneGain").textContent="+"+parseFloat(d.gain).toLocaleString()+" FCFA";
-    showAlert("🎉 +"+parseFloat(d.gain).toLocaleString()+" FCFA crédités !","success");
+  const d=await VE.rpc("valider_tache",{p_user_id:profil.id,p_invest_id:invest.id,p_vehicule:"roue",p_emoji:"⛽"});
+  if(d&&d.success){
+    const g=parseFloat(d.gain||gainJour);
+    document.getElementById("srGain").textContent="+"+g.toLocaleString()+" FCFA";
+    document.getElementById("spinResult").classList.add("show");
   }else{
-    showAlert("❌ "+d.error,"error");
-    btn.disabled=false;btn.textContent="✅ Valider ma tâche";
+    // déjà fait ou erreur
+    document.getElementById("spinOverlay").classList.remove("show");
+    spinning=false;
+    const errMsg=(d&&d.error)||"Tâche déjà effectuée aujourd'hui.";
+    showAlert("❌ "+errMsg,"error");
+    document.getElementById("btnSpin").disabled=false;
+    // recharger pour afficher cooldown
+    setTimeout(()=>location.reload(),1200);
   }
 }
+
+async function fermerOverlay(){
+  document.getElementById("spinOverlay").classList.remove("show");
+  spinning=false;
+  // recharger la page pour afficher cooldown
+  location.reload();
+}
+
 init();
 </script>
 </body>
