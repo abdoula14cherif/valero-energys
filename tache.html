@@ -16,75 +16,73 @@
 body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
 .wrap{width:100%;max-width:480px;padding-bottom:90px;}
 
-/* TOPBAR */
 .topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
 .back-btn{background:none;border:none;font-size:20px;cursor:pointer;}
 .topbar-title{font-size:17px;font-weight:700;}
 
-/* STATUS BAR */
-.status-bar{margin:14px;border-radius:18px;padding:18px 20px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;display:flex;justify-content:space-between;align-items:center;}
-.sb-plan{font-size:12px;opacity:.8;margin-bottom:3px;}
-.sb-name{font-size:18px;font-weight:800;font-family:'Playfair Display',serif;}
-.sb-jours-label{font-size:10px;opacity:.75;}
-.sb-jours{font-size:24px;font-weight:900;font-family:'Playfair Display',serif;text-align:right;}
+.page-header{margin:16px 14px 4px;display:flex;align-items:center;gap:10px;}
+.ph-bar{width:4px;height:28px;border-radius:4px;background:linear-gradient(135deg,#00bcd4,#0097a7);flex-shrink:0;}
+.ph-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;}
+.ph-sub{font-size:12px;color:#888;margin-top:2px;}
 
-/* ALERT */
 .alert{padding:10px 13px;border-radius:10px;font-size:13px;margin:0 14px 12px;display:none;}
 .alert.show{display:block;}
 .alert-error{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
 .alert-success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
 
-/* WHEEL CARD */
-.wheel-card{margin:0 14px 14px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.09);}
-.wc-header{background:linear-gradient(135deg,#e0f7fa,#b2ebf2);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;}
-.wc-title{font-size:15px;font-weight:700;}
-.wc-date{font-size:11px;color:#00838f;font-weight:600;}
-.wc-body{padding:22px 18px;display:flex;flex-direction:column;align-items:center;gap:18px;}
-.wc-sub{font-size:13px;color:#666;text-align:center;line-height:1.5;}
+/* PLAN CARD */
+.plan-card{margin:0 14px 16px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.09);}
+.pc-header{padding:14px 18px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#e0f7fa,#b2ebf2);}
+.pc-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:900;color:#0f2a3a;}
+.pc-date{font-size:11px;color:#00838f;font-weight:600;}
+.pc-body{padding:20px 18px;display:flex;flex-direction:column;align-items:center;gap:16px;}
 
 /* ROUE */
-.wheel-wrapper{position:relative;width:230px;height:230px;display:flex;align-items:center;justify-content:center;}
-.wheel-pointer{position:absolute;top:-10px;left:50%;transform:translateX(-50%);z-index:10;font-size:26px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));}
-canvas#wheel{border-radius:50%;box-shadow:0 6px 30px rgba(0,188,212,.25);}
-.wheel-center{position:absolute;width:44px;height:44px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-size:20px;}
+.wheel-wrapper{position:relative;width:200px;height:200px;display:flex;align-items:center;justify-content:center;}
+.wheel-pointer{position:absolute;top:-8px;left:50%;transform:translateX(-50%);z-index:10;font-size:22px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));}
+.wheel-center{position:absolute;width:38px;height:38px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-size:18px;}
 
-/* GAIN PREVIEW */
-.gain-preview{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;width:100%;}
-.gp-label{font-size:13px;font-weight:600;color:#555;}
-.gp-val{font-size:20px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
+/* GAIN ROW */
+.gain-row{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;width:100%;}
+.gr-label{font-size:13px;font-weight:600;color:#555;}
+.gr-val{font-size:18px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
 
 /* BTN */
-.btn-spin{width:100%;padding:15px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:800;border:none;border-radius:13px;cursor:pointer;font-family:inherit;letter-spacing:.3px;transition:opacity .2s;}
+.btn-spin{width:100%;padding:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:14px;font-weight:800;border:none;border-radius:12px;cursor:pointer;font-family:inherit;transition:opacity .2s;}
 .btn-spin:disabled{opacity:.45;cursor:not-allowed;}
 
-/* COOLDOWN CARD */
-.cooldown-card{margin:0 14px 14px;background:#fff;border-radius:20px;padding:28px 20px;box-shadow:0 4px 18px rgba(0,0,0,.09);text-align:center;}
-.cd-icon{font-size:52px;margin-bottom:10px;}
-.cd-title{font-size:19px;font-weight:800;color:#00bcd4;font-family:'Playfair Display',serif;margin-bottom:6px;}
-.cd-gain{font-size:32px;font-weight:900;color:#15803d;font-family:'Playfair Display',serif;margin:14px 0 4px;}
-.cd-sub{font-size:11px;color:#aaa;margin-bottom:16px;}
-.cd-timer-box{background:#f0f7f9;border-radius:14px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:4px;}
+/* COOLDOWN dans la carte */
+.cd-box{width:100%;background:#f0f7f9;border-radius:14px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.cd-done{font-size:13px;font-weight:700;color:#15803d;}
+.cd-gain-inline{font-size:22px;font-weight:900;color:#15803d;font-family:'Playfair Display',serif;}
 .cd-timer-label{font-size:11px;color:#90a4ae;font-weight:600;text-transform:uppercase;letter-spacing:.8px;}
-.cd-timer{font-size:26px;font-weight:900;font-family:'Playfair Display',serif;color:#0097a7;letter-spacing:2px;}
+.cd-timer{font-size:24px;font-weight:900;font-family:'Playfair Display',serif;color:#0097a7;letter-spacing:2px;}
 
-/* HISTORIQUE */
+/* EMPTY */
+.empty-card{margin:30px 14px;background:#fff;border-radius:20px;padding:36px 20px;text-align:center;box-shadow:0 4px 18px rgba(0,0,0,.07);}
+.empty-icon{font-size:52px;margin-bottom:12px;}
+.empty-title{font-size:18px;font-weight:800;color:#0f2a3a;margin-bottom:6px;}
+.empty-sub{font-size:13px;color:#aaa;margin-bottom:18px;}
+.btn-go{display:inline-block;padding:13px 28px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:14px;font-weight:800;border-radius:12px;text-decoration:none;font-family:'DM Sans',sans-serif;}
+
+/* HIST */
 .hist-section{margin:0 14px 12px;}
 .hist-title{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
 .hist-item{background:#fff;border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.05);}
 .hi-left{display:flex;align-items:center;gap:10px;}
 .hi-date{font-size:12px;font-weight:600;}
-.hi-type{font-size:11px;color:#aaa;margin-top:1px;}
+.hi-plan{font-size:11px;color:#aaa;margin-top:1px;}
 .hi-gain{font-size:14px;font-weight:800;color:#00bcd4;}
 
-/* SPIN OVERLAY */
-.spin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;}
+/* OVERLAY */
+.spin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;}
 .spin-overlay.show{display:flex;}
-.spin-overlay canvas{border-radius:50%;box-shadow:0 8px 40px rgba(0,188,212,.4);}
-.spin-overlay .so-pointer{font-size:36px;margin-bottom:-10px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3));}
-.spin-result{background:#fff;border-radius:18px;padding:22px 30px;text-align:center;display:none;flex-direction:column;align-items:center;gap:8px;}
+.so-pointer{font-size:32px;margin-bottom:-8px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3));}
+.spin-result{background:#fff;border-radius:20px;padding:24px 32px;text-align:center;display:none;flex-direction:column;align-items:center;gap:10px;}
 .spin-result.show{display:flex;}
 .sr-emoji{font-size:52px;}
 .sr-msg{font-size:16px;font-weight:700;color:#333;}
+.sr-plan{font-size:12px;color:#aaa;}
 .sr-gain{font-size:34px;font-weight:900;color:#15803d;font-family:'Playfair Display',serif;}
 .sr-btn{margin-top:10px;padding:12px 32px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:14px;font-weight:800;border:none;border-radius:11px;cursor:pointer;font-family:inherit;}
 
@@ -102,47 +100,18 @@ canvas#wheel{border-radius:50%;box-shadow:0 6px 30px rgba(0,188,212,.25);}
     <button class="back-btn" onclick="history.back()">←</button>
     <span class="topbar-title">⛽ Tâche du Jour</span>
   </div>
-  <div class="status-bar">
-    <div><div class="sb-plan">Plan actif</div><div class="sb-name" id="sbName">...</div></div>
-    <div><div class="sb-jours-label">Jours restants</div><div class="sb-jours" id="sbJours">...</div></div>
+
+  <div class="page-header">
+    <div class="ph-bar"></div>
+    <div>
+      <div class="ph-title">Mes tâches du jour</div>
+      <div class="ph-sub" id="dayDate"></div>
+    </div>
   </div>
+
   <div id="alertBox" class="alert"></div>
+  <div id="cardsContainer"></div>
 
-  <!-- CARTE ROUE -->
-  <div class="wheel-card" id="wheelCard">
-    <div class="wc-header">
-      <div class="wc-title">⛽ Tâche du jour</div>
-      <div class="wc-date" id="dayDate"></div>
-    </div>
-    <div class="wc-body">
-      <p class="wc-sub">Tournez la roue pour récupérer votre gain du jour sur <strong>Velero Energy</strong> !</p>
-      <div class="wheel-wrapper">
-        <div class="wheel-pointer">▼</div>
-        <canvas id="wheelMini" width="220" height="220"></canvas>
-        <div class="wheel-center">⛽</div>
-      </div>
-      <div class="gain-preview">
-        <span class="gp-label">💰 Gain du jour</span>
-        <span class="gp-val" id="gainPreview">0 FCFA</span>
-      </div>
-      <button class="btn-spin" id="btnSpin" onclick="lancerRoue()">🎰 Récupérer mon gain</button>
-    </div>
-  </div>
-
-  <!-- COOLDOWN CARD -->
-  <div class="cooldown-card" id="cooldownCard" style="display:none;">
-    <div class="cd-icon">✅</div>
-    <div class="cd-title">Tâche du jour effectuée !</div>
-    <p style="font-size:13px;color:#aaa;">Votre gain a été crédité.</p>
-    <div class="cd-gain" id="cdGain">+0 FCFA</div>
-    <p class="cd-sub">Crédités sur votre compte</p>
-    <div class="cd-timer-box">
-      <div class="cd-timer-label">⏰ Prochaine tâche dans</div>
-      <div class="cd-timer" id="cdTimer">--:--:--</div>
-    </div>
-  </div>
-
-  <!-- HISTORIQUE -->
   <div class="hist-section" id="histSection" style="display:none;">
     <div class="hist-title">Dernières tâches</div>
     <div id="histList"></div>
@@ -152,12 +121,13 @@ canvas#wheel{border-radius:50%;box-shadow:0 6px 30px rgba(0,188,212,.25);}
 <!-- OVERLAY SPIN -->
 <div class="spin-overlay" id="spinOverlay">
   <div class="so-pointer">▼</div>
-  <canvas id="wheelBig" width="290" height="290"></canvas>
+  <canvas id="wheelBig" width="270" height="270"></canvas>
   <div class="spin-result" id="spinResult">
     <div class="sr-emoji">🎉</div>
     <div class="sr-msg">Félicitations !</div>
+    <div class="sr-plan" id="srPlan"></div>
     <div class="sr-gain" id="srGain">+0 FCFA</div>
-    <button class="sr-btn" onclick="fermerOverlay()">Continuer</button>
+    <button class="sr-btn" onclick="fermerOverlay()">Continuer →</button>
   </div>
 </div>
 
@@ -172,62 +142,48 @@ canvas#wheel{border-radius:50%;box-shadow:0 6px 30px rgba(0,188,212,.25);}
 <script>
 if(!VE.checkAuth())window.location.href="index.html";
 
-let invest=null, profil=null, gainJour=0, timerInterval=null;
-
-/* ---- DATE ---- */
-document.getElementById("dayDate").textContent=new Date().toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});
-
-/* ---- ROUE CONFIG ---- */
 const SEGMENTS=["⚡","💧","🔥","⛽","💡","🌊","🛢️","⚙️"];
 const COLORS=["#00bcd4","#0097a7","#26c6da","#00838f","#4dd0e1","#006064","#80deea","#00acc1"];
 
-function drawWheel(canvas,segments,colors,angle=0){
+let profil=null, investsActifs=[], tachesAujourd=[], spinning=false, investEnCours=null;
+const timers={};
+
+document.getElementById("dayDate").textContent=new Date().toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});
+
+function drawWheel(canvas,angle=0){
   const ctx=canvas.getContext("2d");
-  const cx=canvas.width/2, cy=canvas.height/2, r=cx-6;
-  const arc=2*Math.PI/segments.length;
+  const cx=canvas.width/2,cy=canvas.height/2,r=cx-6;
+  const arc=2*Math.PI/SEGMENTS.length;
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  segments.forEach((seg,i)=>{
-    const start=angle+i*arc, end=start+arc;
-    ctx.beginPath();ctx.moveTo(cx,cy);
-    ctx.arc(cx,cy,r,start,end);ctx.closePath();
-    ctx.fillStyle=colors[i%colors.length];ctx.fill();
+  SEGMENTS.forEach((seg,i)=>{
+    const start=angle+i*arc,end=start+arc;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,end);ctx.closePath();
+    ctx.fillStyle=COLORS[i%COLORS.length];ctx.fill();
     ctx.strokeStyle="#fff";ctx.lineWidth=2;ctx.stroke();
     ctx.save();ctx.translate(cx,cy);ctx.rotate(start+arc/2);
-    ctx.textAlign="right";ctx.font=`bold ${canvas.width<250?"15":"19"}px sans-serif`;
-    ctx.fillText(seg,r-10,6);ctx.restore();
+    ctx.textAlign="right";ctx.font=`bold ${canvas.width<230?"13":"17"}px sans-serif`;
+    ctx.fillText(seg,r-8,5);ctx.restore();
   });
-  // centre
-  ctx.beginPath();ctx.arc(cx,cy,canvas.width<250?18:24,0,2*Math.PI);
-  ctx.fillStyle="#fff";ctx.fill();
-  ctx.strokeStyle="#00bcd4";ctx.lineWidth=3;ctx.stroke();
+  ctx.beginPath();ctx.arc(cx,cy,canvas.width<230?16:22,0,2*Math.PI);
+  ctx.fillStyle="#fff";ctx.fill();ctx.strokeStyle="#00bcd4";ctx.lineWidth=3;ctx.stroke();
 }
 
-// dessiner les deux roues statiques
-drawWheel(document.getElementById("wheelMini"),SEGMENTS,COLORS);
-drawWheel(document.getElementById("wheelBig"),SEGMENTS,COLORS);
-
-/* ---- INIT ---- */
 async function init(){
   profil=await VE.getProfile();
   if(!profil){location.href="index.html";return;}
-  const invs=await VE.select("investissements","?user_id=eq."+profil.id+"&statut=eq.actif&order=created_at.desc&limit=1");
-  if(!invs||invs.length===0){location.href="produits.html";return;}
-  invest=invs[0];
-  gainJour=parseFloat(invest.revenu_jour)||0;
-  document.getElementById("sbName").textContent="Plan "+invest.plan_nom;
-  document.getElementById("sbJours").textContent=invest.jours_restants;
-  document.getElementById("gainPreview").textContent=gainJour.toLocaleString()+" FCFA";
 
-  // Vérifier tâche du jour
+  // Tous les investissements actifs — pas de limit, pas de filtre sur plan_nom
+  investsActifs=await VE.select("investissements","?user_id=eq."+profil.id+"&statut=eq.actif&order=created_at.asc")||[];
+
+  // Tâches d'aujourd'hui
   const today=new Date().toISOString().split("T")[0];
-  const taches=await VE.select("taches","?user_id=eq."+profil.id+"&investissement_id=eq."+invest.id+"&date_tache=eq."+today+"&order=created_at.desc&limit=1");
-  if(taches&&taches.length>0){
-    afficherCooldown(taches[0]);
-  }
+  tachesAujourd=await VE.select("taches","?user_id=eq."+profil.id+"&date_tache=eq."+today)||[];
 
-  // Historique
-  const hist=await VE.select("taches","?user_id=eq."+profil.id+"&order=created_at.desc&limit=5");
-  if(hist&&hist.length>0){
+  renderCards();
+
+  // Historique 5 dernières
+  const hist=await VE.select("taches","?user_id=eq."+profil.id+"&order=created_at.desc&limit=5")||[];
+  if(hist.length>0){
     document.getElementById("histSection").style.display="block";
     document.getElementById("histList").innerHTML=hist.map(h=>`
       <div class="hist-item">
@@ -235,7 +191,7 @@ async function init(){
           <span style="font-size:20px;">⛽</span>
           <div>
             <div class="hi-date">${new Date(h.created_at).toLocaleDateString("fr-FR")}</div>
-            <div class="hi-type">Gain quotidien</div>
+            <div class="hi-plan">${h.plan_nom||"Gain quotidien"}</div>
           </div>
         </div>
         <span class="hi-gain">+${parseFloat(h.gain).toLocaleString()} FCFA</span>
@@ -243,66 +199,124 @@ async function init(){
   }
 }
 
-/* ---- COOLDOWN ---- */
-function afficherCooldown(tache){
-  document.getElementById("wheelCard").style.display="none";
-  document.getElementById("cooldownCard").style.display="block";
-  const g=parseFloat(tache.gain||gainJour);
-  document.getElementById("cdGain").textContent="+"+g.toLocaleString()+" FCFA";
+function renderCards(){
+  const container=document.getElementById("cardsContainer");
 
-  // Calcul prochain déblocage : created_at + 24h
-  const createdAt=new Date(tache.created_at);
-  const nextAvailable=new Date(createdAt.getTime()+24*60*60*1000);
-  lancerTimer(nextAvailable);
+  // Filtrer : exclure les plans à gain final (ceux-là vont sur contrats.html)
+  const invests=investsActifs.filter(inv=>inv.type_gain!=="final");
+
+  if(invests.length===0){
+    container.innerHTML=`
+      <div class="empty-card">
+        <div class="empty-icon">⛽</div>
+        <div class="empty-title">Aucun plan actif</div>
+        <div class="empty-sub">Investissez dans un plan journalier pour débloquer vos tâches quotidiennes.</div>
+        <a href="produits.html" class="btn-go">Voir les plans →</a>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML=invests.map((inv,idx)=>{
+    const gainJour=parseFloat(inv.revenu_jour)||0;
+    // Tâche faite aujourd'hui pour CET investissement ?
+    const tacheFaite=tachesAujourd.find(t=>t.investissement_id===inv.id);
+    const canvasId="wheel_"+idx;
+    return `
+    <div class="plan-card" id="card_${idx}">
+      <div class="pc-header">
+        <div>
+          <div class="pc-name">⛽ ${inv.plan_nom}</div>
+          <div style="font-size:11px;color:#607d8b;margin-top:2px;">Jours restants : <strong>${inv.jours_restants}</strong></div>
+        </div>
+        <div class="pc-date">${new Date().toLocaleDateString("fr-FR",{day:"numeric",month:"short"})}</div>
+      </div>
+      <div class="pc-body">
+        ${tacheFaite ? cooldownHTML(inv,tacheFaite,idx) : activeHTML(inv,gainJour,canvasId,idx)}
+      </div>
+    </div>`;
+  }).join("");
+
+  // Dessiner les mini-roues et lancer les timers
+  invests.forEach((inv,idx)=>{
+    const tacheFaite=tachesAujourd.find(t=>t.investissement_id===inv.id);
+    if(!tacheFaite){
+      const c=document.getElementById("wheel_"+idx);
+      if(c)drawWheel(c);
+    }else{
+      const nextAvailable=new Date(new Date(tacheFaite.created_at).getTime()+24*60*60*1000);
+      lancerTimer(idx,nextAvailable);
+    }
+  });
+
+  // Dessiner la big wheel overlay
+  drawWheel(document.getElementById("wheelBig"));
 }
 
-function lancerTimer(nextTime){
-  if(timerInterval)clearInterval(timerInterval);
+function activeHTML(inv,gainJour,canvasId,idx){
+  return `
+    <div class="wheel-wrapper">
+      <div class="wheel-pointer">▼</div>
+      <canvas id="${canvasId}" width="190" height="190"></canvas>
+      <div class="wheel-center">⛽</div>
+    </div>
+    <div class="gain-row">
+      <span class="gr-label">💰 Gain du jour</span>
+      <span class="gr-val">${gainJour.toLocaleString()} FCFA</span>
+    </div>
+    <button class="btn-spin" onclick="lancerRoue(${idx})">🎰 Récupérer mon gain</button>`;
+}
+
+function cooldownHTML(inv,tache,idx){
+  const gain=parseFloat(tache.gain||inv.revenu_jour||0);
+  return `
+    <div class="cd-box" id="cdbox_${idx}">
+      <div class="cd-done">✅ Tâche effectuée aujourd'hui</div>
+      <div class="cd-gain-inline">+${gain.toLocaleString()} FCFA</div>
+      <div style="font-size:11px;color:#aaa;">crédités sur votre compte</div>
+      <div style="height:1px;background:#e0f7fa;width:100%;margin:4px 0;"></div>
+      <div class="cd-timer-label">⏰ Prochaine tâche dans</div>
+      <div class="cd-timer" id="timer_${idx}">--:--:--</div>
+    </div>`;
+}
+
+function lancerTimer(idx,nextTime){
+  if(timers[idx])clearInterval(timers[idx]);
   function tick(){
     const diff=nextTime-Date.now();
-    if(diff<=0){
-      document.getElementById("cdTimer").textContent="Disponible !";
-      clearInterval(timerInterval);
-      return;
-    }
+    const el=document.getElementById("timer_"+idx);
+    if(!el){clearInterval(timers[idx]);return;}
+    if(diff<=0){el.textContent="Disponible !";clearInterval(timers[idx]);return;}
     const h=Math.floor(diff/3600000);
     const m=Math.floor((diff%3600000)/60000);
     const s=Math.floor((diff%60000)/1000);
-    document.getElementById("cdTimer").textContent=
-      String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+    el.textContent=String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
   }
   tick();
-  timerInterval=setInterval(tick,1000);
+  timers[idx]=setInterval(tick,1000);
 }
 
-/* ---- ANIMATION ROUE ---- */
-let spinning=false;
-function lancerRoue(){
+// investEnCours stocke {invest, idx}
+function lancerRoue(idx){
   if(spinning)return;
+  const invests=investsActifs.filter(inv=>inv.type_gain!=="final");
+  const inv=invests[idx];
+  if(!inv)return;
+  investEnCours={invest:inv,idx};
   spinning=true;
-  document.getElementById("btnSpin").disabled=true;
   document.getElementById("spinOverlay").classList.add("show");
   document.getElementById("spinResult").classList.remove("show");
 
   const bigCanvas=document.getElementById("wheelBig");
-  const totalRotation=(5+Math.random()*4)*2*Math.PI; // 5-9 tours
-  const duration=3200; // ms
+  const totalRotation=(5+Math.random()*4)*2*Math.PI;
+  const duration=3200;
   const start=performance.now();
-  const baseAngle=0;
-
   function animate(now){
     const elapsed=now-start;
     const progress=Math.min(elapsed/duration,1);
-    // easing out cubic
     const ease=1-Math.pow(1-progress,3);
-    const currentAngle=baseAngle+totalRotation*ease;
-    drawWheel(bigCanvas,SEGMENTS,COLORS,currentAngle);
-    if(progress<1){
-      requestAnimationFrame(animate);
-    }else{
-      // Animation terminée → valider côté serveur
-      valider();
-    }
+    drawWheel(bigCanvas,totalRotation*ease);
+    if(progress<1){requestAnimationFrame(animate);}
+    else{valider();}
   }
   requestAnimationFrame(animate);
 }
@@ -310,30 +324,28 @@ function lancerRoue(){
 function showAlert(msg,type){
   const el=document.getElementById("alertBox");
   el.textContent=msg;el.className="alert alert-"+type+" show";
+  setTimeout(()=>el.classList.remove("show"),4000);
 }
 
 async function valider(){
+  const {invest}=investEnCours;
   const d=await VE.rpc("valider_tache",{p_user_id:profil.id,p_invest_id:invest.id,p_vehicule:"roue",p_emoji:"⛽"});
   if(d&&d.success){
-    const g=parseFloat(d.gain||gainJour);
+    const g=parseFloat(d.gain||invest.revenu_jour||0);
     document.getElementById("srGain").textContent="+"+g.toLocaleString()+" FCFA";
+    document.getElementById("srPlan").textContent=invest.plan_nom;
     document.getElementById("spinResult").classList.add("show");
   }else{
-    // déjà fait ou erreur
     document.getElementById("spinOverlay").classList.remove("show");
     spinning=false;
-    const errMsg=(d&&d.error)||"Tâche déjà effectuée aujourd'hui.";
-    showAlert("❌ "+errMsg,"error");
-    document.getElementById("btnSpin").disabled=false;
-    // recharger pour afficher cooldown
-    setTimeout(()=>location.reload(),1200);
+    showAlert("❌ "+((d&&d.error)||"Tâche déjà effectuée."),"error");
+    setTimeout(()=>location.reload(),1000);
   }
 }
 
 async function fermerOverlay(){
   document.getElementById("spinOverlay").classList.remove("show");
   spinning=false;
-  // recharger la page pour afficher cooldown
   location.reload();
 }
 
