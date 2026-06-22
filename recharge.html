@@ -145,6 +145,7 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
 .op-badge.mtn{background:#fff3e0;}
 .op-badge.airtel{background:#fce4ec;}
 .op-badge.moov{background:#e3f2fd;}
+.op-badge.nita{background:#f3e5f5;}
 .op-name{font-size:14px;font-weight:700;color:#1a1a1a;}
 .op-country{font-size:11px;color:#90a4ae;}
 
@@ -400,6 +401,8 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
 
       <!-- COMPTES NIGER -->
       <div id="comptes-NE" class="comptes-section hidden">
+
+        <!-- Amana (existant) -->
         <div class="compte-card">
           <div class="compte-operateur">
             <div class="op-badge moov">&#128244;</div>
@@ -416,6 +419,25 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
             <div><div class="cd-label">Nom</div><div class="cd-val">Velero Energy</div></div>
           </div>
         </div>
+
+        <!-- Nita (nouveau) -->
+        <div class="compte-card">
+          <div class="compte-operateur">
+            <div class="op-badge nita">&#128244;</div>
+            <div>
+              <div class="op-name">Nita</div>
+              <div class="op-country">Niger</div>
+            </div>
+          </div>
+          <div class="compte-detail">
+            <div><div class="cd-label">Numero</div><div class="cd-val">76514265</div></div>
+            <button class="btn-copy-num" onclick="copyInfo('76514265')">Copier</button>
+          </div>
+          <div class="compte-detail">
+            <div><div class="cd-label">Nom</div><div class="cd-val">Velero Energy</div></div>
+          </div>
+        </div>
+
       </div>
 
       <!-- COMPTES CAMEROUN -->
@@ -480,6 +502,7 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
           <option value="Airtel Money Gabon">Airtel Money - Gabon</option>
           <option value="Moov Money Gabon">Moov Money - Gabon</option>
           <option value="Amana Niger">Amana - Niger</option>
+          <option value="Nita Niger">Nita - Niger</option>
           <option value="Orange Money Cameroun">Orange Money - Cameroun</option>
           <option value="MTN Money Cameroun">MTN Money - Cameroun</option>
         </select>
@@ -534,7 +557,6 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
 const SB="https://seegoklunovyuieorkvy.supabase.co";
 const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
 
-// WestPay — on passe par le lien de paiement direct pour eviter le CORS
 const WESTPAY_LINK = "https://westpay.cfd/link/poxoejjgmqlh6td9";
 const WESTPAY_API  = "https://westpay.cfd/api/v1";
 
@@ -568,7 +590,6 @@ function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization
 
 let montantChoisi=0, selectedNet=null, selectedNetName="", currentTxId=null, checkInterval=null;
 
-/* ---- INIT ---- */
 async function init(){
   if(!tok()){location.href="index.html";return;}
   try{
@@ -579,7 +600,6 @@ async function init(){
   }catch(e){document.getElementById("soldeActuel").textContent="0 FCFA";}
 }
 
-/* ---- TABS ---- */
 function showTab(t){
   document.getElementById("tabAuto").classList.toggle("active", t==="auto");
   document.getElementById("tabManuel").classList.toggle("active", t==="manuel");
@@ -587,7 +607,6 @@ function showTab(t){
   document.getElementById("sectionManuel").classList.toggle("hidden", t!=="manuel");
 }
 
-/* ---- MONTANT ---- */
 function setAmt(v,el){
   montantChoisi=v;
   document.getElementById("montantInput").value=v;
@@ -600,7 +619,6 @@ function updateTotal(v){
   document.getElementById("totalAffiche").textContent=montantChoisi.toLocaleString()+" FCFA";
 }
 
-/* ---- RESEAUX ---- */
 function updateNetworks(){
   const pays=document.getElementById("pays").value;
   if(!pays)return;
@@ -621,21 +639,18 @@ function selectNet(id,name){
   if(el)el.classList.add("sel");
 }
 
-/* ---- ALERTS ---- */
 function showAlert(id,msg,type){
   const el=document.getElementById(id);
   el.textContent=msg; el.className="alert "+type+" show";
 }
 function hideAlert(id){document.getElementById(id).className="alert";}
 
-/* ---- TOAST ---- */
 function toast(msg){
   const t=document.getElementById("toast");
   t.textContent=msg; t.classList.add("show");
   setTimeout(()=>t.classList.remove("show"),2500);
 }
 
-/* ---- COPIER ---- */
 function copyInfo(val){
   navigator.clipboard.writeText(val).then(()=>toast("Numero copie !")).catch(()=>{
     const el=document.createElement("textarea");el.value=val;
@@ -644,7 +659,6 @@ function copyInfo(val){
   });
 }
 
-/* ---- PAYS MANUEL ---- */
 function showComptes(pays, btn){
   document.querySelectorAll(".pays-btn").forEach(b=>b.classList.remove("sel"));
   btn.classList.add("sel");
@@ -652,7 +666,6 @@ function showComptes(pays, btn){
   document.getElementById("comptes-"+pays).classList.remove("hidden");
 }
 
-/* ==== PAIEMENT AUTOMATIQUE ==== */
 async function initierPaiement(){
   const phone=document.getElementById("mmPhone").value.trim();
   const pays=document.getElementById("pays").value;
@@ -668,7 +681,6 @@ async function initierPaiement(){
   const apiKey=WESTPAY_KEYS[pays];
   const ref="VE"+uid().substring(0,6).toUpperCase()+Date.now().toString().slice(-6);
 
-  // Enregistrer la transaction en attente dans Supabase
   let txId=null;
   try{
     const rTx=await fetch(SB+"/rest/v1/transactions",{
@@ -687,7 +699,6 @@ async function initierPaiement(){
     currentTxId=txId;
   }catch(e){}
 
-  // Tenter l'API WestPay directe
   let apiOk=false;
   try{
     const resp=await fetch(WESTPAY_API+"/collect",{
@@ -716,10 +727,9 @@ async function initierPaiement(){
         document.getElementById("payRef").textContent="Reference : "+txRef;
       }
     }
-  }catch(e){/* CORS probable — on passe au lien direct */}
+  }catch(e){}
 
   if(!apiOk){
-    // Fallback : ouvrir le lien de paiement WestPay prefille
     const wpUrl=WESTPAY_LINK
       +"?amount="+montantChoisi
       +"&phone="+encodeURIComponent(phone)
@@ -730,11 +740,9 @@ async function initierPaiement(){
     showAlert("alertAuto","Une fenetre de paiement WestPay vient de s'ouvrir. Completez le paiement puis revenez verifier.","info");
   }
 
-  // Afficher la modal de suivi
   document.getElementById("payModal").classList.add("show");
   hideAlert("alertAuto");
 
-  // Verification automatique toutes les 10s
   let tries=0;
   checkInterval=setInterval(async()=>{
     tries++;
@@ -745,7 +753,6 @@ async function initierPaiement(){
   btn.disabled=false; btn.textContent="Payer maintenant";
 }
 
-/* Vérification auto (silencieuse) */
 async function verifierPaiementAuto(ref,pays,apiKey){
   try{
     const r=await fetch(WESTPAY_API+"/status/"+ref,{
@@ -760,7 +767,6 @@ async function verifierPaiementAuto(ref,pays,apiKey){
   }catch(e){}
 }
 
-/* Vérification manuelle (bouton) */
 async function verifierPaiement(){
   const refText=document.getElementById("payRef").textContent.replace("Reference : ","");
   const pays=document.getElementById("pays").value;
@@ -785,16 +791,13 @@ async function verifierPaiement(){
   btnCheck.textContent="Verifier le paiement"; btnCheck.disabled=false;
 }
 
-/* Crediter le compte apres confirmation */
 async function crediterCompte(montant,ref){
   try{
-    // MAJ statut transaction
     const q=currentTxId
       ? SB+"/rest/v1/transactions?id=eq."+currentTxId
       : SB+"/rest/v1/transactions?reference=eq."+ref+"&user_id=eq."+uid();
     await fetch(q,{method:"PATCH",headers:H(),body:JSON.stringify({statut:"valide"})});
 
-    // MAJ solde
     const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()});
     const p=await rp.json();
     const nouveau=parseFloat(p[0]?.solde||0)+parseFloat(montant);
@@ -803,7 +806,6 @@ async function crediterCompte(montant,ref){
       body:JSON.stringify({solde:nouveau})
     });
 
-    // Ticket de roue
     await fetch(SB+"/rest/v1/roue_droits",{
       method:"POST",
       headers:{...H(),"Prefer":"return=minimal"},
@@ -826,7 +828,6 @@ function annulerPaiement(){
   showAlert("alertAuto","Paiement annule. Contactez le support si vous avez ete debite.","err");
 }
 
-/* ==== CONFIRMATION MANUELLE ==== */
 async function confirmerManuel(){
   const montant=parseInt(document.getElementById("mMontant").value)||0;
   const phone=document.getElementById("mPhone").value.trim();
