@@ -133,6 +133,27 @@ function tournerRoue(svgId, cb){
   setTimeout(cb,4200);
 }
 
+/* ---- ATTENTE 24H APRES INVESTISSEMENT ---- */
+function startWait24h(investId, investCreatedAt){
+  const deblocageAt=new Date(investCreatedAt).getTime()+24*60*60*1000;
+  const valEl=document.getElementById("wait24val-"+investId);
+
+  function tick(){
+    const diff=deblocageAt-Date.now();
+    if(diff<=0){
+      // Recharger la page pour activer les tâches
+      location.reload();
+      return;
+    }
+    const h=String(Math.floor(diff/3600000)).padStart(2,"0");
+    const m=String(Math.floor((diff%3600000)/60000)).padStart(2,"0");
+    const s=String(Math.floor((diff%60000)/1000)).padStart(2,"0");
+    if(valEl)valEl.textContent=h+":"+m+":"+s;
+  }
+  tick();
+  setInterval(tick,1000);
+}
+
 /* ---- COMPTE A REBOURS ---- */
 function startCountdown(investId, lastTs){
   const next=new Date(lastTs).getTime()+24*60*60*1000;
@@ -246,6 +267,11 @@ function renderPlanCard(inv, lastTache){
   const gain=parseFloat(inv.revenu_jour||0);
   const dejaFait=lastTache&&(Date.now()-new Date(lastTache.created_at).getTime()<24*60*60*1000);
 
+  // Vérifier si 24h après l'investissement sont écoulées
+  const investAge=Date.now()-new Date(inv.created_at).getTime();
+  const enAttente24h=investAge<24*60*60*1000;
+  const resteAvantDebut=24*60*60*1000-investAge;
+
   return `
   <div class="plan-card">
     <div class="plan-header">
@@ -290,6 +316,15 @@ function renderPlanCard(inv, lastTache){
         <div class="res-label">Gain du jour recupere !</div>
       </div>
 
+      <!-- MESSAGE ATTENTE 24H APRES INVESTISSEMENT -->
+      ${enAttente24h?`
+      <div class="cd-box show" id="wait24-${inv.id}">
+        <div class="cd-label">Taches disponibles dans</div>
+        <div class="cd-val" id="wait24val-${inv.id}">24:00:00</div>
+        <div style="font-size:11px;color:#90a4ae;margin-top:6px;">Vos taches demarrent 24h apres l'investissement</div>
+      </div>
+      <button class="btn-recuperer" disabled>En attente d'activation</button>
+      `:`
       <!-- BTN -->
       <button class="btn-recuperer" id="btn-${inv.id}"
         onclick="recuperer('${inv.id}',${gain},'${inv.plan_nom}')"
@@ -297,11 +332,12 @@ function renderPlanCard(inv, lastTache){
         ${dejaFait?"Deja recupere":"Recuperer mon gain"}
       </button>
 
-      <!-- COUNTDOWN -->
+      <!-- COUNTDOWN 24H ENTRE TACHES -->
       <div class="cd-box ${dejaFait?"show":""}" id="cd-${inv.id}">
         <div class="cd-label">Prochaine tache disponible dans</div>
         <div class="cd-val" id="cdval-${inv.id}">24:00:00</div>
       </div>
+      `}
     </div>
   </div>`;
 }
@@ -350,8 +386,13 @@ async function init(){
 
       plansList.innerHTML+=renderPlanCard(inv,lastTache);
 
-      // Démarrer countdown si déjà fait dans les 24h
-      if(lastTache&&(Date.now()-new Date(lastTache.created_at).getTime()<24*60*60*1000)){
+      // Cas 1 : Moins de 24h après investissement → countdown avant activation
+      const investAge=Date.now()-new Date(inv.created_at).getTime();
+      if(investAge<24*60*60*1000){
+        setTimeout(()=>startWait24h(inv.id, inv.created_at),100);
+      }
+      // Cas 2 : Déjà récupéré dans les 24h → countdown avant prochaine tâche
+      else if(lastTache&&(Date.now()-new Date(lastTache.created_at).getTime()<24*60*60*1000)){
         setTimeout(()=>startCountdown(inv.id,lastTache.created_at),100);
       }
     }
