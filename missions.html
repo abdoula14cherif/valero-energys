@@ -205,20 +205,87 @@ async function reclamer(id,montant){
   const btn=document.getElementById("btn-"+id);
   if(!btn||btn.classList.contains("locked")||btn.classList.contains("done"))return;
   if(localStorage.getItem("mission_done_"+id)){toast("Deja reclamee !");return;}
-  btn.disabled=true;btn.textContent="Traitement...";
+  btn.disabled=true;btn.textContent="Verification...";
+
   try{
-    const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()});
-    const p=await rp.json();
-    const nouveau=parseFloat(p[0]?.solde||0)+montant;
+    const prof_r=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=referral_code,solde",{headers:H()});
+    const prof_d=await prof_r.json();
+    const myCode=prof_d[0]?.referral_code||"";
+
+    // Vérifier en temps réel les filleuls actifs payants
+    let filleulsActifs=0;
+    let investTotal=0;
+
+    if(myCode){
+      const rf=await fetch(SB+"/rest/v1/profiles?referred_by=eq."+myCode+"&select=id",{headers:H()});
+      const filleuls=await rf.json();
+      const ids=Array.isArray(filleuls)?filleuls.map(f=>f.id):[];
+      if(ids.length>0){
+        const ri=await fetch(
+          SB+"/rest/v1/investissements?user_id=in.("+ids.join(",")+")"+"&statut=eq.actif&montant_investi=gt.0&select=user_id,montant_investi",
+          {headers:H()}
+        );
+        const invs=await ri.json();
+        if(Array.isArray(invs)&&invs.length>0){
+          filleulsActifs=new Set(invs.map(i=>i.user_id)).size;
+          investTotal=invs.reduce((s,x)=>s+parseFloat(x.montant_investi||0),0);
+        }
+      }
+    }
+
+    // Vérifier aussi que la mission n'a pas déjà été réclamée en base
+    const rCheck=await fetch(
+      SB+"/rest/v1/transactions?user_id=eq."+uid()+"&type=eq.mission&reference=like.MISS-"+id.toUpperCase()+"-%&select=id",
+      {headers:H()}
+    );
+    const existing=await rCheck.json();
+    if(Array.isArray(existing)&&existing.length>0){
+      localStorage.setItem("mission_done_"+id,"1");
+      setProgress(id,999999,1);
+      toast("Cette mission a deja ete reclamee.");
+      btn.disabled=false;
+      return;
+    }
+
+    // Vérifier la condition selon le type de mission
+    const CIBLES_PARR={p1:5,p2:15,p3:30,p4:50};
+    const CIBLES_EQUIPE={e1:50000,e2:100000,e3:200000,e4:500000};
+
+    let conditionOk=false;
+    if(CIBLES_PARR[id]!==undefined){
+      conditionOk=filleulsActifs>=CIBLES_PARR[id];
+    }else if(CIBLES_EQUIPE[id]!==undefined){
+      conditionOk=investTotal>=CIBLES_EQUIPE[id];
+    }
+
+    if(!conditionOk){
+      toast("Condition non atteinte. Continuez a inviter !");
+      btn.disabled=false;
+      btn.className="btn-reclamer locked";
+      return;
+    }
+
+    // ✅ Condition validée → créditer
+    btn.textContent="Traitement...";
+    const nouveau=parseFloat(prof_d[0]?.solde||0)+montant;
     await fetch(SB+"/rest/v1/profiles?id=eq."+uid(),{method:"PATCH",headers:H(),body:JSON.stringify({solde:nouveau})});
-    await fetch(SB+"/rest/v1/transactions",{method:"POST",headers:{...H(),"Prefer":"return=minimal"},body:JSON.stringify({user_id:uid(),type:"mission",montant,montant_net:montant,statut:"valide",reference:"MISS-"+id.toUpperCase()+"-"+Date.now(),note:"Recompense mission "+id})});
+    await fetch(SB+"/rest/v1/transactions",{
+      method:"POST",
+      headers:{...H(),"Prefer":"return=minimal"},
+      body:JSON.stringify({
+        user_id:uid(),type:"mission",
+        montant,montant_net:montant,statut:"valide",
+        reference:"MISS-"+id.toUpperCase()+"-"+Date.now(),
+        note:"Recompense mission "+id+" ("+filleulsActifs+" filleuls actifs, "+investTotal.toLocaleString()+" FCFA equipe)"
+      })
+    });
     localStorage.setItem("mission_done_"+id,"1");
     toast(montant.toLocaleString()+" FCFA credites !");
     setProgress(id,999999,1);
     totalGagne+=montant;missionsCompleted++;
     document.getElementById("totalGagne").textContent="FCFA "+totalGagne.toLocaleString();
     document.getElementById("missionsOk").textContent=missionsCompleted;
-  }catch(e){toast("Erreur reseau.");}
+  }catch(e){toast("Erreur reseau. Reessayez.");}
   btn.disabled=false;
 }
 
