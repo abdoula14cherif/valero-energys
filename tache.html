@@ -7,346 +7,359 @@
 <meta name="theme-color" content="#00bcd4"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<meta name="apple-mobile-web-app-title" content="Velero Energy"/>
 <title>Tâche du Jour — Velero Energy</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
+body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
 .wrap{width:100%;max-width:480px;padding-bottom:90px;}
-
-.topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
-.back-btn{background:none;border:none;font-size:20px;cursor:pointer;}
-.topbar-title{font-size:17px;font-weight:700;}
-
-.page-header{margin:16px 14px 4px;display:flex;align-items:center;gap:10px;}
-.ph-bar{width:4px;height:28px;border-radius:4px;background:linear-gradient(135deg,#00bcd4,#0097a7);flex-shrink:0;}
-.ph-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;}
-.ph-sub{font-size:12px;color:#888;margin-top:2px;}
-
-.alert{padding:10px 13px;border-radius:10px;font-size:13px;margin:0 14px 12px;display:none;}
-.alert.show{display:block;}
-.alert-error{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
-.alert-success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
+.loader{position:fixed;inset:0;background:linear-gradient(135deg,#00bcd4,#0097a7);z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+.loader-logo{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#fff;}
+.loader-spin{width:40px;height:40px;border:3px solid rgba(255,255,255,.3);border-top:3px solid #fff;border-radius:50%;animation:sp .7s linear infinite;}
+@keyframes sp{to{transform:rotate(360deg)}}
+.topbar{background:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+.back-btn{background:none;border:none;cursor:pointer;color:#00bcd4;font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:4px;}
+.back-btn svg{width:18px;height:18px;}
+.topbar-title{font-size:17px;font-weight:700;color:#1a1a1a;}
+.page-title{font-size:13px;color:#90a4ae;padding:14px 14px 6px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;}
 
 /* PLAN CARD */
-.plan-card{margin:0 14px 16px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.09);}
-.pc-header{padding:14px 18px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#e0f7fa,#b2ebf2);}
-.pc-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:900;color:#0f2a3a;}
-.pc-date{font-size:11px;color:#00838f;font-weight:600;}
-.pc-body{padding:20px 18px;display:flex;flex-direction:column;align-items:center;gap:16px;}
+.plan-card{margin:0 14px 14px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);}
+.plan-header{background:linear-gradient(135deg,#00bcd4,#0097a7);padding:16px 18px;display:flex;justify-content:space-between;align-items:center;}
+.ph-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:#fff;}
+.ph-gain{font-size:12px;color:rgba(255,255,255,.85);margin-top:3px;}
+.ph-jours{text-align:right;}
+.ph-jours-val{font-size:24px;font-weight:900;color:#fff;font-family:'Playfair Display',serif;}
+.ph-jours-lbl{font-size:10px;color:rgba(255,255,255,.75);}
+.plan-body{padding:20px 18px;}
 
 /* ROUE */
-.wheel-wrapper{position:relative;width:200px;height:200px;display:flex;align-items:center;justify-content:center;}
-.wheel-pointer{position:absolute;top:-8px;left:50%;transform:translateX(-50%);z-index:10;font-size:22px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));}
-.wheel-center{position:absolute;width:38px;height:38px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.roue-wrap{position:relative;width:180px;height:180px;margin:0 auto 18px;}
+.roue-svg{width:180px;height:180px;transition:transform 4s cubic-bezier(.17,.67,.12,.99);}
+.roue-aiguille{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:20px solid #e53935;z-index:10;}
 
-/* GAIN ROW */
-.gain-row{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;width:100%;}
-.gr-label{font-size:13px;font-weight:600;color:#555;}
-.gr-val{font-size:18px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
+/* RESULTAT */
+.res-box{background:#e0f7fa;border-radius:14px;padding:14px;text-align:center;margin-bottom:14px;display:none;}
+.res-box.show{display:block;}
+.res-gain{font-size:26px;font-weight:900;color:#00838f;font-family:'Playfair Display',serif;}
+.res-label{font-size:12px;color:#006064;margin-top:3px;}
 
 /* BTN */
-.btn-spin{width:100%;padding:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:14px;font-weight:800;border:none;border-radius:12px;cursor:pointer;font-family:inherit;transition:opacity .2s;}
-.btn-spin:disabled{opacity:.45;cursor:not-allowed;}
+.btn-recuperer{width:100%;padding:15px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:800;border:none;border-radius:50px;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px rgba(0,188,212,.35);margin-bottom:10px;transition:opacity .2s;}
+.btn-recuperer:disabled{opacity:.55;cursor:not-allowed;}
 
-/* COOLDOWN dans la carte */
-.cd-box{width:100%;background:#f0f7f9;border-radius:14px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:6px;}
-.cd-done{font-size:13px;font-weight:700;color:#15803d;}
-.cd-gain-inline{font-size:22px;font-weight:900;color:#15803d;font-family:'Playfair Display',serif;}
-.cd-timer-label{font-size:11px;color:#90a4ae;font-weight:600;text-transform:uppercase;letter-spacing:.8px;}
-.cd-timer{font-size:24px;font-weight:900;font-family:'Playfair Display',serif;color:#0097a7;letter-spacing:2px;}
+/* COUNTDOWN */
+.cd-box{background:#f0f4f5;border-radius:12px;padding:12px;text-align:center;display:none;}
+.cd-box.show{display:block;}
+.cd-label{font-size:11px;color:#90a4ae;margin-bottom:4px;}
+.cd-val{font-size:20px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
 
-/* EMPTY */
-.empty-card{margin:30px 14px;background:#fff;border-radius:20px;padding:36px 20px;text-align:center;box-shadow:0 4px 18px rgba(0,0,0,.07);}
-.empty-icon{font-size:52px;margin-bottom:12px;}
-.empty-title{font-size:18px;font-weight:800;color:#0f2a3a;margin-bottom:6px;}
-.empty-sub{font-size:13px;color:#aaa;margin-bottom:18px;}
-.btn-go{display:inline-block;padding:13px 28px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:14px;font-weight:800;border-radius:12px;text-decoration:none;font-family:'DM Sans',sans-serif;}
+/* NO PLAN */
+.no-plan-box{margin:14px;background:#fff;border-radius:20px;padding:32px 20px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+.no-plan-box svg{width:48px;height:48px;color:#ccc;margin-bottom:12px;}
+.no-plan-box h3{font-size:17px;font-weight:700;margin-bottom:6px;}
+.no-plan-box p{font-size:13px;color:#90a4ae;margin-bottom:16px;}
+.btn-invest{padding:14px 28px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;border:none;border-radius:50px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
 
-/* HIST */
-.hist-section{margin:0 14px 12px;}
-.hist-title{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
-.hist-item{background:#fff;border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.05);}
-.hi-left{display:flex;align-items:center;gap:10px;}
-.hi-date{font-size:12px;font-weight:600;}
-.hi-plan{font-size:11px;color:#aaa;margin-top:1px;}
-.hi-gain{font-size:14px;font-weight:800;color:#00bcd4;}
-
-/* OVERLAY */
-.spin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;}
-.spin-overlay.show{display:flex;}
-.so-pointer{font-size:32px;margin-bottom:-8px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3));}
-.spin-result{background:#fff;border-radius:20px;padding:24px 32px;text-align:center;display:none;flex-direction:column;align-items:center;gap:10px;}
-.spin-result.show{display:flex;}
-.sr-emoji{font-size:52px;}
-.sr-msg{font-size:16px;font-weight:700;color:#333;}
-.sr-plan{font-size:12px;color:#aaa;}
-.sr-gain{font-size:34px;font-weight:900;color:#15803d;font-family:'Playfair Display',serif;}
-.sr-btn{margin-top:10px;padding:12px 32px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:14px;font-weight:800;border:none;border-radius:11px;cursor:pointer;font-family:inherit;}
-
-/* NAV */
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;}
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0 14px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
 .nav-item.active{color:#00bcd4;}
-.nav-item .ni{font-size:21px;}
+.nav-item svg{width:22px;height:22px;}
 </style>
 </head>
 <body>
-<script src="/pwa-install.js"></script>
-<div class="wrap">
-  <div class="topbar">
-    <button class="back-btn" onclick="history.back()">←</button>
-    <span class="topbar-title">⛽ Tâche du Jour</span>
-  </div>
 
-  <div class="page-header">
-    <div class="ph-bar"></div>
-    <div>
-      <div class="ph-title">Mes tâches du jour</div>
-      <div class="ph-sub" id="dayDate"></div>
-    </div>
-  </div>
-
-  <div id="alertBox" class="alert"></div>
-  <div id="cardsContainer"></div>
-
-  <div class="hist-section" id="histSection" style="display:none;">
-    <div class="hist-title">Dernières tâches</div>
-    <div id="histList"></div>
-  </div>
+<div class="loader" id="loader">
+  <div class="loader-logo">Velero Energy</div>
+  <div class="loader-spin"></div>
 </div>
 
-<!-- OVERLAY SPIN -->
-<div class="spin-overlay" id="spinOverlay">
-  <div class="so-pointer">▼</div>
-  <canvas id="wheelBig" width="270" height="270"></canvas>
-  <div class="spin-result" id="spinResult">
-    <div class="sr-emoji">🎉</div>
-    <div class="sr-msg">Félicitations !</div>
-    <div class="sr-plan" id="srPlan"></div>
-    <div class="sr-gain" id="srGain">+0 FCFA</div>
-    <button class="sr-btn" onclick="fermerOverlay()">Continuer →</button>
+<div class="wrap" id="mainWrap" style="display:none;">
+  <div class="topbar">
+    <button class="back-btn" onclick="history.back()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Tache du jour
+    </button>
   </div>
+
+  <div id="noPlanBox" class="no-plan-box" style="display:none;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <h3>Aucun plan actif</h3>
+    <p>Investissez dans un plan pour acceder aux taches quotidiennes et gagner des revenus chaque jour.</p>
+    <button class="btn-invest" onclick="location.href='produits.html'">Voir les plans</button>
+  </div>
+
+  <div class="page-title" id="pageTitle" style="display:none;">Vos plans actifs</div>
+  <div id="plansList"></div>
 </div>
 
 <nav class="bottom-nav">
-  <a href="dashboard.html" class="nav-item"><span class="ni">🏠</span>Accueil</a>
-  <a href="produits.html" class="nav-item active"><span class="ni">💲</span>Produit</a>
-  <a href="parrainage.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
-  <a href="compte.html" class="nav-item"><span class="ni">👤</span>Mon compte</a>
+  <a href="dashboard.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Accueil
+  </a>
+  <a href="produits.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+    Produits
+  </a>
+  <a href="parrainage.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+    Equipe
+  </a>
+  <a href="compte.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Mon compte
+  </a>
 </nav>
 
-<script src="api.js"></script>
 <script>
-if(!VE.checkAuth())window.location.href="index.html";
+const SB="https://seegoklunovyuieorkvy.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
+function tok(){return localStorage.getItem("velero_token")||"";}
+function uid(){return localStorage.getItem("velero_uid")||"";}
+function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
 
-const SEGMENTS=["⚡","💧","🔥","⛽","💡","🌊","🛢️","⚙️"];
-const COLORS=["#00bcd4","#0097a7","#26c6da","#00838f","#4dd0e1","#006064","#80deea","#00acc1"];
+// Stocker les intervals de countdown par invest id
+const cdIntervals={};
 
-let profil=null, investsActifs=[], tachesAujourd=[], spinning=false, investEnCours=null;
-const timers={};
-
-document.getElementById("dayDate").textContent=new Date().toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});
-
-function drawWheel(canvas,angle=0){
-  const ctx=canvas.getContext("2d");
-  const cx=canvas.width/2,cy=canvas.height/2,r=cx-6;
-  const arc=2*Math.PI/SEGMENTS.length;
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  SEGMENTS.forEach((seg,i)=>{
-    const start=angle+i*arc,end=start+arc;
-    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,end);ctx.closePath();
-    ctx.fillStyle=COLORS[i%COLORS.length];ctx.fill();
-    ctx.strokeStyle="#fff";ctx.lineWidth=2;ctx.stroke();
-    ctx.save();ctx.translate(cx,cy);ctx.rotate(start+arc/2);
-    ctx.textAlign="right";ctx.font=`bold ${canvas.width<230?"13":"17"}px sans-serif`;
-    ctx.fillText(seg,r-8,5);ctx.restore();
-  });
-  ctx.beginPath();ctx.arc(cx,cy,canvas.width<230?16:22,0,2*Math.PI);
-  ctx.fillStyle="#fff";ctx.fill();ctx.strokeStyle="#00bcd4";ctx.lineWidth=3;ctx.stroke();
+/* ---- ROUE ANIMATION ---- */
+function tournerRoue(svgId, cb){
+  const roue=document.getElementById(svgId);
+  if(!roue)return;
+  const tours=5+Math.floor(Math.random()*4);
+  const angle=tours*360+Math.floor(Math.random()*360);
+  roue.style.transform=`rotate(${angle}deg)`;
+  setTimeout(cb,4200);
 }
 
-async function init(){
-  profil=await VE.getProfile();
-  if(!profil){location.href="index.html";return;}
+/* ---- COMPTE A REBOURS ---- */
+function startCountdown(investId, lastTs){
+  const next=new Date(lastTs).getTime()+24*60*60*1000;
+  const btn=document.getElementById("btn-"+investId);
+  const cdBox=document.getElementById("cd-"+investId);
+  const cdVal=document.getElementById("cdval-"+investId);
+  if(btn){btn.disabled=true;btn.textContent="Deja recupere";}
+  if(cdBox)cdBox.classList.add("show");
 
-  // Tous les investissements actifs — pas de limit, pas de filtre sur plan_nom
-  investsActifs=await VE.select("investissements","?user_id=eq."+profil.id+"&statut=eq.actif&order=created_at.asc")||[];
+  if(cdIntervals[investId])clearInterval(cdIntervals[investId]);
 
-  // Tâches d'aujourd'hui
-  const today=new Date().toISOString().split("T")[0];
-  tachesAujourd=await VE.select("taches","?user_id=eq."+profil.id+"&date_tache=eq."+today)||[];
-
-  renderCards();
-
-  // Historique 5 dernières
-  const hist=await VE.select("taches","?user_id=eq."+profil.id+"&order=created_at.desc&limit=5")||[];
-  if(hist.length>0){
-    document.getElementById("histSection").style.display="block";
-    document.getElementById("histList").innerHTML=hist.map(h=>`
-      <div class="hist-item">
-        <div class="hi-left">
-          <span style="font-size:20px;">⛽</span>
-          <div>
-            <div class="hi-date">${new Date(h.created_at).toLocaleDateString("fr-FR")}</div>
-            <div class="hi-plan">${h.plan_nom||"Gain quotidien"}</div>
-          </div>
-        </div>
-        <span class="hi-gain">+${parseFloat(h.gain).toLocaleString()} FCFA</span>
-      </div>`).join("");
-  }
-}
-
-function renderCards(){
-  const container=document.getElementById("cardsContainer");
-
-  // Filtrer : exclure les plans à gain final (ceux-là vont sur contrats.html)
-  const invests=investsActifs.filter(inv=>inv.type_gain!=="final");
-
-  if(invests.length===0){
-    container.innerHTML=`
-      <div class="empty-card">
-        <div class="empty-icon">⛽</div>
-        <div class="empty-title">Aucun plan actif</div>
-        <div class="empty-sub">Investissez dans un plan journalier pour débloquer vos tâches quotidiennes.</div>
-        <a href="produits.html" class="btn-go">Voir les plans →</a>
-      </div>`;
-    return;
-  }
-
-  container.innerHTML=invests.map((inv,idx)=>{
-    const gainJour=parseFloat(inv.revenu_jour)||0;
-    // Tâche faite aujourd'hui pour CET investissement ?
-    const tacheFaite=tachesAujourd.find(t=>t.investissement_id===inv.id);
-    const canvasId="wheel_"+idx;
-    return `
-    <div class="plan-card" id="card_${idx}">
-      <div class="pc-header">
-        <div>
-          <div class="pc-name">⛽ ${inv.plan_nom}</div>
-          <div style="font-size:11px;color:#607d8b;margin-top:2px;">Jours restants : <strong>${inv.jours_restants}</strong></div>
-        </div>
-        <div class="pc-date">${new Date().toLocaleDateString("fr-FR",{day:"numeric",month:"short"})}</div>
-      </div>
-      <div class="pc-body">
-        ${tacheFaite ? cooldownHTML(inv,tacheFaite,idx) : activeHTML(inv,gainJour,canvasId,idx)}
-      </div>
-    </div>`;
-  }).join("");
-
-  // Dessiner les mini-roues et lancer les timers
-  invests.forEach((inv,idx)=>{
-    const tacheFaite=tachesAujourd.find(t=>t.investissement_id===inv.id);
-    if(!tacheFaite){
-      const c=document.getElementById("wheel_"+idx);
-      if(c)drawWheel(c);
-    }else{
-      const nextAvailable=new Date(new Date(tacheFaite.created_at).getTime()+24*60*60*1000);
-      lancerTimer(idx,nextAvailable);
-    }
-  });
-
-  // Dessiner la big wheel overlay
-  drawWheel(document.getElementById("wheelBig"));
-}
-
-function activeHTML(inv,gainJour,canvasId,idx){
-  return `
-    <div class="wheel-wrapper">
-      <div class="wheel-pointer">▼</div>
-      <canvas id="${canvasId}" width="190" height="190"></canvas>
-      <div class="wheel-center">⛽</div>
-    </div>
-    <div class="gain-row">
-      <span class="gr-label">💰 Gain du jour</span>
-      <span class="gr-val">${gainJour.toLocaleString()} FCFA</span>
-    </div>
-    <button class="btn-spin" onclick="lancerRoue(${idx})">🎰 Récupérer mon gain</button>`;
-}
-
-function cooldownHTML(inv,tache,idx){
-  const gain=parseFloat(tache.gain||inv.revenu_jour||0);
-  return `
-    <div class="cd-box" id="cdbox_${idx}">
-      <div class="cd-done">✅ Tâche effectuée aujourd'hui</div>
-      <div class="cd-gain-inline">+${gain.toLocaleString()} FCFA</div>
-      <div style="font-size:11px;color:#aaa;">crédités sur votre compte</div>
-      <div style="height:1px;background:#e0f7fa;width:100%;margin:4px 0;"></div>
-      <div class="cd-timer-label">⏰ Prochaine tâche dans</div>
-      <div class="cd-timer" id="timer_${idx}">--:--:--</div>
-    </div>`;
-}
-
-function lancerTimer(idx,nextTime){
-  if(timers[idx])clearInterval(timers[idx]);
   function tick(){
-    const diff=nextTime-Date.now();
-    const el=document.getElementById("timer_"+idx);
-    if(!el){clearInterval(timers[idx]);return;}
-    if(diff<=0){el.textContent="Disponible !";clearInterval(timers[idx]);return;}
-    const h=Math.floor(diff/3600000);
-    const m=Math.floor((diff%3600000)/60000);
-    const s=Math.floor((diff%60000)/1000);
-    el.textContent=String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+    const diff=next-Date.now();
+    if(diff<=0){
+      clearInterval(cdIntervals[investId]);
+      if(cdBox)cdBox.classList.remove("show");
+      if(btn){btn.disabled=false;btn.textContent="Recuperer mon gain";}
+      return;
+    }
+    const h=String(Math.floor(diff/3600000)).padStart(2,"0");
+    const m=String(Math.floor((diff%3600000)/60000)).padStart(2,"0");
+    const s=String(Math.floor((diff%60000)/1000)).padStart(2,"0");
+    if(cdVal)cdVal.textContent=h+":"+m+":"+s;
   }
   tick();
-  timers[idx]=setInterval(tick,1000);
+  cdIntervals[investId]=setInterval(tick,1000);
 }
 
-// investEnCours stocke {invest, idx}
-function lancerRoue(idx){
-  if(spinning)return;
-  const invests=investsActifs.filter(inv=>inv.type_gain!=="final");
-  const inv=invests[idx];
-  if(!inv)return;
-  investEnCours={invest:inv,idx};
-  spinning=true;
-  document.getElementById("spinOverlay").classList.add("show");
-  document.getElementById("spinResult").classList.remove("show");
+/* ---- RECUPERER GAIN ---- */
+async function recuperer(investId, gain, planNom){
+  const btn=document.getElementById("btn-"+investId);
+  if(btn){btn.disabled=true;btn.textContent="Rotation...";}
 
-  const bigCanvas=document.getElementById("wheelBig");
-  const totalRotation=(5+Math.random()*4)*2*Math.PI;
-  const duration=3200;
-  const start=performance.now();
-  function animate(now){
-    const elapsed=now-start;
-    const progress=Math.min(elapsed/duration,1);
-    const ease=1-Math.pow(1-progress,3);
-    drawWheel(bigCanvas,totalRotation*ease);
-    if(progress<1){requestAnimationFrame(animate);}
-    else{valider();}
-  }
-  requestAnimationFrame(animate);
+  tournerRoue("roue-"+investId, async()=>{
+    try{
+      const now=new Date().toISOString();
+
+      // Enregistrer tâche
+      await fetch(SB+"/rest/v1/taches",{
+        method:"POST",
+        headers:{...H(),"Prefer":"return=minimal"},
+        body:JSON.stringify({
+          user_id:uid(),
+          investissement_id:investId,
+          date_tache:now.split("T")[0],
+          gain,
+          type_vehicule:"roue",
+          emoji:"⚡",
+          created_at:now
+        })
+      });
+
+      // Créditer solde
+      const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde,revenus_cumules",{headers:H()});
+      const p=await rp.json();
+      const nouveauSolde=parseFloat(p[0]?.solde||0)+gain;
+      const nouveauxRevenus=parseFloat(p[0]?.revenus_cumules||0)+gain;
+      await fetch(SB+"/rest/v1/profiles?id=eq."+uid(),{
+        method:"PATCH",headers:H(),
+        body:JSON.stringify({solde:nouveauSolde,revenus_cumules:nouveauxRevenus})
+      });
+
+      // Transaction
+      await fetch(SB+"/rest/v1/transactions",{
+        method:"POST",
+        headers:{...H(),"Prefer":"return=minimal"},
+        body:JSON.stringify({
+          user_id:uid(),type:"gain_tache",
+          montant:gain,montant_net:gain,
+          statut:"valide",
+          reference:"TACHE-"+investId.slice(0,6)+"-"+Date.now(),
+          note:"Gain tache - Plan "+planNom
+        })
+      });
+
+      // Décrémenter jours
+      const ri=await fetch(SB+"/rest/v1/investissements?id=eq."+investId+"&select=jours_restants",{headers:H()});
+      const inv=await ri.json();
+      const joursRestants=Math.max(0,(inv[0]?.jours_restants||0)-1);
+      await fetch(SB+"/rest/v1/investissements?id=eq."+investId,{
+        method:"PATCH",headers:H(),
+        body:JSON.stringify({
+          jours_restants:joursRestants,
+          statut:joursRestants===0?"termine":"actif",
+          last_tache_at:now
+        })
+      });
+
+      // Afficher résultat
+      const resBox=document.getElementById("res-"+investId);
+      const resGain=document.getElementById("resgain-"+investId);
+      if(resBox)resBox.classList.add("show");
+      if(resGain)resGain.textContent="+"+gain.toLocaleString()+" FCFA";
+      if(btn)btn.textContent="Gain recupere !";
+
+      // Mettre à jour jours affichés
+      const joursEl=document.getElementById("jours-"+investId);
+      if(joursEl)joursEl.textContent=joursRestants+" j";
+
+      // Démarrer countdown
+      startCountdown(investId, now);
+
+    }catch(e){
+      if(btn){btn.disabled=false;btn.textContent="Recuperer mon gain";}
+    }
+  });
 }
 
-function showAlert(msg,type){
-  const el=document.getElementById("alertBox");
-  el.textContent=msg;el.className="alert alert-"+type+" show";
-  setTimeout(()=>el.classList.remove("show"),4000);
+/* ---- RENDER UN PLAN ---- */
+function renderPlanCard(inv, lastTache){
+  const gain=parseFloat(inv.revenu_jour||0);
+  const dejaFait=lastTache&&(Date.now()-new Date(lastTache.created_at).getTime()<24*60*60*1000);
+
+  return `
+  <div class="plan-card">
+    <div class="plan-header">
+      <div>
+        <div class="ph-name">Plan ${inv.plan_nom}</div>
+        <div class="ph-gain">${gain.toLocaleString()} FCFA / jour</div>
+      </div>
+      <div class="ph-jours">
+        <div class="ph-jours-val" id="jours-${inv.id}">${inv.jours_restants} j</div>
+        <div class="ph-jours-lbl">jours restants</div>
+      </div>
+    </div>
+    <div class="plan-body">
+      <!-- ROUE -->
+      <div class="roue-wrap">
+        <div class="roue-aiguille"></div>
+        <svg class="roue-svg" id="roue-${inv.id}" viewBox="0 0 200 200">
+          <path d="M100,100 L100,10 A90,90 0 0,1 163.6,46.4 Z" fill="#00bcd4"/>
+          <path d="M100,100 L163.6,46.4 A90,90 0 0,1 190,100 Z" fill="#0097a7"/>
+          <path d="M100,100 L190,100 A90,90 0 0,1 163.6,153.6 Z" fill="#00bcd4"/>
+          <path d="M100,100 L163.6,153.6 A90,90 0 0,1 100,190 Z" fill="#0097a7"/>
+          <path d="M100,100 L100,190 A90,90 0 0,1 36.4,153.6 Z" fill="#00bcd4"/>
+          <path d="M100,100 L36.4,153.6 A90,90 0 0,1 10,100 Z" fill="#0097a7"/>
+          <path d="M100,100 L10,100 A90,90 0 0,1 36.4,46.4 Z" fill="#00bcd4"/>
+          <path d="M100,100 L36.4,46.4 A90,90 0 0,1 100,10 Z" fill="#0097a7"/>
+          <text x="118" y="48" text-anchor="middle" font-size="13" fill="white">⚡</text>
+          <text x="155" y="80" text-anchor="middle" font-size="13" fill="white">💰</text>
+          <text x="155" y="128" text-anchor="middle" font-size="13" fill="white">⚡</text>
+          <text x="118" y="162" text-anchor="middle" font-size="13" fill="white">💰</text>
+          <text x="75" y="162" text-anchor="middle" font-size="13" fill="white">⚡</text>
+          <text x="42" y="128" text-anchor="middle" font-size="13" fill="white">💰</text>
+          <text x="42" y="80" text-anchor="middle" font-size="13" fill="white">⚡</text>
+          <text x="75" y="48" text-anchor="middle" font-size="13" fill="white">💰</text>
+          <circle cx="100" cy="100" r="22" fill="white" stroke="#00bcd4" stroke-width="3"/>
+          <text x="100" y="106" text-anchor="middle" font-size="16" fill="#00bcd4">⛽</text>
+        </svg>
+      </div>
+
+      <!-- RESULTAT -->
+      <div class="res-box ${dejaFait?"show":""}" id="res-${inv.id}">
+        <div class="res-gain" id="resgain-${inv.id}">+${dejaFait?gain.toLocaleString():0} FCFA</div>
+        <div class="res-label">Gain du jour recupere !</div>
+      </div>
+
+      <!-- BTN -->
+      <button class="btn-recuperer" id="btn-${inv.id}"
+        onclick="recuperer('${inv.id}',${gain},'${inv.plan_nom}')"
+        ${dejaFait?"disabled":""}>
+        ${dejaFait?"Deja recupere":"Recuperer mon gain"}
+      </button>
+
+      <!-- COUNTDOWN -->
+      <div class="cd-box ${dejaFait?"show":""}" id="cd-${inv.id}">
+        <div class="cd-label">Prochaine tache disponible dans</div>
+        <div class="cd-val" id="cdval-${inv.id}">24:00:00</div>
+      </div>
+    </div>
+  </div>`;
 }
 
-async function valider(){
-  const {invest}=investEnCours;
-  const d=await VE.rpc("valider_tache",{p_user_id:profil.id,p_invest_id:invest.id,p_vehicule:"roue",p_emoji:"⛽"});
-  if(d&&d.success){
-    const g=parseFloat(d.gain||invest.revenu_jour||0);
-    document.getElementById("srGain").textContent="+"+g.toLocaleString()+" FCFA";
-    document.getElementById("srPlan").textContent=invest.plan_nom;
-    document.getElementById("spinResult").classList.add("show");
-  }else{
-    document.getElementById("spinOverlay").classList.remove("show");
-    spinning=false;
-    showAlert("❌ "+((d&&d.error)||"Tâche déjà effectuée."),"error");
-    setTimeout(()=>location.reload(),1000);
-  }
-}
+/* ---- INIT ---- */
+async function init(){
+  if(!tok()||!uid()){location.href="index.html";return;}
 
-async function fermerOverlay(){
-  document.getElementById("spinOverlay").classList.remove("show");
-  spinning=false;
-  location.reload();
+  try{
+    // Refresh token
+    const rtest=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=id",{headers:H()});
+    if(rtest.status===401){
+      const ref=localStorage.getItem("velero_refresh");
+      if(ref){
+        const rr=await fetch(SB+"/auth/v1/token?grant_type=refresh_token",{method:"POST",headers:{"Content-Type":"application/json","apikey":AK},body:JSON.stringify({refresh_token:ref})});
+        const rd=await rr.json();
+        if(rd.access_token){localStorage.setItem("velero_token",rd.access_token);if(rd.refresh_token)localStorage.setItem("velero_refresh",rd.refresh_token);location.reload();return;}
+      }
+      localStorage.clear();location.href="index.html";return;
+    }
+
+    // Charger TOUS les investissements actifs
+    const ri=await fetch(SB+"/rest/v1/investissements?user_id=eq."+uid()+"&statut=eq.actif&order=created_at.asc",{headers:H()});
+    const invs=await ri.json();
+
+    if(!invs||invs.length===0){
+      document.getElementById("noPlanBox").style.display="block";
+      document.getElementById("loader").style.display="none";
+      document.getElementById("mainWrap").style.display="block";
+      return;
+    }
+
+    document.getElementById("pageTitle").style.display="block";
+
+    // Pour chaque investissement, charger la dernière tâche
+    const plansList=document.getElementById("plansList");
+    plansList.innerHTML="";
+
+    for(const inv of invs){
+      const rt=await fetch(
+        SB+"/rest/v1/taches?user_id=eq."+uid()+"&investissement_id=eq."+inv.id+"&order=created_at.desc&limit=1",
+        {headers:H()}
+      );
+      const taches=await rt.json();
+      const lastTache=Array.isArray(taches)&&taches.length>0?taches[0]:null;
+
+      plansList.innerHTML+=renderPlanCard(inv,lastTache);
+
+      // Démarrer countdown si déjà fait dans les 24h
+      if(lastTache&&(Date.now()-new Date(lastTache.created_at).getTime()<24*60*60*1000)){
+        setTimeout(()=>startCountdown(inv.id,lastTache.created_at),100);
+      }
+    }
+
+  }catch(e){}
+
+  document.getElementById("loader").style.display="none";
+  document.getElementById("mainWrap").style.display="block";
 }
 
 init();
