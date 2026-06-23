@@ -252,18 +252,20 @@ async function init(){
       const filleulIds=Array.isArray(filleuls)?filleuls.map(f=>f.id):[];
 
       if(filleulIds.length>0){
-        // 2. Charger leurs investissements actifs (colonne montant_investi)
+        // 2. Charger uniquement les investissements PAYANTS actifs
+        // montant_investi=gt.0 exclut VIP0 gratuit et plans offerts
         const ri=await fetch(
-          SB+"/rest/v1/investissements?user_id=in.("+filleulIds.join(",")+")"+"&statut=eq.actif&select=user_id,montant_investi",
+          SB+"/rest/v1/investissements?user_id=in.("+filleulIds.join(",")+")"
+          +"&statut=eq.actif&montant_investi=gt.0&select=user_id,montant_investi",
           {headers:H()}
         );
         const invs=await ri.json();
 
         if(Array.isArray(invs)&&invs.length>0){
-          // Compter filleuls uniques ayant investi
+          // Compter filleuls uniques ayant réellement investi
           const uniq=new Set(invs.map(i=>i.user_id));
           filleulsActifs=uniq.size;
-          // Total investi par l'équipe
+          // Total investi payant par l'équipe
           investTotal=invs.reduce((s,x)=>s+parseFloat(x.montant_investi||0),0);
         }
       }
