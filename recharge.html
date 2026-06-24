@@ -10,172 +10,75 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
 .wrap{width:100%;max-width:480px;padding-bottom:90px;}
-
-/* TOPBAR */
 .topbar{background:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
 .back-btn{background:none;border:none;font-size:20px;cursor:pointer;color:#1a1a1a;line-height:1;padding:4px 8px 4px 0;}
 .topbar-title{font-size:17px;font-weight:700;color:#1a1a1a;}
-
-/* BALANCE BANNER */
 .balance-banner{margin:14px 14px 0;background:linear-gradient(135deg,#00bcd4,#0097a7);border-radius:20px;padding:22px;color:#fff;text-align:center;}
 .bb-label{font-size:11px;opacity:.8;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
 .bb-amount{font-size:34px;font-weight:900;font-family:'Playfair Display',serif;}
 .bb-min{font-size:11px;opacity:.7;margin-top:4px;}
-
-/* TABS */
 .tabs{display:flex;background:#e8f4f5;border-radius:50px;padding:5px;margin:14px 14px 0;}
-.tab{
-  flex:1;padding:13px 0;font-size:14px;font-weight:700;
-  background:none;border:none;cursor:pointer;
-  color:#90a4ae;border-radius:50px;
-  transition:all .25s;font-family:'DM Sans',sans-serif;
-}
+.tab{flex:1;padding:13px 0;font-size:14px;font-weight:700;background:none;border:none;cursor:pointer;color:#90a4ae;border-radius:50px;transition:all .25s;font-family:'DM Sans',sans-serif;}
 .tab.active{background:#00bcd4;color:#fff;box-shadow:0 4px 14px rgba(0,188,212,.3);}
-
-/* CARDS */
 .card{margin:12px 14px 0;background:#fff;border-radius:20px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
 .card-title{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:4px;}
 .card-sub{font-size:12px;color:#90a4ae;margin-bottom:16px;}
-
-/* RÈGLES */
 .rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:0;}
 .rule-item{background:#f0f9fa;border-radius:12px;padding:12px;}
 .rule-lbl{font-size:10px;color:#90a4ae;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
 .rule-val{font-size:13px;font-weight:700;color:#00bcd4;}
-
-/* ALERT */
 .alert{padding:12px 16px;border-radius:14px;font-size:13px;font-weight:600;margin-bottom:14px;display:none;line-height:1.5;}
 .alert.show{display:block;}
 .err{background:#fff5f5;border-left:4px solid #e53935;color:#c53030;}
 .suc{background:#f0fdf4;border-left:4px solid #4caf50;color:#15803d;}
 .info{background:#e0f7fa;border-left:4px solid #00bcd4;color:#006064;}
-
-/* FIELD */
 .field{margin-bottom:14px;}
 .field label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:6px;}
-.field input,.field select{
-  width:100%;padding:13px 16px;font-size:14px;font-family:'DM Sans',sans-serif;
-  border:1.5px solid #e8e8e8;border-radius:14px;outline:none;
-  background:#fafafa;color:#1a1a1a;
-}
+.field input,.field select{width:100%;padding:13px 16px;font-size:14px;font-family:'DM Sans',sans-serif;border:1.5px solid #e8e8e8;border-radius:14px;outline:none;background:#fafafa;color:#1a1a1a;}
 .field input:focus,.field select:focus{border-color:#00bcd4;box-shadow:0 0 0 3px rgba(0,188,212,.1);}
 .field input::placeholder{color:#b0bec5;}
-
-/* AMOUNTS */
 .amounts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-.amt-btn{
-  padding:11px 4px;border:1.5px solid #e8e8e8;border-radius:12px;
-  background:#fafafa;cursor:pointer;font-size:13px;font-weight:700;
-  color:#555;text-align:center;font-family:'DM Sans',sans-serif;transition:all .2s;
-}
+.amt-btn{padding:11px 4px;border:1.5px solid #e8e8e8;border-radius:12px;background:#fafafa;cursor:pointer;font-size:13px;font-weight:700;color:#555;text-align:center;font-family:'DM Sans',sans-serif;transition:all .2s;}
 .amt-btn.sel{border-color:#00bcd4;background:#e0f7fa;color:#00bcd4;}
-
-/* NETWORKS */
 .network-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-.net-btn{
-  padding:11px 4px;border:1.5px solid #e8e8e8;border-radius:12px;
-  background:#fafafa;cursor:pointer;text-align:center;
-  font-size:11px;font-weight:700;color:#555;
-  transition:all .2s;font-family:'DM Sans',sans-serif;
-}
+.net-btn{padding:11px 4px;border:1.5px solid #e8e8e8;border-radius:12px;background:#fafafa;cursor:pointer;text-align:center;font-size:11px;font-weight:700;color:#555;transition:all .2s;font-family:'DM Sans',sans-serif;}
 .net-btn.sel{border-color:#00bcd4;background:#e0f7fa;color:#00bcd4;}
 .net-icon{font-size:20px;display:block;margin-bottom:3px;}
-
-/* TOTAL ROW */
-.total-row{
-  display:flex;justify-content:space-between;align-items:center;
-  background:#e0f7fa;border-radius:14px;padding:14px 18px;margin-bottom:16px;
-}
+.total-row{display:flex;justify-content:space-between;align-items:center;background:#e0f7fa;border-radius:14px;padding:14px 18px;margin-bottom:16px;}
 .tr-label{font-size:13px;font-weight:600;color:#555;}
 .tr-val{font-size:22px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
-
-/* BTN PRINCIPAL */
-.btn-main{
-  width:100%;padding:16px;
-  background:linear-gradient(135deg,#00bcd4,#0097a7);
-  color:#fff;font-size:15px;font-weight:800;
-  border:none;border-radius:50px;cursor:pointer;
-  font-family:'DM Sans',sans-serif;
-  box-shadow:0 6px 18px rgba(0,188,212,.35);
-  transition:opacity .2s,transform .15s;
-}
+.btn-main{width:100%;padding:16px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:800;border:none;border-radius:50px;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 6px 18px rgba(0,188,212,.35);transition:opacity .2s,transform .15s;}
 .btn-main:active{transform:scale(.98);}
 .btn-main:disabled{opacity:.6;cursor:not-allowed;}
-
-/* WESTPAY BADGE */
-.wp-badge{
-  display:flex;align-items:center;gap:12px;
-  background:linear-gradient(135deg,#f0f9ff,#e0f2fe);
-  border:1px solid #bae6fd;border-radius:14px;
-  padding:12px 14px;margin-bottom:16px;
-}
-.wp-logo{
-  width:40px;height:40px;
-  background:linear-gradient(135deg,#0ea5e9,#0284c7);
-  border-radius:12px;display:flex;align-items:center;justify-content:center;
-  font-size:20px;flex-shrink:0;
-}
+.wp-badge{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border:1px solid #bae6fd;border-radius:14px;padding:12px 14px;margin-bottom:16px;}
+.wp-logo{width:40px;height:40px;background:linear-gradient(135deg,#0ea5e9,#0284c7);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
 .wp-title{font-size:13px;font-weight:700;color:#0369a1;}
 .wp-sub{font-size:11px;color:#0284c7;margin-top:1px;}
-
-/* ===== SECTION MANUELLE ===== */
 .pays-selector{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:0;}
-.pays-btn{
-  padding:13px 10px;border:1.5px solid #e8e8e8;border-radius:14px;
-  background:#fafafa;cursor:pointer;text-align:center;
-  font-size:13px;font-weight:700;color:#555;
-  font-family:'DM Sans',sans-serif;transition:all .2s;
-}
+.pays-btn{padding:13px 10px;border:1.5px solid #e8e8e8;border-radius:14px;background:#fafafa;cursor:pointer;text-align:center;font-size:13px;font-weight:700;color:#555;font-family:'DM Sans',sans-serif;transition:all .2s;}
 .pays-btn.sel{border-color:#00bcd4;background:#e0f7fa;color:#00bcd4;}
-
 .comptes-section{margin-top:14px;}
-.compte-card{
-  border:1.5px solid #e8e8e8;border-radius:16px;
-  padding:16px;margin-bottom:10px;background:#fafafa;
-}
+.compte-card{border:1.5px solid #e8e8e8;border-radius:16px;padding:16px;margin-bottom:10px;background:#fafafa;}
 .compte-card:last-child{margin-bottom:0;}
-.compte-operateur{
-  display:flex;align-items:center;gap:10px;margin-bottom:10px;
-}
-.op-badge{
-  width:38px;height:38px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;flex-shrink:0;
-}
+.compte-operateur{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.op-badge{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
 .op-badge.mtn{background:#fff3e0;}
 .op-badge.airtel{background:#fce4ec;}
 .op-badge.moov{background:#e3f2fd;}
+.op-badge.nita{background:#f3e5f5;}
 .op-name{font-size:14px;font-weight:700;color:#1a1a1a;}
 .op-country{font-size:11px;color:#90a4ae;}
-
 .compte-detail{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f0f0f0;}
 .compte-detail:last-child{border-bottom:none;}
 .cd-label{font-size:11px;color:#90a4ae;text-transform:uppercase;letter-spacing:.5px;}
 .cd-val{font-size:14px;font-weight:700;color:#1a1a1a;}
-
-.btn-copy-num{
-  background:#e0f7fa;border:none;border-radius:8px;
-  padding:5px 10px;font-size:11px;font-weight:700;
-  color:#00838f;cursor:pointer;font-family:'DM Sans',sans-serif;
-  transition:background .2s;
-}
+.btn-copy-num{background:#e0f7fa;border:none;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;color:#00838f;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s;}
 .btn-copy-num:active{background:#b2ebf2;}
-
 .manual-steps{background:#f0fdf4;border-radius:14px;padding:14px 16px;margin-top:14px;}
 .ms-title{font-size:12px;font-weight:700;color:#15803d;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;}
 .ms-step{display:flex;gap:10px;margin-bottom:8px;font-size:12px;color:#1a1a1a;line-height:1.5;}
 .ms-step:last-child{margin-bottom:0;}
-.ms-num{
-  width:20px;height:20px;border-radius:50%;
-  background:#4caf50;color:#fff;font-size:10px;font-weight:800;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;
-}
-
-/* CONFIRMATION MANUEL */
-.conf-card{margin-top:14px;border:1.5px solid #e8e8e8;border-radius:16px;padding:16px;background:#fafafa;}
-.conf-title{font-size:13px;font-weight:700;margin-bottom:12px;color:#1a1a1a;}
-
-/* MODAL */
+.ms-num{width:20px;height:20px;border-radius:50%;background:#4caf50;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
 .pay-modal{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;display:none;align-items:center;justify-content:center;padding:20px;}
 .pay-modal.show{display:flex;}
 .pay-box{background:#fff;border-radius:24px;padding:28px 22px;width:100%;max-width:380px;text-align:center;}
@@ -186,44 +89,140 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
 .pay-ref{background:#f0f7f9;border-radius:10px;padding:10px 14px;font-size:12px;color:#555;margin-bottom:14px;word-break:break-all;text-align:left;}
 .btn-check{width:100%;padding:13px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:14px;font-weight:700;border:none;border-radius:50px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-bottom:8px;}
 .btn-cancel-pay{width:100%;padding:11px;background:#f5f5f5;border:none;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;color:#666;}
-
-/* TOAST */
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#1c2b30;color:#fff;font-size:13px;font-weight:600;padding:10px 22px;border-radius:50px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
 .toast.show{opacity:1;}
-
-/* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0 14px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
 .nav-item.active{color:#00bcd4;}
 .nav-item svg{width:22px;height:22px;}
-.nav-dot{width:5px;height:5px;border-radius:50%;background:#00bcd4;margin:1px auto 0;}
-
 .hidden{display:none;}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <!-- TOPBAR -->
   <div class="topbar">
     <button class="back-btn" onclick="history.back()">&#8592;</button>
     <span class="topbar-title">Recharger mon compte</span>
   </div>
 
-  <!-- SOLDE -->
   <div class="balance-banner">
     <div class="bb-label">Solde actuel</div>
     <div class="bb-amount" id="soldeActuel">...</div>
     <div class="bb-min">Depot minimum : 3 000 FCFA</div>
   </div>
 
-  <!-- TABS -->
+  <!-- TABS : Canal 1 = Manuel (en premier), Canal 2 = Auto -->
   <div class="tabs">
     <button class="tab active" id="tabManuel" onclick="showTab('manuel')">Canal 1</button>
     <button class="tab" id="tabAuto" onclick="showTab('auto')">Canal 2</button>
   </div>
 
-  <!-- ===== SECTION AUTO (Canal 2) ===== -->
+  <!-- ===== CANAL 1 : MANUEL (affiché par défaut) ===== -->
+  <div id="sectionManuel">
+
+    <div class="card" style="margin-top:12px;">
+      <div class="card-title">Instructions de paiement</div>
+      <div class="card-sub">Selectionnez votre pays puis effectuez le virement vers le compte indique.</div>
+      <div class="manual-steps">
+        <div class="ms-title">Comment ca marche</div>
+        <div class="ms-step"><div class="ms-num">1</div><span>Choisissez votre pays et notez le numero a crediter</span></div>
+        <div class="ms-step"><div class="ms-num">2</div><span>Envoyez le montant via Mobile Money avec votre nom en reference</span></div>
+        <div class="ms-step"><div class="ms-num">3</div><span>Remplissez le formulaire de confirmation ci-dessous</span></div>
+        <div class="ms-step"><div class="ms-num">4</div><span>Votre compte sera credite apres verification (max 30 min)</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Choisir le pays</div>
+      <div class="card-sub" style="margin-bottom:12px;">Pays disponibles pour la recharge manuelle</div>
+      <div class="pays-selector">
+        <button class="pays-btn" onclick="showComptes('TD', this)">Tchad</button>
+        <button class="pays-btn" onclick="showComptes('GA', this)">Gabon</button>
+        <button class="pays-btn" onclick="showComptes('NE', this)">Niger</button>
+        <button class="pays-btn" onclick="showComptes('CM', this)">Cameroun</button>
+      </div>
+
+      <div id="comptes-TD" class="comptes-section hidden">
+        <div class="compte-card">
+          <div class="compte-operateur"><div class="op-badge moov">&#128244;</div><div><div class="op-name">Moov Money</div><div class="op-country">Tchad</div></div></div>
+          <div class="compte-detail"><div><div class="cd-label">Numero</div><div class="cd-val">97538948</div></div><button class="btn-copy-num" onclick="copyInfo('97538948')">Copier</button></div>
+          <div class="compte-detail"><div><div class="cd-label">Nom</div><div class="cd-val">Velero Energy</div></div></div>
+        </div>
+        <div class="compte-card">
+          <div class="compte-operateur"><div class="op-badge airtel">&#128244;</div><div><div class="op-name">Airtel Money</div><div class="op-country">Tchad</div></div></div>
+          <div class="compte-detail"><div><div class="cd-label">Numero</div><div class="cd-val">87212959</div></div><button class="btn-copy-num" onclick="copyInfo('87212959')">Copier</button></div>
+          <div class="compte-detail"><div><div class="cd-label">Nom</div><div class="cd-val">Velero Energy</div></div></div>
+        </div>
+      </div>
+
+      <div id="comptes-GA" class="comptes-section hidden">
+        <div class="compte-card">
+          <div class="compte-operateur"><div class="op-badge airtel">&#128244;</div><div><div class="op-name">Airtel Money</div><div class="op-country">Gabon</div></div></div>
+          <div class="compte-detail"><div><div class="cd-label">Numero</div><div class="cd-val">076 42 92 92</div></div><button class="btn-copy-num" onclick="copyInfo('076429292')">Copier</button></div>
+          <div class="compte-detail"><div><div class="cd-label">Nom</div><div class="cd-val">Bingono Kuiny</div></div></div>
+        </div>
+        <div class="compte-card">
+          <div class="compte-operateur"><div class="op-badge moov">&#128244;</div><div><div class="op-name">Moov Money</div><div class="op-country">Gabon</div></div></div>
+          <div class="compte-detail"><div><div class="cd-label">Numero</div><div class="cd-val">060 16 95 56</div></div><button class="btn-copy-num" onclick="copyInfo('060169556')">Copier</button></div>
+          <div class="compte-detail"><div><div class="cd-label">Nom</div><div class="cd-val">Bekale Jeremy</div></div></div>
+        </div>
+      </div>
+
+      <div id="comptes-NE" class="comptes-section hidden">
+        <div class="compte-card">
+          <div class="compte-operateur"><div class="op-badge moov">&#128244;</div><div><div class="op-name">Amana</div><div class="op-country">Niger</div></div></div>
+          <div class="compte-detail"><div><div class="cd-label">Numero</div><div class="cd-val">76514265</div></div><button class="btn-copy-num" onclick="copyInfo('76514265')">Copier</button></div>
+          <div class="compte-detail"><div><div class="cd-label">Nom</div><div class="cd-val">Velero Energy</div></div></div>
+        </div>
+        <div class="compte-card">
+          <div class="compte-operateur"><div class="op-badge nita">&#128244;</div><div><div class="op-name">Nita</div><div class="op-country">Niger</div></div></div>
+          <div class="compte-detail"><div><div class="cd-label">Numero</div><div class="cd-val">76514265</div></div><button class="btn-copy-num" onclick="copyInfo('76514265')">Copier</button></div>
+          <div class="compte-detail"><div><div class="cd-label">Nom</div><div class="cd-val">Velero Energy</div></div></div>
+        </div>
+      </div>
+
+      <div id="comptes-CM" class="comptes-section hidden">
+        <div class="compte-card">
+          <div class="compte-operateur"><div class="op-badge moov">&#128244;</div><div><div class="op-name">Orange Money</div><div class="op-country">Cameroun</div></div></div>
+          <div class="compte-detail"><div><div class="cd-label">Numero</div><div class="cd-val">+237 690 553 438</div></div><button class="btn-copy-num" onclick="copyInfo('+237690553438')">Copier</button></div>
+          <div class="compte-detail"><div><div class="cd-label">Nom</div><div class="cd-val">Sosso Noe</div></div></div>
+        </div>
+        <div class="compte-card">
+          <div class="compte-operateur"><div class="op-badge airtel">&#128244;</div><div><div class="op-name">MTN Money</div><div class="op-country">Cameroun</div></div></div>
+          <div class="compte-detail"><div><div class="cd-label">Numero</div><div class="cd-val">+237 650 976 659</div></div><button class="btn-copy-num" onclick="copyInfo('+237650976659')">Copier</button></div>
+          <div class="compte-detail"><div><div class="cd-label">Nom</div><div class="cd-val">Lionella Pascaline</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Confirmer le paiement</div>
+      <div class="card-sub">Remplissez ce formulaire apres avoir effectue le virement</div>
+      <div id="alertManuel" class="alert"></div>
+      <div class="field"><label>Montant envoye (FCFA)</label><input type="number" id="mMontant" placeholder="Ex: 5000" min="3000"/></div>
+      <div class="field"><label>Votre numero Mobile Money</label><input type="tel" id="mPhone" placeholder="Ex: 97538948"/></div>
+      <div class="field">
+        <label>Operateur utilise</label>
+        <select id="mOperateur">
+          <option value="">-- Selectionnez --</option>
+          <option value="Moov Money Tchad">Moov Money - Tchad</option>
+          <option value="Airtel Money Tchad">Airtel Money - Tchad</option>
+          <option value="Airtel Money Gabon">Airtel Money - Gabon</option>
+          <option value="Moov Money Gabon">Moov Money - Gabon</option>
+          <option value="Amana Niger">Amana - Niger</option>
+          <option value="Nita Niger">Nita - Niger</option>
+          <option value="Orange Money Cameroun">Orange Money - Cameroun</option>
+          <option value="MTN Money Cameroun">MTN Money - Cameroun</option>
+        </select>
+      </div>
+      <div class="field"><label>Reference de transaction (optionnel)</label><input type="text" id="mRef" placeholder="Ex: TXN123456"/></div>
+      <button class="btn-main" onclick="confirmerManuel()">Soumettre la confirmation</button>
+    </div>
+
+  </div>
+
+  <!-- ===== CANAL 2 : AUTOMATIQUE (caché par défaut) ===== -->
   <div id="sectionAuto" class="hidden">
 
     <div class="card" style="margin-top:12px;">
@@ -237,15 +236,10 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
 
     <div class="card">
       <div id="alertAuto" class="alert"></div>
-
       <div class="wp-badge">
         <div class="wp-logo">&#128179;</div>
-        <div>
-          <div class="wp-title">Paiement securise WestPay</div>
-          <div class="wp-sub">Mobile Money — Instantane et Securise</div>
-        </div>
+        <div><div class="wp-title">Paiement securise WestPay</div><div class="wp-sub">Mobile Money — Instantane et Securise</div></div>
       </div>
-
       <div class="field">
         <label>Montant rapide (FCFA)</label>
         <div class="amounts-grid">
@@ -257,12 +251,7 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
           <button class="amt-btn" onclick="setAmt(100000,this)">100 000</button>
         </div>
       </div>
-
-      <div class="field">
-        <label>Ou saisir un montant</label>
-        <input type="number" id="montantInput" placeholder="Ex: 15000" min="3000" oninput="updateTotal(this.value)"/>
-      </div>
-
+      <div class="field"><label>Ou saisir un montant</label><input type="number" id="montantInput" placeholder="Ex: 15000" min="3000" oninput="updateTotal(this.value)"/></div>
       <div class="field">
         <label>Pays</label>
         <select id="pays" onchange="updateNetworks()">
@@ -278,224 +267,15 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
           <option value="SN">Senegal</option>
         </select>
       </div>
-
-      <div class="field hidden" id="networkField">
-        <label>Operateur Mobile Money</label>
-        <div class="network-grid" id="networkGrid"></div>
-      </div>
-
-      <div class="field hidden" id="phoneField">
-        <label>Numero Mobile Money</label>
-        <input type="tel" id="mmPhone" placeholder="Ex: 6XX XXX XXX"/>
-      </div>
-
-      <div class="total-row">
-        <span class="tr-label">Total a payer</span>
-        <span class="tr-val" id="totalAffiche">0 FCFA</span>
-      </div>
-
+      <div class="field hidden" id="networkField"><label>Operateur Mobile Money</label><div class="network-grid" id="networkGrid"></div></div>
+      <div class="field hidden" id="phoneField"><label>Numero Mobile Money</label><input type="tel" id="mmPhone" placeholder="Ex: 6XX XXX XXX"/></div>
+      <div class="total-row"><span class="tr-label">Total a payer</span><span class="tr-val" id="totalAffiche">0 FCFA</span></div>
       <button class="btn-main" id="btnPay" onclick="initierPaiement()">Payer maintenant</button>
     </div>
   </div>
 
-  <!-- ===== SECTION MANUELLE (Canal 1) ===== -->
-  <div id="sectionManuel">
-
-    <div class="card" style="margin-top:12px;">
-      <div class="card-title">Instructions de paiement</div>
-      <div class="card-sub">Selectionnez votre pays puis effectuez le virement vers le compte indique.</div>
-      <div class="manual-steps">
-        <div class="ms-title">Comment ca marche</div>
-        <div class="ms-step"><div class="ms-num">1</div><span>Choisissez votre pays et notez le numero a crediter</span></div>
-        <div class="ms-step"><div class="ms-num">2</div><span>Envoyez le montant via Mobile Money avec votre nom en reference</span></div>
-        <div class="ms-step"><div class="ms-num">3</div><span>Remplissez le formulaire de confirmation ci-dessous</span></div>
-        <div class="ms-step"><div class="ms-num">4</div><span>Votre compte sera credite apres verification (max 30 min)</span></div>
-      </div>
-    </div>
-
-    <!-- CHOIX PAYS -->
-    <div class="card">
-      <div class="card-title">Choisir le pays</div>
-      <div class="card-sub" style="margin-bottom:12px;">Pays disponibles pour la recharge manuelle</div>
-      <div class="pays-selector">
-        <button class="pays-btn" onclick="showComptes('TD', this)">Tchad</button>
-        <button class="pays-btn" onclick="showComptes('GA', this)">Gabon</button>
-        <button class="pays-btn" onclick="showComptes('NE', this)">Niger</button>
-        <button class="pays-btn" onclick="showComptes('CM', this)">Cameroun</button>
-      </div>
-
-      <!-- COMPTES TCHAD -->
-      <div id="comptes-TD" class="comptes-section hidden">
-        <div class="compte-card">
-          <div class="compte-operateur">
-            <div class="op-badge moov">&#128244;</div>
-            <div>
-              <div class="op-name">Moov Money</div>
-              <div class="op-country">Tchad</div>
-            </div>
-          </div>
-          <div class="compte-detail">
-            <div><div class="cd-label">Numero</div><div class="cd-val">97538948</div></div>
-            <button class="btn-copy-num" onclick="copyInfo('97538948')">Copier</button>
-          </div>
-          <div class="compte-detail">
-            <div><div class="cd-label">Nom</div><div class="cd-val">Velero Energy</div></div>
-          </div>
-        </div>
-
-        <div class="compte-card">
-          <div class="compte-operateur">
-            <div class="op-badge airtel">&#128244;</div>
-            <div>
-              <div class="op-name">Airtel Money</div>
-              <div class="op-country">Tchad</div>
-            </div>
-          </div>
-          <div class="compte-detail">
-            <div><div class="cd-label">Numero</div><div class="cd-val">87110450</div></div>
-            <button class="btn-copy-num" onclick="copyInfo('87110450')">Copier</button>
-          </div>
-          <div class="compte-detail">
-            <div><div class="cd-label">Nom</div><div class="cd-val">Velero Energy</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- COMPTES GABON -->
-      <div id="comptes-GA" class="comptes-section hidden">
-        <div class="compte-card">
-          <div class="compte-operateur">
-            <div class="op-badge airtel">&#128244;</div>
-            <div>
-              <div class="op-name">Airtel Money</div>
-              <div class="op-country">Gabon</div>
-            </div>
-          </div>
-          <div class="compte-detail">
-            <div><div class="cd-label">Numero</div><div class="cd-val">076 42 92 92</div></div>
-            <button class="btn-copy-num" onclick="copyInfo('076429292')">Copier</button>
-          </div>
-          <div class="compte-detail">
-            <div><div class="cd-label">Nom</div><div class="cd-val">Bingono Kuiny</div></div>
-          </div>
-        </div>
-
-        <div class="compte-card">
-          <div class="compte-operateur">
-            <div class="op-badge moov">&#128244;</div>
-            <div>
-              <div class="op-name">Moov Money</div>
-              <div class="op-country">Gabon</div>
-            </div>
-          </div>
-          <div class="compte-detail">
-            <div><div class="cd-label">Numero</div><div class="cd-val">060 16 95 56</div></div>
-            <button class="btn-copy-num" onclick="copyInfo('060169556')">Copier</button>
-          </div>
-          <div class="compte-detail">
-            <div><div class="cd-label">Nom</div><div class="cd-val">Bekale Jeremy</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- COMPTES NIGER -->
-      <div id="comptes-NE" class="comptes-section hidden">
-        <div class="compte-card">
-          <div class="compte-operateur">
-            <div class="op-badge moov">&#128244;</div>
-            <div>
-              <div class="op-name">Amana</div>
-              <div class="op-country">Niger</div>
-            </div>
-          </div>
-          <div class="compte-detail">
-            <div><div class="cd-label">Numero</div><div class="cd-val">76514265</div></div>
-            <button class="btn-copy-num" onclick="copyInfo('76514265')">Copier</button>
-          </div>
-          <div class="compte-detail">
-            <div><div class="cd-label">Nom</div><div class="cd-val">Velero Energy</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- COMPTES CAMEROUN -->
-      <div id="comptes-CM" class="comptes-section hidden">
-        <div class="compte-card">
-          <div class="compte-operateur">
-            <div class="op-badge moov">&#128244;</div>
-            <div>
-              <div class="op-name">Orange Money</div>
-              <div class="op-country">Cameroun</div>
-            </div>
-          </div>
-          <div class="compte-detail">
-            <div><div class="cd-label">Numero</div><div class="cd-val">+237 690 553 438</div></div>
-            <button class="btn-copy-num" onclick="copyInfo('+237690553438')">Copier</button>
-          </div>
-          <div class="compte-detail">
-            <div><div class="cd-label">Nom</div><div class="cd-val">Sosso Noe</div></div>
-          </div>
-        </div>
-
-        <div class="compte-card">
-          <div class="compte-operateur">
-            <div class="op-badge airtel">&#128244;</div>
-            <div>
-              <div class="op-name">MTN Money</div>
-              <div class="op-country">Cameroun</div>
-            </div>
-          </div>
-          <div class="compte-detail">
-            <div><div class="cd-label">Numero</div><div class="cd-val">+237 650 976 659</div></div>
-            <button class="btn-copy-num" onclick="copyInfo('+237650976659')">Copier</button>
-          </div>
-          <div class="compte-detail">
-            <div><div class="cd-label">Nom</div><div class="cd-val">Lionella Pascaline</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- FORMULAIRE CONFIRMATION -->
-    <div class="card">
-      <div class="card-title">Confirmer le paiement</div>
-      <div class="card-sub">Remplissez ce formulaire apres avoir effectue le virement</div>
-
-      <div id="alertManuel" class="alert"></div>
-
-      <div class="field">
-        <label>Montant envoye (FCFA)</label>
-        <input type="number" id="mMontant" placeholder="Ex: 5000" min="3000"/>
-      </div>
-      <div class="field">
-        <label>Votre numero Mobile Money</label>
-        <input type="tel" id="mPhone" placeholder="Ex: 97538948"/>
-      </div>
-      <div class="field">
-        <label>Operateur utilise</label>
-        <select id="mOperateur">
-          <option value="">-- Selectionnez --</option>
-          <option value="Moov Money Tchad">Moov Money - Tchad</option>
-          <option value="Airtel Money Tchad">Airtel Money - Tchad</option>
-          <option value="Airtel Money Gabon">Airtel Money - Gabon</option>
-          <option value="Moov Money Gabon">Moov Money - Gabon</option>
-          <option value="Amana Niger">Amana - Niger</option>
-          <option value="Orange Money Cameroun">Orange Money - Cameroun</option>
-          <option value="MTN Money Cameroun">MTN Money - Cameroun</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Reference de transaction (optionnel)</label>
-        <input type="text" id="mRef" placeholder="Ex: TXN123456"/>
-      </div>
-
-      <button class="btn-main" onclick="confirmerManuel()">Soumettre la confirmation</button>
-    </div>
-
-  </div>
 </div>
 
-<!-- MODAL PAIEMENT AUTO -->
 <div class="pay-modal" id="payModal">
   <div class="pay-box">
     <div class="pay-spin"></div>
@@ -507,10 +287,8 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <a href="dashboard.html" class="nav-item">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -533,335 +311,92 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
 <script>
 const SB="https://seegoklunovyuieorkvy.supabase.co";
 const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
-
-// WestPay — on passe par le lien de paiement direct pour eviter le CORS
-const WESTPAY_LINK = "https://westpay.cfd/link/poxoejjgmqlh6td9";
-const WESTPAY_API  = "https://westpay.cfd/api/v1";
-
-const WESTPAY_KEYS={
-  BJ:"BEN-C081D6C495351711A4755DCBD51814E152C58309",
-  BF:"BFA-C3EA38AD3EE229DE9EAB89D70CF1C0CAD32D364D",
-  CM:"CMR-E63FAB4E969A45D3495E8C2F5F1D822D9EBC012F",
-  CI:"CIV-76AF33EDE7D3606BFDF26AC0BCA6AE6001407C52",
-  GA:"GAB-3570D5872BD0C5614E01F89BD8B2E2E0835F5C29",
-  CG:"COG-35173E2A043A62CC3C6EEAB32AE2D58C6E36A300",
-  CD:"COD-0E68F79290E2529327FEB560820E10978B4B630F",
-  ML:"MLI-DEC528C1647F1C353A239703AA78D4995032CA9A",
-  SN:"SEN-38AB13C4B280BA60FB9EAADBB04B5DD06A37DDEB"
-};
-
-const NETWORKS={
-  BJ:[{id:"mtn",icon:"&#x1F7E1;",name:"MTN MoMo"},{id:"moov",icon:"&#x1F535;",name:"Moov Money"}],
-  BF:[{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"},{id:"moov",icon:"&#x1F535;",name:"Moov Money"}],
-  CM:[{id:"mtn",icon:"&#x1F7E1;",name:"MTN MoMo"},{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"}],
-  CI:[{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"},{id:"mtn",icon:"&#x1F7E1;",name:"MTN MoMo"},{id:"wave",icon:"&#x1F30A;",name:"Wave"}],
-  GA:[{id:"airtel",icon:"&#x1F534;",name:"Airtel Money"},{id:"moov",icon:"&#x1F535;",name:"Moov Money"}],
-  CG:[{id:"airtel",icon:"&#x1F534;",name:"Airtel Money"},{id:"mtn",icon:"&#x1F7E1;",name:"MTN MoMo"}],
-  CD:[{id:"mpesa",icon:"&#x1F7E2;",name:"M-Pesa"},{id:"airtel",icon:"&#x1F534;",name:"Airtel Money"},{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"}],
-  ML:[{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"},{id:"moov",icon:"&#x1F535;",name:"Moov Money"}],
-  SN:[{id:"wave",icon:"&#x1F30A;",name:"Wave"},{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"},{id:"free",icon:"&#x1F535;",name:"Free Money"}]
-};
+const WESTPAY_LINK="https://westpay.cfd/link/poxoejjgmqlh6td9";
+const WESTPAY_API="https://westpay.cfd/api/v1";
+const WESTPAY_KEYS={BJ:"BEN-C081D6C495351711A4755DCBD51814E152C58309",BF:"BFA-C3EA38AD3EE229DE9EAB89D70CF1C0CAD32D364D",CM:"CMR-E63FAB4E969A45D3495E8C2F5F1D822D9EBC012F",CI:"CIV-76AF33EDE7D3606BFDF26AC0BCA6AE6001407C52",GA:"GAB-3570D5872BD0C5614E01F89BD8B2E2E0835F5C29",CG:"COG-35173E2A043A62CC3C6EEAB32AE2D58C6E36A300",CD:"COD-0E68F79290E2529327FEB560820E10978B4B630F",ML:"MLI-DEC528C1647F1C353A239703AA78D4995032CA9A",SN:"SEN-38AB13C4B280BA60FB9EAADBB04B5DD06A37DDEB"};
+const NETWORKS={BJ:[{id:"mtn",icon:"&#x1F7E1;",name:"MTN MoMo"},{id:"moov",icon:"&#x1F535;",name:"Moov Money"}],BF:[{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"},{id:"moov",icon:"&#x1F535;",name:"Moov Money"}],CM:[{id:"mtn",icon:"&#x1F7E1;",name:"MTN MoMo"},{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"}],CI:[{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"},{id:"mtn",icon:"&#x1F7E1;",name:"MTN MoMo"},{id:"wave",icon:"&#x1F30A;",name:"Wave"}],GA:[{id:"airtel",icon:"&#x1F534;",name:"Airtel Money"},{id:"moov",icon:"&#x1F535;",name:"Moov Money"}],CG:[{id:"airtel",icon:"&#x1F534;",name:"Airtel Money"},{id:"mtn",icon:"&#x1F7E1;",name:"MTN MoMo"}],CD:[{id:"mpesa",icon:"&#x1F7E2;",name:"M-Pesa"},{id:"airtel",icon:"&#x1F534;",name:"Airtel Money"},{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"}],ML:[{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"},{id:"moov",icon:"&#x1F535;",name:"Moov Money"}],SN:[{id:"wave",icon:"&#x1F30A;",name:"Wave"},{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"},{id:"free",icon:"&#x1F535;",name:"Free Money"}]};
 
 function tok(){return localStorage.getItem("velero_token")||"";}
 function uid(){return localStorage.getItem("velero_uid")||"";}
 function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
+let montantChoisi=0,selectedNet=null,selectedNetName="",currentTxId=null,checkInterval=null;
 
-let montantChoisi=0, selectedNet=null, selectedNetName="", currentTxId=null, checkInterval=null;
-
-/* ---- INIT ---- */
 async function init(){
   if(!tok()){location.href="index.html";return;}
-  try{
-    const r=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()});
-    const d=await r.json();
-    document.getElementById("soldeActuel").textContent=
-      d&&d[0] ? parseFloat(d[0].solde).toLocaleString()+" FCFA" : "0 FCFA";
-  }catch(e){document.getElementById("soldeActuel").textContent="0 FCFA";}
+  try{const r=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()});const d=await r.json();document.getElementById("soldeActuel").textContent=d&&d[0]?parseFloat(d[0].solde).toLocaleString()+" FCFA":"0 FCFA";}catch(e){document.getElementById("soldeActuel").textContent="0 FCFA";}
 }
 
-/* ---- TABS ---- */
 function showTab(t){
-  document.getElementById("tabManuel").classList.toggle("active", t==="manuel");
-  document.getElementById("tabAuto").classList.toggle("active", t==="auto");
-  document.getElementById("sectionManuel").classList.toggle("hidden", t!=="manuel");
-  document.getElementById("sectionAuto").classList.toggle("hidden", t!=="auto");
+  document.getElementById("tabManuel").classList.toggle("active",t==="manuel");
+  document.getElementById("tabAuto").classList.toggle("active",t==="auto");
+  document.getElementById("sectionManuel").classList.toggle("hidden",t!=="manuel");
+  document.getElementById("sectionAuto").classList.toggle("hidden",t!=="auto");
 }
 
-/* ---- MONTANT ---- */
-function setAmt(v,el){
-  montantChoisi=v;
-  document.getElementById("montantInput").value=v;
-  document.querySelectorAll(".amt-btn").forEach(b=>b.classList.remove("sel"));
-  el.classList.add("sel");
-  document.getElementById("totalAffiche").textContent=v.toLocaleString()+" FCFA";
-}
-function updateTotal(v){
-  montantChoisi=parseInt(v)||0;
-  document.getElementById("totalAffiche").textContent=montantChoisi.toLocaleString()+" FCFA";
-}
-
-/* ---- RESEAUX ---- */
-function updateNetworks(){
-  const pays=document.getElementById("pays").value;
-  if(!pays)return;
-  const nets=NETWORKS[pays]||[];
-  const grid=document.getElementById("networkGrid");
-  grid.innerHTML=nets.map(n=>`
-    <button class="net-btn" onclick="selectNet('${n.id}','${n.name}')" id="net-${n.id}">
-      <span class="net-icon">${n.icon}</span>${n.name}
-    </button>`).join("");
-  document.getElementById("networkField").classList.remove("hidden");
-  document.getElementById("phoneField").classList.remove("hidden");
-  selectedNet=null; selectedNetName="";
-}
-function selectNet(id,name){
-  selectedNet=id; selectedNetName=name;
-  document.querySelectorAll(".net-btn").forEach(b=>b.classList.remove("sel"));
-  const el=document.getElementById("net-"+id);
-  if(el)el.classList.add("sel");
-}
-
-/* ---- ALERTS ---- */
-function showAlert(id,msg,type){
-  const el=document.getElementById(id);
-  el.textContent=msg; el.className="alert "+type+" show";
-}
+function setAmt(v,el){montantChoisi=v;document.getElementById("montantInput").value=v;document.querySelectorAll(".amt-btn").forEach(b=>b.classList.remove("sel"));el.classList.add("sel");document.getElementById("totalAffiche").textContent=v.toLocaleString()+" FCFA";}
+function updateTotal(v){montantChoisi=parseInt(v)||0;document.getElementById("totalAffiche").textContent=montantChoisi.toLocaleString()+" FCFA";}
+function updateNetworks(){const pays=document.getElementById("pays").value;if(!pays)return;const nets=NETWORKS[pays]||[];const grid=document.getElementById("networkGrid");grid.innerHTML=nets.map(n=>`<button class="net-btn" onclick="selectNet('${n.id}','${n.name}')" id="net-${n.id}"><span class="net-icon">${n.icon}</span>${n.name}</button>`).join("");document.getElementById("networkField").classList.remove("hidden");document.getElementById("phoneField").classList.remove("hidden");selectedNet=null;selectedNetName="";}
+function selectNet(id,name){selectedNet=id;selectedNetName=name;document.querySelectorAll(".net-btn").forEach(b=>b.classList.remove("sel"));const el=document.getElementById("net-"+id);if(el)el.classList.add("sel");}
+function showAlert(id,msg,type){const el=document.getElementById(id);el.textContent=msg;el.className="alert "+type+" show";}
 function hideAlert(id){document.getElementById(id).className="alert";}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2500);}
+function copyInfo(val){navigator.clipboard.writeText(val).then(()=>toast("Numero copie !")).catch(()=>{const el=document.createElement("textarea");el.value=val;document.body.appendChild(el);el.select();document.execCommand("copy");document.body.removeChild(el);toast("Numero copie !");});}
+function showComptes(pays,btn){document.querySelectorAll(".pays-btn").forEach(b=>b.classList.remove("sel"));btn.classList.add("sel");document.querySelectorAll(".comptes-section").forEach(s=>s.classList.add("hidden"));document.getElementById("comptes-"+pays).classList.remove("hidden");}
 
-/* ---- TOAST ---- */
-function toast(msg){
-  const t=document.getElementById("toast");
-  t.textContent=msg; t.classList.add("show");
-  setTimeout(()=>t.classList.remove("show"),2500);
-}
-
-/* ---- COPIER ---- */
-function copyInfo(val){
-  navigator.clipboard.writeText(val).then(()=>toast("Numero copie !")).catch(()=>{
-    const el=document.createElement("textarea");el.value=val;
-    document.body.appendChild(el);el.select();document.execCommand("copy");
-    document.body.removeChild(el);toast("Numero copie !");
-  });
-}
-
-/* ---- PAYS MANUEL ---- */
-function showComptes(pays, btn){
-  document.querySelectorAll(".pays-btn").forEach(b=>b.classList.remove("sel"));
-  btn.classList.add("sel");
-  document.querySelectorAll(".comptes-section").forEach(s=>s.classList.add("hidden"));
-  document.getElementById("comptes-"+pays).classList.remove("hidden");
-}
-
-/* ==== PAIEMENT AUTOMATIQUE ==== */
 async function initierPaiement(){
-  const phone=document.getElementById("mmPhone").value.trim();
-  const pays=document.getElementById("pays").value;
-  if(montantChoisi<3000) return showAlert("alertAuto","Minimum 3 000 FCFA","err");
-  if(!pays) return showAlert("alertAuto","Selectionnez votre pays","err");
-  if(!selectedNet) return showAlert("alertAuto","Choisissez un operateur Mobile Money","err");
-  if(!phone||phone.length<8) return showAlert("alertAuto","Entrez votre numero Mobile Money","err");
-
-  const btn=document.getElementById("btnPay");
-  btn.disabled=true; btn.textContent="Traitement...";
+  const phone=document.getElementById("mmPhone").value.trim();const pays=document.getElementById("pays").value;
+  if(montantChoisi<3000)return showAlert("alertAuto","Minimum 3 000 FCFA","err");
+  if(!pays)return showAlert("alertAuto","Selectionnez votre pays","err");
+  if(!selectedNet)return showAlert("alertAuto","Choisissez un operateur Mobile Money","err");
+  if(!phone||phone.length<8)return showAlert("alertAuto","Entrez votre numero Mobile Money","err");
+  const btn=document.getElementById("btnPay");btn.disabled=true;btn.textContent="Traitement...";
   showAlert("alertAuto","Initialisation du paiement WestPay...","info");
-
-  const apiKey=WESTPAY_KEYS[pays];
-  const ref="VE"+uid().substring(0,6).toUpperCase()+Date.now().toString().slice(-6);
-
-  // Enregistrer la transaction en attente dans Supabase
+  const apiKey=WESTPAY_KEYS[pays];const ref="VE"+uid().substring(0,6).toUpperCase()+Date.now().toString().slice(-6);
   let txId=null;
-  try{
-    const rTx=await fetch(SB+"/rest/v1/transactions",{
-      method:"POST",
-      headers:{...H(),"Prefer":"return=representation"},
-      body:JSON.stringify({
-        user_id:uid(), type:"depot",
-        montant:montantChoisi, montant_net:montantChoisi,
-        reseau:selectedNetName, numero_mobile:phone, pays,
-        statut:"en_attente", reference:ref,
-        note:"WestPay - "+selectedNetName+" - "+phone
-      })
-    });
-    const txData=await rTx.json();
-    txId=Array.isArray(txData)&&txData[0]?txData[0].id:null;
-    currentTxId=txId;
-  }catch(e){}
-
-  // Tenter l'API WestPay directe
+  try{const rTx=await fetch(SB+"/rest/v1/transactions",{method:"POST",headers:{...H(),"Prefer":"return=representation"},body:JSON.stringify({user_id:uid(),type:"depot",montant:montantChoisi,montant_net:montantChoisi,reseau:selectedNetName,numero_mobile:phone,pays,statut:"en_attente",reference:ref,note:"WestPay - "+selectedNetName+" - "+phone})});const txData=await rTx.json();txId=Array.isArray(txData)&&txData[0]?txData[0].id:null;currentTxId=txId;}catch(e){}
   let apiOk=false;
-  try{
-    const resp=await fetch(WESTPAY_API+"/collect",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        "Authorization":"Bearer "+apiKey,
-        "X-API-KEY":apiKey
-      },
-      body:JSON.stringify({
-        amount:montantChoisi,
-        currency:"XAF",
-        phone_number:phone,
-        operator:selectedNet,
-        country:pays,
-        reference:ref,
-        description:"Recharge Velero Energy",
-        callback_url:"https://valero-energys.vercel.app/api/webhook-westpay"
-      })
-    });
-    if(resp.ok){
-      const wpData=await resp.json();
-      if(wpData&&(wpData.reference||wpData.transaction_id||wpData.status)){
-        apiOk=true;
-        const txRef=wpData.reference||wpData.transaction_id||ref;
-        document.getElementById("payRef").textContent="Reference : "+txRef;
-      }
-    }
-  }catch(e){/* CORS probable — on passe au lien direct */}
-
-  if(!apiOk){
-    // Fallback : ouvrir le lien de paiement WestPay prefille
-    const wpUrl=WESTPAY_LINK
-      +"?amount="+montantChoisi
-      +"&phone="+encodeURIComponent(phone)
-      +"&ref="+ref
-      +"&operator="+selectedNet;
-    window.open(wpUrl,"_blank");
-    document.getElementById("payRef").textContent="Reference : "+ref;
-    showAlert("alertAuto","Une fenetre de paiement WestPay vient de s'ouvrir. Completez le paiement puis revenez verifier.","info");
-  }
-
-  // Afficher la modal de suivi
-  document.getElementById("payModal").classList.add("show");
-  hideAlert("alertAuto");
-
-  // Verification automatique toutes les 10s
-  let tries=0;
-  checkInterval=setInterval(async()=>{
-    tries++;
-    if(tries>18){clearInterval(checkInterval);return;}
-    await verifierPaiementAuto(ref,pays,apiKey);
-  },10000);
-
-  btn.disabled=false; btn.textContent="Payer maintenant";
+  try{const resp=await fetch(WESTPAY_API+"/collect",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+apiKey,"X-API-KEY":apiKey},body:JSON.stringify({amount:montantChoisi,currency:"XAF",phone_number:phone,operator:selectedNet,country:pays,reference:ref,description:"Recharge Velero Energy",callback_url:"https://valero-energys.vercel.app/api/webhook-westpay"})});if(resp.ok){const wpData=await resp.json();if(wpData&&(wpData.reference||wpData.transaction_id||wpData.status)){apiOk=true;document.getElementById("payRef").textContent="Reference : "+(wpData.reference||wpData.transaction_id||ref);}}}catch(e){}
+  if(!apiOk){window.open(WESTPAY_LINK+"?amount="+montantChoisi+"&phone="+encodeURIComponent(phone)+"&ref="+ref+"&operator="+selectedNet,"_blank");document.getElementById("payRef").textContent="Reference : "+ref;showAlert("alertAuto","Une fenetre de paiement WestPay vient de s'ouvrir. Completez le paiement puis revenez verifier.","info");}
+  document.getElementById("payModal").classList.add("show");hideAlert("alertAuto");
+  let tries=0;checkInterval=setInterval(async()=>{tries++;if(tries>18){clearInterval(checkInterval);return;}await verifierPaiementAuto(ref,pays,apiKey);},10000);
+  btn.disabled=false;btn.textContent="Payer maintenant";
 }
 
-/* Vérification auto (silencieuse) */
-async function verifierPaiementAuto(ref,pays,apiKey){
-  try{
-    const r=await fetch(WESTPAY_API+"/status/"+ref,{
-      headers:{"Authorization":"Bearer "+apiKey,"X-API-KEY":apiKey}
-    });
-    if(!r.ok)return;
-    const d=await r.json();
-    if(["success","completed","paid"].includes(d.status)){
-      clearInterval(checkInterval);
-      await crediterCompte(montantChoisi,ref);
-    }
-  }catch(e){}
-}
+async function verifierPaiementAuto(ref,pays,apiKey){try{const r=await fetch(WESTPAY_API+"/status/"+ref,{headers:{"Authorization":"Bearer "+apiKey,"X-API-KEY":apiKey}});if(!r.ok)return;const d=await r.json();if(["success","completed","paid"].includes(d.status)){clearInterval(checkInterval);await crediterCompte(montantChoisi,ref);}}catch(e){}}
 
-/* Vérification manuelle (bouton) */
 async function verifierPaiement(){
-  const refText=document.getElementById("payRef").textContent.replace("Reference : ","");
-  const pays=document.getElementById("pays").value;
-  const apiKey=WESTPAY_KEYS[pays]||"";
-  const btnCheck=document.querySelector(".btn-check");
-  btnCheck.textContent="Verification..."; btnCheck.disabled=true;
-
-  try{
-    const r=await fetch(WESTPAY_API+"/status/"+refText,{
-      headers:{"Authorization":"Bearer "+apiKey,"X-API-KEY":apiKey}
-    });
-    const d=r.ok ? await r.json() : {};
-    if(["success","completed","paid"].includes(d.status)){
-      clearInterval(checkInterval);
-      await crediterCompte(montantChoisi,refText);
-    }else{
-      toast("Paiement pas encore confirme. Reessayez dans quelques secondes.");
-    }
-  }catch(e){
-    toast("Impossible de verifier. Contactez le support si vous avez ete debite.");
-  }
-  btnCheck.textContent="Verifier le paiement"; btnCheck.disabled=false;
+  const refText=document.getElementById("payRef").textContent.replace("Reference : ","");const pays=document.getElementById("pays").value;const apiKey=WESTPAY_KEYS[pays]||"";const btnCheck=document.querySelector(".btn-check");btnCheck.textContent="Verification...";btnCheck.disabled=true;
+  try{const r=await fetch(WESTPAY_API+"/status/"+refText,{headers:{"Authorization":"Bearer "+apiKey,"X-API-KEY":apiKey}});const d=r.ok?await r.json():{};if(["success","completed","paid"].includes(d.status)){clearInterval(checkInterval);await crediterCompte(montantChoisi,refText);}else{toast("Paiement pas encore confirme.");}}catch(e){toast("Impossible de verifier.");}
+  btnCheck.textContent="Verifier le paiement";btnCheck.disabled=false;
 }
 
-/* Crediter le compte apres confirmation */
 async function crediterCompte(montant,ref){
   try{
-    // MAJ statut transaction
-    const q=currentTxId
-      ? SB+"/rest/v1/transactions?id=eq."+currentTxId
-      : SB+"/rest/v1/transactions?reference=eq."+ref+"&user_id=eq."+uid();
+    const q=currentTxId?SB+"/rest/v1/transactions?id=eq."+currentTxId:SB+"/rest/v1/transactions?reference=eq."+ref+"&user_id=eq."+uid();
     await fetch(q,{method:"PATCH",headers:H(),body:JSON.stringify({statut:"valide"})});
-
-    // MAJ solde
-    const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()});
-    const p=await rp.json();
-    const nouveau=parseFloat(p[0]?.solde||0)+parseFloat(montant);
-    await fetch(SB+"/rest/v1/profiles?id=eq."+uid(),{
-      method:"PATCH",headers:H(),
-      body:JSON.stringify({solde:nouveau})
-    });
-
-    // Ticket de roue
-    await fetch(SB+"/rest/v1/roue_droits",{
-      method:"POST",
-      headers:{...H(),"Prefer":"return=minimal"},
-      body:JSON.stringify({user_id:uid(),raison:"recharge",utilise:false})
-    });
-
-    clearInterval(checkInterval);
-    document.getElementById("payModal").classList.remove("show");
-    document.getElementById("soldeActuel").textContent=nouveau.toLocaleString()+" FCFA";
+    const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()});const p=await rp.json();const nouveau=parseFloat(p[0]?.solde||0)+parseFloat(montant);
+    await fetch(SB+"/rest/v1/profiles?id=eq."+uid(),{method:"PATCH",headers:H(),body:JSON.stringify({solde:nouveau})});
+    await fetch(SB+"/rest/v1/roue_droits",{method:"POST",headers:{...H(),"Prefer":"return=minimal"},body:JSON.stringify({user_id:uid(),raison:"recharge",utilise:false})});
+    clearInterval(checkInterval);document.getElementById("payModal").classList.remove("show");document.getElementById("soldeActuel").textContent=nouveau.toLocaleString()+" FCFA";
     showAlert("alertAuto",parseInt(montant).toLocaleString()+" FCFA credites ! +1 ticket de roue de chance !","suc");
     setTimeout(()=>location.href="dashboard.html",3000);
-  }catch(e){
-    toast("Erreur lors du credit. Contactez le support.");
-  }
+  }catch(e){toast("Erreur lors du credit. Contactez le support.");}
 }
 
-function annulerPaiement(){
-  clearInterval(checkInterval);
-  document.getElementById("payModal").classList.remove("show");
-  showAlert("alertAuto","Paiement annule. Contactez le support si vous avez ete debite.","err");
-}
+function annulerPaiement(){clearInterval(checkInterval);document.getElementById("payModal").classList.remove("show");showAlert("alertAuto","Paiement annule. Contactez le support si vous avez ete debite.","err");}
 
-/* ==== CONFIRMATION MANUELLE ==== */
 async function confirmerManuel(){
-  const montant=parseInt(document.getElementById("mMontant").value)||0;
-  const phone=document.getElementById("mPhone").value.trim();
-  const operateur=document.getElementById("mOperateur").value;
-  const ref=document.getElementById("mRef").value.trim();
-
-  if(montant<3000) return showAlert("alertManuel","Minimum 3 000 FCFA","err");
-  if(!phone||phone.length<8) return showAlert("alertManuel","Entrez votre numero Mobile Money","err");
-  if(!operateur) return showAlert("alertManuel","Selectionnez l'operateur","err");
-
-  const btn=document.querySelector("#sectionManuel .btn-main");
-  btn.disabled=true; btn.textContent="Envoi...";
-
+  const montant=parseInt(document.getElementById("mMontant").value)||0;const phone=document.getElementById("mPhone").value.trim();const operateur=document.getElementById("mOperateur").value;const ref=document.getElementById("mRef").value.trim();
+  if(montant<3000)return showAlert("alertManuel","Minimum 3 000 FCFA","err");
+  if(!phone||phone.length<8)return showAlert("alertManuel","Entrez votre numero Mobile Money","err");
+  if(!operateur)return showAlert("alertManuel","Selectionnez l'operateur","err");
+  const btn=document.querySelector("#sectionManuel .btn-main");btn.disabled=true;btn.textContent="Envoi...";
   try{
-    await fetch(SB+"/rest/v1/transactions",{
-      method:"POST",
-      headers:{...H(),"Prefer":"return=minimal"},
-      body:JSON.stringify({
-        user_id:uid(), type:"depot_manuel",
-        montant, montant_net:montant,
-        reseau:operateur, numero_mobile:phone,
-        statut:"en_attente",
-        reference:ref||("MAN"+Date.now().toString().slice(-8)),
-        note:"Recharge manuelle - "+operateur+" - "+phone
-      })
-    });
+    await fetch(SB+"/rest/v1/transactions",{method:"POST",headers:{...H(),"Prefer":"return=minimal"},body:JSON.stringify({user_id:uid(),type:"depot_manuel",montant,montant_net:montant,reseau:operateur,numero_mobile:phone,statut:"en_attente",reference:ref||("MAN"+Date.now().toString().slice(-8)),note:"Recharge manuelle - "+operateur+" - "+phone})});
     showAlert("alertManuel","Confirmation envoyee ! Votre compte sera credite sous 30 minutes apres verification. Merci de ne pas renvoyer le paiement.","suc");
-    document.getElementById("mMontant").value="";
-    document.getElementById("mPhone").value="";
-    document.getElementById("mRef").value="";
-    document.getElementById("mOperateur").value="";
-  }catch(e){
-    showAlert("alertManuel","Erreur reseau. Reessayez ou contactez le support.","err");
-  }
-  btn.disabled=false; btn.textContent="Soumettre la confirmation";
+    document.getElementById("mMontant").value="";document.getElementById("mPhone").value="";document.getElementById("mRef").value="";document.getElementById("mOperateur").value="";
+  }catch(e){showAlert("alertManuel","Erreur reseau. Reessayez ou contactez le support.","err");}
+  btn.disabled=false;btn.textContent="Soumettre la confirmation";
 }
 
 init();
