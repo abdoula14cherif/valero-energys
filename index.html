@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-<title>Velero Energy</title>
+<title>SINIPEC</title>
 <script src="/pwa-install.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow-x:hidden;}
@@ -13,13 +13,22 @@ body{
   min-height:100vh;
   font-family:'DM Sans',sans-serif;
   display:flex;flex-direction:column;align-items:center;
-  background:linear-gradient(160deg,#003d4d 0%,#005f73 35%,#00bcd4 70%,#b2ebf2 100%);
+  background:
+    radial-gradient(circle at 15% 0%, rgba(245,158,11,.16) 0%, transparent 45%),
+    linear-gradient(160deg,#0a0d13 0%,#12161f 45%,#1b2130 100%);
   position:relative;
 }
+/* motif hexagonal discret, ambiance industrielle/énergie plutôt que photo */
 body::before{
-  content:'';position:absolute;inset:0;
-  background:url('https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg') center/cover no-repeat;
-  opacity:.15;z-index:0;
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  opacity:.35;
+  background-image:
+    linear-gradient(30deg,rgba(245,158,11,.05) 12%,transparent 12.5%,transparent 87%,rgba(245,158,11,.05) 87.5%,rgba(245,158,11,.05)),
+    linear-gradient(150deg,rgba(245,158,11,.05) 12%,transparent 12.5%,transparent 87%,rgba(245,158,11,.05) 87.5%,rgba(245,158,11,.05)),
+    linear-gradient(30deg,rgba(245,158,11,.05) 12%,transparent 12.5%,transparent 87%,rgba(245,158,11,.05) 87.5%,rgba(245,158,11,.05)),
+    linear-gradient(150deg,rgba(245,158,11,.05) 12%,transparent 12.5%,transparent 87%,rgba(245,158,11,.05) 87.5%,rgba(245,158,11,.05));
+  background-size:52px 90px;
+  background-position:0 0,0 0,26px 45px,26px 45px;
 }
 .page{position:relative;z-index:1;width:100%;max-width:440px;min-height:100vh;display:flex;flex-direction:column;}
 
@@ -27,39 +36,44 @@ body::before{
 .logo-section{
   flex:1;display:flex;flex-direction:column;
   align-items:center;justify-content:center;
-  padding:50px 20px 24px;
+  padding:56px 20px 26px;
 }
-.logo-main{display:flex;align-items:flex-end;gap:4px;}
-.logo-v{
-  font-family:'Playfair Display',serif;
-  font-size:80px;font-weight:900;
-  color:#e53935;line-height:1;
-  text-shadow:0 4px 24px rgba(229,57,53,.4);
+.logo-mark{
+  width:54px;height:54px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#f59e0b,#ea580c);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  box-shadow:0 6px 24px rgba(245,158,11,.45);
+  margin-bottom:14px;
 }
+.logo-mark svg{width:26px;height:26px;}
 .logo-text{
-  font-family:'Playfair Display',serif;
-  font-size:42px;font-weight:700;
-  color:#fff;padding-bottom:8px;
-  text-shadow:0 2px 16px rgba(0,0,0,.3);
+  font-family:'Space Grotesk',sans-serif;
+  font-size:34px;font-weight:800;
+  letter-spacing:3px;
+  color:#fff;
+  text-transform:uppercase;
 }
 .logo-sub{
-  font-size:11px;color:rgba(255,255,255,.7);
+  font-size:11px;color:rgba(255,255,255,.5);
   letter-spacing:4px;text-transform:uppercase;
-  margin-top:8px;
+  margin-top:10px;
+  font-weight:600;
 }
+.logo-sub span{color:#f59e0b;}
 
 /* CARD */
 .card{
   background:#fff;
-  border-radius:32px 32px 0 0;
+  border-radius:26px 26px 0 0;
   padding:28px 22px 44px;
-  box-shadow:0 -8px 40px rgba(0,0,0,.15);
+  box-shadow:0 -10px 40px rgba(0,0,0,.35);
 }
 
-/* TABS — style DJI : pill container, onglet actif en vert plein */
+/* TABS */
 .tabs{
   display:flex;
-  background:rgba(0,0,0,.06);
+  background:rgba(15,23,42,.06);
   border-radius:50px;
   padding:5px;
   margin-bottom:24px;
@@ -69,15 +83,15 @@ body::before{
   padding:14px 0;
   font-size:15px;font-weight:700;
   background:none;border:none;cursor:pointer;
-  color:#90a4ae;
+  color:#8a94a6;
   border-radius:50px;
   transition:all .25s;
   font-family:'DM Sans',sans-serif;
 }
 .tab.active{
-  background:#00bcd4;
+  background:linear-gradient(135deg,#f59e0b,#ea580c);
   color:#fff;
-  box-shadow:0 4px 16px rgba(0,188,212,.35);
+  box-shadow:0 4px 16px rgba(234,88,12,.35);
 }
 
 /* CHAMPS */
@@ -92,15 +106,15 @@ body::before{
   padding:15px 15px 15px 50px;
   font-size:15px;font-family:'DM Sans',sans-serif;
   border:none;
-  border-radius:50px;         /* pill */
-  background:#f0f7f9;color:#0f2a3a;outline:none;
+  border-radius:14px;
+  background:#f4f5f7;color:#12161f;outline:none;
   transition:background .2s,box-shadow .2s;
 }
 .field input:focus{
-  background:#e0f7fa;
-  box-shadow:0 0 0 2.5px #00bcd4;
+  background:#fff7ec;
+  box-shadow:0 0 0 2.5px #f59e0b;
 }
-.field input::placeholder{color:#b0bec5;}
+.field input::placeholder{color:#a4acb9;}
 
 /* PHONE */
 .phone-row{display:flex;gap:8px;}
@@ -109,31 +123,31 @@ body::before{
   padding:15px 12px;font-size:12px;
   font-family:'DM Sans',sans-serif;
   border:none;
-  border-radius:50px;         /* pill */
-  background:#f0f7f9;color:#0f2a3a;outline:none;cursor:pointer;
+  border-radius:14px;
+  background:#f4f5f7;color:#12161f;outline:none;cursor:pointer;
   appearance:none;
   -webkit-appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2390a4ae' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a94a6' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat:no-repeat;
   background-position:right 12px center;
-  background-color:#f0f7f9;
+  background-color:#f4f5f7;
   padding-right:28px;
 }
-.cc-sel:focus{background-color:#e0f7fa;box-shadow:0 0 0 2.5px #00bcd4;}
+.cc-sel:focus{background-color:#fff7ec;box-shadow:0 0 0 2.5px #f59e0b;}
 .ph-inp{
   flex:1;
   padding:15px 18px;font-size:15px;
   font-family:'DM Sans',sans-serif;
   border:none;
-  border-radius:50px;         /* pill */
-  background:#f0f7f9;color:#0f2a3a;outline:none;
+  border-radius:14px;
+  background:#f4f5f7;color:#12161f;outline:none;
 }
-.ph-inp:focus{background:#e0f7fa;box-shadow:0 0 0 2.5px #00bcd4;}
+.ph-inp:focus{background:#fff7ec;box-shadow:0 0 0 2.5px #f59e0b;}
 
 /* FORGOT */
 .forgot{
   display:block;text-align:right;
-  font-size:12px;color:#00bcd4;
+  font-size:12px;color:#ea580c;
   font-weight:600;text-decoration:none;
   margin-top:-4px;margin-bottom:16px;
 }
@@ -141,24 +155,24 @@ body::before{
 /* ALERTS */
 .alert{
   padding:11px 18px;
-  border-radius:50px;          /* pill */
+  border-radius:14px;
   font-size:13px;font-weight:600;
   margin-bottom:13px;display:none;
 }
 .alert.show{display:block;}
-.err{background:#fff5f5;border-left:3px solid #e53935;color:#c53030;border-radius:14px;}
-.suc{background:#f0fdf4;border-left:3px solid #4caf50;color:#15803d;border-radius:14px;}
+.err{background:#fff5f5;border-left:3px solid #dc2626;color:#b91c1c;}
+.suc{background:#f0fdf4;border-left:3px solid #16a34a;color:#15803d;}
 
-/* BTN PRINCIPAL — pill complet */
+/* BTN PRINCIPAL */
 .btn-main{
   width:100%;padding:17px;
-  background:linear-gradient(135deg,#00bcd4,#0097a7);
+  background:linear-gradient(135deg,#f59e0b,#ea580c);
   color:#fff;font-size:16px;font-weight:800;
   border:none;
-  border-radius:50px;         /* pill */
+  border-radius:14px;
   cursor:pointer;
   font-family:'DM Sans',sans-serif;
-  box-shadow:0 6px 20px rgba(0,188,212,.4);
+  box-shadow:0 8px 22px rgba(234,88,12,.4);
   margin-top:4px;margin-bottom:16px;
   transition:opacity .2s,transform .15s;
 }
@@ -167,16 +181,16 @@ body::before{
 
 /* CGU */
 .cgu{text-align:center;font-size:12px;color:#aaa;margin-top:2px;}
-.cgu a{color:#00bcd4;font-weight:600;text-decoration:none;}
-.sw-text{text-align:center;font-size:13px;color:#90a4ae;margin-top:10px;}
-.sw-btn{color:#00bcd4;font-weight:700;background:none;border:none;cursor:pointer;font-size:13px;font-family:inherit;}
+.cgu a{color:#ea580c;font-weight:600;text-decoration:none;}
+.sw-text{text-align:center;font-size:13px;color:#8a94a6;margin-top:10px;}
+.sw-btn{color:#ea580c;font-weight:700;background:none;border:none;cursor:pointer;font-size:13px;font-family:inherit;}
 
 /* REDIR */
-.redir{position:fixed;inset:0;background:linear-gradient(135deg,#003d4d,#00bcd4);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+.redir{position:fixed;inset:0;background:linear-gradient(135deg,#0a0d13,#1b2130);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
 .redir.show{display:flex;}
-.redir-logo{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:#fff;letter-spacing:3px;}
-.redir-spin{width:44px;height:44px;border:3px solid rgba(255,255,255,.3);border-top:3px solid #fff;border-radius:50%;animation:sp .7s linear infinite;}
-.redir-txt{color:rgba(255,255,255,.9);font-size:14px;font-weight:600;}
+.redir-logo{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:800;color:#fff;letter-spacing:4px;}
+.redir-spin{width:44px;height:44px;border:3px solid rgba(245,158,11,.25);border-top:3px solid #f59e0b;border-radius:50%;animation:sp .7s linear infinite;}
+.redir-txt{color:rgba(255,255,255,.75);font-size:14px;font-weight:600;}
 @keyframes sp{to{transform:rotate(360deg)}}
 .hidden{display:none;}
 </style>
@@ -184,7 +198,7 @@ body::before{
 <body>
 
 <div class="redir" id="redir">
-  <div class="redir-logo">VELERO</div>
+  <div class="redir-logo">SINIPEC</div>
   <div class="redir-spin"></div>
   <div class="redir-txt" id="redirTxt">Connexion en cours...</div>
 </div>
@@ -192,11 +206,13 @@ body::before{
 <div class="page">
   <!-- LOGO -->
   <div class="logo-section">
-    <div class="logo-main">
-      <span class="logo-v">V</span>
-      <span class="logo-text">elero</span>
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="#fff"/>
+      </svg>
     </div>
-    <div class="logo-sub">Investment Platform · Energy</div>
+    <div class="logo-text">Sinipec</div>
+    <div class="logo-sub">Investment <span>·</span> Energy Platform</div>
   </div>
 
   <!-- CARD -->
@@ -291,10 +307,10 @@ function setErr(id,msg){const e=document.getElementById(id);e.textContent=msg;e.
 function setOk(id,msg){const e=document.getElementById(id);e.textContent=msg;e.className="alert suc show";}
 
 function saveAndGo(d,msg){
-  localStorage.setItem("velero_token",d.access_token);
-  localStorage.setItem("velero_refresh",d.refresh_token||"");
-  localStorage.setItem("velero_uid",d.user.id);
-  localStorage.setItem("velero_email",d.user.email);
+  localStorage.setItem("sinipec_token",d.access_token);
+  localStorage.setItem("sinipec_refresh",d.refresh_token||"");
+  localStorage.setItem("sinipec_uid",d.user.id);
+  localStorage.setItem("sinipec_email",d.user.email);
   document.getElementById("redirTxt").textContent=msg;
   document.getElementById("redir").classList.add("show");
   setTimeout(()=>window.location.href="dashboard.html",900);
@@ -339,7 +355,7 @@ async function doRegister(){
     if(d.error){setErr("rErr",d.error_description||d.error);btn.disabled=false;btn.textContent="S'inscrire";return;}
     if(d.access_token&&d.user){
       await new Promise(res=>setTimeout(res,1500));
-      saveAndGo(d,"Bienvenue sur Velero Energy 🎉");
+      saveAndGo(d,"Bienvenue sur Sinipec 🎉");
     }else{
       const r2=await fetch(SB+"/auth/v1/token?grant_type=password",{
         method:"POST",headers:{"Content-Type":"application/json","apikey":AK},
