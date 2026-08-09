@@ -15,8 +15,14 @@ body{min-height:100vh;background:#f6f4f1;font-family:'DM Sans',sans-serif;color:
 
 /* Plan sélectionné */
 .plan-hero{margin:14px;border-radius:20px;padding:22px 20px;color:#fff;position:relative;overflow:hidden;}
-.plan-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.1);}
-.plan-hero::after{content:'';position:absolute;bottom:-20px;left:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.08);}
+.plan-hero::before{content:'';position:absolute;inset:0;opacity:.5;pointer-events:none;
+  background-image:
+    linear-gradient(30deg,rgba(255,255,255,.08) 12%,transparent 12.5%,transparent 87%,rgba(255,255,255,.08) 87.5%,rgba(255,255,255,.08)),
+    linear-gradient(150deg,rgba(255,255,255,.08) 12%,transparent 12.5%,transparent 87%,rgba(255,255,255,.08) 87.5%,rgba(255,255,255,.08));
+  background-size:36px 62px;}
+.plan-hero::after{content:'';position:absolute;top:16px;right:16px;width:34px;height:34px;
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  background:rgba(255,255,255,.18);}
 .ph-badge{font-size:36px;margin-bottom:8px;}
 .ph-name{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;margin-bottom:4px;}
 .ph-tag{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;margin-bottom:16px;}
