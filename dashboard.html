@@ -4,104 +4,83 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
 <link rel="manifest" href="/manifest.json"/>
-<meta name="theme-color" content="#00bcd4"/>
+<meta name="theme-color" content="#f59e0b"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<meta name="apple-mobile-web-app-title" content="Velero Energy"/>
-<title>Dashboard — Velero Energy</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<meta name="apple-mobile-web-app-title" content="Sinipec"/>
+<title>Dashboard — Sinipec</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
+body{min-height:100vh;background:#f6f4f1;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
 .wrap{width:100%;max-width:480px;padding-bottom:80px;}
-.loader{position:fixed;inset:0;background:linear-gradient(135deg,#00bcd4,#0097a7);z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
-.loader-logo{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#fff;}
-.loader-spin{width:40px;height:40px;border:3px solid rgba(255,255,255,.3);border-top:3px solid #fff;border-radius:50%;animation:sp .7s linear infinite;}
-.loader-txt{color:rgba(255,255,255,.9);font-size:14px;}
+.loader{position:fixed;inset:0;background:linear-gradient(135deg,#0a0d13,#1b2130);z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+.loader-logo{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;letter-spacing:3px;color:#fff;text-transform:uppercase;}
+.loader-spin{width:40px;height:40px;border:3px solid rgba(245,158,11,.25);border-top:3px solid #f59e0b;border-radius:50%;animation:sp .7s linear infinite;}
+.loader-txt{color:rgba(255,255,255,.75);font-size:14px;}
 @keyframes sp{to{transform:rotate(360deg)}}
 .slider{position:relative;width:100%;height:270px;overflow:hidden;}
 .slides{display:flex;height:100%;transition:transform .5s ease;}
 .slide{min-width:100%;height:100%;position:relative;flex-shrink:0;}
 .slide img{width:100%;height:100%;object-fit:cover;}
-.slide-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(0,0,0,.1),rgba(0,0,0,.65));}
+.slide-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(10,13,19,.15),rgba(10,13,19,.7));}
 .dots{position:absolute;bottom:70px;right:16px;display:flex;gap:5px;z-index:10;}
 .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:all .3s;}
 .dot.active{background:#fff;width:18px;border-radius:4px;}
 .profile-overlay{position:absolute;bottom:58px;left:16px;display:flex;align-items:center;gap:12px;z-index:10;}
-.avatar{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#00bcd4,#0097a7);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#fff;border:3px solid rgba(255,255,255,.85);font-family:'Playfair Display',serif;}
+.avatar{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ea580c);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;color:#fff;border:3px solid rgba(255,255,255,.85);font-family:'Space Grotesk',sans-serif;}
 .user-name{font-size:18px;font-weight:700;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5);}
 .level-pill{display:inline-block;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.6);color:#fff;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;margin-top:4px;}
 .action-bar{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;display:flex;gap:10px;z-index:10;background:linear-gradient(0deg,rgba(0,0,0,.5),transparent);}
-.btn-r{background:#00bcd4;color:#fff;border:none;border-radius:14px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;}
-.btn-c{flex:1;background:#fff;color:#00bcd4;border:none;border-radius:14px;padding:10px 0;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.btn-r{background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;border:none;border-radius:14px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;}
+.btn-c{flex:1;background:#fff;color:#ea580c;border:none;border-radius:14px;padding:10px 0;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .bonus-banner{margin:12px 14px 0;background:#fff8e1;border:1px solid #ffe082;border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;}
-.plan-banner{margin:10px 14px 0;background:linear-gradient(135deg,#00bcd4,#0097a7);border-radius:14px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;color:#fff;}
+.plan-banner{margin:10px 14px 0;background:linear-gradient(135deg,#f59e0b,#ea580c);border-radius:14px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;color:#fff;}
 .pb-btn{background:rgba(255,255,255,.25);border:none;color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .balance-row{display:flex;gap:10px;padding:12px 14px 6px;}
 .bal-card{flex:1;background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
-.bal-card.a{border-top:3px solid #00bcd4;}
-.bal-card.b{border-top:3px solid #ffa000;}
+.bal-card.a{border-top:3px solid #f59e0b;}
+.bal-card.b{border-top:3px solid #ea580c;}
 .bal-label{font-size:10px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;}
-.bal-val{font-size:20px;font-weight:800;color:#1a1a1a;font-family:'Playfair Display',serif;}
+.bal-val{font-size:20px;font-weight:800;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;}
 .menu-section{padding:12px 14px 6px;}
 .menu-title{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:9px;}
 .menu-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
 .menu-btn{display:flex;flex-direction:column;align-items:center;gap:6px;background:#fff;border:none;border-radius:14px;padding:12px 4px;cursor:pointer;color:#444;font-size:10px;font-weight:600;text-align:center;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.06);font-family:'DM Sans',sans-serif;}
-.mi{width:34px;height:34px;border-radius:10px;background:#e0f7fa;display:flex;align-items:center;justify-content:center;font-size:17px;margin:0 auto;}
+.mi{width:34px;height:34px;border-radius:10px;background:#fef3e2;display:flex;align-items:center;justify-content:center;font-size:17px;margin:0 auto;}
 .logout-wrap{padding:12px 14px;}
-.btn-out{width:100%;padding:13px;background:#fff;border:1.5px solid #00bcd4;border-radius:13px;color:#00bcd4;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-out{width:100%;padding:13px;background:#fff;border:1.5px solid #ea580c;border-radius:13px;color:#ea580c;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;}
 
 /* RACCOURCIS SOMBRES */
-.quick-card{margin:12px 14px 0;background:#1c2b30;border-radius:20px;padding:16px 14px 14px;}
+.quick-card{margin:12px 14px 0;background:#12161f;border-radius:20px;padding:16px 14px 14px;}
 .quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:14px;}
 .quick-btn{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:none;cursor:pointer;color:#fff;font-size:11px;font-weight:600;font-family:'DM Sans',sans-serif;text-decoration:none;}
-.quick-icon{width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;}
+.quick-icon{width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;}
 .quick-icon svg{width:22px;height:22px;color:#fff;}
-.quick-notif{background:rgba(255,255,255,.08);border-radius:50px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;}
+.quick-notif{background:rgba(255,255,255,.06);border-radius:50px;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;}
 .quick-notif-left{display:flex;align-items:center;gap:10px;}
-.notif-bell{width:34px;height:34px;border-radius:50%;background:rgba(0,188,212,.2);border:1.5px solid rgba(0,188,212,.4);display:flex;align-items:center;justify-content:center;}
-.notif-bell svg{width:16px;height:16px;color:#00bcd4;}
-.notif-id{font-size:13px;color:rgba(255,255,255,.5);letter-spacing:2px;}
+.notif-bell{width:34px;height:34px;border-radius:50%;background:rgba(245,158,11,.18);border:1.5px solid rgba(245,158,11,.4);display:flex;align-items:center;justify-content:center;}
+.notif-bell svg{width:16px;height:16px;color:#f59e0b;}
+.notif-id{font-size:12px;color:rgba(255,255,255,.45);letter-spacing:1px;}
 
 /* CENTRE DE MISSIONS */
 .mission-card{margin:12px 14px 0;background:#fff;border-radius:20px;padding:18px;box-shadow:0 2px 12px rgba(0,0,0,.07);display:flex;gap:14px;align-items:stretch;}
-.mission-left{flex:1;}
-.mission-title{font-size:18px;font-weight:900;color:#1a1a1a;line-height:1.2;margin-bottom:6px;}
-.mission-desc{font-size:12px;color:#90a4ae;line-height:1.5;margin-bottom:14px;}
-.mission-btn{display:inline-flex;align-items:center;gap:6px;background:#1c2b30;color:#fff;border:none;border-radius:50px;padding:11px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;}
-.mission-btn svg{width:14px;height:14px;}
-.mission-right{display:flex;flex-direction:column;gap:6px;width:140px;flex-shrink:0;}
-.mstat{background:linear-gradient(135deg,#00bcd4,#0097a7);border-radius:12px;padding:10px 12px;}
-.mstat-label{font-size:10px;color:rgba(255,255,255,.75);margin-bottom:2px;}
-.mstat-val{font-size:15px;font-weight:800;color:#fff;font-family:'Playfair Display',serif;}
-
-/* RACCOURCIS SOMBRES */
-.quick-card{margin:12px 14px 0;background:#1c2b30;border-radius:20px;padding:16px 14px 14px;}
-.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:14px;}
-.quick-btn{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:none;cursor:pointer;color:#fff;font-size:11px;font-weight:600;font-family:'DM Sans',sans-serif;text-decoration:none;}
-.quick-icon{width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;}
-.quick-icon svg{width:22px;height:22px;color:#fff;}
-.quick-notif{background:rgba(255,255,255,.08);border-radius:50px;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;}
-.notif-bell{width:34px;height:34px;border-radius:50%;background:rgba(0,188,212,.2);border:1.5px solid rgba(0,188,212,.4);display:flex;align-items:center;justify-content:center;}
-.notif-bell svg{width:16px;height:16px;color:#00bcd4;}
-.notif-id{font-size:12px;color:rgba(255,255,255,.45);letter-spacing:1px;}
-/* MISSIONS */
-.mission-card{margin:12px 14px 0;background:#fff;border-radius:20px;padding:18px;box-shadow:0 2px 12px rgba(0,0,0,.07);display:flex;gap:14px;align-items:stretch;}
 .mission-left{flex:1;display:flex;flex-direction:column;}
-.mission-title{font-size:18px;font-weight:900;color:#1a1a1a;line-height:1.2;margin-bottom:6px;}
+.mission-title{font-size:18px;font-weight:800;color:#1a1a1a;line-height:1.2;margin-bottom:6px;font-family:'Space Grotesk',sans-serif;}
 .mission-desc{font-size:12px;color:#90a4ae;line-height:1.5;margin-bottom:14px;flex:1;}
-.mission-btn{display:inline-flex;align-items:center;gap:6px;background:#1c2b30;color:#fff;border:none;border-radius:50px;padding:11px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;align-self:flex-start;}
+.mission-btn{display:inline-flex;align-items:center;gap:6px;background:#12161f;color:#fff;border:none;border-radius:50px;padding:11px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;align-self:flex-start;}
 .mission-btn svg{width:14px;height:14px;}
 .mission-right{display:flex;flex-direction:column;gap:6px;width:135px;flex-shrink:0;}
-.mstat{background:linear-gradient(135deg,#00bcd4,#0097a7);border-radius:12px;padding:10px 12px;}
+.mstat{background:linear-gradient(135deg,#f59e0b,#ea580c);border-radius:12px;padding:10px 12px;}
 .mstat-label{font-size:10px;color:rgba(255,255,255,.75);margin-bottom:2px;}
-.mstat-val{font-size:14px;font-weight:800;color:#fff;font-family:'Playfair Display',serif;}
+.mstat-val{font-size:14px;font-weight:800;color:#fff;font-family:'Space Grotesk',sans-serif;}
+
 /* BOTTOM NAV — icônes SVG */
 .bottom-nav{
   position:fixed;bottom:0;left:50%;transform:translateX(-50%);
   width:100%;max-width:480px;
-  background:#fff;border-top:1px solid #f0ebe8;
+  background:#fff;border-top:1px solid #efece7;
   display:flex;padding:8px 0 12px;z-index:100;
   box-shadow:0 -4px 20px rgba(0,0,0,.08);
 }
@@ -110,16 +89,16 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
   text-decoration:none;color:#ccc;font-size:10px;font-weight:600;
   font-family:'DM Sans',sans-serif;
 }
-.nav-item.active{color:#00bcd4;}
+.nav-item.active{color:#ea580c;}
 .nav-item svg{width:22px;height:22px;}
-.nav-dot{width:5px;height:5px;border-radius:50%;background:#00bcd4;margin:1px auto 0;}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:#ea580c;margin:1px auto 0;}
 </style>
 </head>
 <body>
 <script src="/pwa-install.js"></script>
 
 <div class="loader" id="loader">
-  <div class="loader-logo">Velero Energy</div>
+  <div class="loader-logo">Sinipec</div>
   <div class="loader-spin"></div>
   <div class="loader-txt" id="loaderTxt">Chargement...</div>
 </div>
@@ -128,22 +107,22 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
   <div class="slider">
     <div class="slides" id="slides">
       <div class="slide">
-        <img src="https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg" alt="V1" onerror="this.src='https://images.unsplash.com/photo-1545459720-aac8509eb61d?w=800'"/>
+        <img src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=800&q=80" alt="S1" onerror="this.src='https://images.unsplash.com/photo-1545459720-aac8509eb61d?w=800'"/>
         <div class="slide-overlay"></div>
       </div>
       <div class="slide">
-        <img src="https://i.ibb.co/7Jq8g7pX/Screenshot-20260529-153024-Chrome.jpg" alt="V2" onerror="this.src='https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800'"/>
+        <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80" alt="S2" onerror="this.src='https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800'"/>
         <div class="slide-overlay"></div>
       </div>
       <div class="slide">
-        <img src="https://images.unsplash.com/photo-1545459720-aac8509eb61d?w=800&q=80" alt="V3"/>
+        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&q=80" alt="S3"/>
         <div class="slide-overlay"></div>
       </div>
     </div>
     <div class="profile-overlay">
-      <div class="avatar" id="av">V</div>
+      <div class="avatar" id="av">S</div>
       <div>
-        <div class="user-name" id="uname">Velero</div>
+        <div class="user-name" id="uname">Sinipec</div>
         <div class="level-pill" id="ulevel">LV1</div>
       </div>
     </div>
@@ -162,7 +141,7 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
     <span style="font-size:22px;">🎁</span>
     <div>
       <div style="font-size:13px;font-weight:700;color:#f57f17;">Bonus de bienvenue : + 1 000 FCFA !</div>
-      <div style="font-size:11px;color:#ffa000;">Bienvenue sur Velero Energy 🎉</div>
+      <div style="font-size:11px;color:#ea580c;">Bienvenue sur Sinipec 🎉</div>
     </div>
   </div>
 
@@ -287,8 +266,8 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;color:
 const SB="https://seegoklunovyuieorkvy.supabase.co";
 const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
 
-function tok(){return localStorage.getItem("velero_token")||"";}
-function uid(){return localStorage.getItem("velero_uid")||"";}
+function tok(){return localStorage.getItem("sinipec_token")||"";}
+function uid(){return localStorage.getItem("sinipec_uid")||"";}
 function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
 
 let cur=0;
@@ -312,16 +291,16 @@ function logout(){
 
 async function creerProfilSiManquant(userId, email){
   const nom=email.split("@")[0];
-  const refCode="VE"+nom.substring(0,4).toUpperCase().replace(/[^A-Z]/g,"X")+Math.floor(1000+Math.random()*9000);
+  const refCode="SI"+nom.substring(0,4).toUpperCase().replace(/[^A-Z]/g,"X")+Math.floor(1000+Math.random()*9000);
   await fetch(SB+"/rest/v1/profiles",{
     method:"POST",
     headers:{...H(),"Prefer":"return=minimal,resolution=ignore-duplicates"},
-    body:JSON.stringify({id:userId,email,full_name:localStorage.getItem("velero_name")||nom,solde:1000,revenus_cumules:0,level:1,referral_code:refCode})
+    body:JSON.stringify({id:userId,email,full_name:localStorage.getItem("sinipec_name")||nom,solde:1000,revenus_cumules:0,level:1,referral_code:refCode})
   });
   await fetch(SB+"/rest/v1/transactions",{
     method:"POST",
     headers:{...H(),"Prefer":"return=minimal"},
-    body:JSON.stringify({user_id:userId,type:"bonus",montant:1000,montant_net:1000,statut:"valide",note:"Bonus de bienvenue Velero Energy"})
+    body:JSON.stringify({user_id:userId,type:"bonus",montant:1000,montant_net:1000,statut:"valide",note:"Bonus de bienvenue Sinipec"})
   });
 }
 
@@ -332,18 +311,18 @@ async function init(){
   try{
     let r=await fetch(SB+"/rest/v1/profiles?id=eq."+u+"&select=*",{headers:H()});
     if(r.status===401){
-      const ref=localStorage.getItem("velero_refresh");
+      const ref=localStorage.getItem("sinipec_refresh");
       if(ref){
         const rr=await fetch(SB+"/auth/v1/token?grant_type=refresh_token",{method:"POST",headers:{"Content-Type":"application/json","apikey":AK},body:JSON.stringify({refresh_token:ref})});
         const rd=await rr.json();
-        if(rd.access_token){localStorage.setItem("velero_token",rd.access_token);if(rd.refresh_token)localStorage.setItem("velero_refresh",rd.refresh_token);location.reload();return;}
+        if(rd.access_token){localStorage.setItem("sinipec_token",rd.access_token);if(rd.refresh_token)localStorage.setItem("sinipec_refresh",rd.refresh_token);location.reload();return;}
       }
       localStorage.clear();location.href="index.html";return;
     }
     let data=await r.json();
     if(!data||data.length===0){
       document.getElementById("loaderTxt").textContent="Création de votre profil...";
-      const email=localStorage.getItem("velero_email")||"";
+      const email=localStorage.getItem("sinipec_email")||"";
       await creerProfilSiManquant(u,email);
       await new Promise(res=>setTimeout(res,800));
       r=await fetch(SB+"/rest/v1/profiles?id=eq."+u+"&select=*",{headers:H()});
@@ -386,7 +365,7 @@ async function init(){
         }
       }).catch(()=>{});
   }catch(e){
-    const email=localStorage.getItem("velero_email")||"";
+    const email=localStorage.getItem("sinipec_email")||"";
     const name=email.split("@")[0]||"Utilisateur";
     document.getElementById("av").textContent=name[0].toUpperCase();
     document.getElementById("uname").textContent=name.charAt(0).toUpperCase()+name.slice(1);
