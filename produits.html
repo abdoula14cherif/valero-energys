@@ -8,6 +8,18 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{min-height:100vh;background:#f6f4f1;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
+/* Sélecteur de produits */
+.plan-picker{display:flex;gap:8px;overflow-x:auto;padding:14px 14px 4px;scrollbar-width:none;}
+.plan-picker::-webkit-scrollbar{display:none;}
+.plan-chip{
+  flex-shrink:0;min-width:98px;background:#fff;border:1.5px solid #ece7e2;border-radius:14px;
+  padding:10px 12px;cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);transition:border-color .15s;
+}
+.plan-chip.active{border-color:#ea580c;background:#fff3e2;}
+.plan-chip-invest{font-size:13px;font-weight:800;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;}
+.plan-chip-revenu{font-size:11px;color:#90a4ae;margin-top:2px;}
+
 .wrap{width:100%;max-width:480px;padding-bottom:80px;}
 .topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
 .back-btn{background:none;border:none;font-size:20px;cursor:pointer;}
@@ -90,6 +102,9 @@ body{min-height:100vh;background:#f6f4f1;font-family:'DM Sans',sans-serif;color:
     <button class="back-btn" onclick="history.back()">←</button>
     <span class="topbar-title">🚀 Commencer à Investir</span>
   </div>
+
+  <!-- Sélecteur de produits -->
+  <div class="plan-picker" id="planPicker"></div>
 
   <!-- Plan hero -->
   <div class="plan-hero" id="planHero">
@@ -206,30 +221,66 @@ body{min-height:100vh;background:#f6f4f1;font-family:'DM Sans',sans-serif;color:
 if(!localStorage.getItem("sinipec_token"))window.location.href="index.html";
 
 const PLANS={
-  Starter:{badge:"🟢",tag:"Débutant",invest:3000,revenu:400,total:40000,color:"linear-gradient(135deg,#f59e0b,#ea580c)"},
-  Bronze:{badge:"🔵",tag:"Bronze",invest:6000,revenu:900,total:90000,color:"linear-gradient(135deg,#cd7f32,#a0522d)"},
-  Silver:{badge:"🟠",tag:"Silver",invest:10000,revenu:1500,total:150000,color:"linear-gradient(135deg,#78909c,#546e7a)"},
-  Gold:{badge:"🟣",tag:"Gold",invest:20000,revenu:3500,total:350000,color:"linear-gradient(135deg,#ffd700,#ffa000)"},
-  Premium:{badge:"🔴",tag:"Premium",invest:50000,revenu:10000,total:1000000,color:"linear-gradient(135deg,#e53935,#b71c1c)"},
-  VIP:{badge:"👑",tag:"Exclusif",invest:100000,revenu:20000,total:2000000,color:"linear-gradient(135deg,#9c27b0,#6a1b9a)"},
-  Cold:{badge:"❄️",tag:"Institutionnel",invest:300000,revenu:50000,total:5000000,color:"linear-gradient(135deg,#1565c0,#0d47a1)"}
+  Starter:{badge:"🟢",tag:"Débutant",invest:3000,revenu:300,total:30000,color:"linear-gradient(135deg,#f59e0b,#ea580c)"},
+  Bronze:{badge:"🔵",tag:"Bronze",invest:5000,revenu:500,total:50000,color:"linear-gradient(135deg,#cd7f32,#a0522d)"},
+  Silver:{badge:"🟠",tag:"Silver",invest:8000,revenu:700,total:70000,color:"linear-gradient(135deg,#78909c,#546e7a)"},
+  Gold:{badge:"🟣",tag:"Gold",invest:15000,revenu:1000,total:100000,color:"linear-gradient(135deg,#ffd700,#ffa000)"},
+  Premium:{badge:"🔴",tag:"Premium",invest:25000,revenu:1500,total:150000,color:"linear-gradient(135deg,#e53935,#b71c1c)"},
+  VIP:{badge:"👑",tag:"Exclusif",invest:50000,revenu:3500,total:350000,color:"linear-gradient(135deg,#9c27b0,#6a1b9a)"},
+  Elite:{badge:"💎",tag:"Elite",invest:100000,revenu:5000,total:500000,color:"linear-gradient(135deg,#1565c0,#0d47a1)"},
+  Cold:{badge:"❄️",tag:"Institutionnel",invest:300000,revenu:15000,total:1500000,color:"linear-gradient(135deg,#0a0d13,#1b2130)"}
 };
 
-const nom=localStorage.getItem("invest_produit")||"Starter";
-const plan=PLANS[nom]||PLANS.Starter;
+/* Rendu des chips de sélection */
+const picker=document.getElementById("planPicker");
+picker.innerHTML=Object.keys(PLANS).map(key=>{
+  const p=PLANS[key];
+  return `<button class="plan-chip" id="chip-${key}" onclick="choisirPlan('${key}')">
+    <div class="plan-chip-invest">${p.invest.toLocaleString()} FCFA</div>
+    <div class="plan-chip-revenu">${p.revenu.toLocaleString()}/j</div>
+  </button>`;
+}).join("");
 
-// Afficher le plan
-document.getElementById("planHero").style.background=plan.color;
-document.getElementById("phBadge").textContent=plan.badge;
-document.getElementById("phName").textContent="Produit "+nom;
-document.getElementById("phTag").textContent=plan.tag;
-document.getElementById("phInvest").textContent=plan.invest.toLocaleString()+" FCFA";
-document.getElementById("phRevenu").textContent=plan.revenu.toLocaleString()+" FCFA";
-document.getElementById("phTotal").textContent=plan.total.toLocaleString()+" FCFA";
-document.getElementById("totalPay").textContent=plan.invest.toLocaleString()+" FCFA";
-document.getElementById("tGain1").textContent="+"+plan.revenu.toLocaleString()+" FCFA";
-document.getElementById("tGain2").textContent="+"+plan.revenu.toLocaleString()+" FCFA";
-document.getElementById("tGain3").textContent="+"+plan.revenu.toLocaleString()+" FCFA";
+function choisirPlan(key){
+  localStorage.setItem("invest_produit",key);
+  afficherPlan(key);
+}
+
+function afficherPlan(nom){
+  const plan=PLANS[nom]||PLANS.Starter;
+
+  document.querySelectorAll(".plan-chip").forEach(c=>c.classList.remove("active"));
+  const chip=document.getElementById("chip-"+nom);
+  if(chip)chip.classList.add("active");
+
+  document.getElementById("planHero").style.background=plan.color;
+  document.getElementById("phBadge").textContent=plan.badge;
+  document.getElementById("phName").textContent="Produit "+nom;
+  document.getElementById("phTag").textContent=plan.tag;
+  document.getElementById("phInvest").textContent=plan.invest.toLocaleString()+" FCFA";
+  document.getElementById("phRevenu").textContent=plan.revenu.toLocaleString()+" FCFA";
+  document.getElementById("phTotal").textContent=plan.total.toLocaleString()+" FCFA";
+  document.getElementById("totalPay").textContent=plan.invest.toLocaleString()+" FCFA";
+  document.getElementById("tGain1").textContent="+"+plan.revenu.toLocaleString()+" FCFA";
+  document.getElementById("tGain2").textContent="+"+plan.revenu.toLocaleString()+" FCFA";
+  document.getElementById("tGain3").textContent="+"+plan.revenu.toLocaleString()+" FCFA";
+
+  // Plan déjà actif ?
+  const activePlan=JSON.parse(localStorage.getItem("sinipec_active_plan")||"null");
+  if(activePlan&&activePlan.nom===nom){
+    document.getElementById("paySection").style.display="none";
+    document.getElementById("activeBanner").style.display="block";
+    document.getElementById("abTitle").textContent="Plan "+nom+" Actif ! ✅";
+    document.getElementById("abJours").textContent=activePlan.joursRestants;
+    document.getElementById("abGain").textContent=plan.revenu.toLocaleString()+" FCFA";
+  }else{
+    document.getElementById("paySection").style.display="block";
+    document.getElementById("activeBanner").style.display="none";
+  }
+}
+
+const nom=localStorage.getItem("invest_produit")||"Starter";
+afficherPlan(nom);
 
 // Carte paiement
 const card=localStorage.getItem("sinipec_card");
@@ -241,22 +292,14 @@ if(card){
   document.getElementById("cardInfoSub").textContent=c.phone;
 }
 
-// Plan déjà actif ?
-const activePlan=JSON.parse(localStorage.getItem("sinipec_active_plan")||"null");
-if(activePlan&&activePlan.nom===nom){
-  document.getElementById("paySection").style.display="none";
-  document.getElementById("activeBanner").style.display="block";
-  document.getElementById("abTitle").textContent="Plan "+nom+" Actif ! ✅";
-  document.getElementById("abJours").textContent=activePlan.joursRestants;
-  document.getElementById("abGain").textContent=plan.revenu.toLocaleString()+" FCFA";
-}
-
 function showAlert(msg,type){
   const el=document.getElementById("alertBox");
   el.textContent=msg; el.className="alert alert-"+type+" show";
 }
 
 function activerPlan(){
+  const nom=localStorage.getItem("invest_produit")||"Starter";
+  const plan=PLANS[nom]||PLANS.Starter;
   if(!card){
     showAlert("⚠️ Ajoutez un moyen de paiement d'abord.","error");
     setTimeout(()=>location.href="banque.html",1800);
