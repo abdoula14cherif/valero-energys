@@ -4,21 +4,21 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
 <link rel="manifest" href="/manifest.json"/>
-<meta name="theme-color" content="#00bcd4"/>
+<meta name="theme-color" content="#f59e0b"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<meta name="apple-mobile-web-app-title" content="Velero Energy"/>
-<title>Banque — Velero Energy</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<meta name="apple-mobile-web-app-title" content="Sinipec"/>
+<title>Banque — Sinipec</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
+body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
 .wrap{width:100%;max-width:480px;padding-bottom:90px;}
 
 /* TOPBAR */
 .topbar{background:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
-.back-btn{background:none;border:none;cursor:pointer;color:#00bcd4;font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:4px;}
+.back-btn{background:none;border:none;cursor:pointer;color:#ea580c;font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:4px;}
 .back-btn svg{width:18px;height:18px;}
 .topbar-title{font-size:17px;font-weight:700;color:#1a1a1a;}
 
@@ -30,14 +30,14 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
 .saved-card{
   background:#fff;border-radius:16px;padding:16px 18px;
   box-shadow:0 2px 12px rgba(0,0,0,.07);
-  border-left:4px solid #00bcd4;
+  border-left:4px solid #f59e0b;
   display:none;margin-bottom:8px;
   justify-content:space-between;align-items:center;
 }
 .saved-card.show{display:flex;}
 .sc-info{font-size:14px;font-weight:700;color:#1a1a1a;}
 .sc-sub{font-size:12px;color:#90a4ae;margin-top:3px;}
-.sc-del{background:none;border:none;color:#e53935;cursor:pointer;padding:4px;}
+.sc-del{background:none;border:none;color:#dc2626;cursor:pointer;padding:4px;}
 .sc-del svg{width:20px;height:20px;}
 
 /* NO CARD */
@@ -59,7 +59,7 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
   border:1.5px solid #e8e8e8;border-radius:50px;
   outline:none;background:#fafafa;color:#1a1a1a;
 }
-.field input:focus,.field select:focus{border-color:#00bcd4;box-shadow:0 0 0 3px rgba(0,188,212,.1);}
+.field input:focus,.field select:focus{border-color:#f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,.12);}
 .field input::placeholder{color:#b0bec5;}
 .field select{appearance:none;-webkit-appearance:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2390a4ae' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
@@ -74,17 +74,17 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
   font-size:11px;font-weight:700;color:#555;
   transition:all .2s;font-family:'DM Sans',sans-serif;
 }
-.net-btn.selected{border-color:#00bcd4;background:#e0f7fa;color:#00bcd4;}
+.net-btn.selected{border-color:#f59e0b;background:#fff3e2;color:#c2410c;}
 .net-icon{font-size:20px;display:block;margin-bottom:3px;}
 
 /* BTN SAVE */
 .btn-save{
   width:100%;padding:16px;
-  background:linear-gradient(135deg,#00bcd4,#0097a7);
+  background:linear-gradient(135deg,#f59e0b,#ea580c);
   color:#fff;font-size:15px;font-weight:700;
   border:none;border-radius:50px;cursor:pointer;
   font-family:'DM Sans',sans-serif;
-  box-shadow:0 4px 16px rgba(0,188,212,.3);
+  box-shadow:0 4px 16px rgba(234,88,12,.3);
   margin-top:6px;transition:opacity .2s,transform .15s;
 }
 .btn-save:active{transform:scale(.98);}
@@ -92,15 +92,15 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
 /* ALERT */
 .alert{padding:12px 16px;border-radius:14px;font-size:13px;font-weight:600;margin-bottom:14px;display:none;line-height:1.5;}
 .alert.show{display:block;}
-.alert-error{background:#fff5f5;border-left:4px solid #e53935;color:#c53030;}
-.alert-success{background:#f0fdf4;border-left:4px solid #4caf50;color:#15803d;}
+.alert-error{background:#fff5f5;border-left:4px solid #dc2626;color:#b91c1c;}
+.alert-success{background:#f0fdf4;border-left:4px solid #16a34a;color:#15803d;}
 
 /* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0 14px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
-.nav-item.active{color:#00bcd4;}
+.nav-item.active{color:#ea580c;}
 .nav-item svg{width:22px;height:22px;}
-.nav-dot{width:5px;height:5px;border-radius:50%;background:#00bcd4;margin:1px auto 0;}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:#ea580c;margin:1px auto 0;}
 </style>
 </head>
 <body>
@@ -199,10 +199,10 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
 </nav>
 
 <script>
-const SB="https://seegoklunovyuieorkvy.supabase.co";
-const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
-function tok(){return localStorage.getItem("velero_token")||"";}
-function uid(){return localStorage.getItem("velero_uid")||"";}
+const SB="https://wpezwfskatogphaeffva.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwZXp3ZnNrYXRvZ3BoYWVmZnZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyNjc0MzksImV4cCI6MjEwMTg0MzQzOX0.0K82Hz7gKho2YC2rbbHNB4ZFe-0yuZcelI3XnFvWEW4";
+function tok(){return localStorage.getItem("sinipec_token")||"";}
+function uid(){return localStorage.getItem("sinipec_uid")||"";}
 function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
 
 if(!tok())window.location.href="index.html";
@@ -284,12 +284,12 @@ async function saveCard(){
       })
     });
     // Sauvegarder aussi en local pour accès rapide
-    localStorage.setItem("velero_card",JSON.stringify({pays,network:selectedNet,name,phone}));
+    localStorage.setItem("sinipec_card",JSON.stringify({pays,network:selectedNet,name,phone}));
     showAlert("Compte enregistre avec succes !","success");
     loadSavedCard();
   }catch(e){
     // Fallback local si erreur réseau
-    localStorage.setItem("velero_card",JSON.stringify({pays,network:selectedNet,name,phone}));
+    localStorage.setItem("sinipec_card",JSON.stringify({pays,network:selectedNet,name,phone}));
     showAlert("Compte enregistre localement.","success");
     loadSavedCard();
   }
@@ -298,7 +298,7 @@ async function saveCard(){
 }
 
 function loadSavedCard(){
-  const c=localStorage.getItem("velero_card");
+  const c=localStorage.getItem("sinipec_card");
   if(c){
     const card=JSON.parse(c);
     document.getElementById("savedInfo").textContent=card.network+" — "+card.name;
@@ -319,7 +319,7 @@ async function deleteCard(){
       body:JSON.stringify({actif:false})
     });
   }catch(e){}
-  localStorage.removeItem("velero_card");
+  localStorage.removeItem("sinipec_card");
   loadSavedCard();
 }
 
