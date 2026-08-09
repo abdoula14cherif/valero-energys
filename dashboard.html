@@ -33,7 +33,6 @@ body{min-height:100vh;background:#f6f4f1;font-family:'DM Sans',sans-serif;color:
 .user-name{font-size:18px;font-weight:700;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5);}
 .level-pill{display:inline-block;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.6);color:#fff;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;margin-top:4px;}
 .action-bar{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;display:flex;gap:10px;z-index:10;background:linear-gradient(0deg,rgba(0,0,0,.5),transparent);}
-.btn-r{background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;border:none;border-radius:14px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;}
 .btn-c{flex:1;background:#fff;color:#ea580c;border:none;border-radius:14px;padding:10px 0;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .bonus-banner{margin:12px 14px 0;background:#fff8e1;border:1px solid #ffe082;border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;}
 .plan-banner{margin:10px 14px 0;background:linear-gradient(135deg,#f59e0b,#ea580c);border-radius:14px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;color:#fff;}
@@ -63,18 +62,6 @@ body{min-height:100vh;background:#f6f4f1;font-family:'DM Sans',sans-serif;color:
 .notif-bell{width:34px;height:34px;border-radius:50%;background:rgba(245,158,11,.18);border:1.5px solid rgba(245,158,11,.4);display:flex;align-items:center;justify-content:center;}
 .notif-bell svg{width:16px;height:16px;color:#f59e0b;}
 .notif-id{font-size:12px;color:rgba(255,255,255,.45);letter-spacing:1px;}
-
-/* CENTRE DE MISSIONS */
-.mission-card{margin:12px 14px 0;background:#fff;border-radius:20px;padding:18px;box-shadow:0 2px 12px rgba(0,0,0,.07);display:flex;gap:14px;align-items:stretch;}
-.mission-left{flex:1;display:flex;flex-direction:column;}
-.mission-title{font-size:18px;font-weight:800;color:#1a1a1a;line-height:1.2;margin-bottom:6px;font-family:'Space Grotesk',sans-serif;}
-.mission-desc{font-size:12px;color:#90a4ae;line-height:1.5;margin-bottom:14px;flex:1;}
-.mission-btn{display:inline-flex;align-items:center;gap:6px;background:#12161f;color:#fff;border:none;border-radius:50px;padding:11px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;align-self:flex-start;}
-.mission-btn svg{width:14px;height:14px;}
-.mission-right{display:flex;flex-direction:column;gap:6px;width:135px;flex-shrink:0;}
-.mstat{background:linear-gradient(135deg,#f59e0b,#ea580c);border-radius:12px;padding:10px 12px;}
-.mstat-label{font-size:10px;color:rgba(255,255,255,.75);margin-bottom:2px;}
-.mstat-val{font-size:14px;font-weight:800;color:#fff;font-family:'Space Grotesk',sans-serif;}
 
 /* BOTTOM NAV — icônes SVG */
 .bottom-nav{
@@ -132,7 +119,6 @@ body{min-height:100vh;background:#f6f4f1;font-family:'DM Sans',sans-serif;color:
       <div class="dot" onclick="goTo(2)"></div>
     </div>
     <div class="action-bar">
-      <button class="btn-r" onclick="location.href='recharge.html'">💳 Recharger</button>
       <button class="btn-c" onclick="location.href='produits.html'">🚀 Commencer à investir</button>
     </div>
   </div>
@@ -190,23 +176,6 @@ body{min-height:100vh;background:#f6f4f1;font-family:'DM Sans',sans-serif;color:
     <div class="quick-notif">
       <div class="notif-bell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div>
       <span class="notif-id" id="notifId">******0000 a</span>
-    </div>
-  </div>
-
-  <!-- CENTRE DE MISSIONS -->
-  <div class="mission-card">
-    <div class="mission-left">
-      <div class="mission-title">Centre de missions</div>
-      <div class="mission-desc">Accomplissez des missions et obtenez des recompenses elevees</div>
-      <a href="missions.html" class="mission-btn">
-        Acceder
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-      </a>
-    </div>
-    <div class="mission-right">
-      <div class="mstat"><div class="mstat-label">Solde</div><div class="mstat-val" id="mSolde">FCFA 0</div></div>
-      <div class="mstat"><div class="mstat-label">Cumul</div><div class="mstat-val" id="mCumul">FCFA 0</div></div>
-      <div class="mstat"><div class="mstat-label">Retraits</div><div class="mstat-val" id="mRetraits">FCFA 0</div></div>
     </div>
   </div>
 
@@ -336,16 +305,9 @@ async function init(){
     document.getElementById("ulevel").textContent="LV"+(prof.level||1);
     document.getElementById("solde").textContent=parseFloat(prof.solde||0).toLocaleString()+" FCFA";
     document.getElementById("revenus").textContent=parseFloat(prof.revenus_cumules||0).toLocaleString()+" FCFA";
-    // Notif ID + stats missions
+    // Notif ID
     const shortId=prof.id?prof.id.replace(/-/g,"").slice(-4):"0000";
     document.getElementById("notifId").textContent="******"+shortId+" a";
-    document.getElementById("mSolde").textContent="FCFA "+parseFloat(prof.solde||0).toLocaleString();
-    document.getElementById("mCumul").textContent="FCFA "+parseFloat(prof.revenus_cumules||0).toLocaleString();
-    fetch(SB+"/rest/v1/transactions?user_id=eq."+u+"&type=eq.retrait&statut=eq.valide&select=montant_net",{headers:H()})
-      .then(r=>r.json()).then(txs=>{
-        const total=Array.isArray(txs)?txs.reduce((s,x)=>s+parseFloat(x.montant_net||0),0):0;
-        document.getElementById("mRetraits").textContent="FCFA "+total.toLocaleString();
-      }).catch(()=>{});
     const bk="bv_"+prof.id;
     if(!localStorage.getItem(bk)){
       document.getElementById("bonusBanner").style.display="flex";
