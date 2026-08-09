@@ -46,17 +46,12 @@ body{min-height:100vh;background:#f6f4f1;font-family:'DM Sans',sans-serif;color:
 .ph-total-label{font-size:11px;opacity:.8;margin-bottom:3px;}
 .ph-total-value{font-size:20px;font-weight:800;font-family:'Space Grotesk',sans-serif;}
 
-/* Tâche quotidienne */
-.task-card{margin:0 14px 12px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.08);}
-.task-title{font-size:15px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px;}
-.task-sub{font-size:12px;color:#aaa;margin-bottom:14px;}
-.task-list{display:flex;flex-direction:column;gap:8px;}
-.task-item{display:flex;align-items:center;gap:12px;background:#f8f9fa;border-radius:12px;padding:12px 14px;}
-.task-icon{font-size:24px;flex-shrink:0;}
-.task-info{flex:1;}
-.task-info-title{font-size:13px;font-weight:700;color:#1a1a1a;}
-.task-info-sub{font-size:11px;color:#aaa;margin-top:2px;}
-.task-gain{font-size:13px;font-weight:800;color:#ea580c;}
+/* Info gains 24h (remplace l'ancien bloc "tâche quotidienne") */
+.gains-card{margin:0 14px 12px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.08);display:flex;gap:14px;align-items:center;}
+.gains-icon{width:46px;height:46px;flex-shrink:0;border-radius:14px;background:#fff3e2;display:flex;align-items:center;justify-content:center;font-size:22px;}
+.gains-text{flex:1;}
+.gains-title{font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:3px;}
+.gains-sub{font-size:12px;color:#90a4ae;line-height:1.5;}
 
 /* Paiement */
 .pay-card{margin:0 14px 12px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.08);}
@@ -118,44 +113,21 @@ body{min-height:100vh;background:#f6f4f1;font-family:'DM Sans',sans-serif;color:
       </div>
       <div class="ph-stat">
         <div class="ph-stat-label">📈 Revenus / jour</div>
-        <div class="ph-stat-value" id="phRevenu">400 FCFA</div>
+        <div class="ph-stat-value" id="phRevenu">300 FCFA</div>
       </div>
     </div>
     <div class="ph-total">
       <div class="ph-total-label">💵 Total sur 100 jours</div>
-      <div class="ph-total-value" id="phTotal">40 000 FCFA</div>
+      <div class="ph-total-value" id="phTotal">30 000 FCFA</div>
     </div>
   </div>
 
-  <!-- Tâche quotidienne -->
-  <div class="task-card">
-    <div class="task-title">⛽ Votre tâche quotidienne</div>
-    <div class="task-sub">Effectuez 1 tâche par jour pour recevoir vos gains</div>
-    <div class="task-list">
-      <div class="task-item">
-        <div class="task-icon">🚗</div>
-        <div class="task-info">
-          <div class="task-info-title">Ravitailler une voiture</div>
-          <div class="task-info-sub">Mettre du carburant dans une voiture à la station Sinipec</div>
-        </div>
-        <div class="task-gain" id="tGain1">+400 FCFA</div>
-      </div>
-      <div class="task-item">
-        <div class="task-icon">🏍️</div>
-        <div class="task-info">
-          <div class="task-info-title">Ravitailler une moto</div>
-          <div class="task-info-sub">Mettre du carburant dans une moto à la station Sinipec</div>
-        </div>
-        <div class="task-gain" id="tGain2">+400 FCFA</div>
-      </div>
-      <div class="task-item">
-        <div class="task-icon">🚛</div>
-        <div class="task-info">
-          <div class="task-info-title">Ravitailler un camion</div>
-          <div class="task-info-sub">Mettre du carburant dans un camion/bus à la station Sinipec</div>
-        </div>
-        <div class="task-gain" id="tGain3">+400 FCFA</div>
-      </div>
+  <!-- Info gains toutes les 24h -->
+  <div class="gains-card">
+    <div class="gains-icon">⏱️</div>
+    <div class="gains-text">
+      <div class="gains-title">Récupérez vos gains chaque 24h</div>
+      <div class="gains-sub">Une fois activé, appuyez sur un simple bouton toutes les 24h pour encaisser les revenus de ce plan. Vous pouvez cumuler plusieurs plans actifs et récupérer les gains de chacun séparément.</div>
     </div>
   </div>
 
@@ -194,7 +166,7 @@ body{min-height:100vh;background:#f6f4f1;font-family:'DM Sans',sans-serif;color:
   <div class="active-banner" id="activeBanner">
     <div class="ab-icon">✅</div>
     <div class="ab-title" id="abTitle">Plan Starter Actif !</div>
-    <div class="ab-sub">Votre plan est actif. Effectuez votre tâche quotidienne pour recevoir vos gains chaque jour.</div>
+    <div class="ab-sub">Votre plan est actif. Récupérez vos gains toutes les 24h en un tap.</div>
     <div class="ab-stats">
       <div class="ab-stat">
         <div class="ab-stat-label">Jours restants</div>
@@ -202,10 +174,10 @@ body{min-height:100vh;background:#f6f4f1;font-family:'DM Sans',sans-serif;color:
       </div>
       <div class="ab-stat">
         <div class="ab-stat-label">Gains / jour</div>
-        <div class="ab-stat-value" id="abGain">400 FCFA</div>
+        <div class="ab-stat-value" id="abGain">300 FCFA</div>
       </div>
     </div>
-    <button class="btn-task" onclick="location.href='tache.html'">⛽ Faire ma tâche du jour</button>
+    <button class="btn-task" onclick="location.href='tache.html'">💰 Récupérer mes gains</button>
   </div>
 
 </div>
@@ -218,7 +190,13 @@ body{min-height:100vh;background:#f6f4f1;font-family:'DM Sans',sans-serif;color:
 </nav>
 
 <script>
-if(!localStorage.getItem("sinipec_token"))window.location.href="index.html";
+const SB="https://wpezwfskatogphaeffva.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwZXp3ZnNrYXRvZ3BoYWVmZnZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyNjc0MzksImV4cCI6MjEwMTg0MzQzOX0.0K82Hz7gKho2YC2rbbHNB4ZFe-0yuZcelI3XnFvWEW4";
+function tok(){return localStorage.getItem("sinipec_token")||"";}
+function uid(){return localStorage.getItem("sinipec_uid")||"";}
+function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
+
+if(!tok())window.location.href="index.html";
 
 const PLANS={
   Starter:{badge:"🟢",tag:"Débutant",invest:3000,revenu:300,total:30000,color:"linear-gradient(135deg,#f59e0b,#ea580c)"},
@@ -241,14 +219,16 @@ picker.innerHTML=Object.keys(PLANS).map(key=>{
   </button>`;
 }).join("");
 
+let currentNom=localStorage.getItem("invest_produit")||"Starter";
+
 function choisirPlan(key){
+  currentNom=key;
   localStorage.setItem("invest_produit",key);
   afficherPlan(key);
 }
 
-function afficherPlan(nom){
+function afficherStatique(nom){
   const plan=PLANS[nom]||PLANS.Starter;
-
   document.querySelectorAll(".plan-chip").forEach(c=>c.classList.remove("active"));
   const chip=document.getElementById("chip-"+nom);
   if(chip)chip.classList.add("active");
@@ -261,26 +241,31 @@ function afficherPlan(nom){
   document.getElementById("phRevenu").textContent=plan.revenu.toLocaleString()+" FCFA";
   document.getElementById("phTotal").textContent=plan.total.toLocaleString()+" FCFA";
   document.getElementById("totalPay").textContent=plan.invest.toLocaleString()+" FCFA";
-  document.getElementById("tGain1").textContent="+"+plan.revenu.toLocaleString()+" FCFA";
-  document.getElementById("tGain2").textContent="+"+plan.revenu.toLocaleString()+" FCFA";
-  document.getElementById("tGain3").textContent="+"+plan.revenu.toLocaleString()+" FCFA";
-
-  // Plan déjà actif ?
-  const activePlan=JSON.parse(localStorage.getItem("sinipec_active_plan")||"null");
-  if(activePlan&&activePlan.nom===nom){
-    document.getElementById("paySection").style.display="none";
-    document.getElementById("activeBanner").style.display="block";
-    document.getElementById("abTitle").textContent="Plan "+nom+" Actif ! ✅";
-    document.getElementById("abJours").textContent=activePlan.joursRestants;
-    document.getElementById("abGain").textContent=plan.revenu.toLocaleString()+" FCFA";
-  }else{
-    document.getElementById("paySection").style.display="block";
-    document.getElementById("activeBanner").style.display="none";
-  }
 }
 
-const nom=localStorage.getItem("invest_produit")||"Starter";
-afficherPlan(nom);
+/* Vérifie sur Supabase si CE plan précis est déjà actif pour l'utilisateur.
+   Comme chaque plan est un investissement distinct, on peut en avoir plusieurs
+   actifs en même temps (des plans différents, ou plusieurs fois le même). */
+async function afficherPlan(nom){
+  afficherStatique(nom);
+  const plan=PLANS[nom]||PLANS.Starter;
+  document.getElementById("paySection").style.display="block";
+  document.getElementById("activeBanner").style.display="none";
+
+  try{
+    const r=await fetch(SB+"/rest/v1/investissements?user_id=eq."+uid()+"&plan_nom=eq."+encodeURIComponent(nom)+"&statut=eq.actif&order=created_at.desc&limit=1",{headers:H()});
+    const invs=await r.json();
+    if(Array.isArray(invs)&&invs.length>0){
+      document.getElementById("paySection").style.display="none";
+      document.getElementById("activeBanner").style.display="block";
+      document.getElementById("abTitle").textContent="Plan "+nom+" Actif ! ✅";
+      document.getElementById("abJours").textContent=invs[0].jours_restants;
+      document.getElementById("abGain").textContent=plan.revenu.toLocaleString()+" FCFA";
+    }
+  }catch(e){}
+}
+
+afficherPlan(currentNom);
 
 // Carte paiement
 const card=localStorage.getItem("sinipec_card");
@@ -297,8 +282,8 @@ function showAlert(msg,type){
   el.textContent=msg; el.className="alert alert-"+type+" show";
 }
 
-function activerPlan(){
-  const nom=localStorage.getItem("invest_produit")||"Starter";
+async function activerPlan(){
+  const nom=currentNom;
   const plan=PLANS[nom]||PLANS.Starter;
   if(!card){
     showAlert("⚠️ Ajoutez un moyen de paiement d'abord.","error");
@@ -309,22 +294,46 @@ function activerPlan(){
   btn.disabled=true;
   btn.textContent="⏳ Traitement...";
 
-  setTimeout(()=>{
-    // Enregistrer le plan actif
-    const planData={
-      nom,invest:plan.invest,revenu:plan.revenu,
-      joursRestants:100,
-      dateDebut:new Date().toISOString(),
-      tacheAujourdhui:false
-    };
-    localStorage.setItem("sinipec_active_plan",JSON.stringify(planData));
-    // Afficher banner actif
+  try{
+    await new Promise(res=>setTimeout(res,1500));
+
+    // Créer l'investissement (un de plus si l'utilisateur en a déjà d'autres)
+    await fetch(SB+"/rest/v1/investissements",{
+      method:"POST",
+      headers:{...H(),"Prefer":"return=minimal"},
+      body:JSON.stringify({
+        user_id:uid(),
+        plan_nom:nom,
+        montant:plan.invest,
+        revenu_jour:plan.revenu,
+        jours_restants:100,
+        statut:"actif"
+      })
+    });
+
+    // Historiser la transaction
+    await fetch(SB+"/rest/v1/transactions",{
+      method:"POST",
+      headers:{...H(),"Prefer":"return=minimal"},
+      body:JSON.stringify({
+        user_id:uid(),type:"investissement",
+        montant:plan.invest,montant_net:plan.invest,
+        statut:"valide",
+        note:"Activation du plan "+nom
+      })
+    });
+
     document.getElementById("paySection").style.display="none";
     document.getElementById("activeBanner").style.display="block";
     document.getElementById("abTitle").textContent="Plan "+nom+" Actif ! ✅";
     document.getElementById("abJours").textContent="100";
     document.getElementById("abGain").textContent=plan.revenu.toLocaleString()+" FCFA";
-  },2000);
+  }catch(e){
+    showAlert("Erreur réseau. Réessayez.","error");
+  }
+
+  btn.disabled=false;
+  btn.textContent="⚡ Payer et activer le plan";
 }
 </script>
 </body>
