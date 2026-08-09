@@ -4,74 +4,74 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
 <link rel="manifest" href="/manifest.json"/>
-<meta name="theme-color" content="#00bcd4"/>
+<meta name="theme-color" content="#f59e0b"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
-<title>Tâche du Jour — Velero Energy</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<title>Tâche du Jour — Sinipec</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
+body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
 .wrap{width:100%;max-width:480px;padding-bottom:90px;}
-.loader{position:fixed;inset:0;background:linear-gradient(135deg,#00bcd4,#0097a7);z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
-.loader-logo{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#fff;}
-.loader-spin{width:40px;height:40px;border:3px solid rgba(255,255,255,.3);border-top:3px solid #fff;border-radius:50%;animation:sp .7s linear infinite;}
+.loader{position:fixed;inset:0;background:linear-gradient(135deg,#0a0d13,#1b2130);z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+.loader-logo{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;letter-spacing:3px;color:#fff;text-transform:uppercase;}
+.loader-spin{width:40px;height:40px;border:3px solid rgba(245,158,11,.25);border-top:3px solid #f59e0b;border-radius:50%;animation:sp .7s linear infinite;}
 @keyframes sp{to{transform:rotate(360deg)}}
 .topbar{background:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
-.back-btn{background:none;border:none;cursor:pointer;color:#00bcd4;font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:4px;}
+.back-btn{background:none;border:none;cursor:pointer;color:#ea580c;font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:4px;}
 .back-btn svg{width:18px;height:18px;}
 .topbar-title{font-size:17px;font-weight:700;color:#1a1a1a;}
 .page-title{font-size:13px;color:#90a4ae;padding:14px 14px 6px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;}
 
 /* PLAN CARD */
 .plan-card{margin:0 14px 14px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);}
-.plan-header{background:linear-gradient(135deg,#00bcd4,#0097a7);padding:16px 18px;display:flex;justify-content:space-between;align-items:center;}
-.ph-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:#fff;}
+.plan-header{background:linear-gradient(135deg,#f59e0b,#ea580c);padding:16px 18px;display:flex;justify-content:space-between;align-items:center;}
+.ph-name{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:#fff;}
 .ph-gain{font-size:12px;color:rgba(255,255,255,.85);margin-top:3px;}
 .ph-jours{text-align:right;}
-.ph-jours-val{font-size:24px;font-weight:900;color:#fff;font-family:'Playfair Display',serif;}
+.ph-jours-val{font-size:24px;font-weight:800;color:#fff;font-family:'Space Grotesk',sans-serif;}
 .ph-jours-lbl{font-size:10px;color:rgba(255,255,255,.75);}
 .plan-body{padding:20px 18px;}
 
 /* ROUE */
 .roue-wrap{position:relative;width:180px;height:180px;margin:0 auto 18px;}
 .roue-svg{width:180px;height:180px;transition:transform 4s cubic-bezier(.17,.67,.12,.99);}
-.roue-aiguille{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:20px solid #e53935;z-index:10;}
+.roue-aiguille{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:20px solid #12161f;z-index:10;}
 
 /* RESULTAT */
-.res-box{background:#e0f7fa;border-radius:14px;padding:14px;text-align:center;margin-bottom:14px;display:none;}
+.res-box{background:#fff3e2;border-radius:14px;padding:14px;text-align:center;margin-bottom:14px;display:none;}
 .res-box.show{display:block;}
-.res-gain{font-size:26px;font-weight:900;color:#00838f;font-family:'Playfair Display',serif;}
-.res-label{font-size:12px;color:#006064;margin-top:3px;}
+.res-gain{font-size:26px;font-weight:800;color:#c2410c;font-family:'Space Grotesk',sans-serif;}
+.res-label{font-size:12px;color:#9a3412;margin-top:3px;}
 
 /* BTN */
-.btn-recuperer{width:100%;padding:15px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:800;border:none;border-radius:50px;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px rgba(0,188,212,.35);margin-bottom:10px;transition:opacity .2s;}
+.btn-recuperer{width:100%;padding:15px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font-size:15px;font-weight:800;border:none;border-radius:50px;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px rgba(234,88,12,.35);margin-bottom:10px;transition:opacity .2s;}
 .btn-recuperer:disabled{opacity:.55;cursor:not-allowed;}
 
 /* COUNTDOWN */
-.cd-box{background:#f0f4f5;border-radius:12px;padding:12px;text-align:center;display:none;}
+.cd-box{background:#f4f2ef;border-radius:12px;padding:12px;text-align:center;display:none;}
 .cd-box.show{display:block;}
 .cd-label{font-size:11px;color:#90a4ae;margin-bottom:4px;}
-.cd-val{font-size:20px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
+.cd-val{font-size:20px;font-weight:800;color:#ea580c;font-family:'Space Grotesk',sans-serif;}
 
 /* NO PLAN */
 .no-plan-box{margin:14px;background:#fff;border-radius:20px;padding:32px 20px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.07);}
 .no-plan-box svg{width:48px;height:48px;color:#ccc;margin-bottom:12px;}
 .no-plan-box h3{font-size:17px;font-weight:700;margin-bottom:6px;}
 .no-plan-box p{font-size:13px;color:#90a4ae;margin-bottom:16px;}
-.btn-invest{padding:14px 28px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;border:none;border-radius:50px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.btn-invest{padding:14px 28px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;border:none;border-radius:50px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
 
 /* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0 14px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
-.nav-item.active{color:#00bcd4;}
+.nav-item.active{color:#ea580c;}
 .nav-item svg{width:22px;height:22px;}
 </style>
 </head>
 <body>
 
 <div class="loader" id="loader">
-  <div class="loader-logo">Velero Energy</div>
+  <div class="loader-logo">Sinipec</div>
   <div class="loader-spin"></div>
 </div>
 
@@ -114,10 +114,10 @@ body{min-height:100vh;background:#f0f4f5;font-family:'DM Sans',sans-serif;color:
 </nav>
 
 <script>
-const SB="https://seegoklunovyuieorkvy.supabase.co";
-const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
-function tok(){return localStorage.getItem("velero_token")||"";}
-function uid(){return localStorage.getItem("velero_uid")||"";}
+const SB="https://wpezwfskatogphaeffva.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwZXp3ZnNrYXRvZ3BoYWVmZnZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyNjc0MzksImV4cCI6MjEwMTg0MzQzOX0.0K82Hz7gKho2YC2rbbHNB4ZFe-0yuZcelI3XnFvWEW4";
+function tok(){return localStorage.getItem("sinipec_token")||"";}
+function uid(){return localStorage.getItem("sinipec_uid")||"";}
 function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
 
 // Stocker les intervals de countdown par invest id
@@ -289,14 +289,14 @@ function renderPlanCard(inv, lastTache){
       <div class="roue-wrap">
         <div class="roue-aiguille"></div>
         <svg class="roue-svg" id="roue-${inv.id}" viewBox="0 0 200 200">
-          <path d="M100,100 L100,10 A90,90 0 0,1 163.6,46.4 Z" fill="#00bcd4"/>
-          <path d="M100,100 L163.6,46.4 A90,90 0 0,1 190,100 Z" fill="#0097a7"/>
-          <path d="M100,100 L190,100 A90,90 0 0,1 163.6,153.6 Z" fill="#00bcd4"/>
-          <path d="M100,100 L163.6,153.6 A90,90 0 0,1 100,190 Z" fill="#0097a7"/>
-          <path d="M100,100 L100,190 A90,90 0 0,1 36.4,153.6 Z" fill="#00bcd4"/>
-          <path d="M100,100 L36.4,153.6 A90,90 0 0,1 10,100 Z" fill="#0097a7"/>
-          <path d="M100,100 L10,100 A90,90 0 0,1 36.4,46.4 Z" fill="#00bcd4"/>
-          <path d="M100,100 L36.4,46.4 A90,90 0 0,1 100,10 Z" fill="#0097a7"/>
+          <path d="M100,100 L100,10 A90,90 0 0,1 163.6,46.4 Z" fill="#f59e0b"/>
+          <path d="M100,100 L163.6,46.4 A90,90 0 0,1 190,100 Z" fill="#ea580c"/>
+          <path d="M100,100 L190,100 A90,90 0 0,1 163.6,153.6 Z" fill="#f59e0b"/>
+          <path d="M100,100 L163.6,153.6 A90,90 0 0,1 100,190 Z" fill="#ea580c"/>
+          <path d="M100,100 L100,190 A90,90 0 0,1 36.4,153.6 Z" fill="#f59e0b"/>
+          <path d="M100,100 L36.4,153.6 A90,90 0 0,1 10,100 Z" fill="#ea580c"/>
+          <path d="M100,100 L10,100 A90,90 0 0,1 36.4,46.4 Z" fill="#f59e0b"/>
+          <path d="M100,100 L36.4,46.4 A90,90 0 0,1 100,10 Z" fill="#ea580c"/>
           <text x="118" y="48" text-anchor="middle" font-size="13" fill="white">⚡</text>
           <text x="155" y="80" text-anchor="middle" font-size="13" fill="white">💰</text>
           <text x="155" y="128" text-anchor="middle" font-size="13" fill="white">⚡</text>
@@ -305,8 +305,8 @@ function renderPlanCard(inv, lastTache){
           <text x="42" y="128" text-anchor="middle" font-size="13" fill="white">💰</text>
           <text x="42" y="80" text-anchor="middle" font-size="13" fill="white">⚡</text>
           <text x="75" y="48" text-anchor="middle" font-size="13" fill="white">💰</text>
-          <circle cx="100" cy="100" r="22" fill="white" stroke="#00bcd4" stroke-width="3"/>
-          <text x="100" y="106" text-anchor="middle" font-size="16" fill="#00bcd4">⛽</text>
+          <circle cx="100" cy="100" r="22" fill="white" stroke="#ea580c" stroke-width="3"/>
+          <text x="100" y="106" text-anchor="middle" font-size="16" fill="#ea580c">⛽</text>
         </svg>
       </div>
 
@@ -350,11 +350,11 @@ async function init(){
     // Refresh token
     const rtest=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=id",{headers:H()});
     if(rtest.status===401){
-      const ref=localStorage.getItem("velero_refresh");
+      const ref=localStorage.getItem("sinipec_refresh");
       if(ref){
         const rr=await fetch(SB+"/auth/v1/token?grant_type=refresh_token",{method:"POST",headers:{"Content-Type":"application/json","apikey":AK},body:JSON.stringify({refresh_token:ref})});
         const rd=await rr.json();
-        if(rd.access_token){localStorage.setItem("velero_token",rd.access_token);if(rd.refresh_token)localStorage.setItem("velero_refresh",rd.refresh_token);location.reload();return;}
+        if(rd.access_token){localStorage.setItem("sinipec_token",rd.access_token);if(rd.refresh_token)localStorage.setItem("sinipec_refresh",rd.refresh_token);location.reload();return;}
       }
       localStorage.clear();location.href="index.html";return;
     }
