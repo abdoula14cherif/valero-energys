@@ -133,22 +133,22 @@ body{min-height:100vh;background:#f6f4f1;font-family:'DM Sans',sans-serif;color:
 
   <!-- Section paiement -->
   <div class="pay-card" id="paySection">
-    <div class="pay-title">💳 Activer ce plan</div>
+    <div class="pay-title">💰 Activer ce plan</div>
     <div id="alertBox" class="alert"></div>
 
-    <div id="cardInfo" class="card-info" style="display:none;">
-      <span class="ci-icon">📱</span>
+    <div class="card-info" id="soldeInfo">
+      <span class="ci-icon">💳</span>
       <div>
-        <div class="ci-text" id="cardInfoText">—</div>
-        <div class="ci-sub" id="cardInfoSub">—</div>
+        <div class="ci-text">Solde disponible</div>
+        <div class="ci-sub" id="soldeDispo">— FCFA</div>
       </div>
     </div>
 
-    <div id="noCardWarn" class="no-card-warn" onclick="location.href='banque.html'">
+    <div id="noCardWarn" class="no-card-warn" style="display:none;" onclick="location.href='recharge.html'">
       <span style="font-size:24px;">⚠️</span>
       <div>
-        <div class="ncw-text">Aucun moyen de paiement</div>
-        <div class="ncw-sub">Appuyez pour ajouter un compte Mobile Money</div>
+        <div class="ncw-text">Solde insuffisant</div>
+        <div class="ncw-sub" id="ncwSub">Il vous manque des fonds. Appuyez pour recharger votre compte.</div>
       </div>
     </div>
 
@@ -158,7 +158,7 @@ body{min-height:100vh;background:#f6f4f1;font-family:'DM Sans',sans-serif;color:
     </div>
 
     <button class="btn-pay" id="btnPay" onclick="activerPlan()">
-      ⚡ Payer et activer le plan
+      ⚡ Payer avec mon solde
     </button>
   </div>
 
@@ -246,11 +246,42 @@ function afficherStatique(nom){
 /* Vérifie sur Supabase si CE plan précis est déjà actif pour l'utilisateur.
    Comme chaque plan est un investissement distinct, on peut en avoir plusieurs
    actifs en même temps (des plans différents, ou plusieurs fois le même). */
+let soldeActuel=0;
+
+async function chargerSolde(){
+  try{
+    const r=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()});
+    const d=await r.json();
+    soldeActuel=parseFloat(d[0]?.solde||0);
+    document.getElementById("soldeDispo").textContent=soldeActuel.toLocaleString()+" FCFA";
+  }catch(e){}
+}
+
+function verifierSolde(nom){
+  const plan=PLANS[nom]||PLANS.Starter;
+  const btn=document.getElementById("btnPay");
+  const warn=document.getElementById("noCardWarn");
+  const soldeInfo=document.getElementById("soldeInfo");
+  if(soldeActuel<plan.invest){
+    warn.style.display="flex";
+    soldeInfo.style.opacity=".6";
+    document.getElementById("ncwSub").textContent="Il vous manque "+(plan.invest-soldeActuel).toLocaleString()+" FCFA. Appuyez pour recharger votre compte.";
+    btn.disabled=true;
+    btn.textContent="Solde insuffisant";
+  }else{
+    warn.style.display="none";
+    soldeInfo.style.opacity="1";
+    btn.disabled=false;
+    btn.textContent="⚡ Payer avec mon solde";
+  }
+}
+
 async function afficherPlan(nom){
   afficherStatique(nom);
   const plan=PLANS[nom]||PLANS.Starter;
   document.getElementById("paySection").style.display="block";
   document.getElementById("activeBanner").style.display="none";
+  verifierSolde(nom);
 
   try{
     const r=await fetch(SB+"/rest/v1/investissements?user_id=eq."+uid()+"&plan_nom=eq."+encodeURIComponent(nom)+"&statut=eq.actif&order=created_at.desc&limit=1",{headers:H()});
@@ -265,17 +296,7 @@ async function afficherPlan(nom){
   }catch(e){}
 }
 
-afficherPlan(currentNom);
-
-// Carte paiement
-const card=localStorage.getItem("sinipec_card");
-if(card){
-  const c=JSON.parse(card);
-  document.getElementById("cardInfo").style.display="flex";
-  document.getElementById("noCardWarn").style.display="none";
-  document.getElementById("cardInfoText").textContent=c.network+" — "+c.name;
-  document.getElementById("cardInfoSub").textContent=c.phone;
-}
+chargerSolde().then(()=>afficherPlan(currentNom));
 
 function showAlert(msg,type){
   const el=document.getElementById("alertBox");
@@ -285,17 +306,39 @@ function showAlert(msg,type){
 async function activerPlan(){
   const nom=currentNom;
   const plan=PLANS[nom]||PLANS.Starter;
-  if(!card){
-    showAlert("⚠️ Ajoutez un moyen de paiement d'abord.","error");
-    setTimeout(()=>location.href="banque.html",1800);
+
+  if(soldeActuel<plan.invest){
+    showAlert("⚠️ Solde insuffisant. Rechargez votre compte pour activer ce plan.","error");
+    setTimeout(()=>location.href="recharge.html",1800);
     return;
   }
+
   const btn=document.getElementById("btnPay");
   btn.disabled=true;
   btn.textContent="⏳ Traitement...";
 
   try{
-    await new Promise(res=>setTimeout(res,1500));
+    // Re-vérifier le solde en base au moment du paiement (évite les doubles activations)
+    const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()});
+    const pd=await rp.json();
+    const soldeFrais=parseFloat(pd[0]?.solde||0);
+    if(soldeFrais<plan.invest){
+      soldeActuel=soldeFrais;
+      document.getElementById("soldeDispo").textContent=soldeFrais.toLocaleString()+" FCFA";
+      showAlert("⚠️ Solde insuffisant. Rechargez votre compte pour activer ce plan.","error");
+      setTimeout(()=>location.href="recharge.html",1800);
+      btn.disabled=false;btn.textContent="⚡ Payer avec mon solde";
+      return;
+    }
+
+    // Débiter le solde
+    const nouveauSolde=soldeFrais-plan.invest;
+    await fetch(SB+"/rest/v1/profiles?id=eq."+uid(),{
+      method:"PATCH",headers:H(),
+      body:JSON.stringify({solde:nouveauSolde})
+    });
+    soldeActuel=nouveauSolde;
+    document.getElementById("soldeDispo").textContent=nouveauSolde.toLocaleString()+" FCFA";
 
     // Créer l'investissement (un de plus si l'utilisateur en a déjà d'autres)
     await fetch(SB+"/rest/v1/investissements",{
@@ -319,7 +362,7 @@ async function activerPlan(){
         user_id:uid(),type:"investissement",
         montant:plan.invest,montant_net:plan.invest,
         statut:"valide",
-        note:"Activation du plan "+nom
+        note:"Activation du plan "+nom+" (payé depuis le solde)"
       })
     });
 
@@ -333,7 +376,7 @@ async function activerPlan(){
   }
 
   btn.disabled=false;
-  btn.textContent="⚡ Payer et activer le plan";
+  btn.textContent="⚡ Payer avec mon solde";
 }
 </script>
 </body>
