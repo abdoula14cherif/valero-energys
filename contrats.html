@@ -100,6 +100,21 @@ body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;displa
 .err{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
 .suc{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
 
+/* Sélecteur de pays — chips compacts défilables, avec drapeau */
+.country-picker{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 4px;scrollbar-width:none;}
+.country-picker::-webkit-scrollbar{display:none;}
+.country-chip{
+  flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:3px;
+  min-width:64px;padding:8px 6px 7px;border:1.5px solid #e8e8e8;border-radius:12px;
+  background:#fafafa;cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:transform .15s,border-color .15s,background .15s;
+}
+.country-chip:active{transform:scale(.93);}
+.country-chip.selected{border-color:#f59e0b;background:#fff3e2;transform:translateY(-2px);box-shadow:0 4px 10px rgba(245,158,11,.25);}
+.country-flag{font-size:20px;line-height:1;}
+.country-code{font-size:9px;font-weight:800;color:#767676;letter-spacing:.2px;white-space:nowrap;}
+.country-chip.selected .country-code{color:#c2410c;}
+
 /* Succès postulation */
 .success-postulation{margin:10px 14px 0;background:#fff;border-radius:18px;padding:28px;box-shadow:0 3px 14px rgba(0,0,0,.08);text-align:center;display:none;}
 .sp-icon{font-size:52px;margin-bottom:14px;}
@@ -203,20 +218,7 @@ body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;displa
     </div>
     <div class="field">
       <label>Pays de résidence</label>
-      <select id="pPays">
-        <option value="">-- Sélectionnez --</option>
-        <option value="Bénin">🇧🇯 Bénin</option>
-        <option value="Burkina Faso">🇧🇫 Burkina Faso</option>
-        <option value="Cameroun">🇨🇲 Cameroun</option>
-        <option value="Côte d'Ivoire">🇨🇮 Côte d'Ivoire</option>
-        <option value="Gabon">🇬🇦 Gabon</option>
-        <option value="Mali">🇲🇱 Mali</option>
-        <option value="Niger">🇳🇪 Niger</option>
-        <option value="Nigeria">🇳🇬 Nigeria</option>
-        <option value="RDC">🇨🇩 RDC</option>
-        <option value="Sénégal">🇸🇳 Sénégal</option>
-        <option value="Togo">🇹🇬 Togo</option>
-      </select>
+      <div class="country-picker" id="pPaysPicker"></div>
     </div>
     <div class="field">
       <label>Taille estimée de votre équipe</label>
@@ -277,6 +279,25 @@ function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization
 
 const COLORS={Starter:"#f59e0b",Bronze:"#cd7f32",Silver:"#78909c",Gold:"#eab308",Premium:"#dc2626",VIP:"#9c27b0",Elite:"#1565c0",Cold:"#12161f"};
 
+const PAYS_LIST=[
+  {nom:"Bénin",flag:"🇧🇯"},{nom:"Burkina Faso",flag:"🇧🇫"},{nom:"Cameroun",flag:"🇨🇲"},
+  {nom:"Côte d'Ivoire",flag:"🇨🇮"},{nom:"Gabon",flag:"🇬🇦"},{nom:"Mali",flag:"🇲🇱"},
+  {nom:"Niger",flag:"🇳🇪"},{nom:"Nigeria",flag:"🇳🇬"},{nom:"RDC",flag:"🇨🇩"},
+  {nom:"Sénégal",flag:"🇸🇳"},{nom:"Togo",flag:"🇹🇬"},
+];
+let selectedPPays="";
+const pPaysPicker=document.getElementById("pPaysPicker");
+pPaysPicker.innerHTML=PAYS_LIST.map((p,i)=>`
+  <div class="country-chip" id="ppays-${i}" onclick="choisirPPays(${i})" title="${p.nom}">
+    <span class="country-flag">${p.flag}</span>
+    <span class="country-code">${p.nom.length>10?p.nom.slice(0,9)+"…":p.nom}</span>
+  </div>`).join("");
+function choisirPPays(i){
+  selectedPPays=PAYS_LIST[i].nom;
+  document.querySelectorAll("#pPaysPicker .country-chip").forEach(c=>c.classList.remove("selected"));
+  document.getElementById("ppays-"+i).classList.add("selected");
+}
+
 async function init(){
   if(!tok()){location.href="index.html";return;}
   const r=await fetch(SB+"/rest/v1/investissements?user_id=eq."+uid()+"&order=created_at.desc&select=*",{headers:H()});
@@ -336,7 +357,7 @@ function showAlert(id,msg,type){
 async function postuler(){
   const nom=document.getElementById("pNom").value.trim();
   const phone=document.getElementById("pPhone").value.trim();
-  const pays=document.getElementById("pPays").value;
+  const pays=selectedPPays;
   const equipe=document.getElementById("pEquipe").value;
   const exp=document.getElementById("pExperience").value.trim();
   const chk18=document.getElementById("chk18").checked;
