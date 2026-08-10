@@ -68,6 +68,21 @@ body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;color:
 
 /* NETWORKS */
 .network-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+
+/* Sélecteur de pays — chips compacts défilables, avec drapeau */
+.country-picker{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 4px;scrollbar-width:none;}
+.country-picker::-webkit-scrollbar{display:none;}
+.country-chip{
+  flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:3px;
+  min-width:58px;padding:8px 6px 7px;border:1.5px solid #e8e8e8;border-radius:12px;
+  background:#fafafa;cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:transform .15s,border-color .15s,background .15s;
+}
+.country-chip:active{transform:scale(.93);}
+.country-chip.selected{border-color:#f59e0b;background:#fff3e2;transform:translateY(-2px);box-shadow:0 4px 10px rgba(245,158,11,.25);}
+.country-flag{font-size:20px;line-height:1;}
+.country-code{font-size:10px;font-weight:800;color:#767676;letter-spacing:.3px;}
+.country-chip.selected .country-code{color:#c2410c;}
 .net-btn{
   padding:11px 4px;border:1.5px solid #e8e8e8;border-radius:12px;
   background:#fafafa;cursor:pointer;text-align:center;
@@ -142,20 +157,7 @@ body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;color:
 
     <div class="field">
       <label>Pays</label>
-      <select id="pays" onchange="updateNetworks()">
-        <option value="">-- Selectionnez votre pays --</option>
-        <option value="BJ">Benin</option>
-        <option value="BF">Burkina Faso</option>
-        <option value="CM">Cameroun</option>
-        <option value="CI">Cote d'Ivoire</option>
-        <option value="TD">Tchad</option>
-        <option value="GA">Gabon</option>
-        <option value="GN">Guinee</option>
-        <option value="ML">Mali</option>
-        <option value="NE">Niger</option>
-        <option value="CD">RDC</option>
-        <option value="SN">Senegal</option>
-      </select>
+      <div class="country-picker" id="paysPicker"></div>
     </div>
 
     <div class="field" id="networkField" style="display:none;">
@@ -222,9 +224,38 @@ const NETWORKS={
 };
 
 let selectedNet=null;
+let selectedPays="";
+
+const PAYS_LIST=[
+  {code:"BJ",flag:"🇧🇯",nom:"Bénin"},
+  {code:"BF",flag:"🇧🇫",nom:"Burkina Faso"},
+  {code:"CM",flag:"🇨🇲",nom:"Cameroun"},
+  {code:"CI",flag:"🇨🇮",nom:"Côte d'Ivoire"},
+  {code:"TD",flag:"🇹🇩",nom:"Tchad"},
+  {code:"GA",flag:"🇬🇦",nom:"Gabon"},
+  {code:"GN",flag:"🇬🇳",nom:"Guinée"},
+  {code:"ML",flag:"🇲🇱",nom:"Mali"},
+  {code:"NE",flag:"🇳🇪",nom:"Niger"},
+  {code:"CD",flag:"🇨🇩",nom:"RDC"},
+  {code:"SN",flag:"🇸🇳",nom:"Sénégal"},
+];
+
+const paysPicker=document.getElementById("paysPicker");
+paysPicker.innerHTML=PAYS_LIST.map(p=>`
+  <div class="country-chip" id="pays-${p.code}" onclick="choisirPays('${p.code}')" title="${p.nom}">
+    <span class="country-flag">${p.flag}</span>
+    <span class="country-code">${p.code}</span>
+  </div>`).join("");
+
+function choisirPays(code){
+  selectedPays=code;
+  document.querySelectorAll(".country-chip").forEach(c=>c.classList.remove("selected"));
+  document.getElementById("pays-"+code).classList.add("selected");
+  updateNetworks();
+}
 
 function updateNetworks(){
-  const pays=document.getElementById("pays").value;
+  const pays=selectedPays;
   if(!pays)return;
   const nets=NETWORKS[pays]||[];
   const grid=document.getElementById("networkGrid");
@@ -254,7 +285,7 @@ function showAlert(msg,type){
 }
 
 async function saveCard(){
-  const pays=document.getElementById("pays").value;
+  const pays=selectedPays;
   const name=document.getElementById("holderName").value.trim();
   const phone=document.getElementById("mmPhone").value.trim();
   if(!pays||!selectedNet)return showAlert("Selectionnez un pays et un operateur.","error");
