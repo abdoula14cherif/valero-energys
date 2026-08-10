@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-<title>Roue de Chance — Velero Energy</title>
+<title>Roue de Chance — Sinipec</title>
 <script src="/pwa-install.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:linear-gradient(160deg,#0a0f1a,#0d1829,#0a1628);font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;color:#fff;}
+body{min-height:100vh;background:linear-gradient(160deg,#0a0d13,#12161f,#1b2130);font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;color:#fff;}
 .wrap{width:100%;max-width:480px;padding-bottom:80px;}
 .topbar{background:rgba(255,255,255,.05);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08);padding:16px 18px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50;}
 .back-btn{background:none;border:none;font-size:22px;cursor:pointer;color:#fff;}
@@ -16,24 +16,24 @@ body{min-height:100vh;background:linear-gradient(160deg,#0a0f1a,#0d1829,#0a1628)
 
 /* HEADER */
 .hero-section{text-align:center;padding:28px 20px 20px;}
-.hero-icon{font-size:48px;margin-bottom:12px;}
-.hero-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;margin-bottom:6px;}
+.hero-icon{font-size:44px;margin-bottom:12px;}
+.hero-title{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;margin-bottom:6px;}
 .hero-sub{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;}
 
 /* TICKETS */
 .tickets-row{display:flex;justify-content:center;gap:12px;padding:0 20px 20px;}
 .ticket-card{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:14px;text-align:center;}
-.tc-count{font-size:28px;font-weight:900;color:#ffd700;font-family:'Playfair Display',serif;}
+.tc-count{font-size:26px;font-weight:800;color:#f59e0b;font-family:'Space Grotesk',sans-serif;}
 .tc-label{font-size:11px;color:rgba(255,255,255,.5);margin-top:3px;text-transform:uppercase;letter-spacing:.5px;}
 
 /* ROUE */
 .wheel-section{display:flex;flex-direction:column;align-items:center;padding:0 20px 24px;position:relative;}
 .wheel-container{position:relative;width:280px;height:280px;margin:0 auto 20px;}
 .wheel-pointer{position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:32px;z-index:10;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));}
-canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 40px rgba(0,188,212,.3),0 0 80px rgba(0,188,212,.1);display:block;}
-.wheel-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;background:linear-gradient(135deg,#0a1628,#1e3a5f);border-radius:50%;border:4px solid #fff;display:flex;align-items:center;justify-content:center;z-index:5;box-shadow:0 4px 12px rgba(0,0,0,.5);}
+canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 40px rgba(245,158,11,.25),0 0 80px rgba(234,88,12,.1);display:block;}
+.wheel-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;background:#12161f;border-radius:50%;border:4px solid #fff;display:flex;align-items:center;justify-content:center;z-index:5;box-shadow:0 4px 12px rgba(0,0,0,.5);}
 .wheel-center-icon{font-size:22px;}
-.btn-spin{padding:16px 48px;background:linear-gradient(135deg,#ffd700,#ffa000);color:#1a1a1a;font-size:17px;font-weight:900;border:none;border-radius:50px;cursor:pointer;font-family:inherit;box-shadow:0 6px 24px rgba(255,215,0,.4);transition:all .2s;letter-spacing:.3px;}
+.btn-spin{padding:16px 48px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font-size:17px;font-weight:800;border:none;border-radius:14px;cursor:pointer;font-family:inherit;box-shadow:0 6px 24px rgba(234,88,12,.4);transition:all .2s;letter-spacing:.3px;}
 .btn-spin:disabled{opacity:.5;cursor:not-allowed;transform:none;}
 .btn-spin:not(:disabled):active{transform:scale(.96);}
 .no-ticket-msg{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;text-align:center;margin-top:10px;width:100%;}
@@ -44,13 +44,13 @@ canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 40px rgba(0,188,212,.3),0 0 
 /* RÉSULTAT */
 .result-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:999;display:none;align-items:center;justify-content:center;}
 .result-overlay.show{display:flex;}
-.result-box{background:linear-gradient(135deg,#0d1829,#1a2640);border:2px solid rgba(255,215,0,.4);border-radius:28px;padding:36px 28px;text-align:center;width:90%;max-width:360px;animation:popIn .4s cubic-bezier(.175,.885,.32,1.275);}
+.result-box{background:#12161f;border:2px solid rgba(245,158,11,.4);border-radius:24px;padding:36px 28px;text-align:center;width:90%;max-width:360px;animation:popIn .4s cubic-bezier(.175,.885,.32,1.275);}
 @keyframes popIn{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
-.res-icon{font-size:72px;margin-bottom:16px;}
-.res-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;margin-bottom:8px;}
-.res-amount{font-size:48px;font-weight:900;color:#ffd700;font-family:'Playfair Display',serif;margin:12px 0;}
+.res-icon{font-size:64px;margin-bottom:16px;}
+.res-title{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;}
+.res-amount{font-size:44px;font-weight:800;color:#f59e0b;font-family:'Space Grotesk',sans-serif;margin:12px 0;}
 .res-sub{font-size:14px;color:rgba(255,255,255,.6);margin-bottom:24px;}
-.btn-res-close{padding:14px 40px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:14px;cursor:pointer;font-family:inherit;}
+.btn-res-close{padding:14px 40px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:14px;cursor:pointer;font-family:inherit;}
 
 /* HISTORIQUE */
 .hist-section{padding:0 14px;}
@@ -60,18 +60,18 @@ canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 40px rgba(0,188,212,.3),0 0 
 .hi-icon{font-size:20px;}
 .hi-raison{font-size:13px;font-weight:600;}
 .hi-date{font-size:11px;color:rgba(255,255,255,.4);margin-top:1px;}
-.hi-gain{font-size:15px;font-weight:900;color:#ffd700;font-family:'Playfair Display',serif;}
+.hi-gain{font-size:15px;font-weight:800;color:#f59e0b;font-family:'Space Grotesk',sans-serif;}
 
-/* COMMENT GAGNER */
+/* COMMENT GAGNER — règles toujours affichées clairement */
 .how-card{margin:0 14px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;}
 .how-title{font-size:13px;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:12px;}
 .how-item{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:13px;color:rgba(255,255,255,.6);}
 .how-item:last-child{margin-bottom:0;}
 .how-icon{font-size:18px;}
 
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(13,24,41,.95);border-top:1px solid rgba(255,255,255,.08);display:flex;padding:8px 0 12px;z-index:100;}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(10,13,19,.95);border-top:1px solid rgba(255,255,255,.08);display:flex;padding:8px 0 12px;z-index:100;}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.3);font-size:10px;font-weight:600;}
-.nav-item.active{color:#00bcd4;}
+.nav-item.active{color:#f59e0b;}
 .nav-item .ni{font-size:21px;}
 </style>
 </head>
@@ -85,7 +85,7 @@ canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 40px rgba(0,188,212,.3),0 0 
   <div class="hero-section">
     <div class="hero-icon">🎡</div>
     <div class="hero-title">Roue de Fortune</div>
-    <div class="hero-sub">Tournez la roue pour gagner jusqu'à <strong style="color:#ffd700;">50 FCFA</strong> supplémentaires !</div>
+    <div class="hero-sub">Tournez la roue pour gagner jusqu'à <strong style="color:#f59e0b;">50 FCFA</strong> supplémentaires !</div>
   </div>
 
   <div class="tickets-row">
@@ -120,10 +120,10 @@ canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 40px rgba(0,188,212,.3),0 0 
   </div>
 
   <div class="how-card">
-    <div class="how-title">🎫 Comment obtenir des tickets ?</div>
+    <div class="how-title">🎫 Comment obtenir des tickets et gagner ?</div>
     <div class="how-item"><span class="how-icon">💳</span>Effectuez une recharge → 1 ticket</div>
     <div class="how-item"><span class="how-icon">🤝</span>Parrainez quelqu'un qui s'inscrit → 1 ticket</div>
-    <div class="how-item"><span class="how-icon">🎡</span>Tournez et gagnez entre 5 et 50 FCFA</div>
+    <div class="how-item"><span class="how-icon">🎡</span>Chaque tour est tiré au hasard entre 5 et 50 FCFA, mêmes chances pour tout le monde</div>
     <div class="how-item"><span class="how-icon">💰</span>Gain crédité automatiquement sur votre solde</div>
   </div>
 
@@ -152,20 +152,20 @@ canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 40px rgba(0,188,212,.3),0 0 
 </nav>
 
 <script>
-const SB="https://seegoklunovyuieorkvy.supabase.co";
-const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
-function tok(){return localStorage.getItem("velero_token")||"";}
-function uid(){return localStorage.getItem("velero_uid")||"";}
+const SB="https://wpezwfskatogphaeffva.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwZXp3ZnNrYXRvZ3BoYWVmZnZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyNjc0MzksImV4cCI6MjEwMTg0MzQzOX0.0K82Hz7gKho2YC2rbbHNB4ZFe-0yuZcelI3XnFvWEW4";
+function tok(){return localStorage.getItem("sinipec_token")||"";}
+function uid(){return localStorage.getItem("sinipec_uid")||"";}
 function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
 
-// Segments roue — max 50 FCFA
+// Segments roue — max 50 FCFA, mêmes chances pour tous les utilisateurs
 const SEGMENTS=[
-  {label:"5 F",val:5,color:"#00bcd4"},{label:"10 F",val:10,color:"#0097a7"},
-  {label:"15 F",val:15,color:"#00838f"},{label:"20 F",val:20,color:"#ffd700"},
-  {label:"10 F",val:10,color:"#00bcd4"},{label:"25 F",val:25,color:"#ff7043"},
-  {label:"5 F",val:5,color:"#0097a7"},{label:"30 F",val:30,color:"#ab47bc"},
-  {label:"10 F",val:10,color:"#00bcd4"},{label:"50 F",val:50,color:"#ffd700"},
-  {label:"5 F",val:5,color:"#0097a7"},{label:"20 F",val:20,color:"#26c6da"},
+  {label:"5 F",val:5,color:"#f59e0b"},{label:"10 F",val:10,color:"#ea580c"},
+  {label:"15 F",val:15,color:"#c2410c"},{label:"20 F",val:20,color:"#fbbf24"},
+  {label:"10 F",val:10,color:"#f59e0b"},{label:"25 F",val:25,color:"#fb923c"},
+  {label:"5 F",val:5,color:"#ea580c"},{label:"30 F",val:30,color:"#9c27b0"},
+  {label:"10 F",val:10,color:"#f59e0b"},{label:"50 F",val:50,color:"#fbbf24"},
+  {label:"5 F",val:5,color:"#ea580c"},{label:"20 F",val:20,color:"#fdba74"},
 ];
 const N=SEGMENTS.length;
 const ARC=2*Math.PI/N;
@@ -184,7 +184,7 @@ function drawWheel(angle=0){
     ctx.arc(cx,cy,r,start,end);
     ctx.closePath();
     ctx.fillStyle=seg.color;ctx.fill();
-    ctx.strokeStyle="#0a0f1a";ctx.lineWidth=2;ctx.stroke();
+    ctx.strokeStyle="#0a0d13";ctx.lineWidth=2;ctx.stroke();
     ctx.save();
     ctx.translate(cx,cy);
     ctx.rotate(start+ARC/2);
@@ -194,9 +194,8 @@ function drawWheel(angle=0){
     ctx.fillText(seg.label,r-10,5);
     ctx.restore();
   });
-  // Bord extérieur
   ctx.beginPath();ctx.arc(cx,cy,r,0,2*Math.PI);
-  ctx.strokeStyle="rgba(255,215,0,.6)";ctx.lineWidth=4;ctx.stroke();
+  ctx.strokeStyle="rgba(245,158,11,.6)";ctx.lineWidth=4;ctx.stroke();
 }
 
 async function init(){
@@ -239,9 +238,9 @@ async function chargerHistorique(){
     </div>`).join("");
 }
 
-// Gain pondéré — max 50 FCFA, valeurs faibles plus fréquentes
+// Gain pondéré — identique pour tout le monde, aucune condition cachée
 function tirerGain(){
-  const poids=[30,25,20,10,25,8,30,5,25,2,30,10]; // Plus de chances sur les petits gains
+  const poids=[30,25,20,10,25,8,30,5,25,2,30,10];
   const total=poids.reduce((a,b)=>a+b,0);
   let rand=Math.random()*total,cumul=0;
   for(let i=0;i<N;i++){
@@ -259,12 +258,10 @@ async function tournerRoue(){
   const droit=droits[0];
   const {index,val}=tirerGain();
 
-  // Angle cible : centrer le segment gagné sous le pointeur
   const targetSegAngle=-(index*ARC+ARC/2)+Math.PI/2;
-  const tours=5+Math.floor(Math.random()*3); // 5-7 tours
+  const tours=5+Math.floor(Math.random()*3);
   const finalAngle=tours*2*Math.PI+targetSegAngle;
 
-  // Animation
   const duration=4000;
   const start=performance.now();
   const startAngle=currentAngle;
@@ -272,7 +269,6 @@ async function tournerRoue(){
   function animate(now){
     const elapsed=now-start;
     const progress=Math.min(elapsed/duration,1);
-    // Ease out cubic
     const ease=1-Math.pow(1-progress,3);
     const angle=startAngle+finalAngle*ease;
     drawWheel(angle);
@@ -287,19 +283,16 @@ async function tournerRoue(){
 
 async function finirTour(droit,val){
   try{
-    // Marquer le droit comme utilisé
     await fetch(SB+"/rest/v1/roue_droits?id=eq."+droit.id,{
       method:"PATCH",headers:H(),
       body:JSON.stringify({utilise:true})
     });
 
-    // Enregistrer le gain
     await fetch(SB+"/rest/v1/roue_chance",{
       method:"POST",headers:{...H(),"Prefer":"return=minimal"},
       body:JSON.stringify({user_id:uid(),raison:droit.raison,montant_gagne:val})
     });
 
-    // Créditer le solde
     const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()});
     const p=await rp.json();
     const nouveau=parseFloat(p[0]?.solde||0)+val;
@@ -308,7 +301,6 @@ async function finirTour(droit,val){
       body:JSON.stringify({solde:nouveau})
     });
 
-    // Afficher résultat
     afficherResultat(val);
     await chargerDroits();
     await chargerHistorique();
@@ -319,7 +311,6 @@ async function finirTour(droit,val){
 }
 
 function afficherResultat(val){
-  const icons=["🎉","🎊","✨","💫","🌟"];
   document.getElementById("resIcon").textContent=val>=30?"🏆":val>=20?"🎊":"🎉";
   document.getElementById("resTitle").textContent=val>=30?"Excellent !":val>=20?"Bien joué !":"Bonne chance !";
   document.getElementById("resAmount").textContent="+"+val+" FCFA";
