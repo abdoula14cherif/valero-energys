@@ -8,62 +8,67 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:linear-gradient(160deg,#0a0d13,#12161f,#1b2130);font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;color:#fff;}
+body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
 .wrap{width:100%;max-width:480px;padding-bottom:80px;}
-.topbar{background:rgba(255,255,255,.05);padding:16px 18px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50;border-bottom:1px solid rgba(255,255,255,.08);}
-.back-btn{background:none;border:none;font-size:22px;cursor:pointer;color:#fff;}
+.topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+.back-btn{background:none;border:none;font-size:20px;cursor:pointer;color:#1a1a1a;}
 .topbar-title{font-size:17px;font-weight:700;}
 
-.hero{text-align:center;padding:32px 20px 24px;position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;inset:0;opacity:.3;pointer-events:none;
+/* HEADER — panneau graphite compact, pas de pleine page sombre */
+.header-panel{
+  position:relative;padding:26px 20px 22px;overflow:hidden;text-align:center;
+  background:radial-gradient(circle at 85% 0%, rgba(245,158,11,.18) 0%, transparent 45%),
+             linear-gradient(160deg,#0a0d13 0%,#12161f 50%,#1b2130 100%);
+}
+.header-panel::before{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.3;
   background-image:
-    linear-gradient(30deg,rgba(245,158,11,.08) 12%,transparent 12.5%,transparent 87%,rgba(245,158,11,.08) 87.5%,rgba(245,158,11,.08)),
-    linear-gradient(150deg,rgba(245,158,11,.08) 12%,transparent 12.5%,transparent 87%,rgba(245,158,11,.08) 87.5%,rgba(245,158,11,.08));
+    linear-gradient(30deg,rgba(245,158,11,.06) 12%,transparent 12.5%,transparent 87%,rgba(245,158,11,.06) 87.5%,rgba(245,158,11,.06)),
+    linear-gradient(150deg,rgba(245,158,11,.06) 12%,transparent 12.5%,transparent 87%,rgba(245,158,11,.06) 87.5%,rgba(245,158,11,.06));
   background-size:40px 70px;}
-.tag{position:relative;display:inline-block;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font-size:11px;font-weight:800;padding:4px 14px;border-radius:20px;margin-bottom:12px;letter-spacing:.5px;}
-.hero-title{position:relative;font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:800;margin-bottom:6px;}
-.hero-sub{position:relative;font-size:14px;color:rgba(255,255,255,.6);line-height:1.6;}
+.tag{position:relative;z-index:1;display:inline-block;background:rgba(245,158,11,.18);border:1px solid rgba(245,158,11,.4);color:#fbbf24;font-size:11px;font-weight:800;padding:4px 14px;border-radius:20px;margin-bottom:12px;letter-spacing:.5px;}
+.header-panel h1{position:relative;z-index:1;font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;color:#fff;margin-bottom:6px;}
+.header-panel p{position:relative;z-index:1;font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;}
 
 /* COMPTEUR */
-.counter-card{margin:0 14px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:20px;text-align:center;}
-.counter-label{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;}
-.counter-val{font-family:'Space Grotesk',sans-serif;font-size:44px;font-weight:800;color:#f59e0b;line-height:1;}
-.counter-sub{font-size:12px;color:rgba(255,255,255,.4);margin-top:6px;}
-.progress-bar{background:rgba(255,255,255,.1);border-radius:20px;height:8px;margin-top:14px;overflow:hidden;}
+.counter-card{margin:-16px 14px 0;position:relative;z-index:2;background:#fff;border-radius:18px;padding:20px;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.1);}
+.counter-label{font-size:11px;color:#a4acb9;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;font-weight:700;}
+.counter-val{font-family:'Space Grotesk',sans-serif;font-size:42px;font-weight:800;color:#ea580c;line-height:1;}
+.counter-sub{font-size:12px;color:#a4acb9;margin-top:6px;}
+.progress-bar{background:#f0ede9;border-radius:20px;height:8px;margin-top:14px;overflow:hidden;}
 .progress-fill{height:100%;background:linear-gradient(90deg,#f59e0b,#ea580c);border-radius:20px;transition:width .5s;}
 
 /* STATUS */
-.status-card{margin:0 14px 14px;border-radius:20px;padding:24px;text-align:center;}
-.status-card.inactive{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);}
-.status-card.active{background:linear-gradient(135deg,rgba(245,158,11,.18),rgba(234,88,12,.12));border:2px solid rgba(245,158,11,.4);}
-.status-card.exhausted{background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.3);}
-.status-card.mine{background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(234,88,12,.12));border:2px solid rgba(245,158,11,.4);}
+.status-card{margin:14px 14px 0;border-radius:18px;padding:24px;text-align:center;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.07);border-left:4px solid #e5e0da;}
+.status-card.active{border-left-color:#f59e0b;background:#fff9f0;}
+.status-card.exhausted{border-left-color:#dc2626;background:#fff5f5;}
+.status-card.mine{border-left-color:#16a34a;background:#f0fdf4;}
 
-.status-icon{font-size:52px;margin-bottom:12px;}
-.status-title{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;margin-bottom:6px;}
-.status-sub{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:16px;}
-.btn-claim{width:100%;padding:16px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font-size:16px;font-weight:800;border:none;border-radius:14px;cursor:pointer;font-family:inherit;box-shadow:0 6px 24px rgba(234,88,12,.35);}
+.status-icon{font-size:46px;margin-bottom:12px;}
+.status-title{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:800;margin-bottom:6px;color:#1a1a1a;}
+.status-sub{font-size:13px;color:#767676;line-height:1.6;margin-bottom:16px;}
+.btn-claim{width:100%;padding:15px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font-size:15px;font-weight:800;border:none;border-radius:14px;cursor:pointer;font-family:inherit;box-shadow:0 6px 20px rgba(234,88,12,.3);}
 .btn-claim:disabled{opacity:.5;cursor:not-allowed;}
 
 /* DÉTAILS PLAN */
-.plan-details{margin:0 14px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;overflow:hidden;}
-.pd-banner{width:100%;height:64px;background:linear-gradient(135deg,#f59e0b,#ea580c);display:flex;align-items:center;justify-content:center;font-size:28px;}
+.plan-details{margin:14px 14px 0;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+.pd-banner{width:100%;height:60px;background:linear-gradient(135deg,#f59e0b,#ea580c);display:flex;align-items:center;justify-content:center;font-size:26px;}
 .pd-body{padding:18px;}
-.pd-name{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;margin-bottom:14px;}
+.pd-name{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;margin-bottom:14px;color:#1a1a1a;}
 .pd-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
-.pd-stat{background:rgba(255,255,255,.06);border-radius:12px;padding:12px;text-align:center;}
-.pd-val{font-size:15px;font-weight:800;color:#f59e0b;font-family:'Space Grotesk',sans-serif;}
-.pd-lbl{font-size:10px;color:rgba(255,255,255,.4);margin-top:3px;}
-.pd-note{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);border-radius:12px;padding:12px;font-size:12px;color:rgba(245,197,94,.9);line-height:1.6;}
+.pd-stat{background:#f8f6f3;border-radius:12px;padding:12px;text-align:center;}
+.pd-val{font-size:14px;font-weight:800;color:#ea580c;font-family:'Space Grotesk',sans-serif;}
+.pd-lbl{font-size:10px;color:#a4acb9;margin-top:3px;}
+.pd-note{background:#fff3e2;border:1px solid #fed7aa;border-radius:12px;padding:12px;font-size:12px;color:#9a3412;line-height:1.6;}
 
-.alert{padding:10px 14px;border-radius:12px;font-size:13px;margin:0 14px 14px;display:none;}
+.alert{padding:10px 14px;border-radius:12px;font-size:13px;margin:14px 14px 0;display:none;}
 .alert.show{display:block;}
-.err{background:rgba(220,38,38,.15);border:1px solid rgba(220,38,38,.3);color:#fc8181;}
-.suc{background:rgba(22,163,74,.15);border:1px solid rgba(22,163,74,.3);color:#86efac;}
+.err{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
+.suc{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
 
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(10,13,19,.95);border-top:1px solid rgba(255,255,255,.08);display:flex;padding:8px 0 12px;z-index:100;}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.3);font-size:10px;font-weight:600;}
-.nav-item.active{color:#f59e0b;}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0 14px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
+.nav-item.active{color:#ea580c;}
 .nav-item .ni{font-size:21px;}
 </style>
 </head>
@@ -74,10 +79,10 @@ body{min-height:100vh;background:linear-gradient(160deg,#0a0d13,#12161f,#1b2130)
     <span class="topbar-title">⭐ VIP0 Gratuit</span>
   </div>
 
-  <div class="hero">
+  <div class="header-panel">
     <div class="tag">🆓 OFFRE GRATUITE</div>
-    <div class="hero-title">Plan VIP0</div>
-    <div class="hero-sub">25 FCFA/jour pendant 5 jours — <strong style="color:#f59e0b;">totalement gratuit</strong> pour les 100 premiers !</div>
+    <h1>Plan VIP0</h1>
+    <p>25 FCFA/jour pendant 5 jours — totalement gratuit pour les 100 premiers !</p>
   </div>
 
   <!-- Compteur places -->
@@ -135,7 +140,7 @@ async function init(){
   offre=d[0]||null;
 
   if(!offre){
-    document.getElementById("statusCard").innerHTML=`<div class="status-card inactive" style="margin:0 14px 14px;"><div class="status-icon">⏰</div><div class="status-title">Pas encore disponible</div><div class="status-sub">L'administrateur activera cette offre chaque jour à 10h00.</div></div>`;
+    document.getElementById("statusCard").innerHTML=`<div class="status-card" style="margin:14px 14px 0;"><div class="status-icon">⏰</div><div class="status-title">Pas encore disponible</div><div class="status-sub">L'administrateur activera cette offre chaque jour à 10h00.</div></div>`;
     return;
   }
 
@@ -151,7 +156,7 @@ async function init(){
   const statusEl=document.getElementById("statusCard");
 
   if(dejaReclame){
-    statusEl.innerHTML=`<div class="status-card mine" style="margin:0 14px 14px;">
+    statusEl.innerHTML=`<div class="status-card mine" style="margin:14px 14px 0;">
       <div class="status-icon">✅</div>
       <div class="status-title">VIP0 Activé !</div>
       <div class="status-sub">Vous avez réclamé cette offre. Récupérez vos gains toutes les 24h sur votre page Tâches.</div>
@@ -161,16 +166,16 @@ async function init(){
   }
 
   if(!offre.actif){
-    statusEl.innerHTML=`<div class="status-card inactive" style="margin:0 14px 14px;">
+    statusEl.innerHTML=`<div class="status-card" style="margin:14px 14px 0;">
       <div class="status-icon">⏰</div>
       <div class="status-title">Offre non activée</div>
-      <div class="status-sub">L'administrateur activera cette offre aujourd'hui à <strong style="color:#f59e0b;">10h00</strong>. Revenez à cette heure pour être parmi les premiers !</div>
+      <div class="status-sub">L'administrateur activera cette offre aujourd'hui à <strong style="color:#ea580c;">10h00</strong>. Revenez à cette heure pour être parmi les premiers !</div>
     </div>`;
     return;
   }
 
   if(restant<=0){
-    statusEl.innerHTML=`<div class="status-card exhausted" style="margin:0 14px 14px;">
+    statusEl.innerHTML=`<div class="status-card exhausted" style="margin:14px 14px 0;">
       <div class="status-icon">😢</div>
       <div class="status-title">Offre épuisée</div>
       <div class="status-sub">Les 100 places ont été prises. Revenez demain à 10h00 pour la prochaine activation !</div>
@@ -178,10 +183,10 @@ async function init(){
     return;
   }
 
-  statusEl.innerHTML=`<div class="status-card active" style="margin:0 14px 14px;">
+  statusEl.innerHTML=`<div class="status-card active" style="margin:14px 14px 0;">
     <div class="status-icon">🎁</div>
     <div class="status-title">Offre disponible !</div>
-    <div class="status-sub">Il reste <strong style="color:#f59e0b;">${restant} places</strong> sur 100. Réclamez maintenant avant qu'il ne soit trop tard !</div>
+    <div class="status-sub">Il reste <strong style="color:#ea580c;">${restant} places</strong> sur 100. Réclamez maintenant avant qu'il ne soit trop tard !</div>
     <button class="btn-claim" id="btnClaim" onclick="reclamer()">🆓 Réclamer gratuitement</button>
   </div>`;
 }
