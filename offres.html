@@ -4,31 +4,37 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
 <link rel="manifest" href="/manifest.json"/>
-<meta name="theme-color" content="#00bcd4"/>
+<meta name="theme-color" content="#f59e0b"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<meta name="apple-mobile-web-app-title" content="Velero Energy"/>
-<title>Offres & Cadeaux — Velero Energy</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<meta name="apple-mobile-web-app-title" content="Sinipec"/>
+<title>Offres & Cadeaux — Sinipec</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
+body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
 .wrap{width:100%;max-width:480px;padding-bottom:80px;}
 .topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
 .back-btn{background:none;border:none;font-size:22px;cursor:pointer;}
 .topbar-title{font-size:17px;font-weight:700;}
 
-/* Hero */
-.hero-banner{margin:14px;background:linear-gradient(135deg,#00bcd4,#0097a7);border-radius:20px;padding:24px;color:#fff;text-align:center;position:relative;overflow:hidden;}
-.hero-banner::before{content:'🎁';font-size:80px;position:absolute;right:-10px;top:-10px;opacity:.15;}
-.hb-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;margin-bottom:6px;}
-.hb-sub{font-size:13px;opacity:.85;margin-bottom:16px;}
-.code-input-wrap{display:flex;gap:8px;}
-.code-input{flex:1;padding:12px 14px;font-size:16px;font-family:'Playfair Display',serif;font-weight:700;border:2px solid rgba(255,255,255,.4);border-radius:12px;background:rgba(255,255,255,.15);color:#fff;outline:none;text-transform:uppercase;letter-spacing:2px;text-align:center;}
-.code-input::placeholder{color:rgba(255,255,255,.5);font-size:13px;letter-spacing:0;font-family:'DM Sans',sans-serif;font-weight:400;}
-.code-input:focus{border-color:#fff;}
-.btn-appliquer{padding:12px 18px;background:#fff;color:#00bcd4;border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;white-space:nowrap;font-family:inherit;}
+/* Hero — panneau graphite à motif hexagonal, plus de blob d'emoji flou */
+.hero-banner{margin:14px;border-radius:20px;padding:24px;color:#fff;text-align:center;position:relative;overflow:hidden;
+  background:radial-gradient(circle at 85% 0%, rgba(245,158,11,.2) 0%, transparent 45%),
+             linear-gradient(160deg,#0a0d13 0%,#12161f 50%,#1b2130 100%);}
+.hero-banner::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.3;
+  background-image:
+    linear-gradient(30deg,rgba(245,158,11,.06) 12%,transparent 12.5%,transparent 87%,rgba(245,158,11,.06) 87.5%,rgba(245,158,11,.06)),
+    linear-gradient(150deg,rgba(245,158,11,.06) 12%,transparent 12.5%,transparent 87%,rgba(245,158,11,.06) 87.5%,rgba(245,158,11,.06));
+  background-size:40px 70px;}
+.hb-title{position:relative;font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:800;margin-bottom:6px;}
+.hb-sub{position:relative;font-size:13px;opacity:.7;margin-bottom:16px;}
+.code-input-wrap{position:relative;display:flex;gap:8px;}
+.code-input{flex:1;padding:12px 14px;font-size:16px;font-family:'Space Grotesk',sans-serif;font-weight:700;border:2px solid rgba(255,255,255,.25);border-radius:12px;background:rgba(255,255,255,.08);color:#fff;outline:none;text-transform:uppercase;letter-spacing:2px;text-align:center;}
+.code-input::placeholder{color:rgba(255,255,255,.4);font-size:13px;letter-spacing:0;font-family:'DM Sans',sans-serif;font-weight:400;}
+.code-input:focus{border-color:#f59e0b;}
+.btn-appliquer{padding:12px 18px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;white-space:nowrap;font-family:inherit;}
 
 /* Alert */
 .alert{padding:10px 13px;border-radius:10px;font-size:13px;margin:10px 14px 0;display:none;}
@@ -38,39 +44,38 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 
 /* Succès animation */
 .success-card{margin:14px;background:#fff;border-radius:20px;padding:28px;box-shadow:0 3px 14px rgba(0,0,0,.08);text-align:center;display:none;}
-.sc-icon{font-size:64px;margin-bottom:12px;animation:bounce .6s ease;}
-@keyframes bounce{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
-.sc-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#00bcd4;margin-bottom:6px;}
-.sc-montant{font-size:36px;font-weight:900;color:#15803d;font-family:'Playfair Display',serif;margin:12px 0;}
+.sc-icon{font-size:56px;margin-bottom:12px;animation:bounce .6s ease;}
+@keyframes bounce{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+.sc-title{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:800;color:#ea580c;margin-bottom:6px;}
+.sc-montant{font-size:32px;font-weight:800;color:#15803d;font-family:'Space Grotesk',sans-serif;margin:12px 0;}
 .sc-sub{font-size:13px;color:#888;}
 
 /* Offres actives */
 .section{padding:12px 14px 6px;}
 .section-title{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
-.offre-card{background:#fff;border-radius:16px;padding:16px;margin-bottom:10px;box-shadow:0 2px 10px rgba(0,0,0,.06);display:flex;align-items:center;gap:14px;position:relative;overflow:hidden;}
-.offre-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(135deg,#00bcd4,#0097a7);}
-.offre-icon{font-size:32px;flex-shrink:0;}
+.offre-card{background:#fff;border-radius:16px;padding:16px;margin-bottom:10px;box-shadow:0 2px 10px rgba(0,0,0,.06);display:flex;align-items:center;gap:14px;position:relative;overflow:hidden;border-left:4px solid #f59e0b;}
+.offre-icon{width:44px;height:44px;flex-shrink:0;border-radius:12px;background:#fff3e2;display:flex;align-items:center;justify-content:center;font-size:22px;}
 .offre-info{flex:1;}
 .offre-titre{font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:3px;}
 .offre-desc{font-size:12px;color:#888;margin-bottom:4px;}
-.offre-montant{font-size:18px;font-weight:900;color:#00bcd4;font-family:'Playfair Display',serif;}
+.offre-montant{font-size:17px;font-weight:800;color:#ea580c;font-family:'Space Grotesk',sans-serif;}
 .offre-expire{font-size:10px;color:#aaa;margin-top:2px;}
-.offre-dispo{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;background:#e0f7fa;color:#00838f;flex-shrink:0;}
+.offre-dispo{font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px;background:#fff3e2;color:#c2410c;flex-shrink:0;}
 
 /* Historique */
 .hist-item{background:#fff;border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 6px rgba(0,0,0,.05);}
-.hi-icon{width:36px;height:36px;border-radius:10px;background:#e0f7fa;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.hi-icon{width:36px;height:36px;border-radius:10px;background:#fff3e2;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
 .hi-info{flex:1;}
-.hi-code{font-size:13px;font-weight:700;color:#1a1a1a;font-family:'Playfair Display',serif;letter-spacing:1px;}
+.hi-code{font-size:13px;font-weight:700;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;letter-spacing:1px;}
 .hi-date{font-size:11px;color:#aaa;margin-top:1px;}
-.hi-gain{font-size:15px;font-weight:900;color:#15803d;font-family:'Playfair Display',serif;}
+.hi-gain{font-size:14px;font-weight:800;color:#15803d;font-family:'Space Grotesk',sans-serif;}
 
 .empty{text-align:center;padding:30px;color:#aaa;}
-.empty-icon{font-size:36px;margin-bottom:8px;}
+.empty-icon{font-size:32px;margin-bottom:8px;}
 
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #efece7;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
-.nav-item.active{color:#00bcd4;}
+.nav-item.active{color:#ea580c;}
 .nav-item .ni{font-size:21px;}
 </style>
 </head>
@@ -87,7 +92,7 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
     <div class="hb-title">Entrez votre code cadeau</div>
     <div class="hb-sub">Recevez instantanément votre bonus sur votre compte</div>
     <div class="code-input-wrap">
-      <input type="text" class="code-input" id="codeInput" placeholder="Ex: VELERO2025" maxlength="20" oninput="this.value=this.value.toUpperCase()"/>
+      <input type="text" class="code-input" id="codeInput" placeholder="Ex: SINIPEC2026" maxlength="20" oninput="this.value=this.value.toUpperCase()"/>
       <button class="btn-appliquer" onclick="appliquerCode()">🎁 Utiliser</button>
     </div>
   </div>
@@ -123,10 +128,10 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 </nav>
 
 <script>
-const SB="https://seegoklunovyuieorkvy.supabase.co";
-const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
-function tok(){return localStorage.getItem("velero_token")||"";}
-function uid(){return localStorage.getItem("velero_uid")||"";}
+const SB="https://wpezwfskatogphaeffva.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwZXp3ZnNrYXRvZ3BoYWVmZnZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyNjc0MzksImV4cCI6MjEwMTg0MzQzOX0.0K82Hz7gKho2YC2rbbHNB4ZFe-0yuZcelI3XnFvWEW4";
+function tok(){return localStorage.getItem("sinipec_token")||"";}
+function uid(){return localStorage.getItem("sinipec_uid")||"";}
 function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
 
 function showAlert(msg,type){
@@ -147,7 +152,6 @@ async function loadOffres(){
     const today=new Date().toISOString().split("T")[0];
     const r=await fetch(SB+"/rest/v1/codes_cadeaux?actif=eq.true&select=*&order=created_at.desc",{headers:H()});
     const codes=await r.json();
-    // Filtrer ceux pas expirés et avec utilisations restantes
     const valides=codes.filter(c=>{
       const nonExpire=!c.expire_le||c.expire_le>=today;
       const aDesUtil=c.utilisations_actuelles<c.utilisations_max;
@@ -163,7 +167,7 @@ async function loadOffres(){
       return `<div class="offre-card">
         <div class="offre-icon">🎁</div>
         <div class="offre-info">
-          <div class="offre-titre">${c.description||"Code cadeau Velero"}</div>
+          <div class="offre-titre">${c.description||"Code cadeau Sinipec"}</div>
           <div class="offre-desc">Utilisez le code pour recevoir votre bonus</div>
           <div class="offre-montant">+${parseFloat(c.montant).toLocaleString()} FCFA</div>
           <div class="offre-expire">⏰ Expire : ${expire}</div>
@@ -202,7 +206,6 @@ async function appliquerCode(){
   try{
     const today=new Date().toISOString().split("T")[0];
 
-    // Vérifier si le code existe et est valide
     const r=await fetch(SB+"/rest/v1/codes_cadeaux?code=eq."+code+"&actif=eq.true&select=*",{headers:H()});
     const codes=await r.json();
 
@@ -213,19 +216,16 @@ async function appliquerCode(){
 
     const c=codes[0];
 
-    // Vérifier expiration
     if(c.expire_le&&c.expire_le<today){
       showAlert("❌ Ce code a expiré le "+new Date(c.expire_le).toLocaleDateString("fr-FR"),"err");
       btn.disabled=false;btn.textContent="🎁 Utiliser";return;
     }
 
-    // Vérifier utilisations max
     if(c.utilisations_actuelles>=c.utilisations_max){
       showAlert("❌ Ce code a atteint son nombre maximum d'utilisations","err");
       btn.disabled=false;btn.textContent="🎁 Utiliser";return;
     }
 
-    // Vérifier si déjà utilisé par cet utilisateur
     const r2=await fetch(SB+"/rest/v1/codes_utilises?user_id=eq."+uid()+"&code_id=eq."+c.id+"&select=id",{headers:H()});
     const deja=await r2.json();
     if(deja&&deja.length>0){
@@ -233,21 +233,17 @@ async function appliquerCode(){
       btn.disabled=false;btn.textContent="🎁 Utiliser";return;
     }
 
-    // Appliquer le code
-    // 1. Enregistrer utilisation
     await fetch(SB+"/rest/v1/codes_utilises",{
       method:"POST",
       headers:{...H(),"Prefer":"return=representation"},
       body:JSON.stringify({user_id:uid(),code_id:c.id,montant_recu:c.montant})
     });
 
-    // 2. Incrémenter utilisations
     await fetch(SB+"/rest/v1/codes_cadeaux?id=eq."+c.id,{
       method:"PATCH",headers:H(),
       body:JSON.stringify({utilisations_actuelles:c.utilisations_actuelles+1})
     });
 
-    // 3. Créditer le solde
     const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()});
     const prof=await rp.json();
     const ancienSolde=parseFloat(prof[0]?.solde||0);
@@ -256,7 +252,6 @@ async function appliquerCode(){
       body:JSON.stringify({solde:ancienSolde+parseFloat(c.montant)})
     });
 
-    // 4. Enregistrer transaction
     await fetch(SB+"/rest/v1/transactions",{
       method:"POST",
       headers:{...H(),"Prefer":"return=representation"},
@@ -266,7 +261,6 @@ async function appliquerCode(){
       })
     });
 
-    // Afficher succès
     document.getElementById("scMontant").textContent="+"+parseFloat(c.montant).toLocaleString()+" FCFA";
     document.getElementById("successCard").style.display="block";
     document.getElementById("codeInput").value="";
