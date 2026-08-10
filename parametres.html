@@ -4,25 +4,25 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
 <link rel="manifest" href="/manifest.json"/>
-<meta name="theme-color" content="#00bcd4"/>
+<meta name="theme-color" content="#f59e0b"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<meta name="apple-mobile-web-app-title" content="Velero Energy"/>
-<title>Paramètres — Velero Energy</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<meta name="apple-mobile-web-app-title" content="Sinipec"/>
+<title>Paramètres — Sinipec</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
+body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
 .wrap{width:100%;max-width:480px;padding-bottom:40px;}
 .topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
 .back-btn{background:none;border:none;font-size:20px;cursor:pointer;}
 .topbar-title{font-size:17px;font-weight:700;}
-.section{margin:14px 14px 0;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.07);}
+.section{margin:14px 14px 0;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.07);}
 .section-title{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;padding:14px 16px 8px;}
-.setting-row{display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid #f5f5f5;cursor:pointer;transition:background .2s;}
+.setting-row{display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid #f4f1ed;cursor:pointer;transition:background .2s;}
 .setting-row:last-child{border-bottom:none;}
-.setting-row:hover{background:#f9f9f9;}
+.setting-row:hover{background:#faf9f7;}
 .sr-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-right:12px;flex-shrink:0;}
 .sr-info{flex:1;}
 .sr-label{font-size:14px;font-weight:600;color:#1a1a1a;}
@@ -30,17 +30,16 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 .sr-arrow{color:#ccc;font-size:16px;}
 .sr-toggle{position:relative;width:44px;height:24px;flex-shrink:0;}
 .sr-toggle input{opacity:0;width:0;height:0;}
-.slider-t{position:absolute;inset:0;background:#ccc;border-radius:24px;transition:.3s;cursor:pointer;}
+.slider-t{position:absolute;inset:0;background:#e2ddd6;border-radius:24px;transition:.3s;cursor:pointer;}
 .slider-t::before{content:"";position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s;}
-input:checked+.slider-t{background:#00bcd4;}
+input:checked+.slider-t{background:linear-gradient(135deg,#f59e0b,#ea580c);}
 input:checked+.slider-t::before{transform:translateX(20px);}
-.danger .sr-label{color:#e53935;}
-.sr-icon.blue{background:#e0f7fa;}
-.sr-icon.orange{background:#fff3e0;}
+.danger .sr-label{color:#dc2626;}
+.sr-icon.amber{background:#fff3e2;}
 .sr-icon.green{background:#f0fdf4;}
 .sr-icon.red{background:#fff5f5;}
 .sr-icon.purple{background:#f3e5f5;}
-.sr-icon.gray{background:#f5f5f5;}
+.sr-icon.gray{background:#f4f2ef;}
 .alert{padding:10px 13px;border-radius:10px;font-size:13px;margin:14px;display:none;}
 .alert.show{display:block;}
 .alert-success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
@@ -59,12 +58,12 @@ input:checked+.slider-t::before{transform:translateX(20px);}
   <div class="section">
     <div class="section-title">Compte</div>
     <div class="setting-row" onclick="location.href='compte.html'">
-      <div class="sr-icon blue">👤</div>
+      <div class="sr-icon amber">👤</div>
       <div class="sr-info"><div class="sr-label">Mon profil</div><div class="sr-sub">Modifier mes informations</div></div>
       <span class="sr-arrow">›</span>
     </div>
     <div class="setting-row" onclick="location.href='securite.html'">
-      <div class="sr-icon orange">🔑</div>
+      <div class="sr-icon amber">🔑</div>
       <div class="sr-info"><div class="sr-label">Sécurité</div><div class="sr-sub">Mot de passe et authentification</div></div>
       <span class="sr-arrow">›</span>
     </div>
@@ -78,7 +77,7 @@ input:checked+.slider-t::before{transform:translateX(20px);}
   <div class="section">
     <div class="section-title">Notifications</div>
     <div class="setting-row">
-      <div class="sr-icon blue">🔔</div>
+      <div class="sr-icon amber">🔔</div>
       <div class="sr-info"><div class="sr-label">Notifications push</div><div class="sr-sub">Alertes transactions et gains</div></div>
       <label class="sr-toggle"><input type="checkbox" checked onchange="saveSetting('notif_push',this.checked)"><span class="slider-t"></span></label>
     </div>
@@ -88,8 +87,8 @@ input:checked+.slider-t::before{transform:translateX(20px);}
       <label class="sr-toggle"><input type="checkbox" id="toggleEmail" onchange="saveSetting('notif_email',this.checked)"><span class="slider-t"></span></label>
     </div>
     <div class="setting-row">
-      <div class="sr-icon orange">⛽</div>
-      <div class="sr-info"><div class="sr-label">Rappel tâche quotidienne</div><div class="sr-sub">Rappel chaque matin à 9h</div></div>
+      <div class="sr-icon amber">⏱️</div>
+      <div class="sr-info"><div class="sr-label">Rappel de récupération</div><div class="sr-sub">Rappel chaque jour à 9h pour récupérer vos gains</div></div>
       <label class="sr-toggle"><input type="checkbox" checked id="toggleTache" onchange="saveSetting('notif_tache',this.checked)"><span class="slider-t"></span></label>
     </div>
   </div>
@@ -115,16 +114,27 @@ input:checked+.slider-t::before{transform:translateX(20px);}
 
   <div class="section">
     <div class="section-title">Session</div>
-    <div class="setting-row danger" onclick="VE.logout()">
+    <div class="setting-row danger" onclick="logout()">
       <div class="sr-icon red">🚪</div>
       <div class="sr-info"><div class="sr-label">Se déconnecter</div><div class="sr-sub">Fermer la session actuelle</div></div>
       <span class="sr-arrow">›</span>
     </div>
   </div>
 </div>
-<script src="api.js"></script>
 <script>
-VE.checkAuth();
+const SB="https://wpezwfskatogphaeffva.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwZXp3ZnNrYXRvZ3BoYWVmZnZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyNjc0MzksImV4cCI6MjEwMTg0MzQzOX0.0K82Hz7gKho2YC2rbbHNB4ZFe-0yuZcelI3XnFvWEW4";
+function tok(){return localStorage.getItem("sinipec_token")||"";}
+function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
+
+if(!tok())window.location.href="index.html";
+
+function logout(){
+  try{fetch(SB+"/auth/v1/logout",{method:"POST",headers:H()});}catch(e){}
+  localStorage.clear();
+  location.href="index.html";
+}
+
 function saveSetting(k,v){
   localStorage.setItem("setting_"+k,v);
   const al=document.getElementById("alertBox");
@@ -132,7 +142,6 @@ function saveSetting(k,v){
   al.className="alert alert-success show";
   setTimeout(()=>al.className="alert alert-success",2000);
 }
-// Charger les paramètres sauvegardés
 window.onload=()=>{
   const em=localStorage.getItem("setting_notif_email");
   const ta=localStorage.getItem("setting_notif_tache");
