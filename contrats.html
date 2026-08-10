@@ -3,73 +3,82 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-<title>Contrats — Velero Energy</title>
+<title>Contrats — Sinipec</title>
 <script src="/pwa-install.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
+body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
 .wrap{width:100%;max-width:480px;padding-bottom:80px;}
 .topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
 .back-btn{background:none;border:none;font-size:22px;cursor:pointer;}
 .topbar-title{font-size:17px;font-weight:700;}
 
-/* Hero */
-.hero-img-wrap{position:relative;width:100%;height:160px;overflow:hidden;}
-.hero-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center;}
-.hero-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.6));}
-.hero-text{position:absolute;bottom:16px;left:16px;z-index:2;color:#fff;}
-.hero-text h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;}
-.hero-text p{font-size:12px;opacity:.85;margin-top:2px;}
+/* Hero — panneau graphite hexagonal, plus de photo Velero */
+.hero-panel{position:relative;overflow:hidden;padding:26px 20px 22px;color:#fff;
+  background:radial-gradient(circle at 85% 0%, rgba(245,158,11,.18) 0%, transparent 45%),
+             linear-gradient(160deg,#0a0d13 0%,#12161f 50%,#1b2130 100%);}
+.hero-panel::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.3;
+  background-image:
+    linear-gradient(30deg,rgba(245,158,11,.06) 12%,transparent 12.5%,transparent 87%,rgba(245,158,11,.06) 87.5%,rgba(245,158,11,.06)),
+    linear-gradient(150deg,rgba(245,158,11,.06) 12%,transparent 12.5%,transparent 87%,rgba(245,158,11,.06) 87.5%,rgba(245,158,11,.06));
+  background-size:40px 70px;}
+.hero-panel h2{position:relative;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;}
+.hero-panel p{position:relative;font-size:13px;opacity:.6;margin-top:4px;}
 
 /* Contrats */
 .section{margin:12px 14px 0;}
 .sec-title{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
 
 .no-invest{background:#fff;border-radius:18px;padding:32px;text-align:center;box-shadow:0 3px 14px rgba(0,0,0,.08);}
-.ni-icon{font-size:60px;margin-bottom:14px;}
+.ni-icon{font-size:52px;margin-bottom:14px;}
 .ni-title{font-size:18px;font-weight:700;margin-bottom:8px;}
 .ni-sub{font-size:13px;color:#888;margin-bottom:20px;}
-.btn-go{padding:13px 24px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:14px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;}
+.btn-go{padding:13px 24px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font-size:14px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;}
 
 .contrat-card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.08);margin-bottom:10px;}
 .cc-header{padding:16px 18px 12px;display:flex;justify-content:space-between;align-items:center;}
-.cc-plan{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;}
+.cc-plan{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:800;}
 .cc-statut{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;}
-.cc-statut.actif{background:#e0f7fa;color:#00838f;}
-.cc-statut.termine{background:#f5f5f5;color:#888;}
+.cc-statut.actif{background:#fff3e2;color:#c2410c;}
+.cc-statut.termine{background:#f4f2ef;color:#888;}
 .cc-body{padding:0 18px 18px;}
 .cc-progress{margin-bottom:14px;}
 .cp-label{display:flex;justify-content:space-between;font-size:12px;color:#888;margin-bottom:6px;}
-.cp-bar{background:#f0f0f0;border-radius:20px;height:8px;}
-.cp-fill{border-radius:20px;height:100%;transition:width .5s;}
+.cp-bar{background:#f0ede9;border-radius:20px;height:8px;}
+.cp-fill{border-radius:20px;height:100%;transition:width .5s;background:linear-gradient(90deg,#f59e0b,#ea580c);}
 .cc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
-.cs-box{background:#f8f9fa;border-radius:12px;padding:12px;text-align:center;}
-.cs-val{font-size:14px;font-weight:800;color:#00bcd4;font-family:'Playfair Display',serif;}
+.cs-box{background:#f8f6f3;border-radius:12px;padding:12px;text-align:center;}
+.cs-val{font-size:13px;font-weight:800;color:#ea580c;font-family:'Space Grotesk',sans-serif;}
 .cs-lbl{font-size:10px;color:#888;margin-top:2px;}
-.cc-detail{font-size:12px;color:#888;line-height:1.8;background:#f8f9fa;border-radius:12px;padding:12px;}
+.cc-detail{font-size:12px;color:#888;line-height:1.8;background:#f8f6f3;border-radius:12px;padding:12px;}
 .cc-detail span{color:#1a1a1a;font-weight:600;}
-.btn-tache-c{width:100%;padding:12px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:14px;font-weight:700;border:none;border-radius:11px;cursor:pointer;font-family:inherit;margin-top:14px;}
+.btn-tache-c{width:100%;padding:12px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font-size:14px;font-weight:700;border:none;border-radius:11px;cursor:pointer;font-family:inherit;margin-top:14px;}
 
 /* ═══ SECTION PARTENAIRE ═══ */
-.partner-hero{margin:14px 14px 0;background:linear-gradient(135deg,#0a1628,#1e3a5f);border-radius:20px;padding:24px;color:#fff;position:relative;overflow:hidden;}
-.partner-hero::before{content:'🤝';font-size:80px;position:absolute;right:-10px;top:-10px;opacity:.1;}
-.ph-tag{display:inline-block;background:#00bcd4;color:#fff;font-size:10px;font-weight:700;padding:3px 12px;border-radius:20px;margin-bottom:10px;letter-spacing:.5px;}
-.ph-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-bottom:6px;}
-.ph-sub{font-size:13px;opacity:.75;line-height:1.6;}
+.partner-hero{margin:14px 14px 0;position:relative;overflow:hidden;background:linear-gradient(160deg,#0a0d13,#12161f,#1b2130);border-radius:20px;padding:24px;color:#fff;}
+.partner-hero::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.3;
+  background-image:
+    linear-gradient(30deg,rgba(245,158,11,.06) 12%,transparent 12.5%,transparent 87%,rgba(245,158,11,.06) 87.5%,rgba(245,158,11,.06)),
+    linear-gradient(150deg,rgba(245,158,11,.06) 12%,transparent 12.5%,transparent 87%,rgba(245,158,11,.06) 87.5%,rgba(245,158,11,.06));
+  background-size:40px 70px;}
+.ph-tag{position:relative;display:inline-block;background:rgba(245,158,11,.18);border:1px solid rgba(245,158,11,.4);color:#fbbf24;font-size:10px;font-weight:700;padding:3px 12px;border-radius:20px;margin-bottom:10px;letter-spacing:.5px;}
+.ph-title{position:relative;font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;margin-bottom:6px;}
+.ph-sub{position:relative;font-size:13px;opacity:.65;line-height:1.6;}
 
 .conditions-card{margin:10px 14px 0;background:#fff;border-radius:18px;padding:18px;box-shadow:0 3px 14px rgba(0,0,0,.08);}
 .cond-title{font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
-.cond-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;padding:12px;background:#f8f9fa;border-radius:12px;}
+.cond-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;padding:12px;background:#f8f6f3;border-radius:12px;}
 .cond-item:last-child{margin-bottom:0;}
-.ci-check{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#00bcd4,#0097a7);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
-.ci-text{}
+.ci-check{width:32px;height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px;
+  background:linear-gradient(135deg,#f59e0b,#ea580c);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);}
 .ci-title{font-size:13px;font-weight:700;color:#1a1a1a;}
 .ci-desc{font-size:11px;color:#888;margin-top:2px;line-height:1.5;}
 
-.avantages-card{margin:10px 14px 0;background:linear-gradient(135deg,#e0f7fa,#b2ebf2);border-radius:18px;padding:18px;}
-.av-title{font-size:14px;font-weight:700;color:#006064;margin-bottom:12px;}
-.av-item{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px;color:#00838f;font-weight:600;}
+.avantages-card{margin:10px 14px 0;background:#fff3e2;border:1px solid #fed7aa;border-radius:18px;padding:18px;}
+.av-title{font-size:14px;font-weight:700;color:#9a3412;margin-bottom:12px;}
+.av-item{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px;color:#9a3412;font-weight:600;}
 .av-item:last-child{margin-bottom:0;}
 
 /* Formulaire postulation */
@@ -78,13 +87,13 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 .form-sub{font-size:12px;color:#888;margin-bottom:16px;}
 .field{margin-bottom:13px;}
 .field label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;}
-.field input,.field select,.field textarea{width:100%;padding:11px 13px;font-size:14px;font-family:inherit;border:1.5px solid #e0e0e0;border-radius:11px;outline:none;background:#fafafa;color:#1a1a1a;}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:#00bcd4;box-shadow:0 0 0 3px rgba(0,188,212,.12);}
+.field input,.field select,.field textarea{width:100%;padding:11px 13px;font-size:14px;font-family:inherit;border:1.5px solid #e8e8e8;border-radius:12px;outline:none;background:#fafafa;color:#1a1a1a;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,.12);}
 .field textarea{resize:none;height:90px;line-height:1.5;}
 .checkbox-field{display:flex;align-items:flex-start;gap:10px;margin-bottom:13px;}
-.checkbox-field input[type=checkbox]{width:18px;height:18px;margin-top:2px;accent-color:#00bcd4;flex-shrink:0;cursor:pointer;}
+.checkbox-field input[type=checkbox]{width:18px;height:18px;margin-top:2px;accent-color:#ea580c;flex-shrink:0;cursor:pointer;}
 .checkbox-field label{font-size:12px;color:#555;line-height:1.5;cursor:pointer;}
-.btn-postuler{width:100%;padding:14px;background:linear-gradient(135deg,#0a1628,#1e3a5f);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:13px;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(10,22,40,.3);margin-top:4px;}
+.btn-postuler{width:100%;padding:14px;background:linear-gradient(135deg,#12161f,#1b2130);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:13px;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(18,22,31,.3);margin-top:4px;}
 .btn-postuler:disabled{opacity:.6;cursor:not-allowed;}
 .alert{padding:10px 13px;border-radius:10px;font-size:13px;margin-bottom:14px;display:none;}
 .alert.show{display:block;}
@@ -93,13 +102,13 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 
 /* Succès postulation */
 .success-postulation{margin:10px 14px 0;background:#fff;border-radius:18px;padding:28px;box-shadow:0 3px 14px rgba(0,0,0,.08);text-align:center;display:none;}
-.sp-icon{font-size:60px;margin-bottom:14px;}
-.sp-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:#00bcd4;margin-bottom:8px;}
+.sp-icon{font-size:52px;margin-bottom:14px;}
+.sp-title{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:800;color:#ea580c;margin-bottom:8px;}
 .sp-sub{font-size:13px;color:#888;line-height:1.6;}
 
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #efece7;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;}
-.nav-item.active{color:#00bcd4;}
+.nav-item.active{color:#ea580c;}
 .nav-item .ni{font-size:21px;}
 </style>
 </head>
@@ -111,12 +120,9 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
   </div>
 
   <!-- Hero -->
-  <div class="hero-img-wrap">
-    <img src="https://i.ibb.co/d4y9ggqh/IMG-20260525-WA0001-1.jpg" alt="Velero"/>
-    <div class="hero-text">
-      <h2>Mes Investissements</h2>
-      <p>Suivez vos contrats actifs et terminés</p>
-    </div>
+  <div class="hero-panel">
+    <h2>Mes Investissements</h2>
+    <p>Suivez vos contrats actifs et terminés</p>
   </div>
 
   <!-- Mes contrats -->
@@ -128,8 +134,8 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
   <!-- ═══ SECTION PARTENAIRE ═══ -->
   <div class="partner-hero">
     <div class="ph-tag">🤝 PROGRAMME PARTENAIRE</div>
-    <div class="ph-title">Devenez Partenaire Velero Energy</div>
-    <div class="ph-sub">Rejoignez notre réseau de partenaires officiels et développez votre business avec notre plateforme d'investissement énergétique.</div>
+    <div class="ph-title">Devenez Partenaire Sinipec</div>
+    <div class="ph-sub">Rejoignez notre réseau de partenaires officiels et développez votre activité avec notre plateforme d'investissement énergétique.</div>
   </div>
 
   <!-- Conditions -->
@@ -140,7 +146,7 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
       <div class="ci-check">🔞</div>
       <div class="ci-text">
         <div class="ci-title">Être majeur (18 ans ou plus)</div>
-        <div class="ci-desc">Vous devez avoir au minimum 18 ans pour devenir partenaire officiel Velero Energy</div>
+        <div class="ci-desc">Vous devez avoir au minimum 18 ans pour devenir partenaire officiel Sinipec</div>
       </div>
     </div>
 
@@ -164,7 +170,7 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
       <div class="ci-check">📣</div>
       <div class="ci-text">
         <div class="ci-title">Capacité à recruter des investisseurs</div>
-        <div class="ci-desc">Être capable d'inviter plusieurs personnes à rejoindre et investir sur Velero Energy</div>
+        <div class="ci-desc">Être capable d'inviter plusieurs personnes à rejoindre et investir sur Sinipec</div>
       </div>
     </div>
   </div>
@@ -173,7 +179,7 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
   <div class="avantages-card">
     <div class="av-title">🌟 Avantages partenaires</div>
     <div class="av-item"><span>💰</span> Commissions renforcées sur votre réseau</div>
-    <div class="av-item"><span>🏆</span> Badge partenaire officiel Velero</div>
+    <div class="av-item"><span>🏆</span> Badge partenaire officiel Sinipec</div>
     <div class="av-item"><span>📊</span> Tableau de bord partenaire dédié</div>
     <div class="av-item"><span>🎁</span> Bonus et récompenses exclusifs</div>
     <div class="av-item"><span>📞</span> Support prioritaire 24h/7j</div>
@@ -224,7 +230,7 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
       </select>
     </div>
     <div class="field">
-      <label>Votre expérience dans le recrutement / MLM</label>
+      <label>Votre expérience dans le recrutement</label>
       <textarea id="pExperience" placeholder="Décrivez brièvement votre expérience..."></textarea>
     </div>
 
@@ -238,7 +244,7 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
     </div>
     <div class="checkbox-field">
       <input type="checkbox" id="chkCgu"/>
-      <label for="chkCgu">J'accepte les <a href="reglement.html" style="color:#00bcd4;">conditions d'utilisation</a> de Velero Energy</label>
+      <label for="chkCgu">J'accepte les <a href="reglement.html" style="color:#ea580c;">conditions d'utilisation</a> de Sinipec</label>
     </div>
 
     <button class="btn-postuler" onclick="postuler()">🤝 Envoyer ma candidature</button>
@@ -250,7 +256,7 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
     <div class="sp-title">Candidature envoyée !</div>
     <div class="sp-sub">
       Merci pour votre intérêt ! Notre équipe a bien reçu votre candidature et vous contactera dans les <strong>48 heures</strong> sur le numéro indiqué.<br><br>
-      En attendant, continuez à développer votre réseau et à investir sur Velero Energy !
+      En attendant, continuez à développer votre réseau et à investir sur Sinipec !
     </div>
   </div>
 </div>
@@ -263,13 +269,13 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 </nav>
 
 <script>
-const SB="https://seegoklunovyuieorkvy.supabase.co";
-const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
-function tok(){return localStorage.getItem("velero_token")||"";}
-function uid(){return localStorage.getItem("velero_uid")||"";}
+const SB="https://wpezwfskatogphaeffva.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwZXp3ZnNrYXRvZ3BoYWVmZnZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyNjc0MzksImV4cCI6MjEwMTg0MzQzOX0.0K82Hz7gKho2YC2rbbHNB4ZFe-0yuZcelI3XnFvWEW4";
+function tok(){return localStorage.getItem("sinipec_token")||"";}
+function uid(){return localStorage.getItem("sinipec_uid")||"";}
 function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
 
-const COLORS={Starter:"#00bcd4",Bronze:"#cd7f32",Silver:"#78909c",Gold:"#ffd700",Premium:"#e53935",VIP:"#9c27b0",Cold:"#1565c0"};
+const COLORS={Starter:"#f59e0b",Bronze:"#cd7f32",Silver:"#78909c",Gold:"#eab308",Premium:"#dc2626",VIP:"#9c27b0",Elite:"#1565c0",Cold:"#12161f"};
 
 async function init(){
   if(!tok()){location.href="index.html";return;}
@@ -286,12 +292,15 @@ async function init(){
     return;
   }
   el.innerHTML=invs.map(inv=>{
-    const pct=Math.round(((inv.jours_total-inv.jours_restants)/inv.jours_total)*100);
-    const color=COLORS[inv.plan_nom]||"#00bcd4";
+    const joursTotal=100;
+    const pct=Math.round(((joursTotal-inv.jours_restants)/joursTotal)*100);
+    const color=COLORS[inv.plan_nom]||"#f59e0b";
     const actif=inv.statut==="actif";
-    const totalGagne=(inv.jours_total-inv.jours_restants)*inv.revenu_jour;
+    const totalGagne=(joursTotal-inv.jours_restants)*parseFloat(inv.revenu_jour||0);
+    const debut=new Date(inv.created_at);
+    const fin=new Date(debut.getTime()+joursTotal*24*60*60*1000);
     return `<div class="contrat-card">
-      <div class="cc-header" style="background:linear-gradient(135deg,${color}22,${color}11);">
+      <div class="cc-header" style="background:linear-gradient(135deg,${color}18,${color}0c);">
         <div>
           <div style="font-size:11px;color:#888;margin-bottom:2px;">Plan d'investissement</div>
           <div class="cc-plan" style="color:${color};">Plan ${inv.plan_nom}</div>
@@ -301,7 +310,7 @@ async function init(){
       <div class="cc-body">
         <div class="cc-progress">
           <div class="cp-label"><span>Progression</span><span>${pct}%</span></div>
-          <div class="cp-bar"><div class="cp-fill" style="width:${pct}%;background:linear-gradient(90deg,${color},${color}99);"></div></div>
+          <div class="cp-bar"><div class="cp-fill" style="width:${pct}%;"></div></div>
         </div>
         <div class="cc-stats">
           <div class="cs-box"><div class="cs-val">${inv.jours_restants}j</div><div class="cs-lbl">Restants</div></div>
@@ -309,11 +318,11 @@ async function init(){
           <div class="cs-box"><div class="cs-val">${totalGagne.toLocaleString()}</div><div class="cs-lbl">Gagné</div></div>
         </div>
         <div class="cc-detail">
-          💰 Investi : <span>${parseFloat(inv.montant_investi).toLocaleString()} FCFA</span><br>
-          📅 Début : <span>${new Date(inv.date_debut).toLocaleDateString("fr-FR")}</span><br>
-          🏁 Fin : <span>${new Date(inv.date_fin).toLocaleDateString("fr-FR")}</span>
+          💰 Investi : <span>${parseFloat(inv.montant||0).toLocaleString()} FCFA</span><br>
+          📅 Début : <span>${debut.toLocaleDateString("fr-FR")}</span><br>
+          🏁 Fin prévue : <span>${fin.toLocaleDateString("fr-FR")}</span>
         </div>
-        ${actif?`<button class="btn-tache-c" onclick="location.href='tache.html'">⛽ Faire ma tâche du jour</button>`:""}
+        ${actif?`<button class="btn-tache-c" onclick="location.href='tache.html'">💰 Récupérer mes gains</button>`:""}
       </div>
     </div>`;
   }).join("");
@@ -343,7 +352,6 @@ async function postuler(){
   btn.disabled=true;btn.textContent="⏳ Envoi en cours...";
 
   try{
-    // Enregistrer la candidature dans Supabase
     await fetch(SB+"/rest/v1/transactions",{
       method:"POST",
       headers:{...H(),"Prefer":"return=minimal"},
