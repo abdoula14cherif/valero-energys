@@ -118,11 +118,11 @@ function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization
 
 // Paliers de défis parrainage — affichés clairement, sans condition cachée
 const DEFIS=[
-  {key:"t_3000x5", titre:"5 filleuls à 3 000 FCFA", desc:"5 filleuls ayant investi au moins 3 000 FCFA au total", type:"count", need:5, minInvest:3000, reward:500},
-  {key:"t_5000x5", titre:"5 filleuls à 5 000 FCFA", desc:"5 filleuls ayant investi au moins 5 000 FCFA au total", type:"count", need:5, minInvest:5000, reward:1500},
-  {key:"t_25000x5", titre:"5 filleuls à 25 000 FCFA", desc:"5 filleuls ayant investi au moins 25 000 FCFA au total", type:"count", need:5, minInvest:25000, reward:5000},
-  {key:"t_100000x1", titre:"1 filleul à 100 000 FCFA", desc:"1 filleul ayant investi au moins 100 000 FCFA au total", type:"count", need:1, minInvest:100000, reward:10000},
-  {key:"t_cumul50000x10", titre:"10 filleuls, 50 000 FCFA cumulés", desc:"10 filleuls dont les investissements cumulés atteignent 50 000 FCFA", type:"cumul", need:10, cumulTarget:50000, reward:5000},
+  {key:"t_3000x5", titre:"5 filleuls à 3 000 FCFA chacun", desc:"5 filleuls ayant chacun investi au moins 3 000 FCFA", type:"count", need:5, minInvest:3000, reward:500},
+  {key:"t_5000x5", titre:"5 filleuls à 5 000 FCFA chacun", desc:"5 filleuls ayant chacun investi au moins 5 000 FCFA", type:"count", need:5, minInvest:5000, reward:1500},
+  {key:"t_25000x5", titre:"5 filleuls à 25 000 FCFA chacun", desc:"5 filleuls ayant chacun investi au moins 25 000 FCFA", type:"count", need:5, minInvest:25000, reward:5000},
+  {key:"t_100000x1", titre:"1 filleul à 100 000 FCFA", desc:"1 filleul ayant investi au moins 100 000 FCFA à lui seul", type:"count", need:1, minInvest:100000, reward:10000},
+  {key:"t_cumul50000x10", titre:"10 filleuls, 50 000 FCFA cumulés", desc:"10 filleuls dont la somme de tous leurs investissements atteint 50 000 FCFA", type:"cumul", need:10, cumulTarget:50000, reward:5000},
 ];
 
 function showAlert(msg,type){
