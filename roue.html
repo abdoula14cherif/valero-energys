@@ -8,70 +8,81 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:linear-gradient(160deg,#0a0d13,#12161f,#1b2130);font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;color:#fff;}
+body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;color:#1a1a1a;}
 .wrap{width:100%;max-width:480px;padding-bottom:80px;}
-.topbar{background:rgba(255,255,255,.05);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08);padding:16px 18px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50;}
-.back-btn{background:none;border:none;font-size:22px;cursor:pointer;color:#fff;}
-.topbar-title{font-size:17px;font-weight:700;color:#fff;}
+.topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+.back-btn{background:none;border:none;font-size:20px;cursor:pointer;color:#1a1a1a;}
+.topbar-title{font-size:17px;font-weight:700;}
 
-/* HEADER */
-.hero-section{text-align:center;padding:28px 20px 20px;}
-.hero-icon{font-size:44px;margin-bottom:12px;}
-.hero-title{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;margin-bottom:6px;}
-.hero-sub{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;}
+/* HEADER — panneau graphite compact */
+.header-panel{
+  position:relative;padding:24px 20px 20px;overflow:hidden;text-align:center;
+  background:radial-gradient(circle at 85% 0%, rgba(245,158,11,.18) 0%, transparent 45%),
+             linear-gradient(160deg,#0a0d13 0%,#12161f 50%,#1b2130 100%);
+}
+.header-panel::before{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.3;
+  background-image:
+    linear-gradient(30deg,rgba(245,158,11,.06) 12%,transparent 12.5%,transparent 87%,rgba(245,158,11,.06) 87.5%,rgba(245,158,11,.06)),
+    linear-gradient(150deg,rgba(245,158,11,.06) 12%,transparent 12.5%,transparent 87%,rgba(245,158,11,.06) 87.5%,rgba(245,158,11,.06));
+  background-size:40px 70px;}
+.header-panel h1{position:relative;z-index:1;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:6px;}
+.header-panel p{position:relative;z-index:1;font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;}
 
 /* TICKETS */
-.tickets-row{display:flex;justify-content:center;gap:12px;padding:0 20px 20px;}
-.ticket-card{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:14px;text-align:center;}
-.tc-count{font-size:26px;font-weight:800;color:#f59e0b;font-family:'Space Grotesk',sans-serif;}
-.tc-label{font-size:11px;color:rgba(255,255,255,.5);margin-top:3px;text-transform:uppercase;letter-spacing:.5px;}
+.tickets-row{display:flex;justify-content:center;gap:10px;padding:14px;}
+.ticket-card{flex:1;background:#fff;border-radius:14px;padding:14px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.06);border-top:3px solid #f59e0b;}
+.ticket-card:nth-child(2){border-top-color:#ea580c;}
+.ticket-card:nth-child(3){border-top-color:#12161f;}
+.tc-count{font-size:24px;font-weight:800;color:#1a1a1a;font-family:'Space Grotesk',sans-serif;}
+.tc-label{font-size:11px;color:#a4acb9;margin-top:3px;text-transform:uppercase;letter-spacing:.5px;}
 
 /* ROUE */
-.wheel-section{display:flex;flex-direction:column;align-items:center;padding:0 20px 24px;position:relative;}
-.wheel-container{position:relative;width:280px;height:280px;margin:0 auto 20px;}
-.wheel-pointer{position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:32px;z-index:10;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));}
-canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 40px rgba(245,158,11,.25),0 0 80px rgba(234,88,12,.1);display:block;}
-.wheel-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;background:#12161f;border-radius:50%;border:4px solid #fff;display:flex;align-items:center;justify-content:center;z-index:5;box-shadow:0 4px 12px rgba(0,0,0,.5);}
-.wheel-center-icon{font-size:22px;}
-.btn-spin{padding:16px 48px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font-size:17px;font-weight:800;border:none;border-radius:14px;cursor:pointer;font-family:inherit;box-shadow:0 6px 24px rgba(234,88,12,.4);transition:all .2s;letter-spacing:.3px;}
-.btn-spin:disabled{opacity:.5;cursor:not-allowed;transform:none;}
-.btn-spin:not(:disabled):active{transform:scale(.96);}
-.no-ticket-msg{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;text-align:center;margin-top:10px;width:100%;}
-.nt-icon{font-size:40px;margin-bottom:10px;}
-.nt-title{font-size:15px;font-weight:700;margin-bottom:6px;}
-.nt-sub{font-size:12px;color:rgba(255,255,255,.5);line-height:1.6;}
+.wheel-card{margin:0 14px 14px;background:#fff;border-radius:22px;padding:24px 20px;box-shadow:0 2px 14px rgba(0,0,0,.07);display:flex;flex-direction:column;align-items:center;}
+.wheel-container{position:relative;width:260px;height:260px;margin:0 auto 20px;}
+.wheel-pointer{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:28px;z-index:10;filter:drop-shadow(0 3px 6px rgba(0,0,0,.25));}
+canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 0 6px #f8f6f3;display:block;}
+.wheel-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;background:#12161f;border-radius:50%;border:4px solid #fff;display:flex;align-items:center;justify-content:center;z-index:5;box-shadow:0 4px 12px rgba(0,0,0,.2);}
+.wheel-center-icon{font-size:20px;}
+.btn-spin{width:100%;padding:16px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font-size:16px;font-weight:800;border:none;border-radius:14px;cursor:pointer;font-family:inherit;box-shadow:0 6px 20px rgba(234,88,12,.3);transition:transform .15s;}
+.btn-spin:disabled{opacity:.5;cursor:not-allowed;}
+.btn-spin:not(:disabled):active{transform:scale(.97);}
+.no-ticket-msg{background:#f8f6f3;border-radius:14px;padding:20px;text-align:center;margin-top:6px;width:100%;}
+.nt-icon{font-size:36px;margin-bottom:10px;}
+.nt-title{font-size:14px;font-weight:700;margin-bottom:6px;}
+.nt-sub{font-size:12px;color:#a4acb9;line-height:1.6;}
 
 /* RÉSULTAT */
-.result-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:999;display:none;align-items:center;justify-content:center;}
+.result-overlay{position:fixed;inset:0;background:rgba(10,13,19,.6);z-index:999;display:none;align-items:center;justify-content:center;}
 .result-overlay.show{display:flex;}
-.result-box{background:#12161f;border:2px solid rgba(245,158,11,.4);border-radius:24px;padding:36px 28px;text-align:center;width:90%;max-width:360px;animation:popIn .4s cubic-bezier(.175,.885,.32,1.275);}
+.result-box{background:#fff;border-radius:22px;padding:34px 26px;text-align:center;width:88%;max-width:340px;animation:popIn .4s cubic-bezier(.175,.885,.32,1.275);box-shadow:0 20px 50px rgba(0,0,0,.25);}
 @keyframes popIn{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
-.res-icon{font-size:64px;margin-bottom:16px;}
-.res-title{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;}
-.res-amount{font-size:44px;font-weight:800;color:#f59e0b;font-family:'Space Grotesk',sans-serif;margin:12px 0;}
-.res-sub{font-size:14px;color:rgba(255,255,255,.6);margin-bottom:24px;}
-.btn-res-close{padding:14px 40px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font-size:15px;font-weight:700;border:none;border-radius:14px;cursor:pointer;font-family:inherit;}
+.res-icon{font-size:56px;margin-bottom:14px;}
+.res-title{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;margin-bottom:8px;color:#1a1a1a;}
+.res-amount{font-size:40px;font-weight:800;color:#ea580c;font-family:'Space Grotesk',sans-serif;margin:10px 0;}
+.res-sub{font-size:13px;color:#767676;margin-bottom:22px;}
+.btn-res-close{padding:13px 36px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font-size:14px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;}
 
 /* HISTORIQUE */
 .hist-section{padding:0 14px;}
-.hist-title{font-size:13px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
-.hist-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;}
+.hist-title{font-size:12px;font-weight:700;color:#a4acb9;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.hist-item{background:#fff;border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 6px rgba(0,0,0,.05);}
 .hi-left{display:flex;align-items:center;gap:10px;}
-.hi-icon{font-size:20px;}
-.hi-raison{font-size:13px;font-weight:600;}
-.hi-date{font-size:11px;color:rgba(255,255,255,.4);margin-top:1px;}
-.hi-gain{font-size:15px;font-weight:800;color:#f59e0b;font-family:'Space Grotesk',sans-serif;}
+.hi-icon{font-size:18px;}
+.hi-raison{font-size:13px;font-weight:600;color:#1a1a1a;}
+.hi-date{font-size:11px;color:#a4acb9;margin-top:1px;}
+.hi-gain{font-size:14px;font-weight:800;color:#ea580c;font-family:'Space Grotesk',sans-serif;}
 
-/* COMMENT GAGNER — règles toujours affichées clairement */
-.how-card{margin:0 14px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;}
-.how-title{font-size:13px;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:12px;}
-.how-item{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:13px;color:rgba(255,255,255,.6);}
+/* COMMENT GAGNER */
+.how-card{margin:14px 14px 0;background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.how-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:12px;}
+.how-item{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:13px;color:#767676;}
 .how-item:last-child{margin-bottom:0;}
-.how-icon{font-size:18px;}
+.how-icon{font-size:17px;}
 
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(10,13,19,.95);border-top:1px solid rgba(255,255,255,.08);display:flex;padding:8px 0 12px;z-index:100;}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.3);font-size:10px;font-weight:600;}
-.nav-item.active{color:#f59e0b;}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0 14px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
+.nav-item.active{color:#ea580c;}
 .nav-item .ni{font-size:21px;}
 </style>
 </head>
@@ -82,10 +93,9 @@ canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 40px rgba(245,158,11,.25),0 
     <span class="topbar-title">🎡 Roue de Chance</span>
   </div>
 
-  <div class="hero-section">
-    <div class="hero-icon">🎡</div>
-    <div class="hero-title">Roue de Fortune</div>
-    <div class="hero-sub">Tournez la roue pour gagner jusqu'à <strong style="color:#f59e0b;">50 FCFA</strong> supplémentaires !</div>
+  <div class="header-panel">
+    <h1>Roue de Fortune</h1>
+    <p>Tournez la roue pour gagner jusqu'à 50 FCFA supplémentaires !</p>
   </div>
 
   <div class="tickets-row">
@@ -103,10 +113,10 @@ canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 40px rgba(245,158,11,.25),0 
     </div>
   </div>
 
-  <div class="wheel-section">
+  <div class="wheel-card">
     <div class="wheel-container">
       <div class="wheel-pointer">▼</div>
-      <canvas id="wheelCanvas" width="280" height="280"></canvas>
+      <canvas id="wheelCanvas" width="260" height="260"></canvas>
       <div class="wheel-center"><span class="wheel-center-icon">⚡</span></div>
     </div>
     <button class="btn-spin" id="btnSpin" onclick="tournerRoue()" disabled>
@@ -127,7 +137,7 @@ canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 40px rgba(245,158,11,.25),0 
     <div class="how-item"><span class="how-icon">💰</span>Gain crédité automatiquement sur votre solde</div>
   </div>
 
-  <div class="hist-section">
+  <div class="hist-section" style="margin-top:14px;">
     <div class="hist-title">Historique des tours</div>
     <div id="histList"></div>
   </div>
@@ -163,7 +173,7 @@ const SEGMENTS=[
   {label:"5 F",val:5,color:"#f59e0b"},{label:"10 F",val:10,color:"#ea580c"},
   {label:"15 F",val:15,color:"#c2410c"},{label:"20 F",val:20,color:"#fbbf24"},
   {label:"10 F",val:10,color:"#f59e0b"},{label:"25 F",val:25,color:"#fb923c"},
-  {label:"5 F",val:5,color:"#ea580c"},{label:"30 F",val:30,color:"#9c27b0"},
+  {label:"5 F",val:5,color:"#ea580c"},{label:"30 F",val:30,color:"#12161f"},
   {label:"10 F",val:10,color:"#f59e0b"},{label:"50 F",val:50,color:"#fbbf24"},
   {label:"5 F",val:5,color:"#ea580c"},{label:"20 F",val:20,color:"#fdba74"},
 ];
@@ -175,8 +185,8 @@ let droits=[],spinning=false,currentAngle=0;
 function drawWheel(angle=0){
   const canvas=document.getElementById("wheelCanvas");
   const ctx=canvas.getContext("2d");
-  const cx=140,cy=140,r=130;
-  ctx.clearRect(0,0,280,280);
+  const cx=130,cy=130,r=120;
+  ctx.clearRect(0,0,260,260);
   SEGMENTS.forEach((seg,i)=>{
     const start=angle+i*ARC-Math.PI/2;
     const end=start+ARC;
@@ -184,18 +194,16 @@ function drawWheel(angle=0){
     ctx.arc(cx,cy,r,start,end);
     ctx.closePath();
     ctx.fillStyle=seg.color;ctx.fill();
-    ctx.strokeStyle="#0a0d13";ctx.lineWidth=2;ctx.stroke();
+    ctx.strokeStyle="#fff";ctx.lineWidth=2;ctx.stroke();
     ctx.save();
     ctx.translate(cx,cy);
     ctx.rotate(start+ARC/2);
     ctx.textAlign="right";
     ctx.fillStyle="#fff";
-    ctx.font="bold 13px 'DM Sans',sans-serif";
+    ctx.font="bold 12px 'DM Sans',sans-serif";
     ctx.fillText(seg.label,r-10,5);
     ctx.restore();
   });
-  ctx.beginPath();ctx.arc(cx,cy,r,0,2*Math.PI);
-  ctx.strokeStyle="rgba(245,158,11,.6)";ctx.lineWidth=4;ctx.stroke();
 }
 
 async function init(){
@@ -224,7 +232,7 @@ async function chargerHistorique(){
   const r=await fetch(SB+"/rest/v1/roue_chance?user_id=eq."+uid()+"&order=created_at.desc&limit=10",{headers:H()});
   const hist=await r.json()||[];
   const el=document.getElementById("histList");
-  if(!hist.length){el.innerHTML='<div style="text-align:center;padding:20px;color:rgba(255,255,255,.3);font-size:13px;">Aucun tour effectué</div>';return;}
+  if(!hist.length){el.innerHTML='<div style="text-align:center;padding:20px;color:#c4c4c4;font-size:13px;">Aucun tour effectué</div>';return;}
   el.innerHTML=hist.map(h=>`
     <div class="hist-item">
       <div class="hi-left">
