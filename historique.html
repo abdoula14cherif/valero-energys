@@ -4,32 +4,33 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
 <link rel="manifest" href="/manifest.json"/>
-<meta name="theme-color" content="#00bcd4"/>
+<meta name="theme-color" content="#f59e0b"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<meta name="apple-mobile-web-app-title" content="Velero Energy"/>
-<title>Historique — Velero Energy</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<meta name="apple-mobile-web-app-title" content="Sinipec"/>
+<title>Historique — Sinipec</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
+body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
 .wrap{width:100%;max-width:480px;padding-bottom:80px;}
 .topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
 .back-btn{background:none;border:none;font-size:20px;cursor:pointer;}
 .topbar-title{font-size:17px;font-weight:700;}
-.tabs{display:flex;background:#fff;border-bottom:2px solid #f0ebe8;padding:0 14px;}
+.tabs{display:flex;background:#fff;border-bottom:2px solid #f4f1ed;padding:0 14px;}
 .htab{flex:1;padding:12px 0;font-size:13px;font-weight:700;background:none;border:none;cursor:pointer;color:#aaa;font-family:'DM Sans',sans-serif;}
-.htab.active{color:#00bcd4;border-bottom:3px solid #00bcd4;margin-bottom:-2px;}
+.htab.active{color:#ea580c;border-bottom:3px solid #ea580c;margin-bottom:-2px;}
 .section{padding:12px 14px;}
 .tx-item{background:#fff;border-radius:14px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,.05);}
 .tx-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.tx-icon.depot{background:#e0f7fa;}
+.tx-icon.depot{background:#fff3e2;}
 .tx-icon.retrait{background:#fff5f5;}
 .tx-icon.bonus{background:#fff8e1;}
 .tx-icon.commission{background:#f3e5f5;}
-.tx-icon.gain{background:#f0fdf4;}
-.tx-icon.achat{background:#fde8e6;}
+.tx-icon.gain_tache{background:#f0fdf4;}
+.tx-icon.investissement{background:#fff3e2;}
+.tx-icon.defi_parrainage{background:#f0fdf4;}
 .tx-info{flex:1;}
 .tx-label{font-size:13px;font-weight:700;color:#1a1a1a;}
 .tx-date{font-size:11px;color:#aaa;margin-top:2px;}
@@ -37,14 +38,14 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
 .tx-statut.valide{background:#f0fdf4;color:#15803d;}
 .tx-statut.en_attente{background:#fff8e1;color:#b45309;}
 .tx-statut.rejete{background:#fff5f5;color:#c53030;}
-.tx-montant{font-size:15px;font-weight:800;font-family:'Playfair Display',serif;}
+.tx-montant{font-size:15px;font-weight:800;font-family:'Space Grotesk',sans-serif;}
 .tx-montant.plus{color:#15803d;}
 .tx-montant.minus{color:#c53030;}
 .empty{text-align:center;padding:40px;color:#aaa;}
-.empty-icon{font-size:40px;margin-bottom:10px;}
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f0ebe8;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
+.empty-icon{font-size:36px;margin-bottom:10px;}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #efece7;display:flex;padding:8px 0 12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;}
-.nav-item.active{color:#00bcd4;}
+.nav-item.active{color:#ea580c;}
 .nav-item .ni{font-size:21px;}
 </style>
 </head>
@@ -69,18 +70,26 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
   <a href="parrainage.html" class="nav-item"><span class="ni">👥</span>Équipes</a>
   <a href="compte.html" class="nav-item active"><span class="ni">👤</span>Mon compte</a>
 </nav>
-<script src="api.js"></script>
 <script>
-if(!VE.checkAuth())window.location.href="index.html";
+const SB="https://wpezwfskatogphaeffva.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwZXp3ZnNrYXRvZ3BoYWVmZnZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyNjc0MzksImV4cCI6MjEwMTg0MzQzOX0.0K82Hz7gKho2YC2rbbHNB4ZFe-0yuZcelI3XnFvWEW4";
+function tok(){return localStorage.getItem("sinipec_token")||"";}
+function uid(){return localStorage.getItem("sinipec_uid")||"";}
+function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
+
+if(!tok())window.location.href="index.html";
+
 let allTx=[],currentTab="all";
 
-const ICONS={depot:"💳",retrait:"💸",bonus:"🎁",commission:"💰",gain_tache:"⛽",achat_plan:"📦"};
-const LABELS={depot:"Dépôt",retrait:"Retrait",bonus:"Bonus",commission:"Commission parrainage",gain_tache:"Gain tâche",achat_plan:"Achat plan"};
-const PLUS_TYPES=["depot","bonus","commission","gain_tache"];
+const ICONS={depot:"💳",retrait:"💸",bonus:"🎁",commission:"💰",gain_tache:"💰",investissement:"📦",defi_parrainage:"🎯"};
+const LABELS={depot:"Dépôt",retrait:"Retrait",bonus:"Bonus",commission:"Commission parrainage",gain_tache:"Gain récupéré",investissement:"Activation de plan",defi_parrainage:"Défi parrainage"};
+const PLUS_TYPES=["depot","bonus","commission","gain_tache","defi_parrainage"];
 
 async function init(){
-  const u=await VE.getUser();
-  allTx=await VE.select("transactions","?user_id=eq."+u.id+"&order=created_at.desc&limit=100");
+  try{
+    const r=await fetch(SB+"/rest/v1/transactions?user_id=eq."+uid()+"&order=created_at.desc&limit=100",{headers:H()});
+    allTx=await r.json()||[];
+  }catch(e){allTx=[];}
   renderTx();
 }
 
@@ -96,7 +105,7 @@ function renderTx(){
   let filtered=allTx;
   if(currentTab==="depot")filtered=allTx.filter(t=>t.type==="depot");
   else if(currentTab==="retrait")filtered=allTx.filter(t=>t.type==="retrait");
-  else if(currentTab==="gain")filtered=allTx.filter(t=>["gain_tache","commission","bonus"].includes(t.type));
+  else if(currentTab==="gain")filtered=allTx.filter(t=>["gain_tache","commission","bonus","defi_parrainage"].includes(t.type));
 
   if(!filtered.length){list.innerHTML='<div class="empty"><div class="empty-icon">📭</div>Aucune transaction</div>';return;}
 
