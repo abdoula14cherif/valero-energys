@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#f59e0b"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
-<title>Tâche du Jour — Sinipec</title>
+<title>Mes Gains — Sinipec</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -33,10 +33,11 @@ body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;color:
 .ph-jours-lbl{font-size:10px;color:rgba(255,255,255,.75);}
 .plan-body{padding:20px 18px;}
 
-/* ROUE */
-.roue-wrap{position:relative;width:180px;height:180px;margin:0 auto 18px;}
-.roue-svg{width:180px;height:180px;transition:transform 4s cubic-bezier(.17,.67,.12,.99);}
-.roue-aiguille{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:20px solid #12161f;z-index:10;}
+/* Bouton de récupération simple — plus de roue/véhicule */
+.gain-icon{width:64px;height:64px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#f59e0b,#ea580c);border-radius:50%;font-size:28px;color:#fff;}
+.gain-icon.spin{animation:pulse 1.1s ease-in-out infinite;}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
 
 /* RESULTAT */
 .res-box{background:#fff3e2;border-radius:14px;padding:14px;text-align:center;margin-bottom:14px;display:none;}
@@ -79,7 +80,7 @@ body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;color:
   <div class="topbar">
     <button class="back-btn" onclick="history.back()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      Tache du jour
+      Mes gains
     </button>
   </div>
 
@@ -122,16 +123,6 @@ function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization
 
 // Stocker les intervals de countdown par invest id
 const cdIntervals={};
-
-/* ---- ROUE ANIMATION ---- */
-function tournerRoue(svgId, cb){
-  const roue=document.getElementById(svgId);
-  if(!roue)return;
-  const tours=5+Math.floor(Math.random()*4);
-  const angle=tours*360+Math.floor(Math.random()*360);
-  roue.style.transform=`rotate(${angle}deg)`;
-  setTimeout(cb,4200);
-}
 
 /* ---- ATTENTE 24H APRES INVESTISSEMENT ---- */
 function startWait24h(investId, investCreatedAt){
@@ -182,84 +173,85 @@ function startCountdown(investId, lastTs){
   cdIntervals[investId]=setInterval(tick,1000);
 }
 
-/* ---- RECUPERER GAIN ---- */
+/* ---- RECUPERER GAIN — action directe, plus de roue/véhicule ---- */
 async function recuperer(investId, gain, planNom){
   const btn=document.getElementById("btn-"+investId);
-  if(btn){btn.disabled=true;btn.textContent="Rotation...";}
+  const icon=document.getElementById("icon-"+investId);
+  if(btn){btn.disabled=true;btn.textContent="Traitement...";}
+  if(icon)icon.classList.add("spin");
 
-  tournerRoue("roue-"+investId, async()=>{
-    try{
-      const now=new Date().toISOString();
+  try{
+    const now=new Date().toISOString();
 
-      // Enregistrer tâche
-      await fetch(SB+"/rest/v1/taches",{
-        method:"POST",
-        headers:{...H(),"Prefer":"return=minimal"},
-        body:JSON.stringify({
-          user_id:uid(),
-          investissement_id:investId,
-          date_tache:now.split("T")[0],
-          gain,
-          type_vehicule:"roue",
-          emoji:"⚡",
-          created_at:now
-        })
-      });
+    // Enregistrer la récupération du jour
+    await fetch(SB+"/rest/v1/taches",{
+      method:"POST",
+      headers:{...H(),"Prefer":"return=minimal"},
+      body:JSON.stringify({
+        user_id:uid(),
+        investissement_id:investId,
+        date_tache:now.split("T")[0],
+        gain,
+        emoji:"💰",
+        created_at:now
+      })
+    });
 
-      // Créditer solde
-      const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde,revenus_cumules",{headers:H()});
-      const p=await rp.json();
-      const nouveauSolde=parseFloat(p[0]?.solde||0)+gain;
-      const nouveauxRevenus=parseFloat(p[0]?.revenus_cumules||0)+gain;
-      await fetch(SB+"/rest/v1/profiles?id=eq."+uid(),{
-        method:"PATCH",headers:H(),
-        body:JSON.stringify({solde:nouveauSolde,revenus_cumules:nouveauxRevenus})
-      });
+    // Créditer solde
+    const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde,revenus_cumules",{headers:H()});
+    const p=await rp.json();
+    const nouveauSolde=parseFloat(p[0]?.solde||0)+gain;
+    const nouveauxRevenus=parseFloat(p[0]?.revenus_cumules||0)+gain;
+    await fetch(SB+"/rest/v1/profiles?id=eq."+uid(),{
+      method:"PATCH",headers:H(),
+      body:JSON.stringify({solde:nouveauSolde,revenus_cumules:nouveauxRevenus})
+    });
 
-      // Transaction
-      await fetch(SB+"/rest/v1/transactions",{
-        method:"POST",
-        headers:{...H(),"Prefer":"return=minimal"},
-        body:JSON.stringify({
-          user_id:uid(),type:"gain_tache",
-          montant:gain,montant_net:gain,
-          statut:"valide",
-          reference:"TACHE-"+investId.slice(0,6)+"-"+Date.now(),
-          note:"Gain tache - Plan "+planNom
-        })
-      });
+    // Transaction
+    await fetch(SB+"/rest/v1/transactions",{
+      method:"POST",
+      headers:{...H(),"Prefer":"return=minimal"},
+      body:JSON.stringify({
+        user_id:uid(),type:"gain_tache",
+        montant:gain,montant_net:gain,
+        statut:"valide",
+        reference:"GAIN-"+investId.slice(0,6)+"-"+Date.now(),
+        note:"Gain récupéré - Plan "+planNom
+      })
+    });
 
-      // Décrémenter jours
-      const ri=await fetch(SB+"/rest/v1/investissements?id=eq."+investId+"&select=jours_restants",{headers:H()});
-      const inv=await ri.json();
-      const joursRestants=Math.max(0,(inv[0]?.jours_restants||0)-1);
-      await fetch(SB+"/rest/v1/investissements?id=eq."+investId,{
-        method:"PATCH",headers:H(),
-        body:JSON.stringify({
-          jours_restants:joursRestants,
-          statut:joursRestants===0?"termine":"actif",
-          last_tache_at:now
-        })
-      });
+    // Décrémenter jours
+    const ri=await fetch(SB+"/rest/v1/investissements?id=eq."+investId+"&select=jours_restants",{headers:H()});
+    const inv=await ri.json();
+    const joursRestants=Math.max(0,(inv[0]?.jours_restants||0)-1);
+    await fetch(SB+"/rest/v1/investissements?id=eq."+investId,{
+      method:"PATCH",headers:H(),
+      body:JSON.stringify({
+        jours_restants:joursRestants,
+        statut:joursRestants===0?"termine":"actif",
+        last_tache_at:now
+      })
+    });
 
-      // Afficher résultat
-      const resBox=document.getElementById("res-"+investId);
-      const resGain=document.getElementById("resgain-"+investId);
-      if(resBox)resBox.classList.add("show");
-      if(resGain)resGain.textContent="+"+gain.toLocaleString()+" FCFA";
-      if(btn)btn.textContent="Gain recupere !";
+    // Afficher résultat
+    const resBox=document.getElementById("res-"+investId);
+    const resGain=document.getElementById("resgain-"+investId);
+    if(resBox)resBox.classList.add("show");
+    if(resGain)resGain.textContent="+"+gain.toLocaleString()+" FCFA";
+    if(btn)btn.textContent="Gain recupere !";
+    if(icon)icon.classList.remove("spin");
 
-      // Mettre à jour jours affichés
-      const joursEl=document.getElementById("jours-"+investId);
-      if(joursEl)joursEl.textContent=joursRestants+" j";
+    // Mettre à jour jours affichés
+    const joursEl=document.getElementById("jours-"+investId);
+    if(joursEl)joursEl.textContent=joursRestants+" j";
 
-      // Démarrer countdown
-      startCountdown(investId, now);
+    // Démarrer countdown
+    startCountdown(investId, now);
 
-    }catch(e){
-      if(btn){btn.disabled=false;btn.textContent="Recuperer mon gain";}
-    }
-  });
+  }catch(e){
+    if(btn){btn.disabled=false;btn.textContent="Recuperer mon gain";}
+    if(icon)icon.classList.remove("spin");
+  }
 }
 
 /* ---- RENDER UN PLAN ---- */
@@ -285,30 +277,8 @@ function renderPlanCard(inv, lastTache){
       </div>
     </div>
     <div class="plan-body">
-      <!-- ROUE -->
-      <div class="roue-wrap">
-        <div class="roue-aiguille"></div>
-        <svg class="roue-svg" id="roue-${inv.id}" viewBox="0 0 200 200">
-          <path d="M100,100 L100,10 A90,90 0 0,1 163.6,46.4 Z" fill="#f59e0b"/>
-          <path d="M100,100 L163.6,46.4 A90,90 0 0,1 190,100 Z" fill="#ea580c"/>
-          <path d="M100,100 L190,100 A90,90 0 0,1 163.6,153.6 Z" fill="#f59e0b"/>
-          <path d="M100,100 L163.6,153.6 A90,90 0 0,1 100,190 Z" fill="#ea580c"/>
-          <path d="M100,100 L100,190 A90,90 0 0,1 36.4,153.6 Z" fill="#f59e0b"/>
-          <path d="M100,100 L36.4,153.6 A90,90 0 0,1 10,100 Z" fill="#ea580c"/>
-          <path d="M100,100 L10,100 A90,90 0 0,1 36.4,46.4 Z" fill="#f59e0b"/>
-          <path d="M100,100 L36.4,46.4 A90,90 0 0,1 100,10 Z" fill="#ea580c"/>
-          <text x="118" y="48" text-anchor="middle" font-size="13" fill="white">⚡</text>
-          <text x="155" y="80" text-anchor="middle" font-size="13" fill="white">💰</text>
-          <text x="155" y="128" text-anchor="middle" font-size="13" fill="white">⚡</text>
-          <text x="118" y="162" text-anchor="middle" font-size="13" fill="white">💰</text>
-          <text x="75" y="162" text-anchor="middle" font-size="13" fill="white">⚡</text>
-          <text x="42" y="128" text-anchor="middle" font-size="13" fill="white">💰</text>
-          <text x="42" y="80" text-anchor="middle" font-size="13" fill="white">⚡</text>
-          <text x="75" y="48" text-anchor="middle" font-size="13" fill="white">💰</text>
-          <circle cx="100" cy="100" r="22" fill="white" stroke="#ea580c" stroke-width="3"/>
-          <text x="100" y="106" text-anchor="middle" font-size="16" fill="#ea580c">⛽</text>
-        </svg>
-      </div>
+      <!-- ICÔNE DE GAIN -->
+      <div class="gain-icon" id="icon-${inv.id}">💰</div>
 
       <!-- RESULTAT -->
       <div class="res-box ${dejaFait?"show":""}" id="res-${inv.id}">
