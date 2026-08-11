@@ -311,20 +311,43 @@ async function init(){
     document.getElementById("refCode").textContent=myCode;
     document.getElementById("refLink").textContent=myLink.replace("https://","");
 
-    // Stats parrainage : filleuls directs (niveau 1)
-    const r1=await fetch(SB+"/rest/v1/profiles?referred_by=eq."+myCode+"&select=id,solde",{headers:H()});
-    const lv1=await r1.json();
-    const lv1Count=Array.isArray(lv1)?lv1.length:0;
+    // Niveau 1 : filleuls directs
+    const r1=await fetch(SB+"/rest/v1/profiles?referred_by=eq."+myCode+"&select=id,referral_code",{headers:H()});
+    const lv1=await r1.json()||[];
+    const lv1Codes=lv1.map(p=>p.referral_code).filter(Boolean);
 
-    // Récompenses LV1 (depuis transactions de type 'parrainage' liées à l'user)
-    const rT=await fetch(SB+"/rest/v1/transactions?user_id=eq."+u+"&type=eq.parrainage&select=montant",{headers:H()});
-    const trs=await rT.json();
-    const totalR=Array.isArray(trs)?trs.reduce((s,x)=>s+parseFloat(x.montant||0),0):0;
+    // Niveau 2 : filleuls des filleuls
+    let lv2=[];
+    if(lv1Codes.length){
+      const r2=await fetch(SB+"/rest/v1/profiles?referred_by=in.("+lv1Codes.join(",")+")&select=id,referral_code",{headers:H()});
+      lv2=await r2.json()||[];
+    }
+    const lv2Codes=lv2.map(p=>p.referral_code).filter(Boolean);
 
-    document.getElementById("totalUsers").textContent=lv1Count;
+    // Niveau 3
+    let lv3=[];
+    if(lv2Codes.length){
+      const r3=await fetch(SB+"/rest/v1/profiles?referred_by=in.("+lv2Codes.join(",")+")&select=id",{headers:H()});
+      lv3=await r3.json()||[];
+    }
+
+    // Commissions réellement versées, par niveau (type=commission, colonne niveau)
+    async function sommeCommission(niveau){
+      const r=await fetch(SB+"/rest/v1/transactions?user_id=eq."+u+"&type=eq.commission&niveau=eq."+niveau+"&select=montant",{headers:H()});
+      const d=await r.json()||[];
+      return d.reduce((s,x)=>s+parseFloat(x.montant||0),0);
+    }
+    const [c1,c2,c3]=await Promise.all([sommeCommission(1),sommeCommission(2),sommeCommission(3)]);
+    const totalR=c1+c2+c3;
+
+    document.getElementById("totalUsers").textContent=lv1.length+lv2.length+lv3.length;
     document.getElementById("totalRecomp").textContent="FCFA "+fmt(totalR);
-    document.getElementById("lv1Users").textContent=lv1Count;
-    document.getElementById("lv1Recomp").textContent="FCFA "+fmt(totalR);
+    document.getElementById("lv1Users").textContent=lv1.length;
+    document.getElementById("lv1Recomp").textContent="FCFA "+fmt(c1);
+    document.getElementById("lv2Users").textContent=lv2.length;
+    document.getElementById("lv2Recomp").textContent="FCFA "+fmt(c2);
+    document.getElementById("lv3Users").textContent=lv3.length;
+    document.getElementById("lv3Recomp").textContent="FCFA "+fmt(c3);
 
   }catch(e){
     const code=localStorage.getItem("sinipec_ref")||"—";
