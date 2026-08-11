@@ -4,39 +4,39 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
 <link rel="manifest" href="/manifest.json"/>
-<meta name="theme-color" content="#00bcd4"/>
+<meta name="theme-color" content="#f59e0b"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<meta name="apple-mobile-web-app-title" content="Velero Energy"/>
-<title>Sécurité — Velero Energy</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<meta name="apple-mobile-web-app-title" content="Sinipec"/>
+<title>Sécurité — Sinipec</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
+body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;}
 .wrap{width:100%;max-width:480px;padding-bottom:40px;}
 .topbar{background:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
 .back-btn{background:none;border:none;font-size:22px;cursor:pointer;}
 .topbar-title{font-size:17px;font-weight:700;}
-.section{margin:12px 14px 0;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.07);}
+.section{margin:12px 14px 0;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.07);}
 .sec-title{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;padding:14px 16px 8px;}
 .field{padding:0 16px 14px;}
 .field label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;}
-.field input{width:100%;padding:11px 13px;font-size:14px;font-family:inherit;border:1.5px solid #e0e0e0;border-radius:11px;outline:none;background:#fafafa;}
-.field input:focus{border-color:#00bcd4;box-shadow:0 0 0 3px rgba(0,188,212,.12);}
-.btn-save{width:calc(100% - 32px);margin:0 16px 16px;padding:13px;background:linear-gradient(135deg,#00bcd4,#0097a7);color:#fff;font-size:14px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;}
+.field input{width:100%;padding:11px 13px;font-size:14px;font-family:inherit;border:1.5px solid #e8e8e8;border-radius:12px;outline:none;background:#fafafa;}
+.field input:focus{border-color:#f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,.12);}
+.btn-save{width:calc(100% - 32px);margin:0 16px 16px;padding:13px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font-size:14px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;}
 .alert{padding:10px 13px;border-radius:10px;font-size:13px;margin:0 16px 14px;display:none;}
 .alert.show{display:block;}
 .err{background:#fff5f5;border:1px solid #fed7d7;color:#c53030;}
 .suc{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;}
-.info-row{display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid #f5f5f5;}
+.info-row{display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid #f4f1ed;}
 .info-row:last-child{border-bottom:none;}
 .ir-icon{font-size:20px;width:32px;text-align:center;margin-right:12px;}
 .ir-label{font-size:11px;color:#aaa;margin-bottom:2px;}
 .ir-val{font-size:14px;font-weight:600;color:#1a1a1a;}
-.tip-card{margin:12px 14px 0;background:#e0f7fa;border-radius:14px;padding:16px;}
-.tip-title{font-size:13px;font-weight:700;color:#00838f;margin-bottom:10px;}
-.tip-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:#00838f;margin-bottom:8px;line-height:1.5;}
+.tip-card{margin:12px 14px 0;background:#fff3e2;border:1px solid #fed7aa;border-radius:14px;padding:16px;}
+.tip-title{font-size:13px;font-weight:700;color:#9a3412;margin-bottom:10px;}
+.tip-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:#9a3412;margin-bottom:8px;line-height:1.5;}
 .tip-item:last-child{margin-bottom:0;}
 </style>
 </head>
@@ -53,7 +53,7 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
     <div class="sec-title">Informations du compte</div>
     <div class="info-row"><span class="ir-icon">📧</span><div><div class="ir-label">Email</div><div class="ir-val" id="infoEmail">...</div></div></div>
     <div class="info-row"><span class="ir-icon">📅</span><div><div class="ir-label">Compte créé le</div><div class="ir-val" id="infoDate">...</div></div></div>
-    <div class="info-row"><span class="ir-icon">🔐</span><div><div class="ir-label">Statut</div><div class="ir-val" style="color:#4caf50;">✅ Compte vérifié</div></div></div>
+    <div class="info-row"><span class="ir-icon">🔐</span><div><div class="ir-label">Statut</div><div class="ir-val" style="color:#16a34a;">✅ Compte vérifié</div></div></div>
   </div>
 
   <!-- Changer mot de passe -->
@@ -75,17 +75,17 @@ body{min-height:100vh;background:#f5f0ee;font-family:'DM Sans',sans-serif;displa
   <div class="tip-card">
     <div class="tip-title">🛡️ Conseils de sécurité</div>
     <div class="tip-item"><span>🔒</span>Ne partagez jamais votre mot de passe avec personne</div>
-    <div class="tip-item"><span>📱</span>Utilisez un mot de passe unique pour Velero Energy</div>
-    <div class="tip-item"><span>⚠️</span>Velero Energy ne vous demandera jamais votre mot de passe par téléphone ou email</div>
+    <div class="tip-item"><span>📱</span>Utilisez un mot de passe unique pour Sinipec</div>
+    <div class="tip-item"><span>⚠️</span>Sinipec ne vous demandera jamais votre mot de passe par téléphone ou email</div>
     <div class="tip-item"><span>🚪</span>Déconnectez-vous toujours après utilisation sur un appareil partagé</div>
-    <div class="tip-item"><span>📧</span>En cas de problème : support@veleroenergy.com</div>
+    <div class="tip-item"><span>📧</span>En cas de problème : support@sinipec.com</div>
   </div>
 </div>
 
 <script>
-const SB="https://seegoklunovyuieorkvy.supabase.co";
-const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlZWdva2x1bm92eXVpZW9ya3Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODI3MjYsImV4cCI6MjA5NTI1ODcyNn0.9p2OcUAY25E6XhG4Uq7XYTab_N2FWrg_dtemrUEroeo";
-function tok(){return localStorage.getItem("velero_token")||"";}
+const SB="https://wpezwfskatogphaeffva.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwZXp3ZnNrYXRvZ3BoYWVmZnZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyNjc0MzksImV4cCI6MjEwMTg0MzQzOX0.0K82Hz7gKho2YC2rbbHNB4ZFe-0yuZcelI3XnFvWEW4";
+function tok(){return localStorage.getItem("sinipec_token")||"";}
 function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
 
 async function init(){
