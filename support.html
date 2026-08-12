@@ -4,245 +4,49 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
     <link rel="manifest" href="/manifest.json"/>
-    <meta name="theme-color" content="#00bcd4"/>
+    <meta name="theme-color" content="#f59e0b"/>
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-    <meta name="apple-mobile-web-app-title" content="Velero Energy"/>
-    <title>Support — Velero Energy</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <meta name="apple-mobile-web-app-title" content="Sinipec"/>
+    <title>Support — Sinipec</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
     <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            min-height: 100vh;
-            background: #f5f0ee;
-            font-family: 'DM Sans', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .wrap {
-            width: 100%;
-            max-width: 480px;
-            padding-bottom: 80px;
-        }
-        .topbar {
-            background: #fff;
-            padding: 16px 18px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, .07);
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
-        .back-btn {
-            background: none;
-            border: none;
-            font-size: 22px;
-            cursor: pointer;
-        }
-        .topbar-title {
-            font-size: 17px;
-            font-weight: 700;
-        }
-        .hero {
-            margin: 20px 16px;
-            text-align: center;
-        }
-        .hero-icon {
-            font-size: 64px;
-            margin-bottom: 8px;
-        }
-        .hero h1 {
-            font-size: 24px;
-            font-weight: 900;
-            font-family: 'Playfair Display', serif;
-            color: #1a1a1a;
-            margin-bottom: 8px;
-        }
-        .hero p {
-            font-size: 14px;
-            color: #777;
-        }
-        .support-card {
-            margin: 0 16px 16px;
-            background: #fff;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, .05);
-        }
-        .section-title {
-            font-size: 16px;
-            font-weight: 800;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #1a1a1a;
-        }
-        .section-title span {
-            font-size: 22px;
-        }
-        .faq-item {
-            border-bottom: 1px solid #f0ebe8;
-            padding: 14px 0;
-        }
-        .faq-question {
-            font-size: 14px;
-            font-weight: 700;
-            color: #1a1a1a;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-        .faq-question .arrow {
-            font-size: 18px;
-            color: #00bcd4;
-            transition: transform .3s;
-        }
-        .faq-answer {
-            font-size: 13px;
-            color: #666;
-            line-height: 1.5;
-            margin-top: 8px;
-            display: none;
-            padding-right: 20px;
-        }
-        .faq-item.open .faq-answer {
-            display: block;
-        }
-        .faq-item.open .arrow {
-            transform: rotate(180deg);
-        }
-        .contact-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 8px;
-        }
-        .contact-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            padding: 16px;
-            border-radius: 14px;
-            font-size: 15px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all .2s;
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
-        }
-        .contact-btn.whatsapp {
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            color: #fff;
-        }
-        .contact-btn.whatsapp:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(37, 211, 102, .3);
-        }
-        .contact-btn.telegram {
-            background: linear-gradient(135deg, #0088cc, #006699);
-            color: #fff;
-        }
-        .contact-btn.telegram:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 136, 204, .3);
-        }
-        .contact-btn.support {
-            background: linear-gradient(135deg, #00bcd4, #0097a7);
-            color: #fff;
-        }
-        .contact-btn.support:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 188, 212, .3);
-        }
-        .info-box {
-            background: #f0f7fa;
-            border-radius: 14px;
-            padding: 16px;
-            margin-top: 16px;
-            text-align: center;
-        }
-        .info-box p {
-            font-size: 12px;
-            color: #00838f;
-            margin-bottom: 8px;
-        }
-        .info-box small {
-            font-size: 11px;
-            color: #666;
-        }
-        .alert-banner {
-            background: linear-gradient(135deg, #ff9800, #f57c00);
-            margin: 0 16px 16px;
-            border-radius: 14px;
-            padding: 14px 18px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #fff;
-        }
-        .alert-banner .emoji {
-            font-size: 24px;
-        }
-        .alert-banner .text {
-            font-size: 13px;
-            font-weight: 600;
-        }
-        .alert-banner .sub {
-            font-size: 11px;
-            opacity: .9;
-            margin-top: 4px;
-        }
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 480px;
-            background: #fff;
-            border-top: 1px solid #f0ebe8;
-            display: flex;
-            padding: 8px 0 12px;
-            z-index: 100;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, .08);
-        }
-        .nav-item {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 3px;
-            text-decoration: none;
-            color: #ccc;
-            font-size: 10px;
-            font-weight: 600;
-            font-family: 'DM Sans', sans-serif;
-        }
-        .nav-item.active {
-            color: #00bcd4;
-        }
-        .nav-item .ni {
-            font-size: 21px;
-        }
-        .nav-dot {
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: #00bcd4;
-            margin: 1px auto 0;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { min-height: 100vh; background: #f4f2ef; font-family: 'DM Sans', sans-serif; display: flex; flex-direction: column; align-items: center; }
+        .wrap { width: 100%; max-width: 480px; padding-bottom: 40px; }
+        .topbar { background: #fff; padding: 16px 18px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 10px rgba(0,0,0,.07); position: sticky; top: 0; z-index: 50; }
+        .back-btn { background: none; border: none; font-size: 22px; cursor: pointer; }
+        .topbar-title { font-size: 17px; font-weight: 700; }
+        .hero { margin: 20px 16px; text-align: center; }
+        .hero-icon { font-size: 60px; margin-bottom: 8px; }
+        .hero h1 { font-size: 22px; font-weight: 800; font-family: 'Space Grotesk', sans-serif; color: #1a1a1a; margin-bottom: 8px; }
+        .hero p { font-size: 14px; color: #777; }
+        .support-card { margin: 0 16px 16px; background: #fff; border-radius: 20px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,.05); }
+        .section-title { font-size: 15px; font-weight: 800; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; color: #1a1a1a; }
+        .section-title span { font-size: 20px; }
+        .faq-item { border-bottom: 1px solid #f4f1ed; padding: 14px 0; }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-question { font-size: 14px; font-weight: 700; color: #1a1a1a; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .faq-question .arrow { font-size: 18px; color: #ea580c; transition: transform .3s; }
+        .faq-answer { font-size: 13px; color: #666; line-height: 1.5; margin-top: 8px; display: none; padding-right: 20px; }
+        .faq-item.open .faq-answer { display: block; }
+        .faq-item.open .arrow { transform: rotate(180deg); }
+        .contact-btn { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 17px; border-radius: 14px; font-size: 15px; font-weight: 700; text-decoration: none; transition: all .2s; border: none; cursor: pointer; font-family: inherit; background: linear-gradient(135deg, #0088cc, #006699); color: #fff; }
+        .contact-btn:active { transform: scale(.98); }
+        .info-box { background: #fff3e2; border: 1px solid #fed7aa; border-radius: 14px; padding: 16px; margin-top: 16px; text-align: center; }
+        .info-box p { font-size: 12px; color: #9a3412; margin-bottom: 8px; font-weight: 700; }
+        .info-box small { font-size: 11px; color: #9a3412; opacity: .85; }
+        .alert-banner { position: relative; overflow: hidden; margin: 0 16px 16px; border-radius: 14px; padding: 14px 18px; display: flex; align-items: center; gap: 12px; color: #fff;
+          background: radial-gradient(circle at 85% 0%, rgba(245,158,11,.18) 0%, transparent 45%), linear-gradient(160deg,#0a0d13 0%,#12161f 50%,#1b2130 100%); }
+        .alert-banner .emoji { font-size: 24px; }
+        .alert-banner .text { font-size: 13px; font-weight: 600; }
+        .alert-banner .sub { font-size: 11px; opacity: .65; margin-top: 4px; }
+        .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: #fff; border-top: 1px solid #efece7; display: flex; padding: 8px 0 12px; z-index: 100; box-shadow: 0 -4px 20px rgba(0,0,0,.08); }
+        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; color: #ccc; font-size: 10px; font-weight: 600; font-family: 'DM Sans', sans-serif; }
+        .nav-item.active { color: #ea580c; }
+        .nav-item .ni { font-size: 21px; }
+        .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: #ea580c; margin: 1px auto 0; }
     </style>
 </head>
 <body>
@@ -255,112 +59,70 @@
     <div class="hero">
         <div class="hero-icon">💬</div>
         <h1>Comment pouvons-nous vous aider ?</h1>
-        <p>Notre équipe est là pour vous assister 24h/24 et 7j/7</p>
+        <p>Rejoignez notre groupe officiel pour toute question</p>
     </div>
 
     <div class="alert-banner">
         <div class="emoji">⏰</div>
         <div class="text">
-            Réponse sous 5 minutes en moyenne
-            <div class="sub">Assistance prioritaire sur WhatsApp & Telegram</div>
+            Réponse rapide sur le groupe officiel
+            <div class="sub">Assistance et actualités Sinipec</div>
         </div>
     </div>
 
     <div class="support-card">
-        <div class="section-title">
-            <span>📱</span> Nous contacter
-        </div>
-        <div class="contact-buttons">
-            <a href="#" class="contact-btn whatsapp" id="whatsappSupportBtn">
-                <span>💬</span> Service client WhatsApp
-            </a>
-            <a href="#" class="contact-btn whatsapp" id="whatsappGroupBtn">
-                <span>👥</span> Groupe d'entraide WhatsApp
-            </a>
-            <a href="#" class="contact-btn whatsapp" id="whatsappChannelBtn">
-                <span>📢</span> Chaîne WhatsApp officielle
-            </a>
-            <a href="#" class="contact-btn telegram" id="telegramChannelBtn">
-                <span>✈️</span> Canal Telegram officiel
-            </a>
-        </div>
+        <div class="section-title"><span>📱</span> Nous contacter</div>
+        <a href="https://t.me/+qqFshhBqC6w1ODJk" target="_blank" class="contact-btn">
+            <span>✈️</span> Groupe officiel
+        </a>
         <div class="info-box">
-            <p>🕐 Disponible 7j/7 — 24h/24</p>
-            <small>Un problème avec votre compte, un dépôt ou un retrait ? Contactez-nous directement sur WhatsApp ou rejoignez nos communautés.</small>
+            <p>🕐 Un problème avec votre compte, un dépôt ou un retrait ?</p>
+            <small>Rejoignez le groupe officiel Telegram et posez votre question, notre équipe vous répondra directement.</small>
         </div>
     </div>
 
     <div class="support-card">
-        <div class="section-title">
-            <span>❓</span> Foire aux questions
+        <div class="section-title"><span>❓</span> Foire aux questions</div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">Comment recharger mon compte ?<span class="arrow">▼</span></div>
+            <div class="faq-answer">Rendez-vous sur la page "Recharge", choisissez le canal manuel ou automatique, puis effectuez le paiement. Une fois validé, votre solde est crédité.</div>
         </div>
 
         <div class="faq-item">
-            <div class="faq-question" onclick="toggleFaq(this)">
-                Comment recharger mon compte ?
-                <span class="arrow">▼</span>
-            </div>
-            <div class="faq-answer">
-                Rendez-vous sur la page "Recharge", choisissez votre montant et effectuez le paiement via LeekPay. Une fois le paiement validé par notre équipe, votre solde sera automatiquement crédité.
-            </div>
+            <div class="faq-question" onclick="toggleFaq(this)">Combien de temps dure la validation ?<span class="arrow">▼</span></div>
+            <div class="faq-answer">Les dépôts sont généralement validés sous 30 minutes après réception de votre preuve de paiement. Les retraits sont traités sous 1h à 24h ouvrées.</div>
         </div>
 
         <div class="faq-item">
-            <div class="faq-question" onclick="toggleFaq(this)">
-                Combien de temps dure la validation ?
-                <span class="arrow">▼</span>
-            </div>
-            <div class="faq-answer">
-                Les dépôts sont généralement validés sous 5 à 15 minutes après réception de votre preuve de paiement. Les retraits sont traités sous 24h ouvrées.
-            </div>
+            <div class="faq-question" onclick="toggleFaq(this)">Comment retirer mes gains ?<span class="arrow">▼</span></div>
+            <div class="faq-answer">Allez dans "Mon compte" → "Retrait", entrez le montant et confirmez. Le traitement prend 1h à 24h.</div>
         </div>
 
         <div class="faq-item">
-            <div class="faq-question" onclick="toggleFaq(this)">
-                Comment retirer mes gains ?
-                <span class="arrow">▼</span>
-            </div>
-            <div class="faq-answer">
-                Allez dans "Mon compte" → "Retrait", choisissez votre méthode (Orange Money, MTN Mobile Money ou Wave), entrez le montant et confirmez. Le traitement prend 24 à 48h.
-            </div>
+            <div class="faq-question" onclick="toggleFaq(this)">Que faire en cas de problème de paiement ?<span class="arrow">▼</span></div>
+            <div class="faq-answer">Rejoignez immédiatement notre groupe officiel Telegram. Ayez votre référence de transaction à portée de main pour un traitement plus rapide.</div>
         </div>
 
         <div class="faq-item">
-            <div class="faq-question" onclick="toggleFaq(this)">
-                Que faire en cas de problème de paiement ?
-                <span class="arrow">▼</span>
-            </div>
-            <div class="faq-answer">
-                Contactez immédiatement notre service client via WhatsApp. Ayez votre référence de transaction à portée de main pour un traitement plus rapide.
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFaq(this)">
-                Comment fonctionne le parrainage ?
-                <span class="arrow">▼</span>
-            </div>
-            <div class="faq-answer">
-                Partagez votre lien de parrainage à vos amis. Gagnez 5% sur chaque dépôt de vos filleuls. Les bonus sont crédités automatiquement après validation des dépôts.
-            </div>
+            <div class="faq-question" onclick="toggleFaq(this)">Comment fonctionne le parrainage ?<span class="arrow">▼</span></div>
+            <div class="faq-answer">Partagez votre code d'invitation. Vous gagnez 18% sur les investissements de vos filleuls directs, 2% sur ceux de leurs propres filleuls, et 1% au 3ème niveau. Les commissions sont créditées automatiquement.</div>
         </div>
     </div>
 
     <div class="support-card">
-        <div class="section-title">
-            <span>⚠️</span> Avant de nous contacter
-        </div>
+        <div class="section-title"><span>⚠️</span> Avant de nous contacter</div>
         <div style="display:flex;flex-direction:column;gap:12px;">
             <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:#555;">
-                <span style="background:#e0f7fa;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">1️⃣</span>
+                <span style="background:#fff3e2;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">1️⃣</span>
                 <span>Vérifiez votre historique de transactions</span>
             </div>
             <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:#555;">
-                <span style="background:#e0f7fa;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">2️⃣</span>
+                <span style="background:#fff3e2;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">2️⃣</span>
                 <span>Ayez votre référence de paiement prête</span>
             </div>
             <div style="display:flex;align-items:center;gap:12px;font-size:13px;color:#555;">
-                <span style="background:#e0f7fa;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">3️⃣</span>
+                <span style="background:#fff3e2;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">3️⃣</span>
                 <span>Expliquez clairement votre problème</span>
             </div>
         </div>
@@ -377,79 +139,12 @@
 
 <script src="/pwa-install.js"></script>
 <script>
-    // ============================================================
-    // LIENS DE CONTACT (masqués dans le code HTML)
-    // ============================================================
-    // Service client WhatsApp (numéro ++228 98 99 53 63)
-    const WHATSAPP_SUPPORT = "https://wa.me/+22898995363";
-    
-    // Groupe d'entraide WhatsApp (NOUVEAU LIEN)
-    const WHATSAPP_GROUP = "https://chat.whatsapp.com/IbVLfyDEPwh1dIzOkI8JNm?s=sh&p=a&mlu=2";
-    
-    // Chaîne WhatsApp officielle
-    const WHATSAPP_CHANNEL = "https://whatsapp.com/channel/0029VbD0BUi1SWt0QrRw5p0M";
-    
-    // Canal Telegram officiel
-    const TELEGRAM_CHANNEL = "https://t.me/+WSAncOLVn1EzN2Vk";
-
-    // ============================================================
-    // FONCTIONS
-    // ============================================================
-    function ouvrirLien(url) {
-        window.open(url, "_blank");
-    }
-
-    // Attacher les événements après chargement
-    document.addEventListener("DOMContentLoaded", function() {
-        const btnWhatsAppSupport = document.getElementById("whatsappSupportBtn");
-        const btnWhatsAppGroup = document.getElementById("whatsappGroupBtn");
-        const btnWhatsAppChannel = document.getElementById("whatsappChannelBtn");
-        const btnTelegramChannel = document.getElementById("telegramChannelBtn");
-
-        if (btnWhatsAppSupport) {
-            btnWhatsAppSupport.addEventListener("click", function(e) {
-                e.preventDefault();
-                ouvrirLien(WHATSAPP_SUPPORT);
-            });
-        }
-
-        if (btnWhatsAppGroup) {
-            btnWhatsAppGroup.addEventListener("click", function(e) {
-                e.preventDefault();
-                ouvrirLien(WHATSAPP_GROUP);
-            });
-        }
-
-        if (btnWhatsAppChannel) {
-            btnWhatsAppChannel.addEventListener("click", function(e) {
-                e.preventDefault();
-                ouvrirLien(WHATSAPP_CHANNEL);
-            });
-        }
-
-        if (btnTelegramChannel) {
-            btnTelegramChannel.addEventListener("click", function(e) {
-                e.preventDefault();
-                ouvrirLien(TELEGRAM_CHANNEL);
-            });
-        }
-    });
-
-    // Fonction pour les FAQs
     function toggleFaq(element) {
-        const faqItem = element.closest('.faq-item');
-        faqItem.classList.toggle('open');
+        element.closest('.faq-item').classList.toggle('open');
     }
-
-    // Vérification de l'authentification
     function checkAuth() {
-        const token = localStorage.getItem("velero_token");
-        if (!token) {
-            window.location.href = "index.html";
-        }
+        if (!localStorage.getItem("sinipec_token")) window.location.href = "index.html";
     }
-
-    // Vérifier au chargement
     checkAuth();
 </script>
 </body>
