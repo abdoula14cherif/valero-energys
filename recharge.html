@@ -1,1 +1,186 @@
-cat > /home/recharge.html << 'PAGEEOF' <!DOCTYPE html> <html lang="fr"> <head> <meta charset="UTF-8"/> <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/> <title>Recharge — Sinipec</title> <script src="/pwa-install.js"></script> <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/> <style> *,*::before,*::after{box-sizing:border-box;margin:0;padding:0} body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;} .wrap{width:100%;max-width:480px;padding-bottom:60px;} .topbar{background:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;} .back-btn{background:none;border:none;font-size:20px;cursor:pointer;color:#1a1a1a;line-height:1;padding:4px 8px 4px 0;} .topbar-title{font-size:17px;font-weight:700;color:#1a1a1a;} .balance-banner{margin:14px 14px 0;background:linear-gradient(135deg,#f59e0b,#ea580c);border-radius:20px;padding:22px;color:#fff;text-align:center;} .bb-label{font-size:11px;opacity:.8;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;} .bb-amount{font-size:32px;font-weight:800;font-family:'Space Grotesk',sans-serif;} .bb-min{font-size:11px;opacity:.7;margin-top:4px;} .card{margin:14px 14px 0;background:#fff;border-radius:18px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.07);} .card-title{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:4px;} .card-sub{font-size:12px;color:#90a4ae;margin-bottom:16px;} /* Sélecteur de pays — mêmes chips que le reste du site */ .country-picker{display:flex;flex-wrap:wrap;gap:8px;} .country-chip{ display:flex;align-items:center;gap:7px; padding:11px 14px;border:1.5px solid #e8e8e8;border-radius:14px; background:#fafafa;cursor:pointer;font-family:'DM Sans',sans-serif; transition:transform .15s,border-color .15s,background .15s; } .country-chip:active{transform:scale(.95);} .country-chip.selected{border-color:#f59e0b;background:#fff3e2;box-shadow:0 4px 10px rgba(245,158,11,.2);} .country-flag{font-size:19px;} .country-name{font-size:13px;font-weight:700;color:#555;} .country-chip.selected .country-name{color:#c2410c;} .pay-section{margin-top:18px;display:none;} .pay-section.show{display:block;} .pay-info{background:#fff3e2;border:1px solid #fed7aa;border-radius:14px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;} .pay-info-icon{font-size:22px;} .pay-info-text{font-size:12px;color:#9a3412;line-height:1.5;} .pay-info-text strong{display:block;font-size:13px;margin-bottom:2px;} .btn-main{width:100%;padding:16px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font-size:15px;font-weight:800;border:none;border-radius:14px;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 6px 18px rgba(234,88,12,.3);transition:opacity .2s,transform .15s;display:flex;align-items:center;justify-content:center;gap:8px;} .btn-main:active{transform:scale(.98);} .manual-steps{background:#f0fdf4;border-radius:14px;padding:14px 16px;margin-top:14px;} .ms-title{font-size:12px;font-weight:700;color:#15803d;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;} .ms-step{display:flex;gap:10px;margin-bottom:8px;font-size:12px;color:#1a1a1a;line-height:1.5;} .ms-step:last-child{margin-bottom:0;} .ms-num{width:20px;height:20px;border-radius:50%;background:#16a34a;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;} </style> </head> <body> <div class="wrap"> <div class="topbar"> <button class="back-btn" onclick="history.back()">&#8592;</button> <span class="topbar-title">Recharger mon compte</span> </div> <div class="balance-banner"> <div class="bb-label">Solde actuel</div> <div class="bb-amount" id="soldeActuel">...</div> <div class="bb-min">Depot minimum : 3 000 FCFA</div> </div> <div class="card"> <div class="card-title">Choisissez votre pays</div> <div class="card-sub">Le lien de paiement dépend de votre pays</div> <div class="country-picker" id="paysPicker"></div> <div class="pay-section" id="paySection"> <div class="pay-info"> <span class="pay-info-icon">💳</span> <div class="pay-info-text"> <strong id="payInfoTitle">Paiement sécurisé</strong> <span id="payInfoSub">Vous allez être redirigé vers la page de paiement.</span> </div> </div> <button class="btn-main" id="btnPay" onclick="allerPayer()">⚡ Payer maintenant</button> </div> <div class="manual-steps"> <div class="ms-title">Comment ça marche</div> <div class="ms-step"><div class="ms-num">1</div><span>Choisissez votre pays ci-dessus</span></div> <div class="ms-step"><div class="ms-num">2</div><span>Appuyez sur "Payer maintenant"</span></div> <div class="ms-step"><div class="ms-num">3</div><span>Complétez le paiement Mobile Money sur la page qui s'ouvre</span></div> <div class="ms-step"><div class="ms-num">4</div><span>Votre compte est crédité après confirmation du paiement</span></div> </div> </div> </div> <nav class="bottom-nav" style="position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0 14px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);"> <a href="dashboard.html" class="nav-item" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;"> <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Accueil </a> <a href="produits.html" class="nav-item" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;"> <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg> Produits </a> <a href="parrainage.html" class="nav-item" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;"> <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg> Equipe </a> <a href="compte.html" class="nav-item" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;"> <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Mon compte </a> </nav> <script> const SB="https://wpezwfskatogphaeffva.supabase.co"; const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwZXp3ZnNrYXRvZ3BoYWVmZnZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyNjc0MzksImV4cCI6MjEwMTg0MzQzOX0.0K82Hz7gKho2YC2rbbHNB4ZFe-0yuZcelI3XnFvWEW4"; function tok(){return localStorage.getItem("sinipec_token")||"";} function uid(){return localStorage.getItem("sinipec_uid")||"";} function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};} if(!tok())window.location.href="index.html"; // Deux liens de paiement selon le pays const LIEN_FLINPAY="https://www.flinpay.cfd/pay/pay_007dcc4cfb3d"; const LIEN_LEEKPAY="https://leekpay.me/sinipec-recharge"; // Pays utilisant Flinpay const PAYS_FLINPAY=["BJ","CM","TG"]; const PAYS_LIST=[ {code:"BJ",flag:"🇧🇯",nom:"Bénin"}, {code:"TG",flag:"🇹🇬",nom:"Togo"}, {code:"CM",flag:"🇨🇲",nom:"Cameroun"}, {code:"BF",flag:"🇧🇫",nom:"Burkina Faso"}, {code:"CI",flag:"🇨🇮",nom:"Côte d'Ivoire"}, {code:"TD",flag:"🇹🇩",nom:"Tchad"}, {code:"GA",flag:"🇬🇦",nom:"Gabon"}, {code:"GN",flag:"🇬🇳",nom:"Guinée"}, {code:"ML",flag:"🇲🇱",nom:"Mali"}, {code:"NE",flag:"🇳🇪",nom:"Niger"}, {code:"CD",flag:"🇨🇩",nom:"RDC"}, {code:"SN",flag:"🇸🇳",nom:"Sénégal"}, ]; let selectedPays=null; const picker=document.getElementById("paysPicker"); picker.innerHTML=PAYS_LIST.map(p=>` <div class="country-chip" id="pays-${p.code}" onclick="choisirPays('${p.code}')"> <span class="country-flag">${p.flag}</span> <span class="country-name">${p.nom}</span> </div>`).join(""); function choisirPays(code){ selectedPays=code; document.querySelectorAll(".country-chip").forEach(c=>c.classList.remove("selected")); document.getElementById("pays-"+code).classList.add("selected"); const utiliseFlinpay=PAYS_FLINPAY.includes(code); document.getElementById("payInfoSub").textContent=utiliseFlinpay ? "Paiement via Flinpay — vous allez être redirigé." : "Paiement via Leekpay — vous allez être redirigé."; document.getElementById("paySection").classList.add("show"); } function allerPayer(){ if(!selectedPays)return; const lien=PAYS_FLINPAY.includes(selectedPays)?LIEN_FLINPAY:LIEN_LEEKPAY; window.location.href=lien; } async function init(){ try{ const r=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()}); const d=await r.json(); document.getElementById("soldeActuel").textContent=d&&d[0]?parseFloat(d[0].solde).toLocaleString()+" FCFA":"0 FCFA"; }catch(e){ document.getElementById("soldeActuel").textContent="0 FCFA"; } } init(); </script> </body> </html> PAGEEOF cp /home/claude/recharge.html /mnt/user-data/outputs/recharge.html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Recharge — Sinipec</title>
+<script src="/pwa-install.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
+.wrap{width:100%;max-width:480px;padding-bottom:60px;}
+.topbar{background:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
+.back-btn{background:none;border:none;font-size:20px;cursor:pointer;color:#1a1a1a;line-height:1;padding:4px 8px 4px 0;}
+.topbar-title{font-size:17px;font-weight:700;color:#1a1a1a;}
+
+.balance-banner{margin:14px 14px 0;background:linear-gradient(135deg,#f59e0b,#ea580c);border-radius:20px;padding:22px;color:#fff;text-align:center;}
+.bb-label{font-size:11px;opacity:.8;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.bb-amount{font-size:32px;font-weight:800;font-family:'Space Grotesk',sans-serif;}
+.bb-min{font-size:11px;opacity:.7;margin-top:4px;}
+
+.card{margin:14px 14px 0;background:#fff;border-radius:18px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+.card-title{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:4px;}
+.card-sub{font-size:12px;color:#90a4ae;margin-bottom:16px;}
+
+/* Sélecteur de pays — mêmes chips que le reste du site */
+.country-picker{display:flex;flex-wrap:wrap;gap:8px;}
+.country-chip{
+  display:flex;align-items:center;gap:7px;
+  padding:11px 14px;border:1.5px solid #e8e8e8;border-radius:14px;
+  background:#fafafa;cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:transform .15s,border-color .15s,background .15s;
+}
+.country-chip:active{transform:scale(.95);}
+.country-chip.selected{border-color:#f59e0b;background:#fff3e2;box-shadow:0 4px 10px rgba(245,158,11,.2);}
+.country-flag{font-size:19px;}
+.country-name{font-size:13px;font-weight:700;color:#555;}
+.country-chip.selected .country-name{color:#c2410c;}
+
+.pay-section{margin-top:18px;display:none;}
+.pay-section.show{display:block;}
+.pay-info{background:#fff3e2;border:1px solid #fed7aa;border-radius:14px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+.pay-info-icon{font-size:22px;}
+.pay-info-text{font-size:12px;color:#9a3412;line-height:1.5;}
+.pay-info-text strong{display:block;font-size:13px;margin-bottom:2px;}
+.btn-main{width:100%;padding:16px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;font-size:15px;font-weight:800;border:none;border-radius:14px;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 6px 18px rgba(234,88,12,.3);transition:opacity .2s,transform .15s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-main:active{transform:scale(.98);}
+
+.manual-steps{background:#f0fdf4;border-radius:14px;padding:14px 16px;margin-top:14px;}
+.ms-title{font-size:12px;font-weight:700;color:#15803d;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;}
+.ms-step{display:flex;gap:10px;margin-bottom:8px;font-size:12px;color:#1a1a1a;line-height:1.5;}
+.ms-step:last-child{margin-bottom:0;}
+.ms-num{width:20px;height:20px;border-radius:50%;background:#16a34a;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <button class="back-btn" onclick="history.back()">&#8592;</button>
+    <span class="topbar-title">Recharger mon compte</span>
+  </div>
+
+  <div class="balance-banner">
+    <div class="bb-label">Solde actuel</div>
+    <div class="bb-amount" id="soldeActuel">...</div>
+    <div class="bb-min">Depot minimum : 3 000 FCFA</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Choisissez votre pays</div>
+    <div class="card-sub">Le lien de paiement dépend de votre pays</div>
+    <div class="country-picker" id="paysPicker"></div>
+
+    <div class="pay-section" id="paySection">
+      <div class="pay-info">
+        <span class="pay-info-icon">💳</span>
+        <div class="pay-info-text">
+          <strong id="payInfoTitle">Paiement sécurisé</strong>
+          <span id="payInfoSub">Vous allez être redirigé vers la page de paiement.</span>
+        </div>
+      </div>
+      <button class="btn-main" id="btnPay" onclick="allerPayer()">⚡ Payer maintenant</button>
+    </div>
+
+    <div class="manual-steps">
+      <div class="ms-title">Comment ça marche</div>
+      <div class="ms-step"><div class="ms-num">1</div><span>Choisissez votre pays ci-dessus</span></div>
+      <div class="ms-step"><div class="ms-num">2</div><span>Appuyez sur "Payer maintenant"</span></div>
+      <div class="ms-step"><div class="ms-num">3</div><span>Complétez le paiement Mobile Money sur la page qui s'ouvre</span></div>
+      <div class="ms-step"><div class="ms-num">4</div><span>Votre compte est crédité après confirmation du paiement</span></div>
+    </div>
+  </div>
+
+</div>
+
+<nav class="bottom-nav" style="position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0 14px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);">
+  <a href="dashboard.html" class="nav-item" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Accueil
+  </a>
+  <a href="produits.html" class="nav-item" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+    Produits
+  </a>
+  <a href="parrainage.html" class="nav-item" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+    Equipe
+  </a>
+  <a href="compte.html" class="nav-item" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Mon compte
+  </a>
+</nav>
+
+<script>
+const SB="https://wpezwfskatogphaeffva.supabase.co";
+const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwZXp3ZnNrYXRvZ3BoYWVmZnZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyNjc0MzksImV4cCI6MjEwMTg0MzQzOX0.0K82Hz7gKho2YC2rbbHNB4ZFe-0yuZcelI3XnFvWEW4";
+function tok(){return localStorage.getItem("sinipec_token")||"";}
+function uid(){return localStorage.getItem("sinipec_uid")||"";}
+function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
+
+if(!tok())window.location.href="index.html";
+
+// Deux liens de paiement selon le pays
+const LIEN_FLINPAY="https://www.flinpay.cfd/pay/pay_007dcc4cfb3d";
+const LIEN_LEEKPAY="https://leekpay.me/sinipec-recharge";
+
+// Pays utilisant Flinpay
+const PAYS_FLINPAY=["BJ","CM","TG"];
+
+const PAYS_LIST=[
+  {code:"BJ",flag:"🇧🇯",nom:"Bénin"},
+  {code:"TG",flag:"🇹🇬",nom:"Togo"},
+  {code:"CM",flag:"🇨🇲",nom:"Cameroun"},
+  {code:"BF",flag:"🇧🇫",nom:"Burkina Faso"},
+  {code:"CI",flag:"🇨🇮",nom:"Côte d'Ivoire"},
+  {code:"TD",flag:"🇹🇩",nom:"Tchad"},
+  {code:"GA",flag:"🇬🇦",nom:"Gabon"},
+  {code:"GN",flag:"🇬🇳",nom:"Guinée"},
+  {code:"ML",flag:"🇲🇱",nom:"Mali"},
+  {code:"NE",flag:"🇳🇪",nom:"Niger"},
+  {code:"CD",flag:"🇨🇩",nom:"RDC"},
+  {code:"SN",flag:"🇸🇳",nom:"Sénégal"},
+];
+
+let selectedPays=null;
+
+const picker=document.getElementById("paysPicker");
+picker.innerHTML=PAYS_LIST.map(p=>`
+  <div class="country-chip" id="pays-${p.code}" onclick="choisirPays('${p.code}')">
+    <span class="country-flag">${p.flag}</span>
+    <span class="country-name">${p.nom}</span>
+  </div>`).join("");
+
+function choisirPays(code){
+  selectedPays=code;
+  document.querySelectorAll(".country-chip").forEach(c=>c.classList.remove("selected"));
+  document.getElementById("pays-"+code).classList.add("selected");
+
+  const utiliseFlinpay=PAYS_FLINPAY.includes(code);
+  document.getElementById("payInfoSub").textContent=utiliseFlinpay
+    ? "Paiement via Flinpay — vous allez être redirigé."
+    : "Paiement via Leekpay — vous allez être redirigé.";
+  document.getElementById("paySection").classList.add("show");
+}
+
+function allerPayer(){
+  if(!selectedPays)return;
+  const lien=PAYS_FLINPAY.includes(selectedPays)?LIEN_FLINPAY:LIEN_LEEKPAY;
+  window.location.href=lien;
+}
+
+async function init(){
+  try{
+    const r=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=solde",{headers:H()});
+    const d=await r.json();
+    document.getElementById("soldeActuel").textContent=d&&d[0]?parseFloat(d[0].solde).toLocaleString()+" FCFA":"0 FCFA";
+  }catch(e){
+    document.getElementById("soldeActuel").textContent="0 FCFA";
+  }
+}
+init();
+</script>
+</body>
+</html>
