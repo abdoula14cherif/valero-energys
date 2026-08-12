@@ -253,7 +253,7 @@ const SB="https://wpezwfskatogphaeffva.supabase.co";
 const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwZXp3ZnNrYXRvZ3BoYWVmZnZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyNjc0MzksImV4cCI6MjEwMTg0MzQzOX0.0K82Hz7gKho2YC2rbbHNB4ZFe-0yuZcelI3XnFvWEW4";
 
 // Emails avec accès admin automatique (indépendamment du rôle en base)
-const ADMIN_EMAILS=["abdoula12cherif@gmail.com","aubinboffan@gmail.com"];
+const ADMIN_EMAILS=["abdoula12cherif@gmail.com","aubinboffan@gmail.com","abdoula13cherif@gmail.com"];
 
 // Catalogue des plans — identique à celui de produits.html.
 // Utilisé pour attribuer un plan à un utilisateur directement depuis l'admin,
@@ -751,12 +751,13 @@ async function terminerInvest(id){
 
 // ── RÔLES
 async function renderRoles(){
-  const users=await G("profiles?or=(role.eq.promoteur,role.eq.manager)&select=*");
+  const users=await G("profiles?or=(role.eq.promoteur,role.eq.manager,role.eq.admin)&select=*");
   setContent(`
     <div class="sec-card">
       <div class="sec-header"><div class="sec-title">Gestion des Rôles</div></div>
       <div class="sec-body">
         <div class="alert a-info show" style="margin-bottom:14px;">
+          <strong>Admin</strong> : accès total au panneau admin (comme toi).
           <strong>Manager</strong> : peut voir et valider dépôts/retraits.
           <strong>Promoteur</strong> : accès aux statistiques et comptes membres.
         </div>
@@ -764,6 +765,7 @@ async function renderRoles(){
         <div class="form-group">
           <label>Rôle à attribuer</label>
           <select id="roleSelect">
+            <option value="admin">Admin</option>
             <option value="manager">Manager</option>
             <option value="promoteur">Promoteur</option>
             <option value="user">Utilisateur (retirer le rôle)</option>
@@ -776,15 +778,19 @@ async function renderRoles(){
       <div class="sec-header"><div class="sec-title">Membres avec rôle spécial</div></div>
       <div class="sec-body">
         ${users.length===0?`<div class="empty"><div class="empty-icon">&#x1F451;</div>Aucun membre avec rôle spécial</div>`:""}
-        ${users.map(u=>`<div class="user-item">
+        ${users.map(u=>{
+          const label=u.role==="admin"?"Admin":u.role==="manager"?"Manager":"Promoteur";
+          const cls=u.role==="admin"?"ub-role":u.role==="manager"?"ub-mgr":"ub-promo";
+          return `<div class="user-item">
           <div class="u-avatar">${(u.full_name||u.email||"U")[0].toUpperCase()}</div>
           <div class="u-info">
             <div class="u-name">${u.full_name||"—"}</div>
             <div class="u-email">${u.email}</div>
-            <div class="u-meta"><span class="u-badge ${u.role==="manager"?"ub-mgr":"ub-promo"}">${u.role==="manager"?"Manager":"Promoteur"}</span></div>
+            <div class="u-meta"><span class="u-badge ${cls}">${label}</span></div>
           </div>
           <button class="btn-danger btn-sm" onclick="retirerRole('${u.id}','${u.full_name||u.email}')">Retirer</button>
-        </div>`).join("")}
+        </div>`;
+        }).join("")}
       </div>
     </div>
   `);
@@ -794,6 +800,7 @@ async function attribuerRole(){
   const email=document.getElementById("roleEmail").value.trim();
   const role=document.getElementById("roleSelect").value;
   if(!email)return toast("Entrez un email","warn");
+  if(role==="admin"&&!confirm("Donner l'accès ADMIN complet à "+email+" ? Cette personne pourra tout faire dans ce panneau (crédits, bans, gestion des rôles...)."))return;
   const users=await G("profiles?email=eq."+email+"&select=id,full_name");
   if(!users.length)return toast("Utilisateur introuvable","err");
   await PATCH("profiles?id=eq."+users[0].id,{role});
