@@ -240,7 +240,7 @@ body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;color:
 
     <div class="montant-input-wrap">
       <span class="montant-prefix">FCFA</span>
-      <input class="montant-input" type="number" id="montant" placeholder="montant" min="1500" oninput="calcFrais()"/>
+      <input class="montant-input" type="number" id="montant" placeholder="montant" min="1600" oninput="calcFrais()"/>
     </div>
 
     <div class="frais-inline">
@@ -253,7 +253,7 @@ body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;color:
 
   <!-- NOTES -->
   <div class="notes-block">
-    <div class="note-item"><span class="note-num">1.</span><span>Montant minimum de retrait : 1 500 FCFA.</span></div>
+    <div class="note-item"><span class="note-num">1.</span><span>Montant minimum de retrait : 1 600 FCFA.</span></div>
     <div class="note-item"><span class="note-num">2.</span><span>Frais de retrait : 12% du montant retire.</span></div>
     <div class="note-item"><span class="note-num">3.</span><span>Vous pouvez effectuer des retraits de 09h a 17h du lundi au vendredi. Les retraits sont disponibles sous 1h a 24 heures.</span></div>
     <div class="note-item"><span class="note-num">4.</span><span>Afin de proteger les interets de la plateforme et de ses membres, vous devez disposer d'au moins un produit actif pour activer la fonction de retrait.</span></div>
@@ -364,7 +364,7 @@ async function effectuerRetrait(){
   if(!carteActive){showAlert("Ajoutez un moyen de paiement d'abord.","err");setTimeout(()=>location.href="banque.html",1800);return;}
 
   const montant=parseInt(document.getElementById("montant").value)||0;
-  if(montant<1500)return showAlert("Minimum de retrait : 1 500 FCFA","err");
+  if(montant<1600)return showAlert("Minimum de retrait : 1 600 FCFA","err");
   if(montant>parseFloat(profil.solde||0))return showAlert("Solde insuffisant","err");
 
   const btn=document.getElementById("btnConfirmer");
