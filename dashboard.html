@@ -53,6 +53,23 @@ body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;color:
 
 .bonus-banner{margin:12px 14px 0;background:#fff8e1;border:1px solid #ffe082;border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;}
 
+/* MODALE DE BIENVENUE — affichée à chaque connexion */
+.welcome-overlay{position:fixed;inset:0;background:rgba(10,13,19,.6);z-index:998;display:none;align-items:center;justify-content:center;padding:20px;}
+.welcome-overlay.show{display:flex;}
+.welcome-box{position:relative;background:#fff;border-radius:22px;padding:30px 24px 24px;width:100%;max-width:360px;text-align:center;animation:wpop .3s cubic-bezier(.175,.885,.32,1.275);}
+@keyframes wpop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.welcome-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:#f4f2ef;border:none;color:#888;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.welcome-mark{width:52px;height:52px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#f59e0b,#ea580c);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);}
+.welcome-mark svg{width:24px;height:24px;}
+.welcome-title{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:800;color:#1a1a1a;margin-bottom:8px;}
+.welcome-text{font-size:13px;color:#767676;line-height:1.6;margin-bottom:22px;}
+.welcome-btns{display:flex;flex-direction:column;gap:10px;}
+.welcome-btn{display:flex;align-items:center;justify-content:center;gap:9px;padding:14px;border-radius:13px;font-size:14px;font-weight:700;text-decoration:none;border:none;cursor:pointer;font-family:inherit;}
+.welcome-btn.group{background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;}
+.welcome-btn.support{background:#12161f;color:#fff;}
+
 .balance-row{display:flex;gap:10px;padding:14px 14px 6px;}
 .bal-card{flex:1;background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.07);border-top:3px solid #f59e0b;}
 .bal-card.b{border-top-color:#ea580c;}
@@ -91,6 +108,31 @@ body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;color:
 .nav-item.active{color:#ea580c;}
 .nav-item svg{width:22px;height:22px;}
 .nav-dot{width:5px;height:5px;border-radius:50%;background:#ea580c;margin:1px auto 0;}
+
+/* MODAL DE BIENVENUE — à chaque connexion */
+.welcome-overlay{position:fixed;inset:0;background:rgba(10,13,19,.65);z-index:998;display:none;align-items:center;justify-content:center;padding:20px;}
+.welcome-overlay.show{display:flex;}
+.welcome-box{position:relative;background:#fff;border-radius:22px;width:100%;max-width:360px;overflow:hidden;text-align:center;animation:wPop .35s cubic-bezier(.175,.885,.32,1.275);}
+@keyframes wPop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.welcome-close{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.06);border:none;color:#666;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;}
+.welcome-hero{position:relative;padding:30px 24px 22px;overflow:hidden;color:#fff;
+  background:radial-gradient(circle at 85% 0%, rgba(245,158,11,.2) 0%, transparent 45%),
+             linear-gradient(160deg,#0a0d13 0%,#12161f 50%,#1b2130 100%);}
+.welcome-hero::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.3;
+  background-image:
+    linear-gradient(30deg,rgba(245,158,11,.06) 12%,transparent 12.5%,transparent 87%,rgba(245,158,11,.06) 87.5%,rgba(245,158,11,.06)),
+    linear-gradient(150deg,rgba(245,158,11,.06) 12%,transparent 12.5%,transparent 87%,rgba(245,158,11,.06) 87.5%,rgba(245,158,11,.06));
+  background-size:36px 62px;}
+.welcome-mark{position:relative;width:48px;height:48px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#f59e0b,#ea580c);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);}
+.welcome-mark svg{width:22px;height:22px;}
+.welcome-title{position:relative;font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:800;margin-bottom:6px;}
+.welcome-sub{position:relative;font-size:13px;color:rgba(255,255,255,.65);line-height:1.5;}
+.welcome-body{padding:20px;display:flex;flex-direction:column;gap:10px;}
+.welcome-btn{width:100%;padding:14px;border-radius:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:8px;border:none;}
+.welcome-btn.group{background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;}
+.welcome-btn.support{background:#f4f2ef;color:#1a1a1a;}
 </style>
 </head>
 <body>
@@ -100,6 +142,22 @@ body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;color:
   <div class="loader-logo">Sinipec</div>
   <div class="loader-spin"></div>
   <div class="loader-txt" id="loaderTxt">Chargement...</div>
+</div>
+
+<!-- MODALE DE BIENVENUE -->
+<div class="welcome-overlay" id="welcomeOverlay">
+  <div class="welcome-box">
+    <button class="welcome-close" onclick="fermerBienvenue()">✕</button>
+    <div class="welcome-mark">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="#fff"/></svg>
+    </div>
+    <div class="welcome-title" id="welcomeTitle">Bienvenue sur Sinipec 👋</div>
+    <div class="welcome-text">Rejoignez notre groupe officiel pour suivre les actualités, ou contactez notre service client pour toute question.</div>
+    <div class="welcome-btns">
+      <a href="https://t.me/+qqFshhBqC6w1ODJk" target="_blank" class="welcome-btn group">✈️ Rejoindre le groupe</a>
+      <a href="https://t.me/sinipec" target="_blank" class="welcome-btn support">💬 Contacter le service client</a>
+    </div>
+  </div>
 </div>
 
 <div class="wrap" id="mainWrap" style="display:none;">
@@ -253,6 +311,11 @@ function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization
 function showDash(){
   document.getElementById("loader").style.display="none";
   document.getElementById("mainWrap").style.display="block";
+  document.getElementById("welcomeOverlay").classList.add("show");
+}
+
+function fermerBienvenue(){
+  document.getElementById("welcomeOverlay").classList.remove("show");
 }
 
 function logout(){
@@ -317,6 +380,7 @@ async function init(){
     const name=(prof.full_name||prof.email||"U").split("@")[0].trim();
     document.getElementById("av").textContent=name[0].toUpperCase();
     document.getElementById("uname").textContent=name.charAt(0).toUpperCase()+name.slice(1);
+    document.getElementById("welcomeTitle").textContent="Bienvenue "+name.charAt(0).toUpperCase()+name.slice(1)+" 👋";
     document.getElementById("ulevel").textContent="LV"+(prof.level||1);
     document.getElementById("solde").textContent=parseFloat(prof.solde||0).toLocaleString()+" FCFA";
     document.getElementById("revenus").textContent=parseFloat(prof.revenus_cumules||0).toLocaleString()+" FCFA";
