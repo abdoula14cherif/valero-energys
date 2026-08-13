@@ -1,360 +1,610 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-<link rel="manifest" href="/manifest.json"/>
-<meta name="theme-color" content="#f59e0b"/>
-<meta name="mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<meta name="apple-mobile-web-app-title" content="Sinipec"/>
-<title>Banque — Sinipec</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
-.wrap{width:100%;max-width:480px;padding-bottom:90px;}
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+    <link rel="manifest" href="/manifest.json"/>
+    <meta name="theme-color" content="#f59e0b"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+    <meta name="apple-mobile-web-app-title" content="Sinipec"/>
+    <title>Banque — Sinipec</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            min-height: 100vh;
+            background: #f4f2ef;
+            font-family: 'DM Sans', sans-serif;
+            color: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .wrap {
+            width: 100%;
+            max-width: 480px;
+            padding-bottom: 90px;
+        }
 
-/* TOPBAR */
-.topbar{background:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;}
-.back-btn{background:none;border:none;cursor:pointer;color:#ea580c;font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:4px;}
-.back-btn svg{width:18px;height:18px;}
-.topbar-title{font-size:17px;font-weight:700;color:#1a1a1a;}
+        /* TOPBAR */
+        .topbar {
+            background: #fff;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.07);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ea580c;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: 'DM Sans', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .back-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+        .topbar-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
 
-/* SECTION */
-.section{padding:14px 14px 6px;}
-.section-title{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+        /* SECTION */
+        .section {
+            padding: 14px 14px 6px;
+        }
+        .section-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
 
-/* CARTE SAUVEGARDEE */
-.saved-card{
-  background:#fff;border-radius:16px;padding:16px 18px;
-  box-shadow:0 2px 12px rgba(0,0,0,.07);
-  border-left:4px solid #f59e0b;
-  display:none;margin-bottom:8px;
-  justify-content:space-between;align-items:center;
-}
-.saved-card.show{display:flex;}
-.sc-info{font-size:14px;font-weight:700;color:#1a1a1a;}
-.sc-sub{font-size:12px;color:#90a4ae;margin-top:3px;}
-.sc-del{background:none;border:none;color:#dc2626;cursor:pointer;padding:4px;}
-.sc-del svg{width:20px;height:20px;}
+        /* CARTE SAUVEGARDEE */
+        .saved-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px 18px;
+            box-shadow: 0 2px 12px rgba(0,0,0,.07);
+            border-left: 4px solid #f59e0b;
+            display: none;
+            margin-bottom: 8px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .saved-card.show {
+            display: flex;
+        }
+        .sc-info {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        .sc-sub {
+            font-size: 12px;
+            color: #90a4ae;
+            margin-top: 3px;
+        }
+        .sc-del {
+            background: none;
+            border: none;
+            color: #dc2626;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .sc-del svg {
+            width: 20px;
+            height: 20px;
+        }
 
-/* NO CARD */
-.no-card{background:#fff;border-radius:16px;padding:28px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:6px;}
-.no-card svg{width:44px;height:44px;color:#ccc;margin-bottom:10px;}
-.no-card p{font-size:13px;color:#aaa;}
+        /* NO CARD */
+        .no-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,.06);
+            margin-bottom: 6px;
+        }
+        .no-card svg {
+            width: 44px;
+            height: 44px;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+        .no-card p {
+            font-size: 13px;
+            color: #aaa;
+        }
 
-/* FORM CARD */
-.form-card{background:#fff;border-radius:20px;padding:20px;box-shadow:0 3px 14px rgba(0,0,0,.08);margin:8px 14px;}
-.form-title{font-size:16px;font-weight:700;margin-bottom:4px;}
-.form-sub{font-size:12px;color:#aaa;margin-bottom:18px;}
+        /* FORM CARD */
+        .form-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 3px 14px rgba(0,0,0,.08);
+            margin: 8px 14px;
+        }
+        .form-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .form-sub {
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 18px;
+        }
 
-/* CHAMPS */
-.field{margin-bottom:14px;}
-.field label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:6px;}
-.field input,.field select{
-  width:100%;padding:13px 16px;font-size:14px;
-  font-family:'DM Sans',sans-serif;
-  border:1.5px solid #e8e8e8;border-radius:14px;
-  outline:none;background:#fafafa;color:#1a1a1a;
-}
-.field input:focus,.field select:focus{border-color:#f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,.12);}
-.field input::placeholder{color:#b0bec5;}
-.field select{appearance:none;-webkit-appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2390a4ae' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 16px center;background-color:#fafafa;padding-right:36px;
-}
+        /* CHAMPS */
+        .field {
+            margin-bottom: 14px;
+        }
+        .field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 6px;
+        }
+        .field input, .field select {
+            width: 100%;
+            padding: 13px 16px;
+            font-size: 14px;
+            font-family: 'DM Sans', sans-serif;
+            border: 1.5px solid #e8e8e8;
+            border-radius: 14px;
+            outline: none;
+            background: #fafafa;
+            color: #1a1a1a;
+        }
+        .field input:focus, .field select:focus {
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245,158,11,.12);
+        }
+        .field input::placeholder {
+            color: #b0bec5;
+        }
+        .field select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2390a4ae' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-color: #fafafa;
+            padding-right: 36px;
+        }
 
-/* NETWORKS */
-.network-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+        /* NETWORKS */
+        .network-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 8px;
+        }
 
-/* Sélecteur de pays — chips compacts défilables, avec drapeau */
-.country-picker{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 4px;scrollbar-width:none;}
-.country-picker::-webkit-scrollbar{display:none;}
-.country-chip{
-  flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:3px;
-  min-width:58px;padding:8px 6px 7px;border:1.5px solid #e8e8e8;border-radius:12px;
-  background:#fafafa;cursor:pointer;font-family:'DM Sans',sans-serif;
-  transition:transform .15s,border-color .15s,background .15s;
-}
-.country-chip:active{transform:scale(.93);}
-.country-chip.selected{border-color:#f59e0b;background:#fff3e2;transform:translateY(-2px);box-shadow:0 4px 10px rgba(245,158,11,.25);}
-.country-flag{font-size:20px;line-height:1;}
-.country-code{font-size:10px;font-weight:800;color:#767676;letter-spacing:.3px;}
-.country-chip.selected .country-code{color:#c2410c;}
-.net-btn{
-  padding:11px 4px;border:1.5px solid #e8e8e8;border-radius:12px;
-  background:#fafafa;cursor:pointer;text-align:center;
-  font-size:11px;font-weight:700;color:#555;
-  transition:all .2s;font-family:'DM Sans',sans-serif;
-}
-.net-btn.selected{border-color:#f59e0b;background:#fff3e2;color:#c2410c;}
-.net-icon{font-size:20px;display:block;margin-bottom:3px;}
+        /* Sélecteur de pays — chips compacts défilables, avec drapeau */
+        .country-picker {
+            display: flex;
+            gap: 7px;
+            overflow-x: auto;
+            padding: 2px 2px 4px;
+            scrollbar-width: none;
+        }
+        .country-picker::-webkit-scrollbar {
+            display: none;
+        }
+        .country-chip {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            min-width: 58px;
+            padding: 8px 6px 7px;
+            border: 1.5px solid #e8e8e8;
+            border-radius: 12px;
+            background: #fafafa;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: transform .15s,border-color .15s,background .15s;
+        }
+        .country-chip:active {
+            transform: scale(.93);
+        }
+        .country-chip.selected {
+            border-color: #f59e0b;
+            background: #fff3e2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(245,158,11,.25);
+        }
+        .country-flag {
+            font-size: 20px;
+            line-height: 1;
+        }
+        .country-code {
+            font-size: 10px;
+            font-weight: 800;
+            color: #767676;
+            letter-spacing: .3px;
+        }
+        .country-chip.selected .country-code {
+            color: #c2410c;
+        }
+        .net-btn {
+            padding: 11px 4px;
+            border: 1.5px solid #e8e8e8;
+            border-radius: 12px;
+            background: #fafafa;
+            cursor: pointer;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #555;
+            transition: all .2s;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .net-btn.selected {
+            border-color: #f59e0b;
+            background: #fff3e2;
+            color: #c2410c;
+        }
+        .net-icon {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 3px;
+        }
 
-/* BTN SAVE */
-.btn-save{
-  width:100%;padding:16px;
-  background:linear-gradient(135deg,#f59e0b,#ea580c);
-  color:#fff;font-size:15px;font-weight:700;
-  border:none;border-radius:14px;cursor:pointer;
-  font-family:'DM Sans',sans-serif;
-  box-shadow:0 4px 16px rgba(234,88,12,.3);
-  margin-top:6px;transition:opacity .2s,transform .15s;
-}
-.btn-save:active{transform:scale(.98);}
+        /* BTN SAVE */
+        .btn-save {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg,#f59e0b,#ea580c);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            box-shadow: 0 4px 16px rgba(234,88,12,.3);
+            margin-top: 6px;
+            transition: opacity .2s,transform .15s;
+        }
+        .btn-save:active {
+            transform: scale(.98);
+        }
 
-/* ALERT */
-.alert{padding:12px 16px;border-radius:14px;font-size:13px;font-weight:600;margin-bottom:14px;display:none;line-height:1.5;}
-.alert.show{display:block;}
-.alert-error{background:#fff5f5;border-left:4px solid #dc2626;color:#b91c1c;}
-.alert-success{background:#f0fdf4;border-left:4px solid #16a34a;color:#15803d;}
+        /* ALERT */
+        .alert {
+            padding: 12px 16px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            display: none;
+            line-height: 1.5;
+        }
+        .alert.show {
+            display: block;
+        }
+        .alert-error {
+            background: #fff5f5;
+            border-left: 4px solid #dc2626;
+            color: #b91c1c;
+        }
+        .alert-success {
+            background: #f0fdf4;
+            border-left: 4px solid #16a34a;
+            color: #15803d;
+        }
 
-/* BOTTOM NAV */
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0 14px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.08);}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;}
-.nav-item.active{color:#ea580c;}
-.nav-item svg{width:22px;height:22px;}
-.nav-dot{width:5px;height:5px;border-radius:50%;background:#ea580c;margin:1px auto 0;}
-</style>
+        /* BOTTOM NAV */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: #fff;
+            border-top: 1px solid #eee;
+            display: flex;
+            padding: 8px 0 14px;
+            z-index: 100;
+            box-shadow: 0 -4px 20px rgba(0,0,0,.08);
+        }
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            text-decoration: none;
+            color: #ccc;
+            font-size: 10px;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .nav-item.active {
+            color: #ea580c;
+        }
+        .nav-item svg {
+            width: 22px;
+            height: 22px;
+        }
+        .nav-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #ea580c;
+            margin: 1px auto 0;
+        }
+    </style>
 </head>
 <body>
 <script src="/pwa-install.js"></script>
 <div class="wrap">
 
-  <!-- TOPBAR -->
-  <div class="topbar">
-    <button class="back-btn" onclick="history.back()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      Moyen de paiement
-    </button>
-  </div>
-
-  <!-- CARTE ENREGISTREE -->
-  <div class="section">
-    <div class="section-title">Compte enregistre</div>
-    <div class="saved-card" id="savedCard">
-      <div>
-        <div class="sc-info" id="savedInfo">—</div>
-        <div class="sc-sub" id="savedSub">—</div>
-      </div>
-      <button class="sc-del" onclick="deleteCard()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
-      </button>
-    </div>
-    <div class="no-card" id="noCard">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-      <p>Aucun moyen de paiement enregistre</p>
-    </div>
-  </div>
-
-  <!-- FORMULAIRE -->
-  <div class="form-card">
-    <div class="form-title">Ajouter un compte Mobile Money</div>
-    <div class="form-sub">Choisissez votre pays et votre operateur</div>
-
-    <div id="alertBox" class="alert"></div>
-
-    <div class="field">
-      <label>Pays</label>
-      <div class="country-picker" id="paysPicker"></div>
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <button class="back-btn" onclick="history.back()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Moyen de paiement
+        </button>
     </div>
 
-    <div class="field" id="networkField" style="display:none;">
-      <label>Operateur Mobile Money</label>
-      <div class="network-grid" id="networkGrid"></div>
+    <!-- CARTE ENREGISTREE -->
+    <div class="section">
+        <div class="section-title">Compte enregistre</div>
+        <div class="saved-card" id="savedCard">
+            <div>
+                <div class="sc-info" id="savedInfo">—</div>
+                <div class="sc-sub" id="savedSub">—</div>
+            </div>
+            <button class="sc-del" onclick="deleteCard()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+            </button>
+        </div>
+        <div class="no-card" id="noCard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            <p>Aucun moyen de paiement enregistre</p>
+        </div>
     </div>
 
-    <div class="field" id="nameField" style="display:none;">
-      <label>Nom du titulaire</label>
-      <input type="text" id="holderName" placeholder="Nom complet"/>
-    </div>
+    <!-- FORMULAIRE -->
+    <div class="form-card">
+        <div class="form-title">Ajouter un compte Mobile Money</div>
+        <div class="form-sub">Choisissez votre pays et votre operateur</div>
 
-    <div class="field" id="phoneField" style="display:none;">
-      <label>Numero Mobile Money</label>
-      <input type="tel" id="mmPhone" placeholder="Ex: 07 00 00 00 00"/>
-    </div>
+        <div id="alertBox" class="alert"></div>
 
-    <button class="btn-save" id="saveBtn" style="display:none;" onclick="saveCard()">Enregistrer ce compte</button>
-  </div>
+        <div class="field">
+            <label>Pays</label>
+            <div class="country-picker" id="paysPicker"></div>
+        </div>
+
+        <div class="field" id="networkField" style="display:none;">
+            <label>Operateur Mobile Money</label>
+            <div class="network-grid" id="networkGrid"></div>
+        </div>
+
+        <div class="field" id="nameField" style="display:none;">
+            <label>Nom du titulaire</label>
+            <input type="text" id="holderName" placeholder="Nom complet"/>
+        </div>
+
+        <div class="field" id="phoneField" style="display:none;">
+            <label>Numero Mobile Money</label>
+            <input type="tel" id="mmPhone" placeholder="Ex: 07 00 00 00 00"/>
+        </div>
+
+        <button class="btn-save" id="saveBtn" style="display:none;" onclick="saveCard()">Enregistrer ce compte</button>
+    </div>
 </div>
 
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
-  <a href="dashboard.html" class="nav-item">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    Accueil
-  </a>
-  <a href="produits.html" class="nav-item">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-    Produits
-  </a>
-  <a href="parrainage.html" class="nav-item">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-    Equipe
-  </a>
-  <a href="compte.html" class="nav-item active">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    Mon compte
-    <div class="nav-dot"></div>
-  </a>
+    <a href="dashboard.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Accueil
+    </a>
+    <a href="produits.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        Produits
+    </a>
+    <a href="parrainage.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        Equipe
+    </a>
+    <a href="compte.html" class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Mon compte
+        <div class="nav-dot"></div>
+    </a>
 </nav>
 
 <script>
-const SB="https://wpezwfskatogphaeffva.supabase.co";
-const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwZXp3ZnNrYXRvZ3BoYWVmZnZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyNjc0MzksImV4cCI6MjEwMTg0MzQzOX0.0K82Hz7gKho2YC2rbbHNB4ZFe-0yuZcelI3XnFvWEW4";
-function tok(){return localStorage.getItem("sinipec_token")||"";}
-function uid(){return localStorage.getItem("sinipec_uid")||"";}
-function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
+    const SB = "https://wpezwfskatogphaeffva.supabase.co";
+    const AK = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwZXp3ZnNrYXRvZ3BoYWVmZnZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyNjc0MzksImV4cCI6MjEwMTg0MzQzOX0.0K82Hz7gKho2YC2rbbHNB4ZFe-0yuZcelI3XnFvWEW4";
+    function tok(){ return localStorage.getItem("sinipec_token")||""; }
+    function uid(){ return localStorage.getItem("sinipec_uid")||""; }
+    function H(){ return {"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()}; }
 
-if(!tok())window.location.href="index.html";
+    if(!tok())window.location.href="index.html";
 
-const NETWORKS={
-  BJ:[{id:"mtn",   icon:"&#x1F7E1;",name:"MTN MoMo"},   {id:"moov", icon:"&#x1F535;",name:"Moov Money"}],
-  BF:[{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"},{id:"moov", icon:"&#x1F535;",name:"Moov Money"}],
-  CM:[{id:"mtn",   icon:"&#x1F7E1;",name:"MTN MoMo"},   {id:"orange",icon:"&#x1F7E0;",name:"Orange Money"}],
-  CI:[{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"},{id:"mtn",  icon:"&#x1F7E1;",name:"MTN MoMo"},{id:"wave",icon:"&#x1F30A;",name:"Wave"}],
-  TD:[{id:"moov",  icon:"&#x1F535;",name:"Moov Money"},  {id:"airtel",icon:"&#x1F534;",name:"Airtel Money"}],
-  GA:[{id:"airtel",icon:"&#x1F534;",name:"Airtel Money"},{id:"moov", icon:"&#x1F535;",name:"Moov Money"}],
-  GN:[{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"},{id:"mtn",  icon:"&#x1F7E1;",name:"MTN MoMo"}],
-  ML:[{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"},{id:"moov", icon:"&#x1F535;",name:"Moov Money"}],
-  NE:[{id:"amana", icon:"&#x1F7E2;",name:"Amana"},       {id:"nita", icon:"&#x1F535;",name:"Nita"}],
-  CD:[{id:"mpesa", icon:"&#x1F7E2;",name:"M-Pesa"},      {id:"airtel",icon:"&#x1F534;",name:"Airtel Money"},{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"}],
-  SN:[{id:"wave",  icon:"&#x1F30A;",name:"Wave"},         {id:"orange",icon:"&#x1F7E0;",name:"Orange Money"},{id:"free",icon:"&#x1F535;",name:"Free Money"}]
-};
+    const NETWORKS = {
+        BJ:[{id:"mtn",   icon:"&#x1F7E1;",name:"MTN MoMo"},   {id:"moov", icon:"&#x1F535;",name:"Moov Money"}],
+        BF:[{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"},{id:"moov", icon:"&#x1F535;",name:"Moov Money"}],
+        CM:[{id:"mtn",   icon:"&#x1F7E1;",name:"MTN MoMo"},   {id:"orange",icon:"&#x1F7E0;",name:"Orange Money"}],
+        CI:[{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"},{id:"mtn",  icon:"&#x1F7E1;",name:"MTN MoMo"},{id:"wave",icon:"&#x1F30A;",name:"Wave"}],
+        TD:[{id:"moov",  icon:"&#x1F535;",name:"Moov Money"},  {id:"airtel",icon:"&#x1F534;",name:"Airtel Money"}],
+        GA:[{id:"airtel",icon:"&#x1F534;",name:"Airtel Money"},{id:"moov", icon:"&#x1F535;",name:"Moov Money"}],
+        GN:[{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"},{id:"mtn",  icon:"&#x1F7E1;",name:"MTN MoMo"}],
+        ML:[{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"},{id:"moov", icon:"&#x1F535;",name:"Moov Money"}],
+        NE:[{id:"amana", icon:"&#x1F7E2;",name:"Amana"},       {id:"nita", icon:"&#x1F535;",name:"Nita"}],
+        CD:[{id:"mpesa", icon:"&#x1F7E2;",name:"M-Pesa"},      {id:"airtel",icon:"&#x1F534;",name:"Airtel Money"},{id:"orange",icon:"&#x1F7E0;",name:"Orange Money"}],
+        SN:[{id:"wave",  icon:"&#x1F30A;",name:"Wave"},         {id:"orange",icon:"&#x1F7E0;",name:"Orange Money"},{id:"free",icon:"&#x1F535;",name:"Free Money"}],
+        // Togo (TG) ajouté avec ses opérateurs
+        TG:[{id:"moov",  icon:"&#x1F535;",name:"Moov Money"},  {id:"togo", icon:"&#x1F7E1;",name:"Togo Money"}]
+    };
 
-let selectedNet=null;
-let selectedPays="";
+    let selectedNet = null;
+    let selectedPays = "";
 
-const PAYS_LIST=[
-  {code:"BJ",flag:"🇧🇯",nom:"Bénin"},
-  {code:"BF",flag:"🇧🇫",nom:"Burkina Faso"},
-  {code:"CM",flag:"🇨🇲",nom:"Cameroun"},
-  {code:"CI",flag:"🇨🇮",nom:"Côte d'Ivoire"},
-  {code:"TD",flag:"🇹🇩",nom:"Tchad"},
-  {code:"GA",flag:"🇬🇦",nom:"Gabon"},
-  {code:"GN",flag:"🇬🇳",nom:"Guinée"},
-  {code:"ML",flag:"🇲🇱",nom:"Mali"},
-  {code:"NE",flag:"🇳🇪",nom:"Niger"},
-  {code:"CD",flag:"🇨🇩",nom:"RDC"},
-  {code:"SN",flag:"🇸🇳",nom:"Sénégal"},
-];
+    const PAYS_LIST = [
+        {code:"BJ",flag:"🇧🇯",nom:"Bénin"},
+        {code:"BF",flag:"🇧🇫",nom:"Burkina Faso"},
+        {code:"CM",flag:"🇨🇲",nom:"Cameroun"},
+        {code:"CI",flag:"🇨🇮",nom:"Côte d'Ivoire"},
+        {code:"TD",flag:"🇹🇩",nom:"Tchad"},
+        {code:"GA",flag:"🇬🇦",nom:"Gabon"},
+        {code:"GN",flag:"🇬🇳",nom:"Guinée"},
+        {code:"ML",flag:"🇲🇱",nom:"Mali"},
+        {code:"NE",flag:"🇳🇪",nom:"Niger"},
+        {code:"CD",flag:"🇨🇩",nom:"RDC"},
+        {code:"SN",flag:"🇸🇳",nom:"Sénégal"},
+        {code:"TG",flag:"🇹🇬",nom:"Togo"} // Togo ajouté
+    ];
 
-const paysPicker=document.getElementById("paysPicker");
-paysPicker.innerHTML=PAYS_LIST.map(p=>`
-  <div class="country-chip" id="pays-${p.code}" onclick="choisirPays('${p.code}')" title="${p.nom}">
-    <span class="country-flag">${p.flag}</span>
-    <span class="country-code">${p.code}</span>
-  </div>`).join("");
+    const paysPicker = document.getElementById("paysPicker");
+    paysPicker.innerHTML = PAYS_LIST.map(p => `
+    <div class="country-chip" id="pays-${p.code}" onclick="choisirPays('${p.code}')" title="${p.nom}">
+      <span class="country-flag">${p.flag}</span>
+      <span class="country-code">${p.code}</span>
+    </div>`).join("");
 
-function choisirPays(code){
-  selectedPays=code;
-  document.querySelectorAll(".country-chip").forEach(c=>c.classList.remove("selected"));
-  document.getElementById("pays-"+code).classList.add("selected");
-  updateNetworks();
-}
+    function choisirPays(code){
+        selectedPays = code;
+        document.querySelectorAll(".country-chip").forEach(c => c.classList.remove("selected"));
+        document.getElementById("pays-"+code).classList.add("selected");
+        updateNetworks();
+    }
 
-function updateNetworks(){
-  const pays=selectedPays;
-  if(!pays)return;
-  const nets=NETWORKS[pays]||[];
-  const grid=document.getElementById("networkGrid");
-  grid.innerHTML=nets.map(n=>`
-    <button class="net-btn" onclick="selectNet('${n.id}','${n.name}')" id="net-${n.id}">
-      <span class="net-icon">${n.icon}</span>${n.name}
-    </button>`).join("");
-  document.getElementById("networkField").style.display="block";
-  document.getElementById("nameField").style.display="none";
-  document.getElementById("phoneField").style.display="none";
-  document.getElementById("saveBtn").style.display="none";
-  selectedNet=null;
-}
+    function updateNetworks(){
+        const pays = selectedPays;
+        if(!pays) return;
+        const nets = NETWORKS[pays] || [];
+        const grid = document.getElementById("networkGrid");
+        grid.innerHTML = nets.map(n => `
+        <button class="net-btn" onclick="selectNet('${n.id}','${n.name}')" id="net-${n.id}">
+          <span class="net-icon">${n.icon}</span>${n.name}
+        </button>`).join("");
+        document.getElementById("networkField").style.display = "block";
+        document.getElementById("nameField").style.display = "none";
+        document.getElementById("phoneField").style.display = "none";
+        document.getElementById("saveBtn").style.display = "none";
+        selectedNet = null;
+    }
 
-function selectNet(id,name){
-  selectedNet=name;
-  document.querySelectorAll(".net-btn").forEach(b=>b.classList.remove("selected"));
-  document.getElementById("net-"+id).classList.add("selected");
-  document.getElementById("nameField").style.display="block";
-  document.getElementById("phoneField").style.display="block";
-  document.getElementById("saveBtn").style.display="block";
-}
+    function selectNet(id,name){
+        selectedNet = name;
+        document.querySelectorAll(".net-btn").forEach(b => b.classList.remove("selected"));
+        document.getElementById("net-"+id).classList.add("selected");
+        document.getElementById("nameField").style.display = "block";
+        document.getElementById("phoneField").style.display = "block";
+        document.getElementById("saveBtn").style.display = "block";
+    }
 
-function showAlert(msg,type){
-  const el=document.getElementById("alertBox");
-  el.textContent=msg;el.className="alert alert-"+type+" show";
-}
+    function showAlert(msg,type){
+        const el = document.getElementById("alertBox");
+        el.textContent = msg;
+        el.className = "alert alert-"+type+" show";
+    }
 
-async function saveCard(){
-  const pays=selectedPays;
-  const name=document.getElementById("holderName").value.trim();
-  const phone=document.getElementById("mmPhone").value.trim();
-  if(!pays||!selectedNet)return showAlert("Selectionnez un pays et un operateur.","error");
-  if(!name)return showAlert("Entrez le nom du titulaire.","error");
-  if(!phone||phone.length<8)return showAlert("Numero de telephone invalide.","error");
+    async function saveCard(){
+        const pays = selectedPays;
+        const name = document.getElementById("holderName").value.trim();
+        const phone = document.getElementById("mmPhone").value.trim();
+        if(!pays||!selectedNet) return showAlert("Selectionnez un pays et un operateur.","error");
+        if(!name) return showAlert("Entrez le nom du titulaire.","error");
+        if(!phone||phone.length<8) return showAlert("Numero de telephone invalide.","error");
 
-  const btn=document.getElementById("saveBtn");
-  btn.disabled=true;btn.textContent="Enregistrement...";
+        const btn = document.getElementById("saveBtn");
+        btn.disabled = true;
+        btn.textContent = "Enregistrement...";
 
-  try{
-    // Désactiver les anciennes cartes
-    await fetch(SB+"/rest/v1/moyens_paiement?user_id=eq."+uid(),{
-      method:"PATCH",headers:H(),
-      body:JSON.stringify({actif:false})
-    });
-    // Insérer la nouvelle
-    await fetch(SB+"/rest/v1/moyens_paiement",{
-      method:"POST",
-      headers:{...H(),"Prefer":"return=minimal"},
-      body:JSON.stringify({
-        user_id:uid(),
-        reseau:selectedNet,
-        nom_titulaire:name,
-        numero:phone,
-        pays,
-        actif:true
-      })
-    });
-    // Sauvegarder aussi en local pour accès rapide
-    localStorage.setItem("sinipec_card",JSON.stringify({pays,network:selectedNet,name,phone}));
-    showAlert("Compte enregistre avec succes !","success");
+        try {
+            // Désactiver les anciennes cartes
+            await fetch(SB+"/rest/v1/moyens_paiement?user_id=eq."+uid(),{
+                method:"PATCH",
+                headers:H(),
+                body:JSON.stringify({actif:false})
+            });
+            // Insérer la nouvelle
+            await fetch(SB+"/rest/v1/moyens_paiement",{
+                method:"POST",
+                headers:{...H(),"Prefer":"return=minimal"},
+                body:JSON.stringify({
+                    user_id:uid(),
+                    reseau:selectedNet,
+                    nom_titulaire:name,
+                    numero:phone,
+                    pays,
+                    actif:true
+                })
+            });
+            // Sauvegarder aussi en local pour accès rapide
+            localStorage.setItem("sinipec_card",JSON.stringify({pays,network:selectedNet,name,phone}));
+            showAlert("Compte enregistre avec succes !","success");
+            loadSavedCard();
+        } catch(e) {
+            // Fallback local si erreur réseau
+            localStorage.setItem("sinipec_card",JSON.stringify({pays,network:selectedNet,name,phone}));
+            showAlert("Compte enregistre localement.","success");
+            loadSavedCard();
+        }
+
+        btn.disabled = false;
+        btn.textContent = "Enregistrer ce compte";
+    }
+
+    function loadSavedCard(){
+        const c = localStorage.getItem("sinipec_card");
+        if(c){
+            const card = JSON.parse(c);
+            document.getElementById("savedInfo").textContent = card.network+" — "+card.name;
+            document.getElementById("savedSub").textContent = card.phone+" ("+card.pays+")";
+            document.getElementById("savedCard").classList.add("show");
+            document.getElementById("noCard").style.display = "none";
+        } else {
+            document.getElementById("savedCard").classList.remove("show");
+            document.getElementById("noCard").style.display = "block";
+        }
+    }
+
+    async function deleteCard(){
+        if(!confirm("Supprimer ce moyen de paiement ?")) return;
+        try {
+            await fetch(SB+"/rest/v1/moyens_paiement?user_id=eq."+uid(),{
+                method:"PATCH",
+                headers:H(),
+                body:JSON.stringify({actif:false})
+            });
+        } catch(e) {}
+        localStorage.removeItem("sinipec_card");
+        loadSavedCard();
+    }
+
     loadSavedCard();
-  }catch(e){
-    // Fallback local si erreur réseau
-    localStorage.setItem("sinipec_card",JSON.stringify({pays,network:selectedNet,name,phone}));
-    showAlert("Compte enregistre localement.","success");
-    loadSavedCard();
-  }
-
-  btn.disabled=false;btn.textContent="Enregistrer ce compte";
-}
-
-function loadSavedCard(){
-  const c=localStorage.getItem("sinipec_card");
-  if(c){
-    const card=JSON.parse(c);
-    document.getElementById("savedInfo").textContent=card.network+" — "+card.name;
-    document.getElementById("savedSub").textContent=card.phone+" ("+card.pays+")";
-    document.getElementById("savedCard").classList.add("show");
-    document.getElementById("noCard").style.display="none";
-  }else{
-    document.getElementById("savedCard").classList.remove("show");
-    document.getElementById("noCard").style.display="block";
-  }
-}
-
-async function deleteCard(){
-  if(!confirm("Supprimer ce moyen de paiement ?"))return;
-  try{
-    await fetch(SB+"/rest/v1/moyens_paiement?user_id=eq."+uid(),{
-      method:"PATCH",headers:H(),
-      body:JSON.stringify({actif:false})
-    });
-  }catch(e){}
-  localStorage.removeItem("sinipec_card");
-  loadSavedCard();
-}
-
-loadSavedCard();
 </script>
 </body>
 </html>
