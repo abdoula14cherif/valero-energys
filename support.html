@@ -47,6 +47,29 @@
         .nav-item.active { color: #ea580c; }
         .nav-item .ni { font-size: 21px; }
         .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: #ea580c; margin: 1px auto 0; }
+
+        /* Nouveau bouton Service client en vedette */
+        .hero-client-btn-wrap { margin: 0 16px 20px; }
+        .hero-client-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(145deg, #f97316, #ea580c);
+            color: #fff;
+            padding: 18px 20px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 17px;
+            text-decoration: none;
+            box-shadow: 0 12px 28px rgba(234, 88, 12, 0.35);
+            transition: all 0.15s;
+            border: none;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.3px;
+        }
+        .hero-client-btn:active { transform: scale(0.97); box-shadow: 0 6px 16px rgba(234, 88, 12, 0.4); }
+        .hero-client-btn span { font-size: 22px; }
     </style>
 </head>
 <body>
@@ -60,6 +83,13 @@
         <div class="hero-icon">💬</div>
         <h1>Comment pouvons-nous vous aider ?</h1>
         <p>Rejoignez notre groupe officiel pour toute question</p>
+    </div>
+
+    <!-- NOUVEAU BOUTON SERVICE CLIENT (en vedette) -->
+    <div class="hero-client-btn-wrap">
+        <a href="https://t.me/sinipec" target="_blank" class="hero-client-btn">
+            <span>🛎️</span> Service client
+        </a>
     </div>
 
     <div class="alert-banner">
