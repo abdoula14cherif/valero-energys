@@ -1,418 +1,637 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-<link rel="manifest" href="/manifest.json"/>
-<meta name="theme-color" content="#f59e0b"/>
-<meta name="mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<title>Retrait — Sinipec</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;color:#1a1a1a;display:flex;flex-direction:column;align-items:center;}
-.wrap{width:100%;max-width:480px;padding-bottom:90px;}
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+    <link rel="manifest" href="/manifest.json"/>
+    <meta name="theme-color" content="#f59e0b"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <title>Retrait — Sinipec</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            min-height: 100vh;
+            background: #f4f2ef;
+            font-family: 'DM Sans', sans-serif;
+            color: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .wrap {
+            width: 100%;
+            max-width: 480px;
+            padding-bottom: 90px;
+        }
 
-/* TOPBAR */
-.topbar{
-  background:#fff;padding:14px 18px;
-  display:flex;align-items:center;justify-content:space-between;
-  box-shadow:0 2px 10px rgba(0,0,0,.07);
-  position:sticky;top:0;z-index:50;
-}
-.topbar-left{display:flex;align-items:center;gap:10px;}
-.back-btn{
-  background:none;border:none;cursor:pointer;
-  color:#ea580c;font-size:15px;font-weight:700;
-  font-family:'DM Sans',sans-serif;
-  display:flex;align-items:center;gap:4px;
-}
-.back-btn svg{width:18px;height:18px;}
-.topbar-title{font-size:17px;font-weight:700;color:#1a1a1a;}
-.hist-btn{
-  background:none;border:none;cursor:pointer;color:#ea580c;
-}
-.hist-btn svg{width:24px;height:24px;}
+        /* TOPBAR */
+        .topbar {
+            background: #fff;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0,0,0,.07);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ea580c;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: 'DM Sans', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .back-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+        .topbar-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        .hist-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ea580c;
+        }
+        .hist-btn svg {
+            width: 24px;
+            height: 24px;
+        }
 
-/* SOLDE */
-.solde-section{
-  background:#fff;
-  margin:14px 14px 0;
-  border-radius:20px;
-  padding:24px 20px;
-  text-align:center;
-  box-shadow:0 2px 12px rgba(0,0,0,.07);
-}
-.solde-label{font-size:12px;color:#90a4ae;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
-.solde-val{font-size:38px;font-weight:800;font-family:'Space Grotesk',sans-serif;color:#1a1a1a;}
-.solde-unit{font-size:22px;font-weight:700;color:#90a4ae;margin-right:6px;}
+        /* SOLDE */
+        .solde-section {
+            background: #fff;
+            margin: 14px 14px 0;
+            border-radius: 20px;
+            padding: 24px 20px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,.07);
+        }
+        .solde-label {
+            font-size: 12px;
+            color: #90a4ae;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .solde-val {
+            font-size: 38px;
+            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            color: #1a1a1a;
+        }
+        .solde-unit {
+            font-size: 22px;
+            font-weight: 700;
+            color: #90a4ae;
+            margin-right: 6px;
+        }
 
-/* SECTION BLOCKS */
-.section-block{
-  background:#fff;
-  margin:12px 14px 0;
-  border-radius:20px;
-  padding:18px 18px;
-  box-shadow:0 2px 12px rgba(0,0,0,.07);
-}
-.section-label{
-  display:flex;align-items:center;gap:8px;
-  font-size:15px;font-weight:700;color:#1a1a1a;
-  margin-bottom:14px;
-}
-.section-label::before{
-  content:'';width:4px;height:20px;
-  background:#f59e0b;border-radius:4px;
-  display:block;flex-shrink:0;
-}
+        /* SECTION BLOCKS */
+        .section-block {
+            background: #fff;
+            margin: 12px 14px 0;
+            border-radius: 20px;
+            padding: 18px 18px;
+            box-shadow: 0 2px 12px rgba(0,0,0,.07);
+        }
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 14px;
+        }
+        .section-label::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: #f59e0b;
+            border-radius: 4px;
+            display: block;
+            flex-shrink: 0;
+        }
 
-/* CARTE ENREGISTREE */
-.carte-display{
-  border:1.5px solid #e8e8e8;border-radius:14px;
-  padding:14px 16px;background:#fafafa;
-  display:flex;align-items:center;gap:12px;
-}
-.carte-icon{
-  width:40px;height:40px;border-radius:12px;
-  background:linear-gradient(135deg,#f59e0b,#ea580c);
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-}
-.carte-icon svg{width:22px;height:22px;color:#fff;}
-.carte-info{flex:1;}
-.carte-reseau{font-size:14px;font-weight:700;color:#1a1a1a;}
-.carte-num{font-size:12px;color:#90a4ae;margin-top:2px;}
-.carte-titulaire{font-size:12px;color:#90a4ae;}
-.carte-change{
-  font-size:12px;font-weight:700;color:#ea580c;
-  text-decoration:none;white-space:nowrap;
-}
+        /* CARTE ENREGISTREE */
+        .carte-display {
+            border: 1.5px solid #e8e8e8;
+            border-radius: 14px;
+            padding: 14px 16px;
+            background: #fafafa;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .carte-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg,#f59e0b,#ea580c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .carte-icon svg {
+            width: 22px;
+            height: 22px;
+            color: #fff;
+        }
+        .carte-info {
+            flex: 1;
+        }
+        .carte-reseau {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        .carte-num {
+            font-size: 12px;
+            color: #90a4ae;
+            margin-top: 2px;
+        }
+        .carte-titulaire {
+            font-size: 12px;
+            color: #90a4ae;
+        }
+        .carte-change {
+            font-size: 12px;
+            font-weight: 700;
+            color: #ea580c;
+            text-decoration: none;
+            white-space: nowrap;
+        }
 
-/* ALERTE AUCUNE CARTE */
-.no-carte{
-  border:1.5px solid #ffe082;border-radius:14px;
-  padding:14px 16px;background:#fff8e1;
-  display:flex;align-items:center;gap:12px;cursor:pointer;
-}
-.no-carte-txt{font-size:13px;font-weight:700;color:#f57f17;}
-.no-carte-sub{font-size:11px;color:#ffa000;margin-top:2px;}
+        /* ALERTE AUCUNE CARTE */
+        .no-carte {
+            border: 1.5px solid #ffe082;
+            border-radius: 14px;
+            padding: 14px 16px;
+            background: #fff8e1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+        .no-carte-txt {
+            font-size: 13px;
+            font-weight: 700;
+            color: #f57f17;
+        }
+        .no-carte-sub {
+            font-size: 11px;
+            color: #ffa000;
+            margin-top: 2px;
+        }
 
-/* CHAMP MONTANT */
-.montant-input-wrap{
-  border:1.5px solid #e8e8e8;border-radius:14px;
-  padding:14px 16px;background:#fafafa;
-  display:flex;align-items:center;gap:10px;
-  margin-bottom:10px;
-}
-.montant-prefix{font-size:14px;font-weight:700;color:#90a4ae;white-space:nowrap;}
-.montant-input{
-  flex:1;border:none;background:none;outline:none;
-  font-size:18px;font-weight:700;color:#1a1a1a;
-  font-family:'DM Sans',sans-serif;
-}
-.montant-input::placeholder{color:#ccc;font-weight:400;font-size:15px;}
+        /* CHAMP MONTANT */
+        .montant-input-wrap {
+            border: 1.5px solid #e8e8e8;
+            border-radius: 14px;
+            padding: 14px 16px;
+            background: #fafafa;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .montant-prefix {
+            font-size: 14px;
+            font-weight: 700;
+            color: #90a4ae;
+            white-space: nowrap;
+        }
+        .montant-input {
+            flex: 1;
+            border: none;
+            background: none;
+            outline: none;
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .montant-input::placeholder {
+            color: #ccc;
+            font-weight: 400;
+            font-size: 15px;
+        }
 
-/* CALCUL FRAIS */
-.frais-inline{
-  display:flex;justify-content:space-between;
-  font-size:13px;color:#555;padding:0 2px;
-}
-.frais-inline .net{font-weight:800;color:#1a1a1a;}
-.frais-inline .pct{font-weight:700;color:#dc2626;}
+        /* CALCUL FRAIS */
+        .frais-inline {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #555;
+            padding: 0 2px;
+        }
+        .frais-inline .net {
+            font-weight: 800;
+            color: #1a1a1a;
+        }
+        .frais-inline .pct {
+            font-weight: 700;
+            color: #dc2626;
+        }
 
-/* BTN CONFIRMER */
-.btn-confirmer{
-  width:100%;padding:17px;
-  background:linear-gradient(135deg,#f59e0b,#ea580c);
-  color:#fff;font-size:16px;font-weight:800;
-  border:none;border-radius:14px;cursor:pointer;
-  font-family:'DM Sans',sans-serif;
-  box-shadow:0 6px 20px rgba(234,88,12,.35);
-  margin:16px 0 0;
-  transition:opacity .2s,transform .15s;
-}
-.btn-confirmer:active{transform:scale(.98);}
-.btn-confirmer:disabled{opacity:.6;cursor:not-allowed;}
+        /* BTN CONFIRMER */
+        .btn-confirmer {
+            width: 100%;
+            padding: 17px;
+            background: linear-gradient(135deg,#f59e0b,#ea580c);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 800;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            box-shadow: 0 6px 20px rgba(234,88,12,.35);
+            margin: 16px 0 0;
+            transition: opacity .2s,transform .15s;
+        }
+        .btn-confirmer:active {
+            transform: scale(.98);
+        }
+        .btn-confirmer:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
 
-/* NOTES */
-.notes-block{
-  background:#fff;
-  margin:12px 14px 0;
-  border-radius:20px;
-  padding:18px;
-  box-shadow:0 2px 12px rgba(0,0,0,.07);
-}
-.note-item{
-  display:flex;gap:10px;
-  font-size:13px;color:#555;
-  line-height:1.55;margin-bottom:10px;
-}
-.note-item:last-child{margin-bottom:0;}
-.note-num{
-  font-size:12px;font-weight:800;color:#ea580c;
-  flex-shrink:0;margin-top:1px;
-}
+        /* NOTES */
+        .notes-block {
+            background: #fff;
+            margin: 12px 14px 0;
+            border-radius: 20px;
+            padding: 18px;
+            box-shadow: 0 2px 12px rgba(0,0,0,.07);
+        }
+        .note-item {
+            display: flex;
+            gap: 10px;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.55;
+            margin-bottom: 10px;
+        }
+        .note-item:last-child {
+            margin-bottom: 0;
+        }
+        .note-num {
+            font-size: 12px;
+            font-weight: 800;
+            color: #ea580c;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
 
-/* ALERT */
-.alert{
-  padding:12px 16px;border-radius:14px;
-  font-size:13px;font-weight:600;
-  margin-bottom:14px;display:none;line-height:1.5;
-}
-.alert.show{display:block;}
-.err{background:#fff5f5;border-left:4px solid #dc2626;color:#b91c1c;}
-.suc{background:#f0fdf4;border-left:4px solid #16a34a;color:#15803d;}
+        /* ALERT */
+        .alert {
+            padding: 12px 16px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            display: none;
+            line-height: 1.5;
+        }
+        .alert.show {
+            display: block;
+        }
+        .err {
+            background: #fff5f5;
+            border-left: 4px solid #dc2626;
+            color: #b91c1c;
+        }
+        .suc {
+            background: #f0fdf4;
+            border-left: 4px solid #16a34a;
+            color: #15803d;
+        }
 
-/* BOTTOM NAV */
-.bottom-nav{
-  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
-  width:100%;max-width:480px;
-  background:#fff;border-top:1px solid #eee;
-  display:flex;padding:8px 0 14px;z-index:100;
-  box-shadow:0 -4px 20px rgba(0,0,0,.08);
-}
-.nav-item{
-  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
-  text-decoration:none;color:#ccc;font-size:10px;font-weight:600;
-  font-family:'DM Sans',sans-serif;
-}
-.nav-item.active{color:#ea580c;}
-.nav-item svg{width:22px;height:22px;}
-.nav-dot{width:5px;height:5px;border-radius:50%;background:#ea580c;margin:1px auto 0;}
-</style>
+        /* BOTTOM NAV */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: #fff;
+            border-top: 1px solid #eee;
+            display: flex;
+            padding: 8px 0 14px;
+            z-index: 100;
+            box-shadow: 0 -4px 20px rgba(0,0,0,.08);
+        }
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            text-decoration: none;
+            color: #ccc;
+            font-size: 10px;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .nav-item.active {
+            color: #ea580c;
+        }
+        .nav-item svg {
+            width: 22px;
+            height: 22px;
+        }
+        .nav-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #ea580c;
+            margin: 1px auto 0;
+        }
+    </style>
 </head>
 <body>
 <script src="/pwa-install.js"></script>
 
 <div class="wrap">
 
-  <!-- TOPBAR -->
-  <div class="topbar">
-    <div class="topbar-left">
-      <button class="back-btn" onclick="history.back()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-        Retrait
-      </button>
-    </div>
-    <button class="hist-btn" onclick="location.href='historique.html'" title="Historique">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="12 8 12 12 14 14"/><path d="M3.05 11a9 9 0 1 0 .5-4"/><polyline points="3 3 3 7 7 7"/></svg>
-    </button>
-  </div>
-
-  <!-- SOLDE -->
-  <div class="solde-section">
-    <div class="solde-label">Solde disponible</div>
-    <div class="solde-val"><span class="solde-unit">FCFA</span><span id="soldeVal">...</span></div>
-  </div>
-
-  <!-- CARTE BANCAIRE -->
-  <div class="section-block">
-    <div class="section-label">Carte bancaire</div>
-    <div id="alertBox" class="alert"></div>
-
-    <!-- Carte enregistrée -->
-    <div id="carteOk" class="carte-display" style="display:none;">
-      <div class="carte-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-      </div>
-      <div class="carte-info">
-        <div class="carte-reseau" id="carteReseau">—</div>
-        <div class="carte-num" id="carteNum">—</div>
-        <div class="carte-titulaire" id="carteTitulaire">—</div>
-      </div>
-      <a href="banque.html" class="carte-change">Changer</a>
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <button class="back-btn" onclick="history.back()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                Retrait
+            </button>
+        </div>
+        <button class="hist-btn" onclick="location.href='historique.html'" title="Historique">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="12 8 12 12 14 14"/><path d="M3.05 11a9 9 0 1 0 .5-4"/><polyline points="3 3 3 7 7 7"/></svg>
+        </button>
     </div>
 
-    <!-- Aucune carte -->
-    <div id="carteMissing" class="no-carte" onclick="location.href='banque.html'" style="display:none;">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f57f17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      <div>
-        <div class="no-carte-txt">Aucun moyen de paiement</div>
-        <div class="no-carte-sub">Appuyez pour ajouter un compte Mobile Money</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MONTANT -->
-  <div class="section-block">
-    <div class="section-label">Montant du retrait</div>
-
-    <div class="montant-input-wrap">
-      <span class="montant-prefix">FCFA</span>
-      <input class="montant-input" type="number" id="montant" placeholder="montant" min="1600" oninput="calcFrais()"/>
+    <!-- SOLDE -->
+    <div class="solde-section">
+        <div class="solde-label">Solde disponible</div>
+        <div class="solde-val"><span class="solde-unit">FCFA</span><span id="soldeVal">...</span></div>
     </div>
 
-    <div class="frais-inline">
-      <span>Montant recu : <span class="net" id="montantNet">FCFA 0</span></span>
-      <span>Frais : <span class="pct">12%</span></span>
+    <!-- CARTE BANCAIRE -->
+    <div class="section-block">
+        <div class="section-label">Carte bancaire</div>
+        <div id="alertBox" class="alert"></div>
+
+        <!-- Carte enregistrée -->
+        <div id="carteOk" class="carte-display" style="display:none;">
+            <div class="carte-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <div class="carte-info">
+                <div class="carte-reseau" id="carteReseau">—</div>
+                <div class="carte-num" id="carteNum">—</div>
+                <div class="carte-titulaire" id="carteTitulaire">—</div>
+            </div>
+            <a href="banque.html" class="carte-change">Changer</a>
+        </div>
+
+        <!-- Aucune carte -->
+        <div id="carteMissing" class="no-carte" onclick="location.href='banque.html'" style="display:none;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f57f17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <div>
+                <div class="no-carte-txt">Aucun moyen de paiement</div>
+                <div class="no-carte-sub">Appuyez pour ajouter un compte Mobile Money</div>
+            </div>
+        </div>
     </div>
 
-    <button class="btn-confirmer" id="btnConfirmer" onclick="effectuerRetrait()">Confirmer</button>
-  </div>
+    <!-- MONTANT -->
+    <div class="section-block">
+        <div class="section-label">Montant du retrait</div>
 
-  <!-- NOTES -->
-  <div class="notes-block">
-    <div class="note-item"><span class="note-num">1.</span><span>Montant minimum de retrait : 1 600 FCFA.</span></div>
-    <div class="note-item"><span class="note-num">2.</span><span>Frais de retrait : 12% du montant retire.</span></div>
-    <div class="note-item"><span class="note-num">3.</span><span>Vous pouvez effectuer des retraits de 09h a 17h du lundi au vendredi. Les retraits sont disponibles sous 1h a 24 heures.</span></div>
-    <div class="note-item"><span class="note-num">4.</span><span>Afin de proteger les interets de la plateforme et de ses membres, vous devez disposer d'au moins un produit actif pour activer la fonction de retrait.</span></div>
-  </div>
+        <div class="montant-input-wrap">
+            <span class="montant-prefix">FCFA</span>
+            <input class="montant-input" type="number" id="montant" placeholder="montant" min="1000" oninput="calcFrais()"/>
+        </div>
+
+        <div class="frais-inline">
+            <span>Montant reçu : <span class="net" id="montantNet">FCFA 0</span></span>
+            <span>Frais : <span class="pct">12%</span></span>
+        </div>
+
+        <button class="btn-confirmer" id="btnConfirmer" onclick="effectuerRetrait()">Confirmer</button>
+    </div>
+
+    <!-- NOTES -->
+    <div class="notes-block">
+        <div class="note-item"><span class="note-num">1.</span><span>Montant minimum de retrait : 1 000 FCFA.</span></div>
+        <div class="note-item"><span class="note-num">2.</span><span>Frais de retrait : 12% du montant retiré.</span></div>
+        <div class="note-item"><span class="note-num">3.</span><span>Vous pouvez effectuer des retraits de 09h à 17h du lundi au vendredi. Les retraits sont disponibles sous 1h à 24 heures.</span></div>
+        <div class="note-item"><span class="note-num">4.</span><span>Pour protéger les intérêts de la plateforme et de ses membres, vous devez disposer d'au moins un produit actif pour activer la fonction de retrait.</span></div>
+    </div>
 
 </div>
 
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
-  <a href="dashboard.html" class="nav-item">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    Accueil
-  </a>
-  <a href="produits.html" class="nav-item">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-    Produits
-  </a>
-  <a href="parrainage.html" class="nav-item">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-    Equipe
-  </a>
-  <a href="compte.html" class="nav-item active">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    Mon compte
-    <div class="nav-dot"></div>
-  </a>
+    <a href="dashboard.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Accueil
+    </a>
+    <a href="produits.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        Produits
+    </a>
+    <a href="parrainage.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        Equipe
+    </a>
+    <a href="compte.html" class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Mon compte
+        <div class="nav-dot"></div>
+    </a>
 </nav>
 
 <script>
-const SB="https://wpezwfskatogphaeffva.supabase.co";
-const AK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwZXp3ZnNrYXRvZ3BoYWVmZnZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyNjc0MzksImV4cCI6MjEwMTg0MzQzOX0.0K82Hz7gKho2YC2rbbHNB4ZFe-0yuZcelI3XnFvWEW4";
+    const SB = "https://wpezwfskatogphaeffva.supabase.co";
+    const AK = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwZXp3ZnNrYXRvZ3BoYWVmZnZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyNjc0MzksImV4cCI6MjEwMTg0MzQzOX0.0K82Hz7gKho2YC2rbbHNB4ZFe-0yuZcelI3XnFvWEW4";
 
-function tok(){return localStorage.getItem("sinipec_token")||"";}
-function uid(){return localStorage.getItem("sinipec_uid")||"";}
-function H(){return{"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()};}
+    function tok(){ return localStorage.getItem("sinipec_token")||""; }
+    function uid(){ return localStorage.getItem("sinipec_uid")||""; }
+    function H(){ return {"Content-Type":"application/json","apikey":AK,"Authorization":"Bearer "+tok()}; }
 
-let profil=null;
-let carteActive=null;
+    let profil = null;
+    let carteActive = null;
 
-function showAlert(msg,type){
-  const el=document.getElementById("alertBox");
-  el.textContent=msg;el.className="alert "+type+" show";
-}
-
-/* CALCUL FRAIS */
-function calcFrais(){
-  const m=parseInt(document.getElementById("montant").value)||0;
-  if(m>0){
-    const frais=Math.round(m*0.12);
-    const net=m-frais;
-    document.getElementById("montantNet").textContent="FCFA "+(net>0?net.toLocaleString():"0");
-  }else{
-    document.getElementById("montantNet").textContent="FCFA 0";
-  }
-}
-
-/* INIT */
-async function init(){
-  if(!tok()||!uid()){location.href="index.html";return;}
-
-  try{
-    // Refresh token si besoin
-    const rp=await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=*",{headers:H()});
-    if(rp.status===401){
-      const ref=localStorage.getItem("sinipec_refresh");
-      if(ref){
-        const rr=await fetch(SB+"/auth/v1/token?grant_type=refresh_token",{method:"POST",headers:{"Content-Type":"application/json","apikey":AK},body:JSON.stringify({refresh_token:ref})});
-        const rd=await rr.json();
-        if(rd.access_token){localStorage.setItem("sinipec_token",rd.access_token);if(rd.refresh_token)localStorage.setItem("sinipec_refresh",rd.refresh_token);location.reload();return;}
-      }
-      localStorage.clear();location.href="index.html";return;
-    }
-    const data=await rp.json();
-    if(!data||data.length===0){localStorage.clear();location.href="index.html";return;}
-    profil=data[0];
-
-    // Afficher solde
-    document.getElementById("soldeVal").textContent=parseFloat(profil.solde||0).toLocaleString();
-
-    // Charger carte
-    const rc=await fetch(SB+"/rest/v1/moyens_paiement?user_id=eq."+uid()+"&actif=eq.true&limit=1",{headers:H()});
-    const cartes=await rc.json();
-
-    if(cartes&&cartes.length>0){
-      carteActive=cartes[0];
-      document.getElementById("carteOk").style.display="flex";
-      document.getElementById("carteMissing").style.display="none";
-      // Afficher : Reseau · Numero · TITULAIRE
-      document.getElementById("carteReseau").textContent=carteActive.reseau||"";
-      document.getElementById("carteNum").textContent=carteActive.numero||"";
-      document.getElementById("carteTitulaire").textContent=(carteActive.nom_titulaire||"").toUpperCase();
-    }else{
-      document.getElementById("carteOk").style.display="none";
-      document.getElementById("carteMissing").style.display="flex";
+    function showAlert(msg,type){
+        const el = document.getElementById("alertBox");
+        el.textContent = msg;
+        el.className = "alert "+type+" show";
     }
 
-  }catch(e){
-    // Afficher solde local si réseau KO
-    document.getElementById("soldeVal").textContent="0";
-    document.getElementById("carteOk").style.display="none";
-    document.getElementById("carteMissing").style.display="flex";
-  }
-}
+    /* CALCUL FRAIS */
+    function calcFrais(){
+        const m = parseInt(document.getElementById("montant").value)||0;
+        if(m>0){
+            const frais = Math.round(m*0.12);
+            const net = m-frais;
+            document.getElementById("montantNet").textContent = "FCFA "+(net>0?net.toLocaleString():"0");
+        } else {
+            document.getElementById("montantNet").textContent = "FCFA 0";
+        }
+    }
 
-/* RETRAIT */
-async function effectuerRetrait(){
-  if(!profil){showAlert("Erreur de chargement. Rechargez la page.","err");return;}
-  if(!carteActive){showAlert("Ajoutez un moyen de paiement d'abord.","err");setTimeout(()=>location.href="banque.html",1800);return;}
+    /* VÉRIFIER SI L'UTILISATEUR A UN INVESTISSEMENT ACTIF */
+    async function hasActiveInvestment(){
+        try {
+            const resp = await fetch(SB+"/rest/v1/investissements?user_id=eq."+uid()+"&statut=eq.actif&select=id,statut", {headers:H()});
+            const data = await resp.json();
+            return data && data.length > 0;
+        } catch(e) {
+            return false;
+        }
+    }
 
-  const montant=parseInt(document.getElementById("montant").value)||0;
-  if(montant<1600)return showAlert("Minimum de retrait : 1 600 FCFA","err");
-  if(montant>parseFloat(profil.solde||0))return showAlert("Solde insuffisant","err");
+    /* INIT */
+    async function init(){
+        if(!tok()||!uid()){ location.href="index.html"; return; }
 
-  const btn=document.getElementById("btnConfirmer");
-  btn.disabled=true;btn.textContent="Traitement...";
+        try {
+            // Refresh token si besoin
+            const rp = await fetch(SB+"/rest/v1/profiles?id=eq."+uid()+"&select=*",{headers:H()});
+            if(rp.status===401){
+                const ref = localStorage.getItem("sinipec_refresh");
+                if(ref){
+                    const rr = await fetch(SB+"/auth/v1/token?grant_type=refresh_token",{method:"POST",headers:{"Content-Type":"application/json","apikey":AK},body:JSON.stringify({refresh_token:ref})});
+                    const rd = await rr.json();
+                    if(rd.access_token){ localStorage.setItem("sinipec_token",rd.access_token); if(rd.refresh_token)localStorage.setItem("sinipec_refresh",rd.refresh_token); location.reload(); return; }
+                }
+                localStorage.clear(); location.href="index.html"; return;
+            }
+            const data = await rp.json();
+            if(!data||data.length===0){ localStorage.clear(); location.href="index.html"; return; }
+            profil = data[0];
 
-  try{
-    const frais=Math.round(montant*0.12);
-    const net=montant-frais;
-    const ref="RET"+uid().substring(0,6).toUpperCase()+Date.now().toString().slice(-6);
+            // Afficher solde
+            document.getElementById("soldeVal").textContent = parseFloat(profil.solde||0).toLocaleString();
 
-    // Enregistrer la demande
-    await fetch(SB+"/rest/v1/transactions",{
-      method:"POST",
-      headers:{...H(),"Prefer":"return=minimal"},
-      body:JSON.stringify({
-        user_id:uid(),type:"retrait",
-        montant,montant_net:net,
-        reseau:carteActive.reseau,
-        numero_mobile:carteActive.numero,
-        pays:carteActive.pays||"",
-        statut:"en_attente",
-        reference:ref,
-        note:"Retrait vers "+carteActive.reseau+" "+carteActive.numero+" (frais 12%)"
-      })
-    });
+            // Charger carte
+            const rc = await fetch(SB+"/rest/v1/moyens_paiement?user_id=eq."+uid()+"&actif=eq.true&limit=1",{headers:H()});
+            const cartes = await rc.json();
 
-    // Deduire du solde
-    const nouveauSolde=parseFloat(profil.solde)-montant;
-    await fetch(SB+"/rest/v1/profiles?id=eq."+uid(),{
-      method:"PATCH",headers:H(),
-      body:JSON.stringify({solde:nouveauSolde})
-    });
+            if(cartes&&cartes.length>0){
+                carteActive = cartes[0];
+                document.getElementById("carteOk").style.display = "flex";
+                document.getElementById("carteMissing").style.display = "none";
+                document.getElementById("carteReseau").textContent = carteActive.reseau||"";
+                document.getElementById("carteNum").textContent = carteActive.numero||"";
+                document.getElementById("carteTitulaire").textContent = (carteActive.nom_titulaire||"").toUpperCase();
+            } else {
+                document.getElementById("carteOk").style.display = "none";
+                document.getElementById("carteMissing").style.display = "flex";
+            }
 
-    profil.solde=nouveauSolde;
-    document.getElementById("soldeVal").textContent=nouveauSolde.toLocaleString();
-    document.getElementById("montant").value="";
-    document.getElementById("montantNet").textContent="FCFA 0";
+        } catch(e) {
+            document.getElementById("soldeVal").textContent = "0";
+            document.getElementById("carteOk").style.display = "none";
+            document.getElementById("carteMissing").style.display = "flex";
+        }
+    }
 
-    showAlert("Retrait de "+net.toLocaleString()+" FCFA en cours ! Traitement sous 1h a 24h.","suc");
+    /* RETRAIT */
+    async function effectuerRetrait(){
+        // Vérifier que le profil est chargé
+        if(!profil){ showAlert("Erreur de chargement. Rechargez la page.","err"); return; }
 
-  }catch(e){
-    showAlert("Erreur reseau. Reessayez.","err");
-  }
+        // Vérifier la présence d'une carte
+        if(!carteActive){ showAlert("Ajoutez un moyen de paiement d'abord.","err"); setTimeout(()=>location.href="banque.html",1800); return; }
 
-  btn.disabled=false;btn.textContent="Confirmer";
-}
+        // Vérifier le montant (minimum 1000 FCFA)
+        const montant = parseInt(document.getElementById("montant").value)||0;
+        if(montant<1000) return showAlert("Minimum de retrait : 1 000 FCFA","err");
+        if(montant>parseFloat(profil.solde||0)) return showAlert("Solde insuffisant","err");
 
-init();
+        // Vérifier la présence d'un investissement actif
+        const hasInvest = await hasActiveInvestment();
+        if(!hasInvest){
+            showAlert("Vous devez avoir au moins un investissement actif pour effectuer un retrait.","err");
+            return;
+        }
+
+        const btn = document.getElementById("btnConfirmer");
+        btn.disabled = true;
+        btn.textContent = "Traitement...";
+
+        try {
+            const frais = Math.round(montant*0.12);
+            const net = montant-frais;
+            const ref = "RET"+uid().substring(0,6).toUpperCase()+Date.now().toString().slice(-6);
+
+            // Enregistrer la demande de retrait
+            await fetch(SB+"/rest/v1/transactions",{
+                method:"POST",
+                headers:{...H(),"Prefer":"return=minimal"},
+                body:JSON.stringify({
+                    user_id:uid(),
+                    type:"retrait",
+                    montant,
+                    montant_net:net,
+                    reseau:carteActive.reseau,
+                    numero_mobile:carteActive.numero,
+                    pays:carteActive.pays||"",
+                    statut:"en_attente",
+                    reference:ref,
+                    note:"Retrait vers "+carteActive.reseau+" "+carteActive.numero+" (frais 12%)"
+                })
+            });
+
+            // Déduire du solde
+            const nouveauSolde = parseFloat(profil.solde)-montant;
+            await fetch(SB+"/rest/v1/profiles?id=eq."+uid(),{
+                method:"PATCH",
+                headers:H(),
+                body:JSON.stringify({solde:nouveauSolde})
+            });
+
+            profil.solde = nouveauSolde;
+            document.getElementById("soldeVal").textContent = nouveauSolde.toLocaleString();
+            document.getElementById("montant").value = "";
+            document.getElementById("montantNet").textContent = "FCFA 0";
+
+            showAlert("Retrait de "+net.toLocaleString()+" FCFA en cours ! Traitement sous 1h à 24h.","suc");
+
+        } catch(e) {
+            showAlert("Erreur réseau. Réessayez.","err");
+        }
+
+        btn.disabled = false;
+        btn.textContent = "Confirmer";
+    }
+
+    init();
 </script>
 </body>
 </html>
