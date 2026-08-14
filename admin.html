@@ -688,6 +688,15 @@ async function attribuerPlan(userId,nom){
     user_id:userId,type:"investissement",montant:plan.invest,montant_net:plan.invest,
     statut:"valide",note:"Plan "+key+" attribué par l'administrateur"
   });
+  // Verser aussi la commission de parrainage (20%/3%/1%) sur ce plan attribué,
+  // comme pour une activation normale.
+  try{
+    const rComm=await fetch(SB+"/rest/v1/rpc/payer_commission_parrainage",{
+      method:"POST",headers:H(),
+      body:JSON.stringify({p_investisseur_id:userId,p_montant_investi:plan.invest})
+    });
+    if(!rComm.ok)console.error("Commission (admin) — échec:",rComm.status,await rComm.text());
+  }catch(e){console.error("Commission (admin) — erreur réseau:",e);}
   toast("Plan "+key+" activé pour "+nom+" !");
   closeUD();
 }
