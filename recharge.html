@@ -69,7 +69,7 @@ body{min-height:100vh;background:#f4f2ef;font-family:'DM Sans',sans-serif;color:
 
   <div class="card">
     <div class="card-title">Choisissez votre pays</div>
-    <div class="card-sub">Le lien de paiement dépend de votre pays</div>
+    <div class="card-sub">et cliquésur payer pour poursuivre le paiement</div>
     <div class="country-picker" id="paysPicker"></div>
 
     <div class="pay-section" id="paySection">
@@ -161,7 +161,7 @@ function choisirPays(code){
   const utiliseFlinpay=PAYS_FLINPAY.includes(code);
   document.getElementById("payInfoSub").textContent=utiliseFlinpay
     ? "Paiement via Flinpay — vous allez être redirigé."
-    : "Paiement via Leekpay — vous allez être redirigé.";
+    : "Paiement via sécurisé — vous allez être redirigé.";
   document.getElementById("paySection").classList.add("show");
 }
 
